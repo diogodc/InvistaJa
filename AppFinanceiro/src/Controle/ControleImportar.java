@@ -8,11 +8,8 @@ package Controle;
 import Visao.VisaoImportar;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 public class ControleImportar {
@@ -22,7 +19,7 @@ public class ControleImportar {
         this.visao = visao;
     }
     
-    public String AbrirVisaoArquivo(){
+    public String abrirVisaoArquivo(){
         try{
             JFileChooser fileChooser = new JFileChooser();  
             fileChooser.setDialogTitle("Informe o caminho do arquivo"); 
@@ -36,19 +33,18 @@ public class ControleImportar {
         } 
     }
 
-    public boolean ImportarArquivo(JProgressBar pgb, JLabel lbl,JTextField txt,JLabel imp) throws Exception{
+    public boolean importarArquivo(JLabel lblProgresso,JTextField txtCaminho) throws Exception{
         try{
-            if (txt.getText().isEmpty()) { return false;}
+            if (txtCaminho.getText().isEmpty()) { return false;}
             StringBuilder sbMensagem = new StringBuilder();
             String sLinha;
-            BufferedReader brLeitor = new BufferedReader( new FileReader(txt.getText()));
+            BufferedReader brLeitor = new BufferedReader( new FileReader(txtCaminho.getText()));
             while ((sLinha = brLeitor.readLine()) != null){
                 String [] sCelula = sLinha.split(";");
                 sbMensagem.append(sCelula[0] + "  " + sCelula[1] + "  " + sCelula[2]);
                 sbMensagem.append(System.getProperty("line.separator"));
                 sbMensagem.append("\n");
             }
-            imp.setText(sbMensagem.toString());
             return true;
         }catch(Exception ex){
                 throw ex;

@@ -5,8 +5,9 @@
  */
 package App;
 
-import Visao.VisaoImportar;
-//import javax.swing.JFrame;
+import Dados.DadosManipulacao;
+import Visao.VisaoInicio;
+import javax.swing.JFrame;
 
 /**
  *
@@ -18,8 +19,9 @@ public class AppFinanceiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        VisaoImportar visaoImportar = new VisaoImportar(); 
-        visaoImportar.setVisible(true);
-        //visaoImportar.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        VisaoInicio visaoInicio = new VisaoInicio(); 
+        visaoInicio.setVisible(true);
+        visaoInicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }    
+    public static DadosManipulacao conn = new DadosManipulacao();
 }

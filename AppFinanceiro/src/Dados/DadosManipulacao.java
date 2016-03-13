@@ -43,4 +43,8 @@ public class DadosManipulacao extends DadosConexao {
             throw ex;
         }
     }
+    
+    public DadosManipulacao(){
+        abrirConexao();
+    }
 }

@@ -5,12 +5,15 @@
  */
 package Dados;
 
+import App.AppFinanceiro;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,10 +21,10 @@ import java.sql.Statement;
  */
 public class DadosConexao {
    
-    private final String sDriver="com.mysql.jdbc.Driver";
-    private final String sBanco="jdbc:mysql://127.0.0.1:3306/CCCDBD";
+    private final String sDriver="oracle.jdbc.driver.OracleDriver";
+    private final String sBanco="jdbc:oracle:thin:@localhost:51433:oracle";
     private final String sUsuario="root";
-    private final String sSenha="M1n3Rv@7";
+    private final String sSenha="12345";
     private Connection cConnection = null;
     private Statement sStatement=null;
     private ResultSet rResultSet = null;
@@ -71,14 +74,18 @@ public class DadosConexao {
         this.rResultSetMetaData = rResultSetMetaData;
     }
             
-    public boolean abrirConexao() throws Exception{
+    public boolean abrirConexao(){
         try{
-            Class.forName(getDriver());
-	    setConnection(DriverManager.getConnection(getBanco(),getUsuario(),getSenha()));
+            Class.forName(getDriver()).newInstance();
+            setConnection(DriverManager.getConnection(getBanco(),getUsuario(),getSenha()));
 	    setStatement(getConnection().createStatement());
             return true;
-        }catch(ClassNotFoundException | SQLException ex){
-            throw ex;
+        }catch(ClassNotFoundException 
+              |InstantiationException
+              |IllegalAccessException
+              | SQLException ex){
+            Logger.getLogger(DadosConexao.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
     
@@ -109,4 +116,5 @@ public class DadosConexao {
            throw ex; 
         }
     }
+    
 }
