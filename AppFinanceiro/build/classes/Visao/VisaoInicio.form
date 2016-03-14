@@ -84,6 +84,9 @@
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="pnlInicio">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f0" green="f0" id="Controle" palette="2" red="f0" type="palette"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
 

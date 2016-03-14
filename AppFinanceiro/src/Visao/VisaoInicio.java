@@ -42,6 +42,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplicativo Financeiro");
 
+        pnlInicio.setBackground(java.awt.SystemColor.control);
         pnlInicio.setToolTipText("");
 
         javax.swing.GroupLayout pnlInicioLayout = new javax.swing.GroupLayout(pnlInicio);

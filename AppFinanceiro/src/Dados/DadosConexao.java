@@ -5,7 +5,6 @@
  */
 package Dados;
 
-import App.AppFinanceiro;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,8 +21,8 @@ import java.util.logging.Logger;
 public class DadosConexao {
    
     private final String sDriver="oracle.jdbc.driver.OracleDriver";
-    private final String sBanco="jdbc:oracle:thin:@localhost:51433:oracle";
-    private final String sUsuario="root";
+    private final String sBanco="jdbc:oracle:thin:@localhost:1521:xe";
+    private final String sUsuario="ecardoso";
     private final String sSenha="12345";
     private Connection cConnection = null;
     private Statement sStatement=null;
@@ -81,9 +80,9 @@ public class DadosConexao {
 	    setStatement(getConnection().createStatement());
             return true;
         }catch(ClassNotFoundException 
-              |InstantiationException
-              |IllegalAccessException
-              | SQLException ex){
+              | SQLException
+              | InstantiationException 
+              | IllegalAccessException ex){
             Logger.getLogger(DadosConexao.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
