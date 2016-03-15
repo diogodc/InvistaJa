@@ -5,10 +5,33 @@
  */
 package Dados;
 
+import static App.AppFinanceiro.conn;
+import Modelo.ModeloImportar;
+import java.util.ArrayList;
+
 /**
  *
  * @author E. Cardoso de Araújo
  */
 public class DadosImportar {
     
+    public boolean Importar(ArrayList<ModeloImportar> lImportar) throws Exception{
+        try{
+            if (lImportar.size()> 0){
+                StringBuilder sbSql = new StringBuilder();
+                for (int i = 0; i < lImportar.size(); i++){
+                    ModeloImportar mImportar = lImportar.get(i);
+                    sbSql.append(" INSERT INTO TAB_TESTE(DESCRICAO) ");
+                    sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
+                    if (!sbSql.toString().trim().equals("")){
+                        conn.Inserir(sbSql.toString());
+                        sbSql.delete(0,sbSql.length());
+                    }
+                }
+            }
+            return true; 
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
 }

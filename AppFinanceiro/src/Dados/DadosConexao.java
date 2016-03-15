@@ -99,6 +99,7 @@ public class DadosConexao {
     
     public ResultSet consultar(String sConsulta) throws Exception{
         try{
+            abrirConexao();
             setResultSet(getStatement().executeQuery(sConsulta.trim()));
             setResultSetMetaData(getResultSet().getMetaData());
             return getResultSet();
@@ -109,7 +110,9 @@ public class DadosConexao {
     
     public boolean alterar(String sAlteracao) throws Exception{
         try{
+            abrirConexao();
             getStatement().execute(sAlteracao.trim());
+            fecharConexao();
             return true;
         }catch(Exception ex){
            throw ex; 

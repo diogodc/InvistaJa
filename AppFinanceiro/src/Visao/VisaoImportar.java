@@ -41,7 +41,6 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         btnImportar = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
         lblProgresso = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setClosable(true);
@@ -70,13 +69,6 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         lblProgresso.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblProgresso.setText("Progresso: 0.00%");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,10 +87,6 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(218, 218, 218))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,9 +100,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                     .addComponent(btnImportar)
                     .addComponent(btnSelecionar)
                     .addComponent(lblProgresso))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -136,26 +122,14 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Erro!", this.getTitle(),0);
             }
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_btnImportarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-           String sSql = "SELECT CODIGO,DESCRICAO FROM TAB_TESTE";
-           while (conn.Selecionar(sSql).next()){
-              lblProgresso.setText(conn.getResultSet().getString("CODIGO") + "-" + conn.getResultSet().getString("DESCRICAO"));
-           }
-       }catch(Exception ex){
-           JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-       }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImportar;
     private javax.swing.JButton btnSelecionar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblProgresso;
     private javax.swing.JTextField txtCaminhoArquivo;
