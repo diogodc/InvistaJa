@@ -6,48 +6,59 @@
 package Dados;
 
 import static App.AppFinanceiro.conn;
-import App.AppFinanceiro.tipoRelatorio;
-import Modelo.ModeloImportar;
+import Modelo.ModeloImportarBPA;
+import Modelo.ModeloImportarBPP;
+import Modelo.ModeloImportarDRE;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 
 /**
  *
  * @author E. Cardoso de Araújo
  */
 public class DadosImportar {
-    
-    public boolean importar(ArrayList<ModeloImportar> lImportar,
-            tipoRelatorio tRelatorio) throws Exception{
-        try{
-            switch (tRelatorio) {
-                case DRE:
-                    return importarDRE(lImportar);
-                case BPA:
-                    return  importarBPP(lImportar);
-                default:
-                    return importarBPA(lImportar);
-            }
-        }catch(Exception ex){
-            throw ex;
-        }
-    }
-    
-    private boolean importarDRE(ArrayList<ModeloImportar> lImportar) throws Exception{
+        
+    public boolean importarDRE(ArrayList<ModeloImportarDRE> lImportar) throws Exception{
         try{
             if (lImportar.size()> 0){
-                StringBuilder sbSql = new StringBuilder();
                 conn.abrirConexao();
-                for (int i = 0; i < lImportar.size(); i++){
-                    ModeloImportar mImportar = lImportar.get(i);
-                    sbSql.append(" INSERT INTO TAB_TESTE(DESCRICAO) ");
-                    sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
-                    if (!sbSql.toString().trim().isEmpty()){
-                        conn.Inserir(sbSql.toString());
-                        sbSql.delete(0,sbSql.length());                      
-                    }
+                
+                //Inicialmente insere o cabeçalho:
+                String sSql = "";
+                
+                sSql += " INSERT INTO BVSP_DRE(DRE_ID,EMPRESA_ID,PERIODO_1,PERIODO_2,PERIODO_3)";
+                sSql += " VALUES( ";
+                sSql += "   (SELECT (NVL(MAX(DRE_ID),0)+1) FROM BVSP_DRE),";
+                sSql += "   ," + lImportar.get(0).getEmpresa_ID();
+                sSql += "   ," + lImportar.get(0).getPeriodo_1();
+                sSql += "   ," + lImportar.get(0).getPeriodo_2();
+                sSql += "   ," + lImportar.get(0).getPeriodo_3();                
+                sSql += " ) '";
+                
+                if (sSql.trim().isEmpty()){
+                    conn.Inserir(sSql);
                 }
-                conn.fecharConexao();
+                
+                sSql = "";
+                
+                //Em seguida insere os filhos:
+                for (int i = 1; i < lImportar.size(); i++){
+                    ModeloImportarDRE mImportar = lImportar.get(i);
+
+                    sSql += " INSERT INTO BVSP_DRE_DADOS(DRE_ID,EMPRESA_ID,PERIODO_1,PERIODO_2,PERIODO_3)";
+                    sSql += " VALUES( ";
+                    sSql += "   (SELECT (NVL(MAX(DRE_ID),0)+1) FROM BVSP_DRE),";
+                    sSql += "   ," + mImportar.getEmpresa_ID();
+                    sSql += "   ," + mImportar.getPeriodo_1();
+                    sSql += "   ," + mImportar.getPeriodo_2();
+                    sSql += "   ," + mImportar.getPeriodo_3();                
+                    sSql += " ) '";
+
+                    if (!sSql.trim().isEmpty()){
+                        conn.Inserir(sSql);
+                        sSql = "";                     
+                    }
+                    conn.fecharConexao();
+                }
             }
             return true; 
         }catch(Exception ex){
@@ -55,15 +66,15 @@ public class DadosImportar {
         }
     }
     
-    private boolean importarBPP(ArrayList<ModeloImportar> lImportar) throws Exception{
+    public boolean importarBPP(ArrayList<ModeloImportarBPP> lImportar) throws Exception{
        try{
             if (lImportar.size()> 0){
                 StringBuilder sbSql = new StringBuilder();
                 conn.abrirConexao();
                 for (int i = 0; i < lImportar.size(); i++){
-                    ModeloImportar mImportar = lImportar.get(i);
+                    //ModeloImportarDRE mImportar = lImportar.get(i);
                     sbSql.append(" INSERT INTO TAB_TESTE(DESCRICAO) ");
-                    sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
+                    //sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
                     if (!sbSql.toString().trim().isEmpty()){
                         conn.Inserir(sbSql.toString());
                         sbSql.delete(0,sbSql.length());                      
@@ -77,15 +88,15 @@ public class DadosImportar {
         }
     }
     
-    private boolean importarBPA(ArrayList<ModeloImportar> lImportar) throws Exception{
+    public boolean importarBPA(ArrayList<ModeloImportarBPA> lImportar) throws Exception{
         try{
             if (lImportar.size()> 0){
                 StringBuilder sbSql = new StringBuilder();
                 conn.abrirConexao();
                 for (int i = 0; i < lImportar.size(); i++){
-                    ModeloImportar mImportar = lImportar.get(i);
+                    //ModeloImportarDRE mImportar = lImportar.get(i);
                     sbSql.append(" INSERT INTO TAB_TESTE(DESCRICAO) ");
-                    sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
+                    //sbSql.append(" VALUES( '" + mImportar.getDescricao().replace("'", "''")  + "') ");
                     if (!sbSql.toString().trim().isEmpty()){
                         conn.Inserir(sbSql.toString());
                         sbSql.delete(0,sbSql.length());                      
