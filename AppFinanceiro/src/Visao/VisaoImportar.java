@@ -20,11 +20,11 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     /**
      * Creates new form VisaoImportar
      */
-    private final ControleImportar ctrImp;
+    private final ControleImportar cImportar;
     
     public VisaoImportar() {
         initComponents();
-        ctrImp = new ControleImportar();
+        cImportar = new ControleImportar();
         lblProgresso.setVisible(false);
     }
 
@@ -43,7 +43,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         btnImportar = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
         lblProgresso = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cboTipoRelatorio = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -74,7 +74,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         lblProgresso.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblProgresso.setText("Aguarde, importando...");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DRE-Demostrativo de Resultados", "BPA-Balanço Patrimonial Ativo", "BPP-Balanço Patrimonial Passivo" }));
+        cboTipoRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DRE-Demostrativo de Resultados", "BPA-Balanço Patrimonial Ativo", "BPP-Balanço Patrimonial Passivo" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +85,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCaminhoArquivo)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                         .addComponent(lblProgresso))
                     .addGroup(layout.createSequentialGroup()
@@ -107,7 +107,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                 .addComponent(txtCaminhoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProgresso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -121,7 +121,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         try{
-            txtCaminhoArquivo.setText(ctrImp.abrirVisaoArquivo());
+            txtCaminhoArquivo.setText(cImportar.abrirVisaoArquivo());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -129,7 +129,8 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-            if (ctrImp.importarArquivo(lblProgresso,txtCaminhoArquivo)){
+            if (cImportar.importarArquivo(lblProgresso,
+                    txtCaminhoArquivo,cboTipoRelatorio)){
                 JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
             }else{
                 JOptionPane.showMessageDialog(null, "Erro!", this.getTitle(),0);
@@ -143,8 +144,8 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImportar;
     private javax.swing.JButton btnSelecionar;
+    private javax.swing.JComboBox<String> cboTipoRelatorio;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblProgresso;
     private javax.swing.JTextField txtCaminhoArquivo;

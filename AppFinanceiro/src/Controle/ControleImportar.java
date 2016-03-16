@@ -5,12 +5,15 @@
  */
 package Controle;
 
+import App.AppFinanceiro;
+import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosImportar;
 import Modelo.ModeloImportar;
 import Visao.VisaoImportar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -21,6 +24,7 @@ public class ControleImportar {
     void ControlerImportar(VisaoImportar visao){
         this.visao = visao;
     }
+    
     
     public String abrirVisaoArquivo(){
         try{
@@ -36,7 +40,9 @@ public class ControleImportar {
         } 
     }
 
-    public boolean importarArquivo(JLabel lblProgresso,JTextField txtCaminho) throws Exception{
+    public boolean importarArquivo(JLabel lblProgresso,
+            JTextField txtCaminho,
+            JComboBox cboTipoRelatorio) throws Exception{
         lblProgresso.setVisible(true);
         try{
             if (txtCaminho.getText().isEmpty()) { return false;} 
@@ -54,7 +60,14 @@ public class ControleImportar {
                 lImportar.add(mImportar);
             }
             
-            return dImportar.Importar(lImportar);
+            switch (cboTipoRelatorio.getSelectedIndex()) {
+                case 0:
+                    return dImportar.importar(lImportar,tipoRelatorio.DRE);
+                case 1:
+                    return  dImportar.importar(lImportar,tipoRelatorio.BPA);
+                default:
+                    return dImportar.importar(lImportar,tipoRelatorio.BPP);
+            }
         }catch(Exception ex){
             throw ex;                                       
         }finally{
