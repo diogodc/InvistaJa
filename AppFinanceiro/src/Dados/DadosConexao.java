@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 public class DadosConexao {
    
     private final String sDriver="oracle.jdbc.driver.OracleDriver";
-    private final String sBanco="jdbc:oracle:thin:@localhost:1521:xe";
-    private final String sUsuario="ecardoso";
-    private final String sSenha="12345";
+    private final String sBanco="jdbc:oracle:thin:@187.85.160.51.:1521:xe";
+    private final String sUsuario="BOVESPA";
+    private final String sSenha="BOVESPA123";
     private Connection cConnection = null;
     private Statement sStatement=null;
     private ResultSet rResultSet = null;
@@ -101,7 +101,6 @@ public class DadosConexao {
     
     public ResultSet consultar(String sConsulta) throws Exception{
         try{
-            abrirConexao();
             setResultSet(getStatement().executeQuery(sConsulta.trim()));
             setResultSetMetaData(getResultSet().getMetaData());
             return getResultSet();
@@ -112,9 +111,7 @@ public class DadosConexao {
     
     public boolean alterar(String sAlteracao) throws Exception{
         try{
-            //abrirConexao();
             getStatement().execute(sAlteracao.trim());
-            //fecharConexao();
             return true;
         }catch(Exception ex){
            throw ex; 

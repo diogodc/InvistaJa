@@ -37,13 +37,15 @@ public class ControleImportar {
     }
 
     public boolean importarArquivo(JLabel lblProgresso,JTextField txtCaminho) throws Exception{
+        lblProgresso.setVisible(true);
         try{
-            if (txtCaminho.getText().isEmpty()) { return false;}
+            if (txtCaminho.getText().isEmpty()) { return false;} 
             
             String sLinha;
             ArrayList<ModeloImportar> lImportar = new ArrayList<ModeloImportar>();
             DadosImportar dImportar = new DadosImportar();
             BufferedReader brLeitor = new BufferedReader( new FileReader(txtCaminho.getText()));
+            
             while ((sLinha = brLeitor.readLine()) != null){
                 ModeloImportar mImportar = new ModeloImportar();
                 String [] sCelula = sLinha.split(";");
@@ -52,10 +54,11 @@ public class ControleImportar {
                 lImportar.add(mImportar);
             }
             
-            return dImportar.Importar(lImportar,lblProgresso);
-            
+            return dImportar.Importar(lImportar);
         }catch(Exception ex){
-                throw ex;
+            throw ex;                                       
+        }finally{
+            lblProgresso.setVisible(false);
         }
     }
 }
