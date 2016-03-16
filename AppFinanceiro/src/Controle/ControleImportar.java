@@ -44,7 +44,6 @@ public class ControleImportar {
             ArrayList<ModeloImportar> lImportar = new ArrayList<ModeloImportar>();
             DadosImportar dImportar = new DadosImportar();
             BufferedReader brLeitor = new BufferedReader( new FileReader(txtCaminho.getText()));
-           
             while ((sLinha = brLeitor.readLine()) != null){
                 ModeloImportar mImportar = new ModeloImportar();
                 String [] sCelula = sLinha.split(";");
@@ -53,7 +52,7 @@ public class ControleImportar {
                 lImportar.add(mImportar);
             }
             
-            return dImportar.Importar(lImportar);
+            return dImportar.Importar(lImportar,lblProgresso);
             
         }catch(Exception ex){
                 throw ex;

@@ -73,7 +73,10 @@ public class DadosConexao {
         this.rResultSetMetaData = rResultSetMetaData;
     }
             
-    public boolean abrirConexao(){
+    public boolean abrirConexao() throws ClassNotFoundException, 
+                                         SQLException, 
+                                         InstantiationException, 
+                                         IllegalAccessException{
         try{
             Class.forName(getDriver()).newInstance();
             setConnection(DriverManager.getConnection(getBanco(),getUsuario(),getSenha()));
@@ -83,8 +86,7 @@ public class DadosConexao {
               | SQLException
               | InstantiationException 
               | IllegalAccessException ex){
-            Logger.getLogger(DadosConexao.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            throw ex;
         }
     }
     
@@ -110,9 +112,9 @@ public class DadosConexao {
     
     public boolean alterar(String sAlteracao) throws Exception{
         try{
-            abrirConexao();
+            //abrirConexao();
             getStatement().execute(sAlteracao.trim());
-            fecharConexao();
+            //fecharConexao();
             return true;
         }catch(Exception ex){
            throw ex; 
