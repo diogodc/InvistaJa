@@ -24,5 +24,9 @@ public class AppFinanceiro {
         visaoInicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }  
     
+    public enum tipoRelatorio{
+        DRE,BPA,BPP;
+    }
+    
     public static DadosManipulacao conn = new DadosManipulacao();
 }

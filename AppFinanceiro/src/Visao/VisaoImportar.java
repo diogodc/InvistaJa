@@ -116,11 +116,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-            if (cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio)){
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro!", this.getTitle(),0);
-            }
+            cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
