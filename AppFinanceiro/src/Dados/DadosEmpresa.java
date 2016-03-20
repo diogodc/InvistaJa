@@ -26,7 +26,7 @@ public class DadosEmpresa {
             sSql +="    BVSP_EMPRESA.EMPRESA_ID, " ;
             sSql +="    BVSP_EMPRESA.RAZAO_SOCIAL, " ;
             sSql +="    BVSP_EMPRESA.NOME_FANTASIA, " ;
-            sSql +="    BVSP_EMPRESA.CNPJ, " ;
+            sSql +="    BVSP_EMPRESA.CNPJ " ;
             sSql +=" FROM BVSP_EMPRESA " ;
             
             ResultSet rs = conn.Selecionar(sSql);

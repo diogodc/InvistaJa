@@ -14,6 +14,7 @@ import Visao.VisaoImportar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -106,7 +107,10 @@ public class ControleImportar {
             
             if (lmEmpresa.isEmpty()){ return;}
             
-            cboEmpresa.addItem(lmEmpresa);
+            for (int i = 0; i<lmEmpresa.size();i++){
+                ModeloEmpresa mEmpresa = lmEmpresa.get(i);
+                cboEmpresa.addItem(mEmpresa.getEmpresa_ID() + "-" + mEmpresa.getRazao_Social());
+            }
         }catch(Exception ex){
             throw ex;
         }
