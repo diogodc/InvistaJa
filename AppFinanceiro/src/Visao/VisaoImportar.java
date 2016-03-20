@@ -17,11 +17,10 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     /**
      * Creates new form VisaoImportar
      */
-    private final ControleImportar cImportar;
+    private ControleImportar cImportar;
     
     public VisaoImportar() {
-        initComponents();
-        cImportar = new ControleImportar(this);
+        initComponents(); 
     }
 
     /**
@@ -39,6 +38,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         btnImportar = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
         cboTipoRelatorio = new javax.swing.JComboBox<>();
+        cboEmpresa = new javax.swing.JComboBox<>();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -48,6 +48,23 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Importar Arquivos");
         setToolTipText("Importar Arquivos");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Informe o arquivo CSV para importação dos dados:");
@@ -68,6 +85,8 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
         cboTipoRelatorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DRE-Demostrativo de Resultados", "BPA-Balanço Patrimonial Ativo", "BPP-Balanço Patrimonial Passivo" }));
 
+        cboEmpresa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empresa" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,13 +97,16 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                     .addComponent(txtCaminhoArquivo)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 212, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboEmpresa, 0, 384, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,12 +117,14 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCaminhoArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImportar)
                     .addComponent(btnSelecionar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,10 +146,20 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnImportarActionPerformed
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        try{    
+            cImportar = new ControleImportar(this);
+            cImportar.carregarEmpresas(cboEmpresa);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } 
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImportar;
     private javax.swing.JButton btnSelecionar;
+    private javax.swing.JComboBox<String> cboEmpresa;
     private javax.swing.JComboBox<String> cboTipoRelatorio;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

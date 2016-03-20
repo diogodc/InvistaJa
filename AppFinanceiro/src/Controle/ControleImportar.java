@@ -5,11 +5,10 @@
  */
 package Controle;
 
-import App.AppFinanceiro;
 import App.AppFinanceiro.tipoRelatorio;
+import Dados.DadosEmpresa;
 import Dados.DadosImportar;
-import Modelo.ModeloImportarBPA;
-import Modelo.ModeloImportarBPP;
+import Modelo.ModeloEmpresa;
 import Modelo.ModeloImportar;
 import Visao.VisaoImportar;
 import java.io.BufferedReader;
@@ -27,8 +26,7 @@ public class ControleImportar {
     public ControleImportar(VisaoImportar visao){
         this.visao = visao;
     }
-    
-    
+        
     public String abrirVisaoArquivo(){
         try{
             JFileChooser fileChooser = new JFileChooser();  
@@ -96,6 +94,19 @@ public class ControleImportar {
             }
             
             return lMImportar;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void carregarEmpresas(JComboBox cboEmpresa) throws Exception{
+        try{
+            DadosEmpresa dEmpresa = new DadosEmpresa();
+            ArrayList<ModeloEmpresa> lmEmpresa = dEmpresa.carregaEmpresa();
+            
+            if (lmEmpresa.isEmpty()){ return;}
+            
+            cboEmpresa.addItem(lmEmpresa);
         }catch(Exception ex){
             throw ex;
         }
