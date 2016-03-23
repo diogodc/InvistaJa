@@ -113,16 +113,16 @@ public class ControleImportar {
                 String [] sVetCelula = sLinha.split(";");
                 int iQuantReg = sVetCelula.length;
                 mImportar.setEmpresa_ID(iEmpresa_ID);
-                if (iQuantReg > -1)
-                    mImportar.setConta(sVetCelula[0]);
-                if (iQuantReg>0)
-                    mImportar.setDescricao(sVetCelula[1]);
+                if (iQuantReg > 0)
+                    mImportar.setConta(sVetCelula[0].trim());
                 if (iQuantReg>1)
-                    mImportar.setPeriodo_1(sVetCelula[2]);
+                    mImportar.setDescricao(sVetCelula[1].trim());
                 if (iQuantReg>2)
-                    mImportar.setPeriodo_2(sVetCelula[3]);
+                    mImportar.setPeriodo_1(sVetCelula[2].trim());
                 if (iQuantReg>3)
-                    mImportar.setPeriodo_3(sVetCelula[4]);
+                    mImportar.setPeriodo_2(sVetCelula[3].trim());
+                if (iQuantReg>4)
+                    mImportar.setPeriodo_3(sVetCelula[4].trim());
                 
                 lMImportar.add(mImportar);
             }

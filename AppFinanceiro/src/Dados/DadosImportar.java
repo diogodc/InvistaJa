@@ -41,13 +41,13 @@ public class DadosImportar {
                 
                 sSql = " INSERT INTO " + sTabela + "(EMPRESA_ID,PERIODO_1,PERIODO_2,PERIODO_3)";
                 sSql += " VALUES( ";
-                sSql += "   ," + lImportar.get(0).getEmpresa_ID();
-                sSql += "   ," + lImportar.get(0).getPeriodo_1();
-                sSql += "   ," + lImportar.get(0).getPeriodo_2();
-                sSql += "   ," + lImportar.get(0).getPeriodo_3();                
-                sSql += " ) '";
+                sSql += "    " + lImportar.get(0).getEmpresa_ID();
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_1() + "'";
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_2() + "'";
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_3() + "'";                
+                sSql += " )";
                 
-                if (sSql.trim().isEmpty()){
+                if (!sSql.trim().isEmpty()){
                     conn.getStatement().executeUpdate(sSql);
                     ResultSet rs = conn.getStatement().getGeneratedKeys();
                     rs.next();
