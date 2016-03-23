@@ -14,7 +14,6 @@ import Visao.VisaoImportar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -43,7 +42,7 @@ public class ControleImportar {
     }
 
     public boolean lerArquivo(JTextField txtCaminho,
-                JComboBox cboTipoRelatorio) throws Exception{
+                JComboBox cboTipoRelatorio,JComboBox cboEmpresa) throws Exception{
         try{
             if (!validarArquivo(txtCaminho)){ return false;}  
             
@@ -52,23 +51,49 @@ public class ControleImportar {
             
             switch (cboTipoRelatorio.getSelectedIndex()) {
                 case 0:
-                    return dImportar.importarDados(manipularArquivo(brLeitor),tipoRelatorio.DRE);
+                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.DRE);
                 case 1:
-                    return dImportar.importarDados(manipularArquivo(brLeitor),tipoRelatorio.BPA);
+                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.BPA);
                 default:
-                    return dImportar.importarDados(manipularArquivo(brLeitor),tipoRelatorio.BPP);
+                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.BPP);
             }
         }catch(Exception ex){
             throw ex;                                       
         }
     }
-    
+    private int getEmpresaSelecionada(JComboBox cboEmpresa) throws Exception{
+        try{
+            String sEmpresa = cboEmpresa.getSelectedItem().toString();
+            String sStringAtual = cboEmpresa.getSelectedItem().toString();
+            String sEmpresa_ID;
+            int iContador = 0;
+            
+            if (sEmpresa.equals("Empresa")){return 0;}
+            
+            while(!sStringAtual.equals("-")){
+                sStringAtual = sEmpresa.substring(iContador,iContador+1);
+                iContador ++;
+                if (sStringAtual.isEmpty()){
+                    return 0;
+                }
+            }
+            
+            sEmpresa_ID = sEmpresa.substring(0, iContador-1);
+            
+            return Integer.valueOf(sEmpresa_ID);
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
     private boolean validarArquivo(JTextField txtCaminho){
         try{
             if (txtCaminho.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o caminho do CSV", "Atenção!",0);
+                JOptionPane.showMessageDialog(null, "Informe o caminho do .CSV", "Atenção!",0);
                 return false;
-            }else if (!txtCaminho.getText().trim().contains(".CSV")){
+            }else if (!txtCaminho.getText().trim().toUpperCase().contains(".CSV")){
                 JOptionPane.showMessageDialog(null, "Informe um arquivo do tipo .CSV", "Atenção!",0);
                 return false;
             }
@@ -78,7 +103,7 @@ public class ControleImportar {
         }
     }
     
-    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor) throws Exception{
+    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor,int iEmpresa_ID) throws Exception{
         try{
             String sLinha;
             ArrayList<ModeloImportar> lMImportar = new ArrayList<ModeloImportar>();
@@ -86,11 +111,19 @@ public class ControleImportar {
             while ((sLinha = brLeitor.readLine()) != null){
                 ModeloImportar mImportar = new ModeloImportar();
                 String [] sVetCelula = sLinha.split(";");
-                mImportar.setConta(sVetCelula[0]);
-                mImportar.setDescricao(sVetCelula[1]);
-                mImportar.setPeriodo_1(sVetCelula[2]);
-                mImportar.setPeriodo_2(sVetCelula[3]);
-                mImportar.setPeriodo_3(sVetCelula[4]);
+                int iQuantReg = sVetCelula.length;
+                mImportar.setEmpresa_ID(iEmpresa_ID);
+                if (iQuantReg > -1)
+                    mImportar.setConta(sVetCelula[0]);
+                if (iQuantReg>0)
+                    mImportar.setDescricao(sVetCelula[1]);
+                if (iQuantReg>1)
+                    mImportar.setPeriodo_1(sVetCelula[2]);
+                if (iQuantReg>2)
+                    mImportar.setPeriodo_2(sVetCelula[3]);
+                if (iQuantReg>3)
+                    mImportar.setPeriodo_3(sVetCelula[4]);
+                
                 lMImportar.add(mImportar);
             }
             

@@ -140,7 +140,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-            cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio);
+            cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio,cboEmpresa);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }

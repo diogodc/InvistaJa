@@ -19,7 +19,7 @@ import java.sql.Statement;
 public class DadosConexao {
    
     private final String sDriver="oracle.jdbc.driver.OracleDriver";
-    private final String sBanco="jdbc:oracle:thin:@187.85.160.51.:1521:xe";
+    private final String sBanco="jdbc:oracle:thin:@187.85.160.51:1521:xe";
     private final String sUsuario="BOVESPA";
     private final String sSenha="BOVESPA123";
     private Connection cConnection = null;
