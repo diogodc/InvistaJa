@@ -42,9 +42,9 @@ public class DadosImportar {
                 sSql = " INSERT INTO " + sTabela + "(EMPRESA_ID,PERIODO_1,PERIODO_2,PERIODO_3)";
                 sSql += " VALUES( ";
                 sSql += "    " + lImportar.get(0).getEmpresa_ID();
-                sSql += "   ,'" + lImportar.get(0).getPeriodo_1() + "'";
-                sSql += "   ,'" + lImportar.get(0).getPeriodo_2() + "'";
-                sSql += "   ,'" + lImportar.get(0).getPeriodo_3() + "'";                
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_1().replace("�", "") + "'";
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_2().replace("�", "") + "'";
+                sSql += "   ,'" + lImportar.get(0).getPeriodo_3().replace("�", "") + "'";                
                 sSql += " )";
                 
                 if (!sSql.trim().isEmpty()){
