@@ -5,7 +5,11 @@
  */
 package Visao;
 
+import Controle.ControleEmpresa;
+import Controle.ControleImportar;
 import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -67,6 +71,11 @@ public class VisaoInicio extends javax.swing.JFrame {
         mnuDados.add(mnuImportar);
 
         mnuCadEmpresas.setText("Cadastrar empresas");
+        mnuCadEmpresas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCadEmpresasActionPerformed(evt);
+            }
+        });
         mnuDados.add(mnuCadEmpresas);
 
         jMenuBar1.add(mnuDados);
@@ -119,15 +128,20 @@ public class VisaoInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSairActionPerformed
 
     private void mnuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportarActionPerformed
-         try{
-            VisaoImportar visaoImportar = new VisaoImportar(); 
-            pnlInicio.add(visaoImportar);
-            visaoImportar.setVisible(true);
-            visaoImportar.setMaximum(true);
+        try{
+            ControleImportar.abrirVisao(pnlInicio);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
     }//GEN-LAST:event_mnuImportarActionPerformed
+
+    private void mnuCadEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadEmpresasActionPerformed
+        try {
+            ControleEmpresa.abrirVisao(pnlInicio);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
+        }
+    }//GEN-LAST:event_mnuCadEmpresasActionPerformed
 
     /**
      * @param args the command line arguments

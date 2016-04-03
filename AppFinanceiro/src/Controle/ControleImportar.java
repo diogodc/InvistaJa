@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -26,7 +27,18 @@ public class ControleImportar {
     public ControleImportar(VisaoImportar visao){
         this.visao = visao;
     }
-        
+     
+    public static void abrirVisao(JDesktopPane pnl) throws Exception{
+        try{
+            VisaoImportar visaoImportar = new VisaoImportar(); 
+            pnl.add(visaoImportar);
+            visaoImportar.setVisible(true);
+            visaoImportar.setMaximum(true);
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
     public String abrirVisaoArquivo(){
         try{
             JFileChooser fileChooser = new JFileChooser();  
