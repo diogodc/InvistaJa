@@ -5,17 +5,10 @@
  */
 package Visao;
 
-import static App.AppFinanceiro.conn;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import Controle.ControlePesquisar;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,21 +16,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VisaoPesquisar extends javax.swing.JDialog {
     
-    public String tabela;//Variavel que carrega a tabela para as consultas;
-    public Vector linhas = new Vector(); //Vetor que guarda as linhas da consulta;
-    public Vector cabecalho = new Vector();//Vetor que guarda o Cabeçalho;  
-    public String parametros;//String que recebe a consulta personalizada;
-    public ArrayList<String> dados = new ArrayList();//Guarda os dados da consulta;
-    public String codigo;//Variavel que carrega o codigo para pegar todos os dados da seleção;
-    public String condicao; //passa o where da consulta;
-    public String join;
+    public String tabela;//
+    public Vector linhas = new Vector();
+    public Vector cabecalho = new Vector();  
+    public String parametros;//
+    public ArrayList<String> dados = new ArrayList();
+    public String codigo;
+    public String condicao;// 
+    public String join;//
+    private final ControlePesquisar cPesquisar;
     
-    public VisaoPesquisar(java.awt.Frame parent, boolean modal, String paramentros,String tabela,String join, String condicao) {
+    public VisaoPesquisar(java.awt.Frame parent, 
+            boolean modal, String paramentros,
+            String tabela,String join, String condicao) {
         super(parent, modal);
-        this.tabela = tabela;//Recebe a tabela usada para fazer a consulta;
-        this.parametros=paramentros;//Recebe a pesquisa personalizada;
-        this.condicao=condicao;
-        this.join=join;
+        cPesquisar = new ControlePesquisar(this,tabela,
+                paramentros,condicao,join,tabResultado,
+                txtFiltro,cboTipoPesquisa);
         initComponents();
     }
 
@@ -51,8 +46,8 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        comboPesquisa = new javax.swing.JComboBox();
-        comboModoPesquisa = new javax.swing.JComboBox();
+        cboCampoPesquisa = new javax.swing.JComboBox();
+        cboTipoPesquisa = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
 
@@ -81,7 +76,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
 
         jLabel1.setText("Campo de pesquisa:");
 
-        comboModoPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Iniciado por", "Contendo" }));
+        cboTipoPesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Iniciado por", "Contendo" }));
 
         jLabel3.setText("Modo de Pesquisa:");
 
@@ -105,11 +100,11 @@ public class VisaoPesquisar extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(comboModoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboTipoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(330, 330, 330)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -126,11 +121,11 @@ public class VisaoPesquisar extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(6, 6, 6)
-                        .addComponent(comboPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(6, 6, 6)
-                        .addComponent(comboModoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cboTipoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -163,37 +158,17 @@ public class VisaoPesquisar extends javax.swing.JDialog {
 
     private void tabResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseClicked
         try {
-            int linha=tabResultado.getSelectedRow();   
-            conn.abrirConexao();
-            ResultSet rs = conn.Selecionar("SELECT * FROM "+tabela+" WHERE "+codigo+"="+tabResultado.getValueAt(linha, 0));
-            for (int i=1;i<=conn.getResultSetMetaData().getColumnCount();++i){//For que pega o resultado da linha e joga no vertor;
-                dados.add(rs.getString(i));
-            }
-            this.dispose();
-            conn.fecharConexao();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Erro Interno:",0);//Alerta de falha;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
+            cPesquisar.selecionar();
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_tabResultadoMouseClicked
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        DefaultTableModel dtm = (DefaultTableModel) tabResultado.getModel();//Pegando o tipo de tabela;
-        dtm.getDataVector().clear();//Limpando as Linhas da tabela;
-        dtm.setColumnCount(0);//Limpando as colunas da tabela;
-        if (txtFiltro.getText().equals("")) {//Se o filtro estiver vazio faz a pesquisa na tabela inteira;
-            preecheTabela("SELECT "+parametros+" FROM "+tabela+" "+join);
-        }else if (comboModoPesquisa.getSelectedItem()=="Iniciado por"){//Faz a pesquisa trazendo resultados inciados com o valor da pesquisa;
-            preecheTabela("SELECT "+parametros+" FROM " + tabela +" "+join+" WHERE " + comboPesquisa.getSelectedItem() + " LIKE '" + txtFiltro.getText() + "%'");
-        }else if(comboModoPesquisa.getSelectedItem()=="Contendo"){//Faz a pesquisa trazendo resultados que contenham o valor da pesquisa;
-            preecheTabela("SELECT "+parametros+" FROM " + tabela +" "+join+ " WHERE " + comboPesquisa.getSelectedItem() + " LIKE '%" + txtFiltro.getText() + "%'");
+        try{
+            cPesquisar.pesquisar();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -238,56 +213,11 @@ public class VisaoPesquisar extends javax.swing.JDialog {
             }
         });
     }
-    
-    
-     public void preecheTabela(String Query) {
-        try {
-            if(!condicao.equals("")){
-                Query=Query+" "+condicao;
-            }
-            conn.abrirConexao();//Abrindo a conexão com o banco;
-            ResultSet rs = conn.Selecionar(Query);//Passando a Query chamada no ato do click no btnPesquisar;
-        
-            while(rs.next()){//While que preeche o Vetor das linhas e passa para o metodo proxima linha;
-                linhas.addElement(proximaLinha(conn.getResultSet(),conn.getResultSetMetaData()));
-            }
-            for(int i=1;i<=conn.getResultSetMetaData().getColumnCount();i++){
-                cabecalho.addElement(conn.getResultSetMetaData().getColumnLabel(i));//Carregando os nomes das tabelas;
-            }
-            codigo=conn.getResultSetMetaData().getColumnName(1);
-            tabResultado.setModel(new javax.swing.table.DefaultTableModel(linhas, cabecalho));//Inserindo dados dentro do JTable;
-            tabResultado.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);//Modo de seleção da tabela: Simples;
-            conn.fecharConexao();//Fechando a conexão com Banco;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Erro Interno:",0);//Alerta de falha;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-     
-     public Vector proximaLinha(ResultSet rs, ResultSetMetaData rsmd){//Recebe os paramentros de conexão;
-        Vector linhaAtual = new Vector();//Vetor da linha Atual;
-        try {
-            for (int i=1;i<=rsmd.getColumnCount();++i){//For que pega o resultado da linha e joga no vertor;
-                linhaAtual.addElement(rs.getString(i));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Erro Interno:",0);//Alerta de falha;
-        }
-        return linhaAtual;//Retorna um vetor com os dados da atual linha;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisar;
-    public javax.swing.JComboBox comboModoPesquisa;
-    public javax.swing.JComboBox comboPesquisa;
+    public javax.swing.JComboBox cboCampoPesquisa;
+    public javax.swing.JComboBox cboTipoPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
