@@ -1,0 +1,17 @@
+.s-uppercase {
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 0.625em;
+}
+.s-size {
+  font-size: 1em;
+}
+.s-size-10 {
+  font-size: 0.625em;
+}
+.s-size-11 {
+  font-size: 0.6875em;
+}
+.s-size-12 {
+  font-size: 0.75em;
+}

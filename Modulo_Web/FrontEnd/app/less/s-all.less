@@ -1,0 +1,59 @@
+@import "variables.less";
+.size(@fsize : @10px) { 
+    font-size: @fsize;
+}
+.uppercase(@fweight:800, @fsize:0.625em){
+    text-transform: uppercase;
+    font-weight: @fweight;
+    .size(@fsize);
+}
+.s-uppercase { 
+    .uppercase(800,@10px);
+}
+.s-size { 
+    .size(1em);
+}
+.s-size-10 { 
+    .size(@10px);
+}
+.s-size-11 { 
+    .size(@11px);
+}
+.s-size-12 { 
+    .size(@12px);
+}
+
+.s-center(){
+    height: 100% !important;
+    width: 100% !important;
+
+    display: -ms-flex !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+
+
+    -ms-align-items: center !important;
+    -webkit-align-items: center !important;
+    align-items: center !important;
+
+
+    -ms-justify-content: center  !important;
+    -webkit-justify-content: center !important;
+    justify-content: center !important; 
+
+    span {                       
+        text-align: center;
+        white-space: nowrap;
+        overflow: hide;
+        div {
+            display: block;
+            font-size: 1.750em;
+            font-weight: 500;
+            padding-bottom: 0.125em;
+        }
+
+    }
+}
+
+
+
