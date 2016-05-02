@@ -1,6 +1,5 @@
 /* 
-    DEFININDO TODO CSS
-    
+    DEFININDO TODO CSS    
 */
 .s-uppercase {
   text-transform: uppercase;
@@ -207,6 +206,30 @@ body .s-body-menu-top > span div {
   font-weight: 500;
   padding-bottom: 0.125em;
 }
+/* 
+ ####################### CONTROLES #######################  
+*/
+.btn {
+  min-height: 45px;
+  min-width: 45px;
+  -webkit-border-radius: 45px;
+  -moz-border-radius: 45px;
+  border-radius: 45px;
+  /*text-align: center;*/
+  display: -ms-flex !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -ms-align-items: center !important;
+  -webkit-align-items: center!important;
+  align-items: center !important;
+  -ms-justify-content: center !important;
+  -webkit-justify-content: center !important;
+  justify-content: center !important;
+  background: transparent;
+}
+/* 
+ ####################### CONTROLES #######################  
+*/
 /*
 ####################### HEAD #######################
 */
@@ -2506,6 +2529,9 @@ body .s-body-menu-top > span div {
 .s-md-font-GrayCyan-100 {
   color: #878ea2;
 }
+.s-md-font-DeepPurple-600 {
+  color: #5E35B1;
+}
 /*
 ####################### TABELAS DE CORES #######################
 */
@@ -2515,8 +2541,8 @@ body .s-body-menu-top > span div {
 @media screen and (max-width: 22.9375em) {
   .s-menu-nav {
     vertical-align: top;
-    max-width: 3.00875em;
-    min-width: 20%;
+    max-width: 0%;
+    min-width: 0%;
     font-size: 1.2em;
     box-shadow: none;
   }
@@ -2525,18 +2551,28 @@ body .s-body-menu-top > span div {
   }
   .s-menu-nav > .s-menu-nav-hidden {
     visibility: visible;
-    position: static;
+    position: fixed;
+    right: 0.1em;
     min-height: 5.250em;
-    height: 99%;
+    width: 46px  !important;
+    height: 46px  !important;
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
     border-radius: 2.5px;
   }
-  .s-menu-nav > .s-menu-nav-hidden-option {
+  .s-menu-nav > .s-menu-nav-hidden * {
+    width: 46px  !important;
+    height: 46px  !important;
     position: fixed;
+    top: 5.150em;
     right: 0.1em;
-    max-width: calc(100% -0.1em);
-    top: 6.450em;
+  }
+  .s-menu-nav > .s-menu-nav-hidden-option {
+    z-index: 2;
+    position: fixed;
+    right: -0.1em;
+    max-width: calc(100%);
+    top: 6.320em;
     box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
@@ -2551,16 +2587,28 @@ body .s-body-menu-top > span div {
     visibility: hidden;
     top: -2%;
   }
-  .s-menu-nav .s-menu-nav-mnu {
+  .s-menu-nav > .s-menu-nav-mnu {
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
     border-radius: 2.5px;
   }
-  .s-menu-nav > .s-menu-nav-hidden div {
-    padding: 2.300em !important;
+  .s-menu-nav > .s-menu-nav-hidden {
+    z-index: 3;
   }
-  .s-menu-nav ul li div {
+  .s-menu-nav > .s-menu-nav-hidden menu {
+    background-color: #3c4a57;
+  }
+  .s-menu-nav > .s-menu-nav-hidden .s-menu-nav-mnu:hover {
+    background: transparent;
+  }
+  .s-menu-nav > .s-menu-nav-hidden .s-menu-nav-mnu:active .s-md-nav-mnu-item-wrap {
+    background: transparent;
+  }
+  .s-menu-nav ul li div div {
     padding: 1.500em;
+  }
+  .s-menu-nav ul li div div menu {
+    background-color: #3c4a57;
   }
   .s-menu-nav .s-menu-nav-hidden {
     width: 100%;
@@ -2573,13 +2621,13 @@ body .s-body-menu-top > span div {
     padding: 0em;
   }
   .s-menu-nav .s-menu-nav-hidden-option {
-    right: 0.29em;
-    max-width: calc(99.01%);
+    right: 0em;
+    max-width: calc(100%);
   }
   body .s-body-menu .s-menu-bar {
     vertical-align: top;
-    max-width: 64.87%;
-    min-width: 45%;
+    max-width: 100%;
+    min-width: 100%;
     min-height: 100%;
     max-height: 100%;
   }
@@ -2587,8 +2635,8 @@ body .s-body-menu-top > span div {
 @media screen and (min-width: 23em) and (max-width: 47.9375em) {
   .s-menu-nav {
     vertical-align: top;
-    max-width: 23.5%;
-    min-width: 20%;
+    max-width: 0%;
+    min-width: 0%;
     font-size: 1.2em;
     box-shadow: none;
   }
@@ -2597,19 +2645,28 @@ body .s-body-menu-top > span div {
   }
   .s-menu-nav > .s-menu-nav-hidden {
     visibility: visible;
-    position: static;
+    position: fixed;
+    right: 0.1em;
     min-height: 5.250em;
-    height: 99%;
-    width: 100%;
+    width: 46px  !important;
+    height: 46px  !important;
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
     border-radius: 2.5px;
   }
-  .s-menu-nav > .s-menu-nav-hidden-option {
+  .s-menu-nav > .s-menu-nav-hidden * {
+    width: 46px  !important;
+    height: 46px  !important;
     position: fixed;
+    top: 5.150em;
     right: 0.1em;
-    max-width: 11.875em;
-    top: 6.450em;
+  }
+  .s-menu-nav > .s-menu-nav-hidden-option {
+    z-index: 2;
+    position: fixed;
+    right: -0.1em;
+    max-width: calc(100%);
+    top: 6.320em;
     box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
@@ -2624,16 +2681,45 @@ body .s-body-menu-top > span div {
     visibility: hidden;
     top: -2%;
   }
-  .s-menu-nav .s-menu-nav-mnu {
+  .s-menu-nav > .s-menu-nav-mnu {
     -webkit-border-radius: 2.5px;
     -moz-border-radius: 2.5px;
     border-radius: 2.5px;
   }
-  .s-menu-nav > .s-menu-nav-hidden div {
-    padding: 2.300em !important;
+  .s-menu-nav > .s-menu-nav-hidden {
+    z-index: 3;
   }
-  .s-menu-nav ul li div {
+  .s-menu-nav > .s-menu-nav-hidden menu {
+    background-color: #3c4a57;
+  }
+  .s-menu-nav > .s-menu-nav-hidden .s-menu-nav-mnu:hover {
+    background: transparent;
+  }
+  .s-menu-nav > .s-menu-nav-hidden .s-menu-nav-mnu:active .s-md-nav-mnu-item-wrap {
+    background: transparent;
+  }
+  .s-menu-nav ul li div div {
     padding: 1.500em;
+  }
+  .s-menu-nav ul li div div menu {
+    background-color: #3c4a57;
+  }
+  .s-menu-nav .s-menu-nav-hidden {
+    width: 100%;
+    /*            max-width: 3.00875em;*/
+  }
+  .s-menu-nav .s-menu-nav-hidden ul li {
+    padding: 0em;
+  }
+  .s-menu-nav .s-menu-nav-hidden ul li div {
+    padding: 0em;
+  }
+  .s-menu-nav .s-menu-nav-hidden-option {
+    right: 0em;
+    max-width: calc(100%);
+  }
+  .s-menu-nav > .s-menu-nav-hidden-option {
+    max-width: 11.875em;
   }
 }
 @media screen and (max-width: 47.9375em) {
@@ -2651,7 +2737,7 @@ body .s-body-menu-top > span div {
   }
   body .s-body-menu .s-menu-bar {
     vertical-align: top;
-    max-width: 74.87%;
+    /*max-width: 74.87%;*/
     min-width: 45%;
     min-height: 100%;
     max-height: 100%;

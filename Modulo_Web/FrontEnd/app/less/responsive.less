@@ -3,96 +3,123 @@
 */
 @import "variables.less";
 
-@media screen and (max-width: 22.9375em) {
-    .s-menu-nav {
-        vertical-align: top;
-        max-width: 3.00875em;
-        min-width: 20%;      
-        font-size: @font-size-bar;                
-        box-shadow: none;
+.menu_bar_control_responsive(){
+    vertical-align: top;
+    max-width: 0%;
+    min-width:0%;    
+    font-size: @font-size-bar;                
+    box-shadow: none;
 
 
-        >  .s-menu-nav
-        {
-            min-width: 100%;
-            min-width: 100%;
-        }
+    >  .s-menu-nav
+    {
+        min-width: 100%;
+        min-width: 100%;
+    }
 
-        //visibility: hidden;
+    >  .s-menu-nav-hidden{
+        visibility: visible;
+        position: fixed;
+        right: 0.1em;            
+        min-height: 5.250em;
+        width: 46px  !important;    
+        height: 46px  !important;
+        .border-radius();
 
-        >  .s-menu-nav-hidden{
-            visibility: visible;
-            position: static;
-            min-height: 5.250em;
-            height: 99%;
-            .border-radius();
-        }
-
-        > .s-menu-nav-hidden-option{
+        * {
+            width: 46px  !important;    
+            height: 46px  !important; 
             position: fixed;
+            top: 5.150em;   
             right: 0.1em;
-            max-width:calc(100% -0.1em);       
-            top: 6.450em;   
-            box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
-            .border-radius(); 
+        }
+    }
 
-            * {
-                font-size: 0.8em;
-            }
+    > .s-menu-nav-hidden-option{
+        z-index: 2;
+        position: fixed;
+        right: -0.1em;
+        max-width:calc(100%);  
+        top: 6.320em;   
+        box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
+        .border-radius(); 
+
+        * {
+            font-size: 0.8em;
+        }
+    }
+
+    > .s-menu-nav-hidden-none  {           
+        min-height: 0px;
+        max-height: 0px;      
+        visibility: hidden;
+        top: -2%;          
+    }
+
+    > .s-menu-nav-mnu{
+        .border-radius(); 
+    }
+
+    > .s-menu-nav-hidden {   
+        z-index: 3;              
+        menu  { 
+            background-color: #3c4a57;
         }
 
-        > .s-menu-nav-hidden-none  {           
-            min-height: 0px;
-            max-height: 0px;      
-            visibility: hidden;
-            top: -2%;          
+        .s-menu-nav-mnu:hover {
+            background: transparent;
+        }  
+        .s-menu-nav-mnu:active .s-md-nav-mnu-item-wrap {
+            background: transparent;
         }
+    }
 
-        .s-menu-nav-mnu{
-            .border-radius(); 
-        }
-
-        > .s-menu-nav-hidden {
-            div {
-                padding: 2.300em !important; 
-            }
-        }
-
-        ul {
-            li {
-                //padding: 2.500em;
+    ul {
+        li {
+            //padding: 2.500em;
+            div{
                 div{
                     padding: 1.500em;
+                    menu  {                            
+                        background-color: #3c4a57;
+                    }
+                }
+            }
+
+        }
+    } 
+
+    .s-menu-nav-hidden{           
+        width: 100%;
+
+        /*            max-width: 3.00875em;*/
+        ul {
+            li {
+                padding: 0em;
+                div{
+                    padding: 0em;
                 }
 
             }
         } 
-        .s-menu-nav-hidden{           
-            width: 100%;
+    }
 
-            /*            max-width: 3.00875em;*/
-            ul {
-                li {
-                    padding: 0em;
-                    div{
-                        padding: 0em;
-                    }
+    .s-menu-nav-hidden-option{           
+        right: 0em;
+        max-width:calc(100%);       
+    }
+}
 
-                }
-            } 
-        }
-
-        .s-menu-nav-hidden-option{           
-            right: 0.29em;
-            max-width:calc(100% - 0.99em);       
-        }
+@media screen and (max-width: 22.9375em) {
+    .s-menu-nav {      
+        .menu_bar_control_responsive();        
     } 
     body{
         .s-body-menu {
             .s-menu-bar {
                 vertical-align: top;
-                max-width: 64.87%;
-                min-width: 45%;
+                max-width: 100%;
+                min-width: 100%;
                 min-height: 100%;
                 max-height: 100%;
             }
@@ -101,70 +128,12 @@
 }
 
 @media screen and (min-width: 23em) and (max-width: 47.9375em) {
-    .s-menu-nav {
-        vertical-align: top;
-        max-width: 23.5%;
-        min-width: 20%;      
-        font-size: @font-size-bar;                
-        box-shadow: none;
-
-
-        >  .s-menu-nav
-        {
-            min-width: 100%;
-            min-width: 100%;
+    .s-menu-nav {   
+        .menu_bar_control_responsive();
+        > .s-menu-nav-hidden-option{          
+            max-width:11.875em;         
         }
-
-        //visibility: hidden;
-
-        >  .s-menu-nav-hidden{
-            visibility: visible;
-            position: static;
-            min-height: 5.250em;
-            height: 99%;
-            width: 100%;
-            .border-radius();
-        }
-
-        > .s-menu-nav-hidden-option{
-            position: fixed;
-            right: 0.1em;
-            max-width:11.875em;
-            top: 6.450em;   
-            box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
-            .border-radius(); 
-
-            * {
-                font-size: 0.8em;
-            }
-        }
-
-        > .s-menu-nav-hidden-none  {           
-            min-height: 0px;
-            max-height: 0px;      
-            visibility: hidden;
-            top: -2%;          
-        }
-
-        .s-menu-nav-mnu{
-            .border-radius(); 
-        }
-        > .s-menu-nav-hidden {
-            div {
-                padding: 2.300em !important; 
-            }
-        }
-
-        ul {
-            li {
-                //padding: 2.500em;
-                div{
-                    padding: 1.500em;
-                }
-
-            }
-        } 
-    }   
+    } 
 }
 
 @media screen and (max-width: 47.9375em) {
@@ -183,7 +152,7 @@
 
             .s-menu-bar {
                 vertical-align: top;
-                max-width: 74.87%;
+                /*max-width: 74.87%;*/
                 min-width: 45%;
                 min-height: 100%;
                 max-height: 100%;
