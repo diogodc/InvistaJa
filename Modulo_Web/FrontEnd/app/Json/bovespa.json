@@ -1,0 +1,38 @@
+{
+    "app": "bovespa",
+    "success": true,
+    "data": [
+        {
+            "indebtedness": {
+                "PCT": [{
+                        "year": 2015,
+                        "result": 100.84
+                    }, {
+                        "year": 2014,
+                        "result": 85.14
+                    }, {
+                        "year": 2013,
+                        "result": 85.14
+                    }],
+                "CE": [{
+                        "year": 2015,
+                        "result": 66.48
+                    }, {
+                        "year": 2014,
+                        "result": 66.95
+                    }, {
+                        "year": 2013,
+                        "result": 56.95
+                    }],
+                "CE": [{
+                        "year": 2015,
+                        "result": 93.47
+                    }, {
+                        "year": 2014,
+                        "result": 92.68
+
+                    }]
+            }
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "app": "bovespa",
+    "success": true,
+    "data": [
+        {
+            "company-name": "B.I. CIA SECURITIZADORA S.A.",
+            "company-id": 1,
+            "company-seg": "MB",
+            "company-name-preg": "BI CIA SEC"
+        },
+        {
+            "company-name": "B2W - COMPANHIA DIGITAL",
+            "company-id": 2,
+            "company-seg": "NM",
+            "company-name-preg": "B2W DIGITAL"
+        },
+        {
+            "company-name": "BAESA - ENERGETICA BARRA GRANDE S.A.",
+            "company-id": 3,
+            "company-seg": "",
+            "company-name-preg": "BAESA"
+        },
+        {
+            "company-name": "BAHEMA S.A.",
+            "company-id": 4,
+            "company-seg": "",
+            "company-name-preg": "BAHEMA"
+        },
+        {
+            "company-name": "BANDEIRANTE ENERGIA S.A.",
+            "company-id": 4,
+            "company-seg": "",
+            "company-name-preg": "EBE"
+        }
+    ]
+}
