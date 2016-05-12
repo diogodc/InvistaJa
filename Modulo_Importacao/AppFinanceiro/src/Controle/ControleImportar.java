@@ -148,7 +148,7 @@ public class ControleImportar {
     public void carregarEmpresas(JComboBox cboEmpresa) throws Exception{
         try{
             DadosEmpresa dEmpresa = new DadosEmpresa();
-            ArrayList<ModeloEmpresa> lmEmpresa = dEmpresa.carregaEmpresa();
+            ArrayList<ModeloEmpresa> lmEmpresa = dEmpresa.carregarEmpresa();
             
             if (lmEmpresa.isEmpty()){ return;}
             
