@@ -128,6 +128,18 @@
 .s-table .s-table-body table tbody tr:nth-child(even) {
   background-color: #f6f6f6;
 }
+.table-Sek table,
+thead,
+tr,
+td,
+th {
+  height: 100%;
+  width: 100%;
+}
+.table-Sek table th,
+.table-Sek table td {
+  border-right: 1px solid #ececec;
+}
 /*
 ####################### TABLE #######################
 */

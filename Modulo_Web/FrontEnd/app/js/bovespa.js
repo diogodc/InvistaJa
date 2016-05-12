@@ -10,6 +10,7 @@ bovespa.require.register(
                     , ['bovespa.control', './app/js/bovespa-control.js']
                     , ['bovespa.control.template', './app/js/bovespa-control-templates.js']
                     , ['bovespa.control.route', './app/js/bovespa-control-routes.js']
+
         ]);
 
 bovespa.object.extend(bovespa, {
@@ -17,17 +18,22 @@ bovespa.object.extend(bovespa, {
     'render': function () {
         bovespa.control.init();
         bovespa.view.init();
-        bovespa.view.pages.Home(bovespa.view, bovespa.control);
+
+        if (!bovespa.cookie.exists('company-id')) {
+            bovespa.view.pages.Company(bovespa.view, bovespa.control);           
+        } else {
+            bovespa.view.pages.Home(bovespa.view, bovespa.control);
+        }
     }
 });
 
 bovespa.onReady(function () {
-    bovespa.require(['bovespa.control',
+    bovespa.require(['bovespa.config',
+        'bovespa.control',
         'bovespa.view',
         'bovespa.control.template',
         'bovespa.control.route'], function () {
         bovespa.render();
     });
 });
-
 

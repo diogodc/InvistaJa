@@ -463,6 +463,48 @@
 .s-md-back-Blue-A700 {
   background-color: #2962FF;
 }
+.s-md-back-Orange-50 {
+  background-color: #FFF3E0;
+}
+.s-md-back-Orange-100 {
+  background-color: #FFE0B2;
+}
+.s-md-back-Orange-200 {
+  background-color: #FFCC80;
+}
+.s-md-back-Orange-300 {
+  background-color: #FFB74D;
+}
+.s-md-back-Orange-400 {
+  background-color: #FFA726;
+}
+.s-md-back-Orange-500 {
+  background-color: #FF9800;
+}
+.s-md-back-Orange-600 {
+  background-color: #FB8C00;
+}
+.s-md-back-Orange-700 {
+  background-color: #F57C00;
+}
+.s-md-back-Orange-800 {
+  background-color: #EF6C00;
+}
+.s-md-back-Orange-900 {
+  background-color: #E65100;
+}
+.s-md-back-Orange-A100 {
+  background-color: #FFD180;
+}
+.s-md-back-Orange-A200 {
+  background-color: #FFAB40;
+}
+.s-md-back-Orange-A400 {
+  background-color: #FF9100;
+}
+.s-md-back-Orange-A700 {
+  background-color: #FF6D00;
+}
 .s-md-back-Black {
   background-color: #000000;
 }
@@ -477,6 +519,12 @@
 }
 .s-md-back-GrayCyan-100 {
   background-color: #878ea2;
+}
+.s-md-back-GrayCyan-200 {
+  background-color: #3c4a57;
+}
+.s-md-back-transparent {
+  background-color: transparent ;
 }
 .s-md-font-Black {
   color: #000000;
@@ -493,8 +541,14 @@
 .s-md-font-GrayCyan-100 {
   color: #878ea2;
 }
+.s-md-font-GrayCyan-200 {
+  color: #3c4a57;
+}
 .s-md-font-DeepPurple-600 {
   color: #5E35B1;
+}
+.s-md-fill-White {
+  fill: #FFFFFF;
 }
 /*
 ####################### TABELAS DE CORES #######################

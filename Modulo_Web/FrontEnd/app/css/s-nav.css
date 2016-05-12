@@ -12,7 +12,7 @@
   padding: 0;
 }
 .s-menu-nav ul li div {
-  padding: 2.500em;
+  padding: 2.100em;
 }
 .s-menu-nav-mnu {
   color: #adb3b8;
@@ -35,6 +35,17 @@
   max-height: 0px;
   visibility: hidden;
   position: fixed;
+}
+.s-menu-nav-mnu-item {
+  padding: 0 !important;
+  min-height: 0px;
+  max-height: 0px;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  max-width: 15.75em;
+  height: 259%;
+  z-index: 0;
 }
 /*
 ####################### MENU-NEVEGAÇÃO #######################

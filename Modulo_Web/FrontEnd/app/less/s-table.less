@@ -111,6 +111,42 @@
 .s-table {
     .s-table();
 }
+
+.table-Sek table, .table-Sek thead, .table-Sek tr, .table-Sek td, .table-Sek th{
+    width: 100%;       
+}
+.table-Sek table, .table-Sek thead, .table-Sek tr{
+    height: 100%;
+    th,td {
+        height:  8.6225em;
+        border-right: 1px solid #ececec;
+        span {
+            padding-top: calc((5%/0.49em) + 0.5em);
+            display: block;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hide;
+            width: 100%;
+            .uppercase();            
+        }
+        div {
+            display: block;
+            font-size: 1.750em;
+            font-weight: 500;
+            padding-bottom: 0.125em;
+        }
+    } 
+}
+.title {
+    h1:before,h1:after{
+        content:"  ";
+    }
+    span:before,span:after {
+        content:"   ";
+        display: block;
+    }
+}
+
 /*
 ####################### TABLE #######################
 */

@@ -3,8 +3,8 @@
 */
 .s-md-row:after,
 .s-md-row:before {
-  display: table;
-  content: " ";
+  /*    display:table;
+    content:""*/
 }
 .s-md-row {
   width: 100%;
@@ -48,32 +48,32 @@
 .s-columns-2 > table td,
 .s-columns-2 > table th,
 .s-columns-2 > div {
-  width: calc(48.964%);
+  width: calc(49.101%);
 }
 .s-columns-3 > table td,
 .s-columns-3 > table th,
 .s-columns-3 > div {
-  width: calc(32.29733333%);
+  width: calc(32.43433333%);
 }
 .s-columns-4 > table td,
 .s-columns-4 > table th,
 .s-columns-4 > div {
-  width: calc(23.964%);
+  width: calc(24.101%);
 }
 .s-columns-5 > table td,
 .s-columns-5 > table th,
 .s-columns-5 > div {
-  width: calc(18.964%);
+  width: calc(19.101%);
 }
 .s-columns-6 > table td,
 .s-columns-6 > table th,
 .s-columns-6 > div {
-  width: calc(15.63066667%);
+  width: calc(15.76766667%);
 }
 .s-columns-12 > table td,
 .s-columns-12 > table th,
 .s-columns-12 > div {
-  width: calc(7.29733333%);
+  width: calc(7.43433333%);
 }
 .s-columns-2 > table,
 .s-columns-3 > table,

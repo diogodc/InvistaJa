@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ 
  */
 
 (function (_object) {
@@ -74,6 +72,17 @@
             onReady: function (callback) {
                 window.addEventListener('load', callback, false);
             },
+            onResize: function (callback) {
+//                document.getElementsByTagName("body")[0].onresize = callback;
+                window.addEventListener('resize', callback);
+                var observer = new MutationObserver(callback);
+                observer.observe(document.body, {
+                    attributes: true,
+                    childList: true,
+                    characterData: true,
+                    subtree: true
+                });
+            },
             eachProto: function (ary, callback) {
                 for (var key in ary) {
                     if (ary.hasOwnProperty(key)) {
@@ -136,6 +145,9 @@
                 }
 
                 return true;
+            },
+            newID: function (previous) {
+                return (previous == undefined ? '' : previous + '-') + sys_core.generateUUID();
             }
         });
 
@@ -187,8 +199,16 @@
             },
             isObject: function isObject(object) {
                 return sys_core.type._toString.call(object) === '[object Object]';
+            },
+            isJson: function isJson(object) {
+                try {
+                    JSON.parse(object);
+                    return true;
+                }
+                catch (error) {
+                    return false;
+                }
             }
-
         });
 
         sys_core.object.extend(sys_core, {$: function $(prototype) {
@@ -202,8 +222,11 @@
                         var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
                         var queryValue = qr.substring(1);
                         while (node = nodeList[iterator++]) {
-                            if (node.getAttribute(query) == queryValue)
-                                nodeArray.push(node);
+                            var _node = node.getAttribute(query);
+                            if (sys_core.isDefined(_node)) {
+                                if (_node.contains(queryValue))
+                                    nodeArray.push(node);
+                            }
                         }
 
                         return nodeArray;
@@ -262,8 +285,7 @@
                                 return this;
                             },
                             get_id: function get_id() {
-
-                                return this.el.getAttribute('id');
+                                return this.el.getAttribute('id') ? this.el.getAttribute('id') : '';
                             },
                             get: function get(get) {
                                 return this.el.getAttribute(get);
@@ -357,6 +379,144 @@
                                 }
 
                                 return nodeArray;
+                            },
+                            query: function (qr, context) {
+                                var nodeArray = [];
+                                var iterator = 0;
+                                var node = null;
+                                var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
+                                var queryValue = qr.substring(1);
+                                var nodeList = (query === "") ? (context || this.el).getElementsByTagName(qr) : (context || this.el).getElementsByTagName('*');
+                                while (node = nodeList[iterator++]) {
+                                    var _node = node.getAttribute(query);
+                                    if (sys_core.isDefined(_node) && query !== "") {
+                                        if (_node.contains(queryValue))
+                                            nodeArray.push(sys_core.$(node));
+                                    } else {
+                                        if (query == "") {
+                                            nodeArray.push(sys_core.$(node));
+                                        }
+                                    }
+                                }
+
+                                return nodeArray;
+                            },
+                            height: function height() {
+                                var _height = 0;
+
+                                this.each(function (elementPassed) {
+                                    var DoOffset = true;
+
+                                    if (!elementPassed) {
+                                        return 0;
+                                    }
+                                    if (!elementPassed.style) {
+                                        return 0;
+                                    }
+
+
+                                    var thisHeight = 0;
+                                    var heightBase = parseInt(elementPassed.style.height);
+                                    var heightOffset = parseInt(elementPassed.offsetHeight);
+                                    var heightScroll = parseInt(elementPassed.scrollHeight);
+                                    var heightClient = parseInt(elementPassed.clientHeight);
+                                    var heightNode = 0;
+                                    var heightRects = 0;
+                                    //
+
+                                    if (DoOffset) {
+                                        if (heightOffset > thisHeight) {
+                                            thisHeight = heightOffset;
+                                        }
+                                    }
+
+                                    if (thisHeight == 0) {
+                                        thisHeight = heightClient;
+                                    }
+
+
+                                    _height = thisHeight;
+                                });
+
+
+                                return _height;
+                            },
+                            width: function width() {
+                                var _width = 0;
+
+                                this.each(function (elementPassed) {
+                                    var DoOffset = true;
+
+                                    if (!elementPassed) {
+                                        return 0;
+                                    }
+                                    if (!elementPassed.style) {
+                                        return 0;
+                                    }
+
+
+                                    var thisWidth = 0;
+                                    var widthBase = parseInt(elementPassed.style.width);
+                                    var widthOffset = parseInt(elementPassed.offsetWidth);
+                                    var widthScroll = parseInt(elementPassed.scrollWidth);
+                                    var widthClient = parseInt(elementPassed.clientWidth);
+                                    var widthNode = 0;
+                                    var widthRects = 0;
+                                    //
+
+                                    if (DoOffset) {
+                                        if (widthOffset > thisWidth) {
+                                            thisWidth = widthOffset;
+                                        }
+                                    }
+
+                                    if (thisWidth == 0) {
+                                        thisWidth = widthClient;
+                                    }
+
+
+                                    _width = thisWidth;
+                                });
+
+
+                                return _width;
+                            },
+                            remove: function remove() {
+                                this.each(function (e) {
+                                    if (e.parentNode) {
+                                        e.parentNode.removeChild(e);
+                                    }
+                                });
+                            },
+                            position: function position() {
+                                var xPos = 0;
+                                var yPos = 0;
+
+                                this.each(function (e) {
+                                    var el = e;
+                                    while (el) {
+
+                                        if (el.tagName == "BODY") {
+                                            // deal with browser quirks with body/window/document and page scroll
+                                            var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+                                            var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+                                            xPos += (el.offsetLeft - xScroll + el.clientLeft);
+                                            yPos += (el.offsetTop - yScroll + el.clientTop);
+                                        } else {
+                                            // for all other non-BODY elements
+                                            xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+                                            yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+                                        }
+
+                                        el = el.offsetParent;
+                                    }
+                                });
+
+                                return {
+                                    x: xPos,
+                                    y: yPos
+                                };
                             }
                         });
                         return instance;
@@ -699,18 +859,24 @@
             require: function (requires, callback) {
                 var _require = sys_core.require;
 
-                if (!sys_core.isDefined(_require.require_complete)) {
-                    _require.require_complete = new Event('require_complete');
-                    window.addEventListener('require_complete', function (e) {
-                        callback ? callback() : function () {
-                        };
-                    }, false);
+                if (!sys_core.isDefined(_require.EventRequireComplete)) {
+                    _require.EventRequireComplete = new Event('EventRequireComplete');
+                    _require.RequireComplete = function () {
+
+                    };
                 }
+
+                window.removeEventListener('EventRequireComplete', _require.RequireComplete);
+                _require.RequireComplete = function (e) {
+                    callback ? callback() : function () {
+                    };
+                };
+                window.addEventListener('EventRequireComplete', _require.RequireComplete);
 
                 sys_core.each(requires, function (modulo, x, modulos, last) {
                     var module = _require.get(modulo);
                     if (last) {
-                        window.dispatchEvent(_require.require_complete);
+                        window.dispatchEvent(_require.EventRequireComplete);
                     }
                 });
             }
@@ -744,7 +910,7 @@
 
                 module.load = 'complete';
                 module.id = 'require-' + sys_core.generateUUID();
-                new Function('', _require.readModule(module.path + '?' + module.class))();
+                new Function('', _require.readModule(module.path + '?' + module.id))();
 
                 sys_core.$('head').include(sys_core.structure({
                     stype: 'script',
@@ -807,15 +973,22 @@
         /* ################### MENUS #####################*/
         sys_core.object.extend(sys_core, {
             menu: function (config) {
-                var menu = this.object.create({name: ''});
+                var menu = sys_core.object.create({name: ''});
                 menu.name = config[0].name;
-                this.object.extend(menu, config[0]);
+                sys_core.object.extend(menu, config[0]);
                 menu.attach.each(function (e) {
                     var mnu = this.query_selector_Attribute_value('mnu-name', menu.name, e);
                     for (var x in mnu) {
-                        mnu[x].event('click', function () {
-                            menu.action.call(menu, mnu[x]);
+                        mnu[x].event('click', function (e) {
+                            menu.action.call(menu, mnu[x], e);
                         }, true);
+                        if (sys_core.isDefined(menu.listeners)) {
+                            sys_core.eachProto(menu.listeners, function (callback, eventName) {
+                                mnu[x].event(eventName, function (e) {
+                                    menu.listeners[eventName].call(menu, mnu[x], e);
+                                }, true);
+                            });
+                        }
                     }
                 });
                 return menu;
@@ -842,14 +1015,14 @@
                 _template = main.object.extend({
                     name: '',
                     load: function (callback) {
-                        this.view.init.call(this.view);
                         this.control.init.call(this.control, this.view, this.model, callback);
                     }
                 });
                 main.object.extend(_template, {
                     view: {
-                        init: function () {
-
+                        init: function (view_text, model) {
+                            this['render-html'](view_text);
+                            this.render(model);
                         },
                         self: '',
                         pattern: /\@\{(\w*)\}/g,
@@ -863,17 +1036,19 @@
                             });
                             this['view-text'] = html;
                         },
-                        'render': function (text, data) {
+                        'render-html': function (text) {
                             this['view-text'] = text;
-                            if (data)
-                                this['inject-json'](data);
                             main.$(this.self).mark_component(['view-template', '000']);
 
                             if (sys_core.isDefined(this.html)) {
+                                main.$(this.self).content('');
                                 main.Rendering(main.$(this.self), this.html);
                             } else {
                                 main.$(this.self).content(this['view-text']);
                             }
+                        },
+                        'render': function (model) {
+
                         }
                     }
                 });
@@ -888,10 +1063,9 @@
                                 url: this.url + '?getTemplate',
                                 success: function () {
                                     var view_text = this.responseText;
-                                    if (model.complete)
-                                        control['render-view'](view_text, view, model, callback);
-                                    else
-                                        return false;
+                                    model.load(function () {
+                                        control['render-view'](view_text, view, this, callback);
+                                    });
                                 },
                                 failure: function () {
                                     view.render('', model, {});
@@ -900,19 +1074,14 @@
                             return this;
                         },
                         'render-view': function (view_text, view, model, callback) {
-                            _template.view.render(view_text, model.data);
+                            view.init.call(view, view_text, model, callback);
                             (callback ? callback.call(this, view, model) : false);
                         }
                     }
                 });
                 main.object.extend(_template, {
-                    model: {
-                        complete: true,
-                        data: {},
-                        load: function (callback) {
-
-                        }
-                    }
+                    model: bovespa.memory({
+                    })
                 });
 
                 _template.name = config[0].name;
@@ -935,16 +1104,365 @@
         /* ################### TEMPLATE #####################*/
 
         /* ################### COMPONENT #####################*/
-        sys_core.object.extend(sys_core, {component: function (_self) {
-                return this;
-            }});
+        sys_core.object.extend(sys_core, {
+            component: function (_object) {
+                var comp = {};
+                if (_object.type === 'chart') {
+                    sys_core.component.chart.call(comp, _object);
+                } else if (_object.type === 'table') {
+                    sys_core.component.table.call(comp, _object);
+                } else if (_object.type === 'select') {
+                    sys_core.component.select.call(comp, _object);
+                } else if (_object.type === 'mask') {
+                    sys_core.component.mask.call(comp, _object);
+                }
+
+                return comp;
+            }
+        });
         sys_core.object.extend(sys_core.component, {
+            chart: function (_object) {
+                var c_render_to = null,
+                        c_theme = null;
+
+                c_theme = sys_core.config.chart.theme[_object.theme];
+                c_render_to = Ext.Element.get(_object.renderTo);
+                _object.Ext.renderTo = c_render_to;
+
+                if (!sys_core.isDefined(_object.tType)) {
+                    _object.tType = "bar";
+                }
+                if (c_theme) {
+                    _object.Ext['theme'] = c_theme.name;
+                    if (_object.Ext ['axes'][0]['grid'] === true) {
+                        _object.Ext ['axes'][0]['grid'] = {
+                            odd: c_theme.odd
+                        };
+                    }
+
+                    sys_core.object.extend(_object.Ext ['series'][0]['label'], {
+                        color: c_theme.color
+                    });
+
+                    sys_core.object.extend(_object.Ext ['series'][0]['style'], c_theme.style);
+
+                    sys_core.object.extend(_object.Ext, {
+                        id: sys_core.newID('chart' + '-' + _object.theme)
+                    });
+
+                } else {
+                    sys_core.object.extend(_object.Ext, {
+                        id: sys_core.newID('chart')
+                    });
+                }
+
+                if (!sys_core.isDefined(_object.Ext.listeners)) {
+                    _object.Ext.listeners = {};
+                }
+
+                sys_core.object.extend(_object.Ext.listeners, {
+                    beforerender: function () {
+                        Ext.getCmp(_object.Ext.id).setHeight(c_render_to.getHeight());
+                        Ext.getCmp(_object.Ext.id).setWidth(c_render_to.getWidth());
+
+                        Ext.EventManager.onWindowResize(function () {
+                            Ext.getCmp(_object.Ext.id).setHeight(c_render_to.getHeight());
+                            Ext.getCmp(_object.Ext.id).setWidth(c_render_to.getWidth());
+                        });
+                    }
+                });
+
+
+                Ext.create('Ext.chart.Chart', _object.Ext);
+            },
+            table: function (_object) {
+                var eRenderTo = null,
+                        $ = null;
+
+                $ = sys_core.$;
+                eRenderTo = $(_object.renderTo);
+                if (!sys_core.isDefined(_object.id)) {
+                    sys_core.object.extend(_object, {
+                        id: sys_core.newID('table')
+                    });
+                }
+
+                _object.id = sys_core.name + '-' + _object.id;
+
+                var dtb = eRenderTo.create_element('div'),
+                        dtbc = dtb.create_element('div'),
+                        dtbcTable = dtbc.create_element('table'),
+                        dtbcColumns = dtbcTable.create_element('thead'),
+                        dtbcRows = dtbcTable.create_element('tbody');
+
+                dtb.class().add('s-table');
+                dtbc.class().add('s-table-body');
+                dtbcTable.css('min-height', '50%');
+
+                dtb.mark_component(['dtb', _object.id]);
+                dtbc.mark_component(['dtbc', _object.id]);
+                dtbcTable.mark_component(['dtbcTable', _object.id]);
+                dtbcColumns.mark_component(['dtbcColumns', _object.id]);
+                dtbcRows.mark_component(['dtbcRows', _object.id]);
+
+
+
+                /* RENDER COLUMNS*/
+                var dtRow = dtbcColumns.create_element('tr');
+                sys_core.each(_object.columns, function (col) {
+                    var dtRowCol = dtRow.create_element('th');
+                    sys_core.Rendering.settings(dtRowCol, {
+                        'data-column': col['data-name']
+                    });
+
+                    sys_core.eachProto(col, function (proto_value, protoName) {
+                        var _title;
+                        if (protoName === "title") {
+                            _title = dtRowCol.create_element('div')
+                                    .create_element('span');
+                            _title.create_element('text').content(proto_value.text ? proto_value.text : '');
+                            _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
+                        }
+                    });
+                });
+
+                /* RENDER COLUMNS*/
+
+
+                /* RENDER ROWS*/
+                if (sys_core.isDefined(_object.data.Ext)) {
+                    _object.data.Ext.each(function (data, row) {
+                        var dtRow = dtbcRows
+                                .create_element('tr');
+
+                        sys_core.Rendering.settings(dtRow, {
+                            'data-row': row + 1,
+                            data: data
+                        });
+
+                        sys_core.each(_object.columns, function (col) {
+                            var dtRowCol = dtRow.create_element('td');
+                            sys_core.Rendering.settings(dtRowCol, {
+                                'data-column': col['data-name']
+                            });
+
+
+                            dtRowCol.create_element('div')
+                                    .create_element('span')
+                                    .content(data.get(col['data-name']));
+                        });
+                    });
+                } else {
+                    sys_core.each(_object.data, function (data, row) {
+                        var dtRow = dtbcRows
+                                .create_element('tr');
+
+                        sys_core.Rendering.settings(dtRow, {
+                            'data-row': row + 1,
+                            data: data
+                        });
+
+                        sys_core.each(_object.columns, function (col) {
+                            var dtRowCol = dtRow.create_element('td');
+                            sys_core.Rendering.settings(dtRowCol, {
+                                'data-column': col['data-name']
+                            });
+                            dtRowCol.create_element('div')
+                                    .create_element('span')
+                                    .content(data[col['data-name']]);
+                        });
+                    });
+                }
+                /* RENDER ROWS*/
+
+
+            },
+            select: function (_object) {
+                var eRenderTo = null,
+                        $ = null
+                mask = null;
+
+                $ = sys_core.$;
+                eRenderTo = $(_object.renderTo);
+                mask = bovespa.component({type: 'mask', renderTo: _object.renderTo});
+
+                if (!sys_core.isDefined(_object.id)) {
+                    sys_core.object.extend(_object, {
+                        id: sys_core.newID('select')
+                    });
+                }
+
+                _object.id = sys_core.name + '-' + _object.id;
+
+                var csComp = eRenderTo.create_element('select');
+                csComp.class().add('select-default');
+                csComp.mark_component(['select', _object.id]);
+                csComp.attr('id', _object.id);
+
+
+
+                if (sys_core.isDefined(_object.class)) {
+                    sys_core.each(_object.class, function (c) {
+                        csComp.class().add(c);
+                    });
+                }
+
+                /* RENDER OPTIONS*/
+                if (sys_core.isDefined(_object.data.Ext)) {
+                    _object.data.Ext.each(function (data, row) {
+                        var dtOption = csComp
+                                .create_element('option');
+
+                        sys_core.Rendering.settings(dtOption, {
+                            'data-option': row + 1,
+                            data: data.raw
+                        });
+
+                        if (sys_core.isDefined(_object.classMember)) {
+                            sys_core.each(_object.classMember, function (c) {
+                                dtOption.class().add(c);
+                            });
+                        }
+
+                        dtOption.create_element('span')
+                                .content(data.get(_object.displayMember));
+                    });
+                } else {
+                    mask.show();
+                    _object.data.load(function () {
+                        _object.data.each(function () {
+                            var dtOption = csComp
+                                    .create_element('option'),
+                                    data = this;
+
+                            sys_core.Rendering.settings(dtOption, {
+                                'data-option': data.getIndex() + 1,
+                                data: data.raw()
+                            });
+
+                            if (sys_core.isDefined(_object.classMember)) {
+                                sys_core.each(_object.classMember, function (c) {
+                                    dtOption.class().add(c);
+                                });
+                            }
+
+                            dtOption.create_element('span')
+                                    .content(data.get(_object.displayMember));
+                        });
+                        mask.hide();
+                    });
+//                    mask.hide();
+
+                }
+
+                /* RENDER OPTIONS*/
+
+
+
+
+            },
+            mask: function mask(_object) {
+                var eRenderTo = null,
+                        $ = null,
+                        mask = null;
+
+                $ = sys_core.$;
+                eRenderTo = $(_object.renderTo);
+
+                if (!sys_core.isDefined(_object.id)) {
+                    sys_core.object.extend(_object, {
+                        id: sys_core.newID('mask')
+                    });
+                }
+
+
+
+                var _mask = {
+                    show: function () {
+                        mask = eRenderTo.create_element('div');
+                        mask.class().add('mask');
+                        mask.class().add('s-md-back-DeepPurple-600');
+                        mask.mark_component(['mask', _object.id]);
+                        mask.attr('id', _object.id);
+                        mask.css("min-height", eRenderTo.height() + 'px')
+                                .css("min-width", eRenderTo.width() + 'px')
+                                .css("position", 'absolute')
+                                .css('top', eRenderTo.position().y + 'px')
+                                .css('left', eRenderTo.position().x + 'px')
+                                .css('opacity', "0.4");
+                    },
+                    hide: function () {
+                        mask.remove();
+                    }
+                };
+
+                sys_core.object.extend(this, _mask);
+            },
+            get: function (_id) {
+                var comp_obj = sys_core.$(sys_core.name + '-' + _id),
+                        comp_name = comp_obj.get('component-name').replace(sys_core.name + '-', '');
+                var comp = {};
+
+
+                sys_core.object.extend(comp, {
+                    type: comp_name
+                });
+
+                if (comp_name === 'select') {
+                    sys_core.object.extend(comp, {
+                        selectedItem: function () {
+                            var _selectedItem = null;
+                            comp_obj.each(function (e) {
+                                _selectedItem = e.options[e.selectedIndex];
+                            });
+
+                            if (sys_core.isDefined(_selectedItem)) {
+                                var data = sys_core.$(_selectedItem).get('data');
+
+                                if (sys_core.isDefined(data)) {
+                                    if (data != "")
+                                        JSON.parse(data);
+                                    else
+                                        data = {};
+                                } else {
+                                    data = {};
+                                }
+
+                                _selectedItem = JSON.parse(data);
+                            }
+
+                            return     _selectedItem;
+                        },
+                        selectedIdex: function () {
+                            var _selectedIndex = -1;
+                            comp_obj.each(function (e) {
+                                _selectedIndex = e.selectedIndex;
+                            });
+                            return _selectedIndex;
+                        },
+                        options: function () {
+                            var _options = null;
+
+                            comp_obj.each(function (e) {
+                                _options = e.options;
+                            });
+                            return _options;
+                        }
+                    });
+                }
+
+                return comp;
+
+            }
         });
         /* ################### COMPONENT #####################*/
 
+        /* ################### RENDERING #####################*/
         sys_core.object.extend(sys_core, {
             Rendering: function (_self, _object) {
                 var _render = null;
+
+
                 sys_core.eachProto(_object, function (proto_value, protoName) {
 
                     if (protoName === "view") {
@@ -960,10 +1478,9 @@
                     }
 
                     if (sys_core.isDefined(proto_value.settings)) {
-                        sys_core.eachProto(proto_value.settings, function (proto_value, protoName) {
-                            _render.attr(protoName, proto_value);
-                        });
+                        sys_core.Rendering.settings(_render, proto_value.settings);
                     }
+
                     if (sys_core.isDefined(proto_value.items)) {
                         if (sys_core.type.isArray(proto_value.items)) {
                             sys_core.each(proto_value.items, function (it) {
@@ -979,29 +1496,70 @@
                         });
                     }
                 });
+
+                _render.mark_component(["rendering", 'rendering']);
                 return _render;
             }
         });
-
         sys_core.object.extend(sys_core.Rendering, {
-            'columns': function (_colRow, _columns) {
+            settings: function (_self, _settings) {
+                sys_core.eachProto(_settings, function (proto_value, protoName) {
+                    if (sys_core.type.isObject(proto_value)) {
+                        _self.attr(protoName, JSON.stringify(proto_value));
+                    } else {
+                        _self.attr(protoName, proto_value);
+                    }
+                });
+            },
+            'rows': function (_colRow, _columns) {
                 sys_core.each(_columns, function (it) {
+                    var column = _colRow
+                            .create_element('th');
+                    if (sys_core.isDefined(it.settings)) {
+                        sys_core.Rendering.settings(column, it.settings);
+                    }
+
                     sys_core.eachProto(it, function (proto_value, protoName) {
+                        var _title;
+
                         if (protoName === "col-title") {
-                            var _title = _colRow
-                                    .create_element('th')
+                            _title = column
                                     .create_element('span');
-
-
                             _title.create_element('div').create_element('text').content(proto_value.text ? proto_value.text : '');
                             _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
                         } else if (protoName === "title") {
-                            var _title = _colRow
-                                    .create_element('th')
+                            _title = column
                                     .create_element('span');
                             _title.create_element('text').content(proto_value.text ? proto_value.text : '');
                             _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
                         }
+
+                    });
+                });
+            },
+            'columns': function (_colRow, _columns) {
+                sys_core.each(_columns, function (it) {
+                    var column = _colRow
+                            .create_element('th');
+                    if (sys_core.isDefined(it.settings)) {
+                        sys_core.Rendering.settings(column, it.settings);
+                    }
+
+                    sys_core.eachProto(it, function (proto_value, protoName) {
+                        var _title;
+
+                        if (protoName === "col-title") {
+                            _title = column
+                                    .create_element('span');
+                            _title.create_element('div').create_element('text').content(proto_value.text ? proto_value.text : '');
+                            _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
+                        } else if (protoName === "title") {
+                            _title = column
+                                    .create_element('span');
+                            _title.create_element('text').content(proto_value.text ? proto_value.text : '');
+                            _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
+                        }
+
                     });
                 });
             },
@@ -1032,9 +1590,7 @@
                 var _literal = sys_core.$(document.createElement('literal-child'));
                 sys_core.eachProto(s_literal, function (proto_value, protoName) {
                     if (protoName === 'settings') {
-                        sys_core.eachProto(proto_value, function (proto_value, protoName) {
-                            _literal.attr(protoName, proto_value);
-                        });
+                        sys_core.Rendering.settings(_literal, proto_value);
                     } else {
                         var child_literal = sys_core.$(document.createElement(protoName));
 
@@ -1052,9 +1608,257 @@
                 return _literal;
             }
         });
+        /* ################### RENDERING #####################*/
+
+        /* ################### RIPPLE #####################*/
+        sys_core.object.extend(sys_core, {
+            ripple: function (config) {
+                var $ = sys_core.$,
+                        self = config[0],
+                        event = config[1];
+
+                sys_core.$(self).event(event, function (e) {
+                    e.preventDefault();
+                    var self = $(this),
+                            _affect = self
+                            .create_element('div'),
+                            ripple_name = $(this).get('ripple-name'),
+                            ripple = {};
+
+                    if (!self.class().contains('ripple')) {
+                        self.class().add('ripple');
+                    }
+
+                    _affect.create_id('ripple');
+                    _affect.mark_component(["ripple", _affect.get_id()]);
+                    _affect.class().add('ripple-effect');
+
+                    if (ripple_name) {
+                        ripple = sys_core.ripple.get(ripple_name);
+                    }
+
+                    _affect.css("position", 'absolute')
+                            .css('background', ripple.color ? ripple.color : '')
+                            .css("height", $(this).height() + 'px')
+                            .css("width", $(this).width() + 'px')
+                            .css('top', $(this).position().y + 'px')
+                            .css('left', $(this).position().x + 'px');
+
+                    window.setTimeout(function () {
+//                         self.class().remove('ripple');
+                        _affect.css("height", '0px')
+                                .css("width", '0px')
+                                .css('background', 'transparent')
+                                .css("visibility", 'hidden');
+                        _affect.class().remove('ripple-effect');
+                        _affect.remove();
+                    }, 700);
+                });
+
+                return sys_core.ripple;
+            }
+        });
+        sys_core.object.extend(sys_core.ripple, {
+            ripples: {},
+            register: function register(ripple) {
+                this.ripples[ripple.name] = ripple;
+                return this;
+            },
+            get: function get(name) {
+                return this.ripples[name];
+            }
+        });
+        /* ################### RIPPLE #####################*/
+
+
+
+        /* ################### COOKIE #####################*/
+        sys_core.object.extend(sys_core, {
+            cookie: function (_dataCookie) {
+                var strCookie = "";
+
+                sys_core.eachProto(_dataCookie, function (cookValue, cookName) {
+                    strCookie = strCookie + " " + cookName + "=" + cookValue + ";";
+                    document.cookie = strCookie + sys_core.cookie.expires(2) + ";";
+                    strCookie = "";
+                });
+            }
+        });
+        sys_core.object.extend(sys_core.cookie, {
+            expires: function (exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                return "expires=" + d.toUTCString();
+
+            },
+            get: function (cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+
+                return "";
+            },
+            exists: function (cookName) {
+                var cookValue = sys_core.cookie.get(cookName);
+                return !cookValue == "";
+            }
+        });
+        /* ################### COOKIE #####################*/
+
+        /* ################### MEMORY #####################*/
+        sys_core.object.extend(sys_core, {
+            memory: function memory(_parameter_settings) {
+                var memory;
+                memory = sys_core.object.create(sys_core.memory);
+
+                sys_core.object.extend(memory, {'type': 'json'}, 'proxy');
+                sys_core.object.extend(memory, [], 'data');
+                sys_core.object.extend(memory, {}, 'model');
+
+                if (_parameter_settings['model']) {
+                    sys_core.object.extend(memory['model'], _parameter_settings['model']);
+                }
+
+                sys_core.object.extend(memory['model'], {
+                    getFields: function getFields() {
+                        return this['fields'];
+                    },
+                    getField: function getField(x) {
+                        return this['fields'][x];
+                    },
+                    each: function each(fn) {
+                        for (var x in this ['fields']) {
+                            fn.call(this ['fields'][x], this, this ['fields']);
+                        }
+                    }
+                });
+                if (_parameter_settings['proxy']) {
+                    sys_core.object.extend(memory['proxy'], _parameter_settings['proxy']);
+                }
+                sys_core.object.extend(memory['proxy'], {
+                    load_data: function (fn) {
+                        var s_scope = this;
+                        s_scope['progress-in'] = true;
+                        s_scope['progress-complete'] = false;
+
+                        if (sys_core.isDefined(s_scope['url'])) {
+                            if (s_scope['url'] === "") {
+                                fn.call(memory, memory['data']);
+                                return;
+                            }
+                        } else {
+                            fn.call(memory, memory['data']);
+                            return;
+                        }
+
+                        sys_core.request({
+                            url: s_scope['url'],
+                            success: function () {
+                                s_scope.load_complete.call(s_scope, this.responseText, fn);
+                            },
+                            failure: function () {
+
+                            }
+                        });
+                    },
+                    load_complete: function (response, fn) {
+                        this['progress-complete'] = true;
+                        this['progress-in'] = false;
+                        if (this['type'] === 'json') {
+                            if (sys_core.type.isJson(response)) {
+                                memory['data'] = JSON.parse(response);
+                                if (this['root']) {
+                                    var parts = this['root'].split('.');
+                                    var dt = memory['data'];
+
+                                    for (var i = 0; i < parts.length; i++) {
+                                        dt = dt[parts[i]];
+                                    }
+                                    memory['data'] = dt;
+                                }
+                            }
+                        }
+
+                        fn.call(memory, memory['data']);
+                    }
+                });
+                if (_parameter_settings['data']) {
+                    sys_core.object.extend(memory['data'], _parameter_settings['data']);
+                }
+
+                sys_core.object.extend(memory, {
+                    load: function (self_fn) {
+
+                        if (Array.isArray(this['data'])) {
+                            if (this['data'].length > 0) {
+                                self_fn.call(memory, this['data']);
+                                return true;
+                            }
+                        }
+
+                        this['proxy'].load_data(self_fn);
+                    },
+                    each: function (self_fn) {
+                        var data;
+
+                        data = this['data'];
+
+                        for (var x in data) {
+                            var _store = sys_core.object.create({
+                                get: function (node_name) {
+                                    var _r;
+                                    if (data[x][node_name]) {
+                                        _r = data[x][node_name];
+                                    } else {
+                                        _r = '';
+                                    }
+
+                                    return _r;
+                                },
+                                getIndex: function () {
+                                    return x;
+                                },
+                                raw: function () {
+                                    return data[x];
+                                }
+                            });
+
+                            self_fn.call(_store);
+                        }
+                    }
+                });
+
+                return memory;
+            }
+        });
+        /* ################### MEMORY #####################*/
+
 
         return sys_core;
+
+
+
+
+
+
+
+
+
+
+
     };
+
+
+
+
 
     return _core;
 })(window);
