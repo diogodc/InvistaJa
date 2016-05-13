@@ -6,7 +6,6 @@
 package Visao;
 
 import Controle.ControleEmpresa;
-import Controle.ControleImportar;
 import javax.swing.JOptionPane;
 
 /**
@@ -249,7 +248,11 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        try{ 
+            txtCodEmpresa.setText(cEmpresa.salvar(txtCodEmpresa, txtCNPJ, txtAtividade, txtRazaoSocial, txtNomeFantasia));
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 

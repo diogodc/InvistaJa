@@ -54,6 +54,20 @@ public class DadosEmpresa {
         try{
             if(mEmpresa == null){return "";}
             
+            if (mEmpresa.getEmpresa_ID() == 0) {
+                return this.inserirEmpresa(mEmpresa);               
+            }else{
+                return this.atualizarEmpresa(mEmpresa);
+            }
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    private String inserirEmpresa(ModeloEmpresa mEmpresa) throws Exception{
+        try{
+            if(mEmpresa == null){return "";}
+            
             conn.abrirConexao();
             String sSql;
             
@@ -64,16 +78,73 @@ public class DadosEmpresa {
             sSql += "     CNPJ, ";
             sSql += "     ATIVIDADE) ";
             sSql += " VALUES ";
-            sSql += "     ((SELECT NVL(MAX(ID_EMPRESA),0)+1 AS ID_EMPRESA FROM BVSP_EMPRESA)";
-            sSql += "     ," + mEmpresa.getRazao_Social().replace("'", "''");
-            sSql += "     ," + mEmpresa.getNome_Fantasia().replace("'", "''");
-            sSql += "     ," + mEmpresa.getCNPJ().replace("'", "''");
-            sSql += "     ," + mEmpresa.getAtividade().replace("'", "''");
+            sSql += "     (BVSP_EMPRESA_SEQ.NEXTVAL";
+            sSql += "     ,'" + mEmpresa.getRazao_Social().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getCNPJ().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getAtividade().replace("'", "''") + "'";
             sSql += "    ) ";
             
             if (!sSql.trim().isEmpty()){
-                conn.Inserir(sSql);
+                if (conn.Inserir(sSql)){
+                    return this.getUltimoIDEmpresa();
+                }
             }
+            
+            conn.fecharConexao();
+            
+            return "";
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    private String atualizarEmpresa(ModeloEmpresa mEmpresa) throws Exception{
+        try{
+            if(mEmpresa == null){return "";}
+            
+            conn.abrirConexao();
+            String sSql;
+            
+            sSql =  "UPDATE BVSP_EMPRESA SET";
+            sSql += "    RAZAO_SOCIAL = " + mEmpresa.getRazao_Social().replace("'", "''");
+            sSql += "    NOME_FANTASIA = " + mEmpresa.getNome_Fantasia().replace("'", "''");
+            sSql += "    CNPJ = " + mEmpresa.getCNPJ().replace("'", "''");
+            sSql += "    ATIVIDADE = " + mEmpresa.getAtividade().replace("'", "''");
+            sSql += " WHERE ID_EMPRESA = " + mEmpresa.getEmpresa_ID();
+            
+            if (sSql.trim().isEmpty()){
+                if (conn.Alterar(sSql)){
+                    return this.getUltimoIDEmpresa();
+                }
+            }
+            
+            conn.fecharConexao();
+            
+            return "";
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    private String getUltimoIDEmpresa() throws Exception{
+        try{
+            conn.abrirConexao();
+            String sSql;
+            
+            sSql =  " SELECT  ";
+            sSql += "   BVSP_EMPRESA_SEQ.CURRVAL AS LINHAS";
+            sSql += " FROM BVSP_EMPRESA ";
+            sSql += " WHERE ROWNUM = 1 ";
+            
+            if (!sSql.trim().isEmpty()){
+               ResultSet rs = conn.Selecionar(sSql);
+               if (rs.next()){
+                 return rs.getString("LINHAS");
+               }
+            }
+            
+            conn.fecharConexao();
             
             return "";
         }catch(Exception ex){

@@ -5,8 +5,11 @@
  */
 package Controle;
 
+import Dados.DadosEmpresa;
+import Modelo.ModeloEmpresa;
 import Visao.VisaoEmpresa;
 import javax.swing.JDesktopPane;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -46,28 +49,38 @@ public class ControleEmpresa {
         }
     }
     
-    public String salvar(JTextField txtCodEmpresa,JTextField txtCNPJ,
-            JTextField txtAtividade,JTextField txtRazaoSocial,JTextField txtNomeFantasia){
+    public String salvar(JTextField txtCodEmpresa,JFormattedTextField txtCNPJ,
+            JTextField txtAtividade,JTextField txtRazaoSocial,
+            JTextField txtNomeFantasia) throws Exception{
         try{
-            if (!this.validarCampos(txtCodEmpresa,
-                    txtCNPJ,txtAtividade,txtRazaoSocial,
+            if (!this.validarCampos(txtCNPJ,txtAtividade,txtRazaoSocial,
                     txtNomeFantasia)){return "";}
             
-                    
+            DadosEmpresa dEmpresa = new DadosEmpresa();
+            ModeloEmpresa mEmpresa = new ModeloEmpresa();
             
-            return "";   
+            if (!txtCodEmpresa.getText().trim().isEmpty()){
+                mEmpresa.setEmpresa_ID(Integer.parseInt(txtCodEmpresa.getText().trim()));
+            }else{
+                mEmpresa.setEmpresa_ID(0);
+            }
+            
+            mEmpresa.setCNPJ(txtCNPJ.getText().trim());
+            mEmpresa.setNome_Fantasia(txtNomeFantasia.getText().trim());
+            mEmpresa.setRazao_Social(txtRazaoSocial.getText().trim());
+            mEmpresa.setAtividade(txtAtividade.getText().trim());
+            
+            return dEmpresa.salvarEmpresa(mEmpresa);
+               
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    private boolean validarCampos(JTextField txtCodEmpresa,JTextField txtCNPJ,
+    private boolean validarCampos(JFormattedTextField txtCNPJ,
             JTextField txtAtividade,JTextField txtRazaoSocial,JTextField txtNomeFantasia){
         try{
-            if (txtCodEmpresa.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Informe o código da empresa!", visao.getTitle(),1);
-                return false;
-            }else if(txtCNPJ.getText().isEmpty()){
+            if(txtCNPJ.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe o CNPJ da empresa!", visao.getTitle(),1);
                 return false;
             }else if(txtAtividade.getText().isEmpty()){
