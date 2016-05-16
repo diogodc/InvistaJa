@@ -6,6 +6,7 @@
 package Visao;
 
 import Controle.ControleEmpresa;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,6 +46,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -121,11 +123,23 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
             }
         });
 
@@ -140,6 +154,8 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,7 +165,8 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnNovo))
+                    .addComponent(btnNovo)
+                    .addComponent(btnPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,7 +250,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         try{
-            cEmpresa.limparVisao(txtCodEmpresa, txtCodEmpresa, txtAtividade, txtRazaoSocial, txtNomeFantasia);
+            this.limpar();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
@@ -241,7 +258,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try{    
-            cEmpresa = new ControleEmpresa(this);
+            cEmpresa = new ControleEmpresa();
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -250,15 +267,66 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try{ 
             txtCodEmpresa.setText(cEmpresa.salvar(txtCodEmpresa, txtCNPJ, txtAtividade, txtRazaoSocial, txtNomeFantasia));
+            if (!txtCodEmpresa.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),0);
+            }
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),1);
         } 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try{
+            if (cEmpresa.excluir(txtCodEmpresa)){
+                this.limpar();
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } 
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        try{
+            //ArrayList<String> filtros = new ArrayList<String>();
+            String sCampos; 
+            
+            sCampos =  "ID_EMPRESA AS \"Empresa\",";
+            sCampos += "CNPJ,";
+            sCampos += "RAZAO_SOCIAL AS \"Razão Social\",";
+            sCampos += "NOME_FANTASIA AS \"Nome fantasia\",";
+            sCampos += "ATIVIDADE AS \"Atividade\"";
+            
+            //filtros.add("ID_EMPRESA");
+            //filtros.add("CNPJ");
+            //filtros.add("RAZAO_SOCIAL");
+            //filtros.add("NOME_FANTASIA");
+            //filtros.add("ATIVIDADE");
+            
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null,true,sCampos,"BVSP_EMPRESA","",""/*,filtros*/);
+            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
+            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
+            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
+            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
+            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
+            vPesquisar.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } 
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void limpar(){
+        txtCodEmpresa.setText("");
+        txtCNPJ.setText("");
+        txtAtividade.setText("");
+        txtRazaoSocial.setText("");
+        txtNomeFantasia.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

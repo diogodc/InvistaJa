@@ -50,21 +50,21 @@ public class DadosEmpresa {
         }
     }
     
-    public String salvarEmpresa(ModeloEmpresa mEmpresa) throws Exception{
+    public String salvar(ModeloEmpresa mEmpresa) throws Exception{
         try{
             if(mEmpresa == null){return "";}
             
             if (mEmpresa.getEmpresa_ID() == 0) {
-                return this.inserirEmpresa(mEmpresa);               
+                return this.inserir(mEmpresa);               
             }else{
-                return this.atualizarEmpresa(mEmpresa);
+                return this.atualizar(mEmpresa);
             }
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    private String inserirEmpresa(ModeloEmpresa mEmpresa) throws Exception{
+    private String inserir(ModeloEmpresa mEmpresa) throws Exception{
         try{
             if(mEmpresa == null){return "";}
             
@@ -87,7 +87,9 @@ public class DadosEmpresa {
             
             if (!sSql.trim().isEmpty()){
                 if (conn.Inserir(sSql)){
-                    return this.getUltimoIDEmpresa();
+                    ResultSet rs = conn.Selecionar(getUltimoID());
+                    rs.next();
+                    return rs.getString("CURRVAL");
                 }
             }
             
@@ -99,7 +101,7 @@ public class DadosEmpresa {
         }
     }
     
-    private String atualizarEmpresa(ModeloEmpresa mEmpresa) throws Exception{
+    private String atualizar(ModeloEmpresa mEmpresa) throws Exception{
         try{
             if(mEmpresa == null){return "";}
             
@@ -115,7 +117,10 @@ public class DadosEmpresa {
             
             if (sSql.trim().isEmpty()){
                 if (conn.Alterar(sSql)){
-                    return this.getUltimoIDEmpresa();
+                   ResultSet rs = conn.Selecionar(getUltimoID());
+                   if (rs.next()){
+                        return rs.getString("CURRVAL");
+                   }
                 }
             }
             
@@ -127,26 +132,36 @@ public class DadosEmpresa {
         }
     }
     
-    private String getUltimoIDEmpresa() throws Exception{
+    private String getUltimoID() throws Exception{
+        try{
+            String sSql;
+            
+            sSql =  " SELECT  ";
+            sSql += "   BVSP_EMPRESA_SEQ.CURRVAL";
+            sSql += " FROM BVSP_EMPRESA ";
+            sSql += " WHERE ROWNUM < 2 ";
+            
+            return sSql;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public boolean excluir(int codEmpresa) throws Exception{
         try{
             conn.abrirConexao();
             String sSql;
             
-            sSql =  " SELECT  ";
-            sSql += "   BVSP_EMPRESA_SEQ.CURRVAL AS LINHAS";
-            sSql += " FROM BVSP_EMPRESA ";
-            sSql += " WHERE ROWNUM = 1 ";
+            sSql =  " DELETE FROM BVSP_EMPRESA ";
+            sSql += " WHERE ID_EMPRESA = " + codEmpresa;
             
-            if (!sSql.trim().isEmpty()){
-               ResultSet rs = conn.Selecionar(sSql);
-               if (rs.next()){
-                 return rs.getString("LINHAS");
-               }
+            if (conn.Inserir(sSql)){
+                return true;
             }
             
             conn.fecharConexao();
             
-            return "";
+            return false;
         }catch(Exception ex){
             throw ex;
         }

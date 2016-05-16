@@ -32,11 +32,6 @@ public class ControlePesquisar {
     private final String condicao;
     private final String join;
     private String codigo;
-    private final Vector linhas = new Vector();
-    private final Vector cabecalho = new Vector();
-    private final JTable tabResultados;
-    private final JTextField txtFiltro;
-    private final JComboBox cboTipoFiltro;
     private final VisaoPesquisar vPesquisar;
     private final ArrayList<String> dados = new ArrayList();
     
@@ -48,12 +43,9 @@ public class ControlePesquisar {
         this.parametros = parametros;
         this.condicao = condicao;
         this.join = join;
-        this.tabResultados = tabResultados;
-        this.txtFiltro = txtFiltro;
-        this.cboTipoFiltro = cboTipoFiltro;
     }
     
-    public void pesquisar() throws Exception{
+    public void pesquisar(JTable tabResultados,JTextField txtFiltro,JComboBox cboTipoFiltro) throws Exception{
         try{
             DefaultTableModel dtm = (DefaultTableModel) tabResultados.getModel();
             dtm.getDataVector().clear();
@@ -76,7 +68,7 @@ public class ControlePesquisar {
         }
     }
  
-    public void selecionar(){
+    public void selecionar(JTable tabResultados){
         try{
             int linha=tabResultados.getSelectedRow();   
             conn.abrirConexao();
@@ -104,6 +96,8 @@ public class ControlePesquisar {
             throws SQLException, ClassNotFoundException, 
             InstantiationException, IllegalAccessException, Exception {
         try {
+            Vector linhas = new Vector();
+            Vector cabecalho = new Vector();
             if(!condicao.equals("")){
                 sQuery=sQuery+" "+condicao;
             }
@@ -118,7 +112,7 @@ public class ControlePesquisar {
                 cabecalho.addElement(conn.getResultSetMetaData().getColumnLabel(i));
             }
             codigo=conn.getResultSetMetaData().getColumnName(1);
-            tabResultados.setModel(new javax.swing.table.DefaultTableModel(linhas, cabecalho));
+            tabResultados.setModel(new javax.swing.table.DefaultTableModel(linhas,cabecalho));
             tabResultados.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             conn.fecharConexao();
         } catch (SQLException ex) {

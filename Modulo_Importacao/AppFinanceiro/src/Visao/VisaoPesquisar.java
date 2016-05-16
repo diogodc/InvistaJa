@@ -16,23 +16,24 @@ import javax.swing.JOptionPane;
  */
 public class VisaoPesquisar extends javax.swing.JDialog {
     
-    public String tabela;//
+    public String tabela;
     public Vector linhas = new Vector();
     public Vector cabecalho = new Vector();  
-    public String parametros;//
+    public String parametros;
     public ArrayList<String> dados = new ArrayList();
     public String codigo;
-    public String condicao;// 
-    public String join;//
+    public String condicao; 
+    public String join;
     private final ControlePesquisar cPesquisar;
     
     public VisaoPesquisar(java.awt.Frame parent, 
             boolean modal, String paramentros,
-            String tabela,String join, String condicao) {
+            String tabela,String join, String condicao/*,ArrayList<String> filtros*/) {
         super(parent, modal);
         cPesquisar = new ControlePesquisar(this,tabela,
                 paramentros,condicao,join,tabResultado,
                 txtFiltro,cboTipoPesquisa);
+        //this.carregaCombo(filtros);
         initComponents();
     }
 
@@ -46,10 +47,10 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        cboCampoPesquisa = new javax.swing.JComboBox();
         cboTipoPesquisa = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
+        cboCampoPesquisa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,18 +96,18 @@ public class VisaoPesquisar extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                            .addComponent(cboCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(cboTipoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(330, 330, 330)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -120,7 +121,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboCampoPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -154,11 +155,12 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseClicked
         try {
-            cPesquisar.selecionar();
+            cPesquisar.selecionar(tabResultado);
         }catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
@@ -166,12 +168,20 @@ public class VisaoPesquisar extends javax.swing.JDialog {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try{
-            cPesquisar.pesquisar();
+            cPesquisar.pesquisar(tabResultado,txtFiltro,cboTipoPesquisa);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void carregaCombo(ArrayList<String> filtros){
+            if (filtros.size()>0){
+                for(int i = 0; i<filtros.size();i++){
+                    cboCampoPesquisa.addItem(filtros.get(i));
+                }
+            }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -197,7 +207,8 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VisaoPesquisar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        //</editor-fold>            public void run() {
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -216,7 +227,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisar;
-    public javax.swing.JComboBox cboCampoPesquisa;
+    public javax.swing.JComboBox<String> cboCampoPesquisa;
     public javax.swing.JComboBox cboTipoPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
