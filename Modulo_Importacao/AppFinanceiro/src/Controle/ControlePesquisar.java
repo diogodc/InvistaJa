@@ -6,6 +6,8 @@
 package Controle;
 
 import static App.AppFinanceiro.conn;
+import Modelo.CreateModel;
+import Modelo.Tree.Tree;
 import Visao.VisaoPesquisar;
 import java.awt.List;
 import java.sql.ResultSet;
@@ -22,11 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author E. Cardoso de Araújo
- */
 public class ControlePesquisar {
+
     private final String tabela;
     private final String parametros;
     private final String condicao;
@@ -34,52 +33,70 @@ public class ControlePesquisar {
     private String codigo;
     private final VisaoPesquisar vPesquisar;
     private final ArrayList<String> dados = new ArrayList();
-    
-    public ControlePesquisar(VisaoPesquisar vPesquisar,String tabela,String parametros,
-            String condicao,String join, JTable tabResultados,
-            JTextField txtFiltro,JComboBox cboTipoFiltro){
+
+    private final String orderBy; /* add Rafael  21/05/16 */
+    private final CreateModel crModel; /* add Rafael  21/05/16 */
+
+
+    public ControlePesquisar(VisaoPesquisar vPesquisar, String tabela, String parametros,
+            String condicao, String join, JTable tabResultados,
+            JTextField txtFiltro, JComboBox cboTipoFiltro) {
+        this.vPesquisar = vPesquisar;
+        this.tabela = tabela;
+        this.parametros = parametros;
+        this.condicao = condicao;
+        this.join = join;     
+        this.orderBy = " order by sys_guid() desc "; /* desordenando a consulta */
+        this.crModel = null;
+    }
+
+    public ControlePesquisar(VisaoPesquisar vPesquisar, String tabela, String parametros,
+            String condicao, String join, JTable tabResultados,
+            JTextField txtFiltro, JComboBox cboTipoFiltro, CreateModel crModel) {
         this.vPesquisar = vPesquisar;
         this.tabela = tabela;
         this.parametros = parametros;
         this.condicao = condicao;
         this.join = join;
+        this.orderBy = " order by sys_guid() desc ";  /* desordenando a consulta */
+        this.crModel = crModel;
     }
-    
-    public void pesquisar(JTable tabResultados,JTextField txtFiltro,JComboBox cboTipoFiltro) throws Exception{
-        try{
+
+    public void pesquisar(JTable tabResultados, JTextField txtFiltro, JComboBox cboTipoFiltro, JComboBox cboCampoPesquisa) throws Exception {
+        try {
             DefaultTableModel dtm = (DefaultTableModel) tabResultados.getModel();
             dtm.getDataVector().clear();
             dtm.setColumnCount(0);
-            
+
             if (txtFiltro.getText().equals("")) {
-                preecheTabela("SELECT "+parametros+" FROM "+tabela+" "+join,
+                preecheTabela("SELECT " + parametros + " FROM " + tabela + " " + join,
                         tabResultados);
-            }else if (cboTipoFiltro.getSelectedItem()=="Iniciado por"){
-                preecheTabela("SELECT "+parametros+" FROM " + tabela
-                        + " " + join+" WHERE " + cboTipoFiltro.getSelectedItem() 
+            } else if (cboTipoFiltro.getSelectedItem() == "Iniciado por") {
+                preecheTabela("SELECT " + parametros + " FROM " + tabela
+                        + " " + join + " WHERE " + cboCampoPesquisa.getSelectedItem()
                         + " LIKE '" + txtFiltro.getText() + "%'", tabResultados);
-            }else if(cboTipoFiltro.getSelectedItem()=="Contendo"){
-                preecheTabela("SELECT "+parametros+" FROM " + tabela 
-                        +" "+join+ " WHERE " + cboTipoFiltro.getSelectedItem() 
+            } else if (cboTipoFiltro.getSelectedItem() == "Contendo") {
+                preecheTabela("SELECT " + parametros + " FROM " + tabela
+                        + " " + join + " WHERE " + cboCampoPesquisa.getSelectedItem()
                         + " LIKE '%" + txtFiltro.getText() + "%'", tabResultados);
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
- 
-    public void selecionar(JTable tabResultados){
-        try{
-            int linha=tabResultados.getSelectedRow();   
+
+    public void selecionar(JTable tabResultados) {
+        try {
+            int linha = tabResultados.getSelectedRow();
             conn.abrirConexao();
-            ResultSet rs = conn.Selecionar("SELECT * FROM "+tabela+" WHERE "+codigo+"="+tabResultados.getValueAt(linha, 0));
-            for (int i=1;i<=conn.getResultSetMetaData().getColumnCount();++i){
+            ResultSet rs = conn.Selecionar("SELECT * FROM " + tabela + " WHERE " + codigo + "=" + tabResultados.getValueAt(linha, 0));
+            for (int i = 1; i <= conn.getResultSetMetaData().getColumnCount(); ++i) {
                 dados.add(rs.getString(i));
             }
             vPesquisar.dispose();
             conn.fecharConexao();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), "Erro Interno:",0);//Alerta de falha;
+            JOptionPane.showMessageDialog(null, ex.toString(), "Erro Interno:", 0);//Alerta de falha;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -89,30 +106,44 @@ public class ControlePesquisar {
         } catch (Exception ex) {
             Logger.getLogger(VisaoPesquisar.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }        
-    
-    
-    private void preecheTabela(String sQuery, JTable tabResultados) 
-            throws SQLException, ClassNotFoundException, 
+    }
+
+    private void preecheTabela(String sQuery, JTable tabResultados)
+            throws SQLException, ClassNotFoundException,
             InstantiationException, IllegalAccessException, Exception {
         try {
             Vector linhas = new Vector();
             Vector cabecalho = new Vector();
-            if(!condicao.equals("")){
-                sQuery=sQuery+" "+condicao;
+            Tree tree = new Tree();
+            
+            if (!condicao.equals("")) {
+                sQuery = sQuery + " " + condicao;
             }
+            
+            sQuery = sQuery + " " + this.orderBy; /* add Rafael 22/05/16*/
+
             conn.abrirConexao();
             ResultSet rs = conn.Selecionar(sQuery);
-        
-            while(rs.next()){
-                linhas.addElement(proximaLinha(conn.getResultSet(),
-                        conn.getResultSetMetaData()));
+
+            while (rs.next()) {
+                if (this.crModel == null) {
+                    linhas.addElement(proximaLinha(conn.getResultSet(),
+                            conn.getResultSetMetaData()));
+                } else {
+                    /*  ADICIONANDO NA ARVORE */
+                    tree.add(this.crModel.Get(proximaLinha(conn.getResultSet(),
+                            conn.getResultSetMetaData())));
+                }
             }
-            for(int i=1;i<=conn.getResultSetMetaData().getColumnCount();i++){
+            
+            tree.inOrder();
+            
+            for (int i = 1; i <= conn.getResultSetMetaData().getColumnCount(); i++) {
                 cabecalho.addElement(conn.getResultSetMetaData().getColumnLabel(i));
             }
-            codigo=conn.getResultSetMetaData().getColumnName(1);
-            tabResultados.setModel(new javax.swing.table.DefaultTableModel(linhas,cabecalho));
+            
+            codigo = conn.getResultSetMetaData().getColumnName(1);
+            tabResultados.setModel(new javax.swing.table.DefaultTableModel(linhas, cabecalho));
             tabResultados.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
             conn.fecharConexao();
         } catch (SQLException ex) {
@@ -127,11 +158,11 @@ public class ControlePesquisar {
             throw ex;
         }
     }
-    
-    public List proximaLinha(ResultSet rs, ResultSetMetaData rsmd) throws SQLException{
+
+    public List proximaLinha(ResultSet rs, ResultSetMetaData rsmd) throws SQLException {
         List linhaAtual = new List();
         try {
-            for (int i=1;i<=rsmd.getColumnCount();++i){
+            for (int i = 1; i <= rsmd.getColumnCount(); ++i) {
                 linhaAtual.add(rs.getString(i));
             }
             return linhaAtual;

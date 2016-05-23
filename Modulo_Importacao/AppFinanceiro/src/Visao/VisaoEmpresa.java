@@ -6,6 +6,8 @@
 package Visao;
 
 import Controle.ControleEmpresa;
+import Modelo.CreateModel;
+import Modelo.ModeloEmpresa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -303,7 +305,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
             //filtros.add("NOME_FANTASIA");
             //filtros.add("ATIVIDADE");
             
-            VisaoPesquisar vPesquisar = new VisaoPesquisar(null,true,sCampos,"BVSP_EMPRESA","",""/*,filtros*/);
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null,true,sCampos,"BVSP_EMPRESA","","", new <ModeloEmpresa> CreateModel(new ModeloEmpresa())/*,filtros*/);
             vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
             vPesquisar.cboCampoPesquisa.addItem("CNPJ");
             vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
