@@ -3,6 +3,7 @@
  */
 var bovespa = core.instance();
 
+bovespa.Version = '1.08';
 bovespa.require.register(
         [
             ['bovespa.view', './app/js/bovespa-view.js']

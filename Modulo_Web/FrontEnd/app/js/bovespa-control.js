@@ -61,7 +61,7 @@ bovespa.object.extend(bovespa.control, {
                     var _mnu = this;
                     bovespa.router.get(_mnu.name).navigate(function () {
                         bovespa.template.get(_mnu.name).load(function () {
-
+                             
                         });
                     });
                 }

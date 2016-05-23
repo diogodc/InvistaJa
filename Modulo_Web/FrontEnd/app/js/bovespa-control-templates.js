@@ -64,28 +64,30 @@ bovespa.template.register([
                     type: 'select',
                     renderTo: '#select-company',
                     id: 'select-company',
-                    class: ['s-uppercase', 's-size'],
+                    class: ['', 's-size'],
                     data: bovespa.memory({
                         proxy: {
                             url: 'app/json/company.json',
                             root: 'data'
                         }
                     }),
+                    searchSensitive: false,
                     displayMember: 'company-name',
-                    valueMember: 'company-id',
-                    classMember: ['s-uppercase', 's-size-14']
+                    classMember: ['', 's-size-15']
                 });
                 bovespa.menu.register([{
                         name: 'bovespa-company-proceed',
                         attach: bovespa.$('.bovespa'),
                         action: function (e) {
-                            bovespa.cookie(bovespa.component.get('select-company').selectedItem());
-                            if (bovespa.cookie.exists('company-name')) {
-                                bovespa.view.pages.Home(bovespa.view, bovespa.control);
+                            var dt = bovespa.component.get('select-company').selectedItem();
+                            if (dt !== null) {
+                                bovespa.cookie(dt);
+                                if (bovespa.cookie.exists('company-name')) {
+                                    bovespa.view.pages.Home(bovespa.view, bovespa.control);
+                                }
                             }
                         }
                     }]);
-
             }
         },
         control: {
@@ -99,189 +101,336 @@ bovespa.template.register([
         view: {
             self: '.s-body-content',
             render: function (model) {
-                Ext.define('Account_model', {
-                    extend: 'Ext.data.Model',
-                    fields: [
-                        {name: 'year', type: 'string'},
-                        {name: 'result', type: 'float'}
-                    ]
+
+                bovespa.$(this.self).mask();
+                var dataModelPCT
+                        , dataModelMPCT
+                        , mPCT;
+
+                dataModelPCT = bovespa.memory({
+                    model: {
+                        fields: [{name: 'year'}, {name: 'result'}]
+                    },
+                    data: model.toArray().get('PCT')[0]
                 });
-                var Account_model;
-                model.each(function () {
+                dataModelMPCT = bovespa.memory({
+                    model: dataModelPCT.model,
+                    data: []
+                });
+                mPCT = dataModelPCT.sum('result') / dataModelPCT.count();
+
+                dataModelMPCT.data = [];
+                dataModelPCT.each(function () {
                     var data = this;
-                    Account_model = Ext.create('Ext.data.Store', {
-                        id: "Account_store",
-                        model: "Account_model",
-                        autoLoad: false,
-                        data: data.get('PCT')
-                    });
+                    dataModelMPCT.data.push({'year': data.get('year'), 'result': mPCT, 'result-year': data.get('result')});
                 });
-                bovespa.component({
-                    type: 'chart',
-                    renderTo: 'graphic-pct',
-                    theme: 'orange',
-                    Ext: {
-                        animate: true,
-                        shadow: false,
-                        height: 280,
-                        width: 370,
-                        store: Account_model,
-                        axes: [
-                            {
-                                type: 'Numeric',
-                                position: 'left',
-                                fields: ['result'],
-                                animate: true,
-                                label: {
-                                    renderer: Ext.util.Format.numberRenderer('0.00,0')
-                                },
-                                grid: true
-                            }, {
-                                type: 'Category',
-                                position: 'bottom',
-                                fields: ['year'],
-                                label: {
-                                    rotate: {
-                                        degrees: -45
-                                    }
-                                }
-                            }],
-                        series: [{
-                                type: 'column',
-                                axis: 'left',
-                                highlight: true,
-                                label: {
-                                    display: 'insideEnd',
-                                    'text-anchor': 'middle',
-                                    field: 'size',
-                                    renderer: Ext.util.Format.numberRenderer('0,0'),
-                                    orientation: 'vertical',
-                                    color: 'orange'
-                                },
-                                xField: 'year',
-                                yField: 'result',
-                                fill: true,
-                                style: {
-                                    stroke: 'rgb(255, 255, 255)',
-                                    'stroke-width': 1,
-                                    fill: 'rgb(255, 255, 255)'
-                                },
-                                tips: {
-                                    trackMouse: true,
-                                    width: 140,
-                                    height: 50,
-                                    layout: 'fit',
-                                    renderer: function (storeItem, item) {
 
-                                        // calculate and display percentage on hover
-                                        var total = 0;
-                                        Account_model.each(function (rec) {
-                                            total += rec.get('result');
-                                        });
+                var dataModelCE
+                        , dataModelMCE
+                        , mCE;
 
-                                        // change panel header
-                                        this.setTitle(storeItem.get('year'));
+                dataModelCE = bovespa.memory({
+                    model: {
+                        fields: [{name: 'year'}, {name: 'result'}]
+                    },
+                    data: model.toArray().get('CE')[0]
+                });
+                dataModelMCE = bovespa.memory({
+                    model: dataModelCE.model,
+                    data: []
+                });
+                mCE = dataModelCE.sum('result') / dataModelCE.count();
+                dataModelMCE.data = [];
+                dataModelCE.each(function () {
+                    var data = this;
+                    dataModelMCE.data.push({'year': data.get('year'), 'result': mCE, 'result-year': data.get('result')});
+                });
 
-                                        // change panel body              
-                                        this.update(
-                                                Math.round(storeItem.get('result') / total * 100) + '%'
-                                                );
-
-                                        this.update('<div  class="s-card-400 s-md-col-12">' +
-                                                '<div  class="s-card-vertical ">' +
-                                                '<div class="s-card-body s-card-content-100 s-md-back-Orange-400" id="graphic-ipl">   ffffff'  +
-                                                '</div>' +
-                                                '</div>' +
-                                                '</div>');
-                                    }
-                                },
-                                renderer: function (sprite, record, attr, index, store) {
-                                    var color = 'rgb(255, 255, 255)';
-                                    return Ext.apply(attr, {
-                                        fill: color
-                                    });
-                                }
-                            }]
+                this['inject-json']({
+                    bovespa: {
+                        'indebtedness': {
+                            pct: Number(mPCT).formatMoney(2, ',', '.') + '%',
+                            ce: Number(mCE).formatMoney(2, ',', '.') + '%',
+                            ipl: Number(mCE).formatMoney(2, ',', '.') + '%'
+                        }
                     }
                 });
+
 
                 bovespa.component({
                     type: 'chart',
                     tType: 'line',
-                    renderTo: 'graphic-ce',
-                    Ext: {
-                        animate: true,
-                        shadow: false,
-                        height: 280,
-                        width: 370,
-                        store: Account_model,
-                        axes: [{
-                                type: 'Numeric',
-                                minimum: 0,
-                                position: 'left',
-                                fields: ['result'],
-                                minorTickSteps: 2,
-                                grid: true,
-                                animate: true
-                            }, {
-                                type: 'Category',
-                                position: 'bottom',
-                                fields: ['year'],
-                                label: {
-                                    rotate: {
-                                        degrees: -45
+                    model: [dataModelPCT, dataModelMPCT],
+                    label: 'year',
+                    values: 'result',
+                    renderTo: 'graphic-pct',
+                    theme: 'Cyan',
+                    configs: [{
+                            fillColor: "rgba(128, 222, 234, 0.6)",
+                            strokeColor: "#ffffff",
+                            pointColor: "#00bcd4",
+                            pointStrokeColor: "#ffffff",
+                            pointHighlightFill: "#ffffff",
+                            pointHighlightStroke: "#ffffff"
+                        }, {
+                            label: "Second dataset",
+                            fillColor: "rgba(128, 222, 234, 0.3)",
+                            strokeColor: "#80deea",
+                            pointColor: "#00bcd4",
+                            pointStrokeColor: "#80deea",
+                            pointHighlightFill: "#80deea",
+                            pointHighlightStroke: "#80deea"
+                        }]
+                });
+                bovespa.component({
+                    type: 'table',
+                    renderTo: 'table-pct',
+                    columns: [
+                        {
+                            'data-name': 'year',
+                            title: {
+                                text: 'Ano'
+                            }
+                        },
+                        {
+                            'data-name': 'result-year',
+                            title: {
+                                text: 'Indice'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        },
+                        {
+                            'data-name': 'result',
+                            title: {
+                                text: 'Indice Médio'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        }
+                    ],
+                    model: dataModelMPCT
+                });
+
+                bovespa.component({
+                    type: 'chart',
+                    tType: 'bar',
+                    model: [dataModelCE, dataModelMCE],
+                    label: 'year',
+                    values: 'result',
+                    renderTo: '#graphic-ce',
+                    configs: {
+                        options: {
+                            seriesBarDistance: 10
+                        },
+                        responsiveOptions: [
+                            ['screen and (max-width: 640px)', {
+                                    seriesBarDistance: 12,
+                                    axisX: {
+                                        labelInterpolationFnc: function (value) {
+                                            return value[0];
+                                        }
                                     }
-                                }
-                            }],
-                        series: [{
-                                type: 'line',
-                                axis: 'left',
-                                highlight: true,
-                                label: {
-                                    display: 'insideEnd',
-                                    'text-anchor': 'middle',
-                                    field: 'size',
-                                    renderer: Ext.util.Format.numberRenderer('0,0'),
-                                    orientation: 'vertical',
-                                    color: 'orange'
-                                },
-                                xField: 'year',
-                                yField: 'result',
-                                fill: true,
-                                markerConfig: {
-                                    radius: 5,
-                                    size: 5,
-                                    type: 'square',
-                                    fx: {
-                                        duration: 200,
-                                        easing: 'backOut'
-                                    }
-                                },
-                                style: {
-                                    stroke: 'rgb(255, 255, 255)',
-                                    'stroke-width': 1,
-                                    fill: 'rgb(255, 255, 255)'
-                                },
-                                renderer: function (sprite, record, attr, index, store) {
-                                    var color = 'rgb(255, 255, 255)';
-                                    return Ext.apply(attr, {
-                                        fill: color
-                                    });
-                                }
-                            }]
+                                }]
+                        ]
+
+                    }
+
+                });
+                bovespa.component({
+                    type: 'table',
+                    renderTo: 'table-ce',
+                    columns: [
+                        {
+                            'data-name': 'year',
+                            title: {
+                                text: 'Ano'
+                            }
+                        },
+                        {
+                            'data-name': 'result-year',
+                            title: {
+                                text: 'Indice'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        },
+                        {
+                            'data-name': 'result',
+                            title: {
+                                text: 'Indice Médio'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        }
+                    ],
+                    model: dataModelMCE
+                });
+                bovespa.component({
+                    type: 'table',
+                    renderTo: 'table-ipl',
+                    columns: [
+                        {
+                            'data-name': 'year',
+                            title: {
+                                text: 'Ano'
+                            }
+                        },
+                        {
+                            'data-name': 'result-year',
+                            title: {
+                                text: 'Indice'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        },
+                        {
+                            'data-name': 'result',
+                            title: {
+                                text: 'Indice Médio'
+                            },
+                            render: function (val) {
+                                return Number(val).formatMoney(3, ',', '.') + '%';
+                            }
+                        }
+                    ],
+                    model: dataModelMCE
+                });
+
+                bovespa.menu.register([{
+                        name: 'bovespa-indebtedness-pct',
+                        attach: bovespa.$('.bovespa'),
+                        hidden: false,
+                        action: function (e) {
+                            var css = 'position:fixed;visibility: hidden;top:-1px;';
+                            if (this.hidden) {
+                                this.hidden = false;
+                                bovespa.$('#card-graphic-pct').attr('style', css);
+                                bovespa.$('#card-table-pct').attr('style', '');
+                            } else {
+                                this.hidden = true;
+                                bovespa.$('#card-table-pct').attr('style', css);
+                                bovespa.$('#card-graphic-pct').attr('style', '');
+                            }
+                        }
+                    }]);
+                bovespa.menu.register([{
+                        name: 'bovespa-indebtedness-ce',
+                        attach: bovespa.$('.bovespa'),
+                        hidden: false,
+                        action: function (e) {
+                            var css = 'position:fixed;visibility: hidden;top:-1px;';
+                            if (this.hidden) {
+                                this.hidden = false;
+                                bovespa.$('#card-graphic-ce').attr('style', css);
+                                bovespa.$('#card-table-ce').attr('style', '');
+                            } else {
+                                this.hidden = true;
+                                bovespa.$('#card-table-ce').attr('style', css);
+                                bovespa.$('#card-graphic-ce').attr('style', '');
+                            }
+                        }
+                    }]);
+                bovespa.menu.register([{
+                        name: 'bovespa-indebtedness-ipl',
+                        attach: bovespa.$('.bovespa'),
+                        hidden: false,
+                        action: function (e) {
+                            var css = 'position:fixed;visibility: hidden;top:-1px;';
+                            if (this.hidden) {
+                                this.hidden = false;
+                                bovespa.$('#card-graphic-ipl').attr('style', css);
+                                bovespa.$('#card-table-ipl').attr('style', '');
+                            } else {
+                                this.hidden = true;
+                                bovespa.$('#card-table-ipl').attr('style', css);
+                                bovespa.$('#card-graphic-ipl').attr('style', '');
+                            }
+                        }
+                    }]);
+
+
+                bovespa.menu.get('bovespa-indebtedness-pct').action();
+                bovespa.menu.get('bovespa-indebtedness-ce').action();
+                bovespa.menu.get('bovespa-indebtedness-ipl').action();
+
+                var day_data = [
+                    {"period": "2012-10-01", "licensed": 3407, "sorned": 660},
+                    {"period": "2012-09-30", "licensed": 3351, "sorned": 629},
+                    {"period": "2012-09-29", "licensed": 3269, "sorned": 618},
+                    {"period": "2012-09-20", "licensed": 3246, "sorned": 661},
+                    {"period": "2012-09-19", "licensed": 3257, "sorned": 667},
+                    {"period": "2012-09-18", "licensed": 3248, "sorned": 627},
+                    {"period": "2012-09-17", "licensed": 3171, "sorned": 660},
+                    {"period": "2012-09-16", "licensed": 3171, "sorned": 676},
+                    {"period": "2012-09-15", "licensed": 3201, "sorned": 656},
+                    {"period": "2012-09-10", "licensed": 3215, "sorned": 622}
+                ];
+                Morris.Bar({
+                    element: 'graphic-ipl',
+                    data: day_data,
+                    xkey: 'period',
+                    ykeys: ['licensed', 'sorned'],
+                    labels: ['Licensed', 'SORN'],
+                    resize: true,
+                    barColors: function (row, series, type) {
+                        if (type === 'bar') {
+                            var red = Math.ceil(255 * row.y / this.ymax);
+                            return 'white';
+                        }
+                        else {
+                            return 'white';
+                        }
                     }
                 });
 
 
 
+                bovespa.$(this.self).unmask();
             }
         },
         control: {
-            url: 'app/views/indebtedness.html'
+            url: 'app/views/indebtedness.html',
+            'render-after': function (view, control, model, callback) {
+
+            }
         },
         model: bovespa.memory({
+            model: {
+                fields: [{name: 'PCT'}, {name: 'CE'}]
+            },
             proxy: {
-                url: 'app/json/bovespa.json?vr00',
+                url: 'app/json/bovespa.json',
+                root: 'data.0'
+            }
+        })
+    }
+]).register([
+    {
+        'name': 'bovespa-liquidity',
+        view: {
+            self: '.s-body-content',
+            render: function (model) {
+
+            }
+        },
+        control: {
+            url: 'app/views/liquidity.html',
+            'render-after': function (view, control, model, callback) {
+
+            }
+        },
+        model: bovespa.memory({
+            model: {
+                fields: [{name: 'PCT'}, {name: 'CE'}]
+            },
+            proxy: {
+                url: 'app/json/bovespa.json',
                 root: 'data.0'
             }
         })

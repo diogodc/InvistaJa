@@ -14,5 +14,10 @@ _router.register([
         name: 'bovespa-indebtedness',
         route: 'bovespa:ENDIVIDAMENTO'
     }
+]).register([
+    {
+        name: 'bovespa-liquidity',
+        route: 'bovespa:LIQUIDEZ'
+    }
 ]);
 

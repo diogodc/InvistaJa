@@ -1,143 +1,205 @@
 <!DOCTYPE html>
-<div class="s-md-row s-md-back-Red-A100 table-Sek s-columns-3 s-center">
-    <table>
-        <thead>
-            <tr>
-
-                <th>
-                    <span>
-                        <a href="#graphic-pct" class="s-md-font-White">
-                            <div>R$ 45,89</div>
-                            participação de capital de terceiros (PCT)
-                        </a>
-                    </span>
-                </th>
-
-
-                <th>
-                    <span>
-                        <a href="#graphic-ce" class="s-md-font-White">
-                            <div>R$100</div>
-                            composição do endividamento (CE)
-                        </a>
-                    </span>
-                </th>
-                <th>
-                    <span>
-                        <div>R$100,890</div>
-                        Imobilização do Patrimônio Líquido (IPL)
-                    </span>
-                </th>
-            </tr>
-        </thead>
-    </table>
-</div>
-<div class="s-md-row">
-    <br>
-</div>
+<div class="s-md-row shadow s-md-back-White s-columns-3 s-card-seek" style="min-height:8.7em;">
+    <div class="s-card  shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.pct'></json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>participação de capital de terceiros</span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+    <div class="s-card  shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.ce'></json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>Composição do Endividamento</span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+    <div class="s-card shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.ipl'>0%</json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>Imobilização do Patrimônio Líquido </span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+</div>  
 <div class="s-md-row margin-left-1">
-    <div  class="s-card-relative s-md-col-12  shadow-none" style="min-height: calc(100% - 0.9em);">
-        <div  class="s-card-vertical  s-md-back-transparent">
-            <div class="s-card-head s-card-content-35">
-                <div class="s-center s-uppercase s-size-12 s-md-font-Black title">
-                    <h1 style="display:block;">PCT</h1>
-                    <span>Participação de Capitais de Terceiros</span>
-                </div>
-            </div>
-            <div class="s-card-body s-card-content-65 s-md-back-transparent">
-                <div  class="s-card-relative s-md-col-12 shadow-none">
-                    <div  class="s-card-horizontal  s-md-back-transparent">
-                        <div class="s-card-body s-card-content-55">
-                            <div  class="s-card-400 s-md-col-12">
-                                <div  class="s-card-vertical ">
-                                    <div class="s-card-body s-card-content-100 s-md-back-Orange-400" id="graphic-pct">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="s-card-head s-card-content-45">
-                            <div class="s-center s-uppercase s-size-12 s-md-font-Black title"> 
-                                <p>  Pellentesque interdum scelerisque porttitor. 
-                                    Nulla at imperdiet nunc. Aenean pharetra lorem dui, in sagittis enim pulvinar ultricies. Cras at tortor maximus, mollis nulla at, molestie quam. Aenean sollicitudin orci id tellus posuere tempor. Nunc luctus libero in lorem finibus, non convallis enim tincidunt. Fusce sed metus id purus consectetur consequat eget vel sapien. Aenean vulputate posuere dolor, vitae eleifend diam ultrices id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, tellus ut maximus mattis, turpis elit venenatis turpis, ut posuere lacus sapien ac nisl. Duis porta vestibulum ornare. Nulla lacinia condimentum commodo.</p>
-                            </div>
-                        </div>
-                    </div>
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Cyan-700">        
+        <div class="s-card-body s-md-back-Cyan-600"> 
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
+                    <span>Participação de Capital de Terceiros</span>
                 </div>
             </div>
-        </div>
+            <div class="s-card-content"  id="card-graphic-pct">                        
+                <div class="">
+                    <canvas id="graphic-pct" style="height: 244px;"></canvas>
+                </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-pct">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-pct">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-pct">                           
+                <span></span>
+            </div>
+        </div>       
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Integer sed mollis sapien. Aenean at erat ligula.                     
+                </p>
+                <p>                    
+                    Aenean placerat blandit sollicitudin. 
+                    Sed ornare pretium maximus. 
+                    Curabitur sed scelerisque dolor, a ultricies nisi. Ut sit amet magna eget sapien luctus hendrerit vulputate at risus. 
+                    Sed augue dolor, tempor ut fermentum et, consequat in tortor. 
+                    Aliquam sed ullamcorper nunc. Donec sapien nisi, ullamcorper non auctor id, viverra sit amet neque. Sed viverra quam ligula, 
+                    sed sodales erat tincidunt sit amet.
+                </p>
+            </li>            
+        </ol>
     </div>
 </div>
-<div class="s-md-row">
-    <br>
-</div>
 <div class="s-md-row margin-left-1">
-    <div  class="s-card-relative s-md-col-12  shadow-none" style="min-height: calc(100% - 0.9em);">
-        <div  class="s-card-vertical  s-md-back-transparent">
-            <div class="s-card-head s-card-content-35">
-                <div class="s-center s-uppercase s-size-12 s-md-font-Black title">
-                    <h1 style="display:block;">CE</h1>
+
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Green-700">
+        <div class="s-card-body s-md-back-Green-600"> 
+            <div class="s-card-content" >                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
                     <span>Composição do Endividamento</span>
                 </div>
             </div>
-            <div class="s-card-body s-card-content-65 s-md-back-transparent">
-                <div  class="s-card-relative s-md-col-12 shadow-none">
-                    <div  class="s-card-horizontal  s-md-back-transparent">
-                        <div class="s-card-body s-card-content-55">
-                            <div  class="s-card-400 s-md-col-12">
-                                <div  class="s-card-vertical ">
-                                    <div class="s-card-body s-card-content-100 s-md-back-Orange-400" id="graphic-ce">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="s-card-head s-card-content-45">
-                            <div class="s-center s-uppercase s-size-12 s-md-font-Black title"> 
-                                <p>  Pellentesque interdum scelerisque porttitor. 
-                                    Nulla at imperdiet nunc. Aenean pharetra lorem dui, in sagittis enim pulvinar ultricies. Cras at tortor maximus, mollis nulla at, molestie quam. Aenean sollicitudin orci id tellus posuere tempor. Nunc luctus libero in lorem finibus, non convallis enim tincidunt. Fusce sed metus id purus consectetur consequat eget vel sapien. Aenean vulputate posuere dolor, vitae eleifend diam ultrices id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, tellus ut maximus mattis, turpis elit venenatis turpis, ut posuere lacus sapien ac nisl. Duis porta vestibulum ornare. Nulla lacinia condimentum commodo.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="s-card-content"  id="card-graphic-ce">                        
+                <div  id="graphic-ce" class='s-md-chart-theme-green'>
+                   
                 </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-ce">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-ce">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-ce">                           
+                <span></span>
             </div>
-        </div>
+        </div>     
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Integer sed mollis sapien. Aenean at erat ligula.                     
+                </p>
+                <p>                    
+                    Aenean placerat blandit sollicitudin. 
+                    Sed ornare pretium maximus. 
+                    Curabitur sed scelerisque dolor, a ultricies nisi. Ut sit amet magna eget sapien luctus hendrerit vulputate at risus. 
+                    Sed augue dolor, tempor ut fermentum et, consequat in tortor. 
+                    Aliquam sed ullamcorper nunc. Donec sapien nisi, ullamcorper non auctor id, viverra sit amet neque. Sed viverra quam ligula, 
+                    sed sodales erat tincidunt sit amet.
+                </p>
+            </li>            
+        </ol>
     </div>
 </div>
-<div class="s-md-row">
-    <br>
-</div>
 <div class="s-md-row margin-left-1">
-    <div  class="s-card-relative s-md-col-12  shadow-none" style="min-height: calc(100% - 0.9em);">
-        <div  class="s-card-vertical  s-md-back-transparent">
-            <div class="s-card-head s-card-content-35">
-                <div class="s-center s-uppercase s-size-12 s-md-font-Black title">
-                    <h1 style="display:block;">CE</h1>
-                    <span>Composição do Endividamento</span>
-                </div>
-            </div>
-            <div class="s-card-body s-card-content-65 s-md-back-transparent">
-                <div  class="s-card-relative s-md-col-12 shadow-none">
-                    <div  class="s-card-horizontal  s-md-back-transparent">
-                        <div class="s-card-body s-card-content-55">
-                            <div  class="s-card-400 s-md-col-12">
-                                <div  class="s-card-vertical ">
-                                    <div class="s-card-body s-card-content-100 s-md-back-Orange-400" id="graphic-ipl">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="s-card-head s-card-content-45">
-                            <div class="s-center s-uppercase s-size-12 s-md-font-Black title"> 
-                                <p>  Pellentesque interdum scelerisque porttitor. 
-                                    Nulla at imperdiet nunc. Aenean pharetra lorem dui, in sagittis enim pulvinar ultricies. Cras at tortor maximus, mollis nulla at, molestie quam. Aenean sollicitudin orci id tellus posuere tempor. Nunc luctus libero in lorem finibus, non convallis enim tincidunt. Fusce sed metus id purus consectetur consequat eget vel sapien. Aenean vulputate posuere dolor, vitae eleifend diam ultrices id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium, tellus ut maximus mattis, turpis elit venenatis turpis, ut posuere lacus sapien ac nisl. Duis porta vestibulum ornare. Nulla lacinia condimentum commodo.</p>
-                            </div>
-                        </div>
-                    </div>
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Orange-700">
+        <div class="s-card-body s-md-back-Orange-600"> 
+            <div class="s-card-content" >                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
+                    <span>Imobilização do Patrimônio Líquido</span>
                 </div>
             </div>
-        </div>
+            <div class="s-card-content"  id="card-graphic-ipl">                        
+                <div  id="graphic-ipl" class='s-md-chart-theme-orange' style=" min-height: 234px;">
+                   
+                </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-ipl">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-ipl">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-ipl">                           
+                <span></span>
+            </div>
+        </div>     
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Integer sed mollis sapien. Aenean at erat ligula.                     
+                </p>
+                <p>                    
+                    Aenean placerat blandit sollicitudin. 
+                    Sed ornare pretium maximus. 
+                    Curabitur sed scelerisque dolor, a ultricies nisi. Ut sit amet magna eget sapien luctus hendrerit vulputate at risus. 
+                    Sed augue dolor, tempor ut fermentum et, consequat in tortor. 
+                    Aliquam sed ullamcorper nunc. Donec sapien nisi, ullamcorper non auctor id, viverra sit amet neque. Sed viverra quam ligula, 
+                    sed sodales erat tincidunt sit amet.
+                </p>
+            </li>            
+        </ol>
     </div>
 </div>
 

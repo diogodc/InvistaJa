@@ -6,216 +6,81 @@
     -moz-border-radius: @radius;
     border-radius: @radius;
 }
-.s-card(@height: 5em){
-    .box-shadow();
-    margin-top: 0.19em !important;
-    height: @height;
+.s-card(@height: 10em){
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 
-    .border-radius;   
-    .s-card-vertical {
-        height: 100%!important;   
-        width:  100%!important;
-
-        > .s-card-head,
-        > .s-card-body{
-            width: 100%!important;       
-        }
-
-        >   .s-card-content{
-            height:  calc(10%-0.9rem)!important;
-        }
-        >   .s-card-content-15{
-            height: calc(15%-0.9rem)!important;
-        } 
-        >   .s-card-content-20{
-            height: calc(20%-0.9rem)!important;
-        }
-        >   .s-card-content-25{
-            height: calc(25%-0.9rem)!important;
-        }
-        >   .s-card-content-30{
-            height: calc(30%-0.9rem)!important;
-        }
-        >   .s-card-content-35{
-            height: calc(35%-0.9rem)!important;
-        }
-        >    .s-card-content-40{
-            height: calc(40%-0.9rem)!important;
-        }
-        >   .s-card-content-45{
-            height: calc(45%-0.9rem)!important;
-        }
-        >     .s-card-content-50{
-            height: calc(50%-0.9rem)!important;
-        }
-        >    .s-card-content-55{
-            height: calc(55%-0.9rem)!important;
-        }
-        >     .s-card-content-60{
-            height: calc(60%-0.9rem)!important;
-        }
-        >   .s-card-content-65{
-            height: calc(65%-0.9rem)!important;
-        }
-        >  .s-card-content-70{
-            height: calc(70%-0.9rem)!important;
-        }
-        >   .s-card-content-75{
-            height: calc(75%-0.9rem)!important;
-        }
-        >    .s-card-content-80{
-            height: calc(80%-0.9rem)!important;
-        }
-        >    .s-card-content-85{
-            height: calc(85%-0.9rem)!important;
-        }
-        >     .s-card-content-90{
-            height: calc(90%-0.9rem)!important;
-        }
-        >      .s-card-content-95{
-            height: calc(95%-0.9rem)!important;
-        }
-        >    .s-card-content-100{
-            height: 100%!important;
-        }
-
+    div {
+        display: block;
     }
 
-    .s-card-horizontal{
-        height: 100%!important;   
-        width:  100%!important;
-
-        > .s-card-head,
-        > .s-card-body{
-            height: 100%!important;      
+    .s-card-position-horizontal{
+        display: inline-block;
+    }
+    .s-card-body,
+    .s-card-head {
+        .s-card-content{
+            padding: 20px;
         }
-
-        >   .s-card-content{
-            width:  calc(10%-0.9rem);
-        }
-        >   .s-card-content-15{
-            width: calc(15%-0.9rem);
-        } 
-        >   .s-card-content-20{
-            width: calc(20%-0.9rem);
-        }
-        >    .s-card-content-25{
-            width: calc(25%-0.9rem);
-        }
-        >    .s-card-content-30{
-            width: calc(30%-0.9rem);
-        }
-        >    .s-card-content-35{
-            width: calc(35%-0.9rem);
-        }
-        >     .s-card-content-40{
-            width: calc(40%-0.9rem);
-        }
-        >    .s-card-content-45{
-            width: calc(45%-0.9rem);
-        }
-        >    .s-card-content-50{
-            width: calc(50%-0.9rem);
-        }
-        >  .s-card-content-55{
-            width: calc(55%-0.9rem);
-        }
-        >    .s-card-content-60{
-            width: calc(60%-0.9rem);
-        }
-        >    .s-card-content-65{
-            width: calc(65%-0.9rem);
-        }
-        >    .s-card-content-70{
-            width: calc(70%-0.9rem);
-        }
-        >    .s-card-content-75{
-            width: calc(75%-0.9rem);
-        }
-        >     .s-card-content-80{
-            width: calc(80%-0.9rem);
-        }
-        >    .s-card-content-85{
-            width: calc(85%-0.9rem);
-        }
-        >    .s-card-content-90{
-            width: calc(90%-0.9rem);
-        }
-        >     .s-card-content-95{
-            width: calc(95%-0.9rem);
-        }
-        >     .s-card-content-100{
-            width: 100%;
-        }
-
+    }
+    .s-card-action {
+        position: relative;
+        background-color: inherit;
+        border-top: 1px solid rgba(160,160,160,0.2);
+        padding: 20px;        
     }
 }
 
 .s-card {
-    .s-card(5em);     
+    .s-card();
 }
-.s-card-100 {
-    .s-card(6.25em);   
-}
-.s-card-150 {
-    .s-card(9.375em);   
-}
-.s-card-200 {
-    .s-card(12.5em);  
-}
-.s-card-300 {
-    .s-card(18.75em);  
-}
-.s-card-400 {
-    .s-card(25em);
-}  
-.s-card-500 {
-    .s-card(31.25em);
-} 
-.s-card-600 {
-    .s-card(37.5em);
-}
-.s-card-700 {
-    .s-card(43.75em);
-}
-.s-card-800 {
-    .s-card(50em);
-}
-.s-card-900 {
-    .s-card(56.25em);
-} 
-.s-card-flex-100 {
-    .s-card(100%/100% * 10);
-}  
-.s-card-flex-200 {
-    .s-card(100%/80% * 10);
-}  
-.s-card-flex-300 {
-    .s-card(100%/75% * 10);
-} 
-.s-card-flex-400 {
-    .s-card(100%/55% * 10);
-}  
-.s-card-flex-500 {
-    .s-card(100%/45% * 10);
-}  
-.s-card-flex-600 {
-    .s-card(100%/35% * 10);
-} 
-.s-card-flex-700 {
-    .s-card(100%/25% * 10);
-}  
-.s-card-flex-800 {
-    .s-card(100%/15% * 10);
-}  
-.s-card-flex-900 {
-    .s-card(100%/10% * 10);
-}  
 
-.s-card-relative {
-    .s-card(100%);
-    min-height: 2.25em;
+.s-card-seek{
+   width:100%;
+    > div{
+        border-right: 1px solid rgba(160,160,160,0.2);
+        height: 100%;
+        padding: 0px;
+        margin: 0;
+    }
+    > div:last-child{
+        border-right: 0px;
+    }
+/*    div {
+        color: #878ea2;
+        font-weight: 600;
+    }
+    span{
+        font-weight: 800;
+        color: #a0a7b8;
+    }*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 ####################### CARDS #######################

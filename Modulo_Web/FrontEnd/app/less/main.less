@@ -7,11 +7,22 @@ html, body {
     font-size: 0.9125em !important;
     line-height: 1.42857143;
     color: #5e5e5e;  
-    background-color: #f5f5f5;
+    background-color: #fcfcfc;
+    /*background-color: #f5f5f5;*/
+    /*background-color: #f9f9f9;*/
     margin: 0px;   
 }
 a { 
     text-decoration: none;
+}
+
+p {
+/*    font-family: inherit;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.6;*/
+    margin-bottom: 1.25rem;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -58,12 +69,12 @@ body {
 }
 
 body {
-     .s-body-content {
+    .s-body-content {
         z-index: 0;  
         position: relative;
         margin-left: @min-width + 0.1em;
-/*        min-width: calc(99.9% - @min-width);
-        min-height: 76.250em;*/
+        min-width: calc(99.9% - @min-width);
+        /*  min-height: 76.250em;*/
     }
 }
 body{
@@ -200,7 +211,6 @@ label{
     width:100%;
 }
 
-
 .ripple{
     overflow:hidden;
     position: relative;
@@ -214,6 +224,8 @@ label{
     animation: ripple-animation 3s;
 }
 
+
+/*
 @-webkit-keyframes ripple-animation {
     from {
         -webkit-transform: scale(1);
@@ -239,4 +251,5 @@ label{
         transform: scale(100);
         opacity: 0;
     }
-}
+}*/
+

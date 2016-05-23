@@ -13,6 +13,10 @@
         String.prototype.contains = function (text) {
             return this.toString().indexOf(text) > -1;
         };
+        Number.prototype.formatMoney = function (c, d, t) {
+            var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+        };
 
         sys_core = {};
         sys_core = {
@@ -84,10 +88,35 @@
                 });
             },
             eachProto: function (ary, callback) {
+
                 for (var key in ary) {
                     if (ary.hasOwnProperty(key)) {
                         if (ary[key] && callback(ary[key], key, ary)) {
                             break;
+                        }
+                    }
+                }
+            },
+            eachProtoRecursive: function (ary, callback, parentKey) {
+                for (var key in ary) {
+                    var _parentKey = parentKey;
+                    if (ary.hasOwnProperty(key)) {
+                        if (sys_core.isDefined(_parentKey))
+                            _parentKey = parentKey + '.' + key;
+                        else
+                            _parentKey = key;
+
+                        if (ary[key]) {
+                            if (sys_core.type.isObject(ary[key])) {
+                                if (sys_core.eachProtoRecursive(ary[key], callback, _parentKey)) {
+                                    break;
+                                }
+                            } else {
+                                if (callback(ary[key], key, _parentKey, ary)) {
+                                    break;
+                                }
+                            }
+
                         }
                     }
                 }
@@ -224,8 +253,12 @@
                         while (node = nodeList[iterator++]) {
                             var _node = node.getAttribute(query);
                             if (sys_core.isDefined(_node)) {
-                                if (_node.contains(queryValue))
+                                if (_node.contains(queryValue)) {
                                     nodeArray.push(node);
+
+                                    if (query === "id")
+                                        return nodeArray;
+                                }
                             }
                         }
 
@@ -517,6 +550,47 @@
                                     x: xPos,
                                     y: yPos
                                 };
+                            },
+                            mask: function () {
+                                var _mask = {
+                                    _self: null,
+                                    _render: null,
+                                    _resize_mask: function () {
+                                        this._render.css("min-height", this._self.height() + 'px')
+                                                .css("min-width", this._self.width() + 'px')
+                                                .css('position', 'fixed')
+                                                .css("z-index", '1')
+                                                .css("background", 'black')
+                                                .css('top', this._self.position().y + 'px')
+                                                .css('left', this._self.position().x + 'px')
+                                                .css('opacity', "0.4");
+                                    }
+                                };
+
+                                this.unmask();
+                                _mask._self = this;
+                                _mask._render = _mask._self.create_element('div');
+                                _mask._render.class().add('mask');
+                                _mask._render.mark_component(['mask', sys_core.newID('mask')]);
+                                _mask._render.attr('id', sys_core.newID('mask'));
+                                sys_core.onResize(function () {
+                                    _mask._resize_mask.call(_mask);
+                                });
+
+                                this['_mask_'] = _mask;
+                            },
+                            unmask: function () {
+                                if (this['_mask_']) {
+                                    if (this['_mask_']._render)
+                                        this['_mask_']._render.remove();
+                                } else {                                     
+                                    this.each(function (e) {
+                                        var _masks = sys_core.$(e).query_selector_Attribute_value('component-name', sys_core.name + '-' + 'mask');
+                                        for (var x in _masks) {
+                                            _masks[x].remove();
+                                        }
+                                    });
+                                }
                             }
                         });
                         return instance;
@@ -527,9 +601,19 @@
                 sys_core.object.extend(_element, {
                     event: function event(_name, _function, _remove) {
                         this.each(function (e) {
-                            if (_remove)
-                                e.removeEventListener(_name, _function, false);
-                            e.addEventListener(_name, _function, false);
+                            if (_name === 'observer') {
+                                var observer = new MutationObserver(_function);
+                                observer.observe(e, {
+                                    attributes: true,
+                                    childList: true,
+                                    characterData: true,
+                                    subtree: true
+                                });
+                            } else {
+                                if (_remove)
+                                    e.removeEventListener(_name, _function, false);
+                                e.addEventListener(_name, _function, false);
+                            }
                         });
                     }
                 });
@@ -1027,18 +1111,21 @@
                         self: '',
                         pattern: /\@\{(\w*)\}/g,
                         'view-text': '',
-                        'inject-json': function (json) {
-                            var html = this['view-text'].replace(this.pattern, function (key) {
-                                if (json[key.slice(2, -1)])
-                                    return json[key.slice(2, -1)];
-                                else
-                                    return '';
+                        'inject-json': function (dataBind) {
+                            var view = main.$(this.self);
+                            sys_core.eachProtoRecursive(dataBind, function (v, n, s) {
+                                view.each(function (e) {
+                                    var expressions = main.$(e).query_selector_Attribute_value('bind-value', s);
+                                    sys_core.each(expressions, function (bind) {
+                                        bind.content(v);
+                                    });
+                                });
                             });
-                            this['view-text'] = html;
                         },
                         'render-html': function (text) {
                             this['view-text'] = text;
                             main.$(this.self).mark_component(['view-template', '000']);
+                            main.$(this.self).attr('template-name', _template.name);
 
                             if (sys_core.isDefined(this.html)) {
                                 main.$(this.self).content('');
@@ -1058,13 +1145,20 @@
                         init: function (view, model, callback) {
                             this.render(view, this, model, callback);
                         },
+                        'render-before': function (view, control, model, callback) {
+
+                        },
+                        'render-after': function (view, control, model, callback) {
+
+                        },
                         'render': function (view, control, model, callback) {
+                            control['render-before'](view, control, model, callback);
                             main.request({
-                                url: this.url + '?getTemplate',
+                                url: this.url + '?get-template*' + sys_core.newID('template'),
                                 success: function () {
                                     var view_text = this.responseText;
                                     model.load(function () {
-                                        control['render-view'](view_text, view, this, callback);
+                                        control['render-view'].call(control, view_text, view, this, callback);
                                     });
                                 },
                                 failure: function () {
@@ -1075,6 +1169,7 @@
                         },
                         'render-view': function (view_text, view, model, callback) {
                             view.init.call(view, view_text, model, callback);
+                            this['render-after'](view, this, model, callback);
                             (callback ? callback.call(this, view, model) : false);
                         }
                     }
@@ -1121,66 +1216,77 @@
             }
         });
         sys_core.object.extend(sys_core.component, {
-            chart: function (_object) {
-                var c_render_to = null,
-                        c_theme = null;
-
-                c_theme = sys_core.config.chart.theme[_object.theme];
-                c_render_to = Ext.Element.get(_object.renderTo);
-                _object.Ext.renderTo = c_render_to;
-
-                if (!sys_core.isDefined(_object.tType)) {
-                    _object.tType = "bar";
+            components: {
+                select: {
                 }
-                if (c_theme) {
-                    _object.Ext['theme'] = c_theme.name;
-                    if (_object.Ext ['axes'][0]['grid'] === true) {
-                        _object.Ext ['axes'][0]['grid'] = {
-                            odd: c_theme.odd
+            },
+            chart: function (config) {
+                var render_to = null,
+                        chart_theme = null,
+                        settings = config.configs;
+
+
+                if (config.tType === "line") {
+                    chart_theme = sys_core.config.chart.theme[config.theme][config.tType];
+                    render_to = sys_core.$(config.renderTo);
+                    render_to.each(function (e) {
+                        var chart = e.getContext("2d"),
+                                data_values = null,
+                                data_labels = config.model[0].toArray().get(config.label),
+                                data = null;
+
+                        data = {
+                            labels: data_labels,
+                            datasets: [],
+                            series: []
                         };
-                    }
 
-                    sys_core.object.extend(_object.Ext ['series'][0]['label'], {
-                        color: c_theme.color
+                        if (sys_core.type.isArray(config.model)) {
+                            sys_core.each(config.model, function (model, x) {
+                                var data_values = model.toArray().get(config.values);
+                                settings[x]['data'] = data_values;
+                                data.datasets.push(settings[x]);
+                                data.series.push(settings[x]);
+                            });
+                        } else {
+                            var data_values = config.model.toArray().get(config.values);
+                            settings[0]['data'] = data_values;
+                            data.datasets.push(settings[0]);
+                            data.series.push(settings[0]);
+                        }
+
+
+                        if (config.tType === "line") {
+                            new Chart(chart).Line(data, chart_theme);
+                        }
                     });
-
-                    sys_core.object.extend(_object.Ext ['series'][0]['style'], c_theme.style);
-
-                    sys_core.object.extend(_object.Ext, {
-                        id: sys_core.newID('chart' + '-' + _object.theme)
-                    });
-
                 } else {
-                    sys_core.object.extend(_object.Ext, {
-                        id: sys_core.newID('chart')
-                    });
-                }
+                    var data = {
+                        series: [],
+                        labels: config.model[0].toArray().get(config.label),
+                    };
+                    if (sys_core.type.isArray(config.model)) {
+                        sys_core.each(config.model, function (model, x) {
+                            var data_values = model.toArray().get(config.values);
 
-                if (!sys_core.isDefined(_object.Ext.listeners)) {
-                    _object.Ext.listeners = {};
-                }
-
-                sys_core.object.extend(_object.Ext.listeners, {
-                    beforerender: function () {
-                        Ext.getCmp(_object.Ext.id).setHeight(c_render_to.getHeight());
-                        Ext.getCmp(_object.Ext.id).setWidth(c_render_to.getWidth());
-
-                        Ext.EventManager.onWindowResize(function () {
-                            Ext.getCmp(_object.Ext.id).setHeight(c_render_to.getHeight());
-                            Ext.getCmp(_object.Ext.id).setWidth(c_render_to.getWidth());
+                            data.series.push(data_values);
                         });
                     }
-                });
+                    if (config.tType === "bar") {
+                        new Chartist.Bar(config.renderTo, data, settings.options, settings.responsiveOptions);
+                    }
+                }
 
 
-                Ext.create('Ext.chart.Chart', _object.Ext);
+
+                return render_to;
             },
             table: function (_object) {
-                var eRenderTo = null,
+                var _self = null,
                         $ = null;
 
                 $ = sys_core.$;
-                eRenderTo = $(_object.renderTo);
+                _self = $(_object.renderTo);
                 if (!sys_core.isDefined(_object.id)) {
                     sys_core.object.extend(_object, {
                         id: sys_core.newID('table')
@@ -1189,7 +1295,7 @@
 
                 _object.id = sys_core.name + '-' + _object.id;
 
-                var dtb = eRenderTo.create_element('div'),
+                var dtb = _self.create_element('div'),
                         dtbc = dtb.create_element('div'),
                         dtbcTable = dtbc.create_element('table'),
                         dtbcColumns = dtbcTable.create_element('thead'),
@@ -1230,61 +1336,49 @@
 
 
                 /* RENDER ROWS*/
-                if (sys_core.isDefined(_object.data.Ext)) {
-                    _object.data.Ext.each(function (data, row) {
-                        var dtRow = dtbcRows
-                                .create_element('tr');
+                _object.model.each(function () {
+                    var dtRow = dtbcRows
+                            .create_element('tr'),
+                            data = this;
 
-                        sys_core.Rendering.settings(dtRow, {
-                            'data-row': row + 1,
-                            data: data
-                        });
-
-                        sys_core.each(_object.columns, function (col) {
-                            var dtRowCol = dtRow.create_element('td');
-                            sys_core.Rendering.settings(dtRowCol, {
-                                'data-column': col['data-name']
-                            });
-
-
-                            dtRowCol.create_element('div')
-                                    .create_element('span')
-                                    .content(data.get(col['data-name']));
-                        });
+                    sys_core.Rendering.settings(dtRow, {
+                        'data-row': data.getIndex() + 1,
+                        data: data.raw()
                     });
-                } else {
-                    sys_core.each(_object.data, function (data, row) {
-                        var dtRow = dtbcRows
-                                .create_element('tr');
 
-                        sys_core.Rendering.settings(dtRow, {
-                            'data-row': row + 1,
-                            data: data
+                    sys_core.each(_object.columns, function (col) {
+                        var dtRowCol = dtRow.create_element('td');
+                        var dtValue = data.get(col['data-name']);
+                        sys_core.Rendering.settings(dtRowCol, {
+                            'data-column': col['data-name']
                         });
 
-                        sys_core.each(_object.columns, function (col) {
-                            var dtRowCol = dtRow.create_element('td');
-                            sys_core.Rendering.settings(dtRowCol, {
-                                'data-column': col['data-name']
-                            });
-                            dtRowCol.create_element('div')
-                                    .create_element('span')
-                                    .content(data[col['data-name']]);
-                        });
+
+                        if (sys_core.type.isFunction(col.render)) {
+                            dtValue = col.render(dtValue);
+                        }
+
+
+                        dtRowCol.create_element('div')
+                                .create_element('span')
+                                .content(dtValue);
                     });
-                }
+                });
+
                 /* RENDER ROWS*/
 
 
             },
             select: function (_object) {
-                var eRenderTo = null,
-                        $ = null
-                mask = null;
+                var _self = null,
+                        $ = null,
+                        mask = null;
+
+
 
                 $ = sys_core.$;
-                eRenderTo = $(_object.renderTo);
-                mask = bovespa.component({type: 'mask', renderTo: _object.renderTo});
+                _self = $(_object.renderTo);
+
 
                 if (!sys_core.isDefined(_object.id)) {
                     sys_core.object.extend(_object, {
@@ -1294,113 +1388,240 @@
 
                 _object.id = sys_core.name + '-' + _object.id;
 
-                var csComp = eRenderTo.create_element('select');
-                csComp.class().add('select-default');
-                csComp.mark_component(['select', _object.id]);
-                csComp.attr('id', _object.id);
+                var cs_comp,
+                        cs_input,
+                        cs_selectBox,
+                        cs_searchText,
+                        cs_selectOptions,
+                        event_reset,
+                        event_search,
+                        event_option;
+
+                cs_comp = _self.create_element('div');
+                cs_comp.class().add('select-default');
+                cs_comp.mark_component(['select', _object.id]);
+                cs_comp.attr('id', _object.id);
 
 
 
-                if (sys_core.isDefined(_object.class)) {
-                    sys_core.each(_object.class, function (c) {
-                        csComp.class().add(c);
-                    });
-                }
+                cs_input = cs_comp.create_element('input');
+                _self.mask();
 
-                /* RENDER OPTIONS*/
-                if (sys_core.isDefined(_object.data.Ext)) {
-                    _object.data.Ext.each(function (data, row) {
-                        var dtOption = csComp
-                                .create_element('option');
+                sys_core.component.components.select[_object.id] = {
+                    selectedItem: function () {
+                        var _selectedItem = cs_input.get('data');
 
-                        sys_core.Rendering.settings(dtOption, {
-                            'data-option': row + 1,
-                            data: data.raw
-                        });
+                        if (sys_core.isDefined(_selectedItem)) {
+                            var data = _selectedItem;
 
-                        if (sys_core.isDefined(_object.classMember)) {
-                            sys_core.each(_object.classMember, function (c) {
-                                dtOption.class().add(c);
-                            });
+                            _selectedItem = JSON.parse(data);
+                        } else {
+                            _selectedItem = null;
                         }
 
-                        dtOption.create_element('span')
-                                .content(data.get(_object.displayMember));
-                    });
-                } else {
-                    mask.show();
-                    _object.data.load(function () {
-                        _object.data.each(function () {
-                            var dtOption = csComp
-                                    .create_element('option'),
-                                    data = this;
-
-                            sys_core.Rendering.settings(dtOption, {
-                                'data-option': data.getIndex() + 1,
-                                data: data.raw()
-                            });
-
-                            if (sys_core.isDefined(_object.classMember)) {
-                                sys_core.each(_object.classMember, function (c) {
-                                    dtOption.class().add(c);
-                                });
-                            }
-
-                            dtOption.create_element('span')
-                                    .content(data.get(_object.displayMember));
-                        });
-                        mask.hide();
-                    });
-//                    mask.hide();
-
-                }
-
-                /* RENDER OPTIONS*/
-
-
-
-
-            },
-            mask: function mask(_object) {
-                var eRenderTo = null,
-                        $ = null,
-                        mask = null;
-
-                $ = sys_core.$;
-                eRenderTo = $(_object.renderTo);
-
-                if (!sys_core.isDefined(_object.id)) {
-                    sys_core.object.extend(_object, {
-                        id: sys_core.newID('mask')
-                    });
-                }
-
-
-
-                var _mask = {
-                    show: function () {
-                        mask = eRenderTo.create_element('div');
-                        mask.class().add('mask');
-                        mask.class().add('s-md-back-DeepPurple-600');
-                        mask.mark_component(['mask', _object.id]);
-                        mask.attr('id', _object.id);
-                        mask.css("min-height", eRenderTo.height() + 'px')
-                                .css("min-width", eRenderTo.width() + 'px')
-                                .css("position", 'absolute')
-                                .css('top', eRenderTo.position().y + 'px')
-                                .css('left', eRenderTo.position().x + 'px')
-                                .css('opacity', "0.4");
-                    },
-                    hide: function () {
-                        mask.remove();
+                        return     _selectedItem;
                     }
                 };
 
-                sys_core.object.extend(this, _mask);
+                cs_input.attr('value', 'Selecione uma empresa ...');
+                cs_input.css('text-align', 'center');
+                cs_comp.css('padding-top', '5px');
+                cs_comp.css('padding-bottom', '10px');
+                cs_comp.class().add('s-size-15');
+
+                if (sys_core.isDefined(_object.class)) {
+                    sys_core.each(_object.class, function (c) {
+                        cs_comp.class().add(c);
+                    });
+                }
+
+
+                _object.data.load(function () {
+                    cs_input.event('focus', event_rendering);
+                    _self.unmask();
+                });
+
+                /* RENDER OPTIONS*/
+                event_rendering = function () {
+                    if (cs_selectBox) {
+                        cs_searchText.remove();
+                        cs_selectOptions.remove();
+                        cs_selectBox.remove();
+                    }
+
+                    cs_selectBox = _self.create_element('div');
+                    cs_searchText = cs_selectBox.create_element('div').create_element('input');
+                    cs_selectOptions = cs_selectBox.create_element('div');
+
+                    cs_selectBox.class().add('select-default');
+                    cs_selectBox.mark_component(['select-selection', _object.id]);
+                    cs_selectBox.attr('style', "height:200px;z-index: 1;");
+                    cs_selectBox.css('position', 'fixed');
+                    cs_selectBox.css('height', '200px');
+
+                    cs_selectOptions.attr('style', "height:125px;overflow-y:scroll;");
+                    cs_searchText.attr('type', 'text');
+
+
+                    /* EVENTOS DE PERDA DE FOCUS 
+                     * AO PEDER O FOCO - REMOVE TUDO                     * 
+                     * */
+                    sys_core.component.components.select[_object.id]['_focus_txt'] = false;
+                    sys_core.component.components.select[_object.id]['_focus_body'] = false;
+
+                    cs_searchText.event('blur', function () {
+                        sys_core.component.components.select[_object.id]._focus_txt = false;
+
+                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                        if (!_focus_body && !_focus_txt)
+                            event_lostFocus();
+                    });
+
+                    cs_selectOptions.event('blur', function () {
+                        sys_core.component.components.select[_object.id]._focus_body = false;
+
+                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                        if (!_focus_body && !_focus_txt)
+                            event_lostFocus();
+                    });
+
+                    cs_selectBox.event('blur', function () {
+                        sys_core.component.components.select[_object.id]._focus_body = false;
+
+                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                        if (!_focus_body && !_focus_txt)
+                            event_lostFocus();
+                    });
+
+                    cs_searchText.event('focusin', function () {
+                        sys_core.component.components.select[_object.id]._focus_txt = true;
+                    });
+
+                    cs_selectOptions.event('focusin', function () {
+                        sys_core.component.components.select[_object.id]._focus_body = true;
+                    });
+
+                    cs_searchText.event('mouseover', function () {
+                        sys_core.component.components.select[_object.id]._focus_txt = true;
+                    });
+
+                    cs_selectOptions.event('mouseover', function () {
+                        sys_core.component.components.select[_object.id]._focus_body = true;
+                    });
+
+                    cs_searchText.event('mouseout', function () {
+                        sys_core.component.components.select[_object.id]._focus_txt = false;
+                    });
+
+                    cs_selectOptions.event('mouseout', function () {
+                        sys_core.component.components.select[_object.id]._focus_body = false;
+                    });
+
+                    /* EVENTOS DE PERDA DE FOCUS */
+
+                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS 
+                     * TRATA A POSIÇÃO  - TOP E LEFT
+                     * TRATA O TAMANHO  - WIDTH                     
+                     * */
+                    sys_core.onResize(function () {
+                        cs_comp.each(function (e) {
+                            cs_selectBox.css('z-index', '1');
+                            cs_selectBox.css('width', cs_input.width() + 'px');
+                            cs_selectBox.css('left', $(e.parentNode).position().x + 'px');
+                            cs_selectBox.css('top', $(e.parentNode).position().y + 'px');
+                            cs_searchText.css('width', cs_input.width() + 'px');
+                            cs_selectOptions.css('width', cs_input.width() + 'px');
+                        });
+                    });
+                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS */
+
+                    /* EVENTOS DE PESQUISA */
+                    cs_searchText.each(function (e) {
+                        e.focus();
+                    });
+                    cs_searchText.event('keyup', function () {
+                        var _value = this.value;
+                        var _data;
+
+                        if (_value === "") {
+                            event_reset.call(_object.data);
+                        } else {
+                            _data = _object.data.query(function () {
+                                if (_object.searchSensitive)
+                                    return this.get(_object.displayMember).contains(_value);
+                                else
+                                    return this.get(_object.displayMember).toLowerCase().contains(_value.toLowerCase());
+                            });
+                            event_search.call(_data);
+                        }
+                    });
+                    /* EVENTOS DE PESQUISA */
+
+                    event_reset.call(_object.data);
+                };
+
+                event_reset = function () {
+                    cs_selectOptions.content('');
+                    this.each(function () {
+                        event_option.call(this);
+                    });
+                };
+
+                event_search = function () {
+                    cs_selectOptions.content('');
+                    sys_core.each(this, function (data) {
+                        event_option.call(data);
+                    });
+                };
+
+                event_option = function () {
+                    var dtOption = cs_selectOptions.create_element('div'),
+                            data = this;
+                    sys_core.Rendering.settings(dtOption, {
+                        'data-option': data.getIndex() + 1,
+                        data: data.raw()
+                    });
+
+                    if (sys_core.isDefined(_object.classMember)) {
+                        sys_core.each(_object.classMember, function (c) {
+                            dtOption.class().add(c);
+                        });
+                    }
+
+                    dtOption.content(data.get(_object.displayMember));
+                    dtOption.event('click', function () {
+                        var _option = this;
+                        cs_input.attr('value', _option.innerText);
+                        sys_core.Rendering.settings(cs_input, {
+                            'data-option': $(_option).get('data-option'),
+                            'data': $(_option).get('data')
+                        });
+                        cs_selectBox.remove();
+                    });
+                };
+
+                event_lostFocus = function () {
+                    cs_searchText.remove();
+                    cs_selectOptions.remove();
+                    cs_selectBox.remove();
+                };
+                /* RENDER OPTIONS*/
+
+
+
+                return;
             },
             get: function (_id) {
-                var comp_obj = sys_core.$(sys_core.name + '-' + _id),
+                var comp_id = sys_core.name + '-' + _id,
+                        comp_obj = sys_core.$(comp_id),
                         comp_name = comp_obj.get('component-name').replace(sys_core.name + '-', '');
+
                 var comp = {};
 
 
@@ -1409,46 +1630,7 @@
                 });
 
                 if (comp_name === 'select') {
-                    sys_core.object.extend(comp, {
-                        selectedItem: function () {
-                            var _selectedItem = null;
-                            comp_obj.each(function (e) {
-                                _selectedItem = e.options[e.selectedIndex];
-                            });
-
-                            if (sys_core.isDefined(_selectedItem)) {
-                                var data = sys_core.$(_selectedItem).get('data');
-
-                                if (sys_core.isDefined(data)) {
-                                    if (data != "")
-                                        JSON.parse(data);
-                                    else
-                                        data = {};
-                                } else {
-                                    data = {};
-                                }
-
-                                _selectedItem = JSON.parse(data);
-                            }
-
-                            return     _selectedItem;
-                        },
-                        selectedIdex: function () {
-                            var _selectedIndex = -1;
-                            comp_obj.each(function (e) {
-                                _selectedIndex = e.selectedIndex;
-                            });
-                            return _selectedIndex;
-                        },
-                        options: function () {
-                            var _options = null;
-
-                            comp_obj.each(function (e) {
-                                _options = e.options;
-                            });
-                            return _options;
-                        }
-                    });
+                    sys_core.object.extend(comp, sys_core.component.components.select[comp_id]);
                 }
 
                 return comp;
@@ -1760,7 +1942,7 @@
                         }
 
                         sys_core.request({
-                            url: s_scope['url'],
+                            url: s_scope['url'] + '?get-data-model*' + sys_core.newID('data-model'),
                             success: function () {
                                 s_scope.load_complete.call(s_scope, this.responseText, fn);
                             },
@@ -1794,45 +1976,95 @@
                     sys_core.object.extend(memory['data'], _parameter_settings['data']);
                 }
 
+                var _data_store_object = function (data, x) {
+                    return  sys_core.object.create({
+                        get: function (node_name) {
+                            var _r;
+                            if (data[x][node_name]) {
+                                _r = data[x][node_name];
+                            } else {
+                                _r = '';
+                            }
+
+                            return _r;
+                        },
+                        getIndex: function () {
+                            return Number(x);
+                        },
+                        raw: function () {
+                            return data[x];
+                        }
+                    });
+                };
                 sys_core.object.extend(memory, {
                     load: function (self_fn) {
-
                         if (Array.isArray(this['data'])) {
                             if (this['data'].length > 0) {
                                 self_fn.call(memory, this['data']);
                                 return true;
                             }
                         }
-
                         this['proxy'].load_data(self_fn);
                     },
                     each: function (self_fn) {
                         var data;
 
                         data = this['data'];
+                        for (var x in data) {
+                            self_fn.call(_data_store_object(data, x));
+                        }
+                    },
+                    toArray: function () {
+                        var dataFields = [];
+
+                        memory['model'].each(function () {
+                            var field = this.name;
+                            dataFields[field] = [];
+
+                            memory.each(function () {
+                                dataFields[field].push(this.get(field));
+                            });
+                        });
+
+                        return sys_core.object.create({
+                            get: function (node_name) {
+                                var _r;
+                                if (dataFields[node_name]) {
+                                    _r = dataFields[node_name];
+                                } else {
+                                    _r = '';
+                                }
+
+                                return _r;
+                            }
+                        });
+                    },
+                    sum: function (field) {
+                        var sum = 0;
+                        memory.each(function () {
+                            sum += this.get(field);
+                        });
+
+                        return sum;
+                    },
+                    count: function () {
+                        var y = 0;
+                        for (var x in memory['data']) {
+                            y += 1;
+                        }
+                        return y;
+                    },
+                    query: function (fn) {
+                        var data = this['data'],
+                                _query = [];
 
                         for (var x in data) {
-                            var _store = sys_core.object.create({
-                                get: function (node_name) {
-                                    var _r;
-                                    if (data[x][node_name]) {
-                                        _r = data[x][node_name];
-                                    } else {
-                                        _r = '';
-                                    }
-
-                                    return _r;
-                                },
-                                getIndex: function () {
-                                    return x;
-                                },
-                                raw: function () {
-                                    return data[x];
-                                }
-                            });
-
-                            self_fn.call(_store);
+                            if (fn.call(_data_store_object(data, x))) {
+                                _query.push(_data_store_object(data, x));
+                            }
                         }
+
+                        return _query;
                     }
                 });
 
@@ -1843,17 +2075,6 @@
 
 
         return sys_core;
-
-
-
-
-
-
-
-
-
-
-
     };
 
 
