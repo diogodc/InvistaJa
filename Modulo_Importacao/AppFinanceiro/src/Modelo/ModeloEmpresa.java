@@ -5,7 +5,10 @@
  */
 package Modelo;
 
+
 import Modelo.Tree.Branches.Sap.Sap;
+import java.awt.List;
+import java.util.Vector;
 
 /**
  *
@@ -76,8 +79,54 @@ public class ModeloEmpresa extends Sap {
     public String getAtividade() {
         return this.sAtividade;
     }
-    
+
     public Long Key() { /* USADO PARA ORDENAÇÃO NA AVORE */
+
         return Long.parseLong(String.valueOf(this.iEmpresa_ID));
+    }
+    public ModeloEmpresa Get(Vector model) { /* add Rafael */
+        try {
+            ModeloEmpresa mEmpresa = new ModeloEmpresa();
+            for (int i = 0; i <= model.size(); i++) {
+                if (mEmpresa.iEmpresa_ID <= 0) {
+                    mEmpresa.iEmpresa_ID = (int) model.elementAt(i);
+                } else if ("".equals(mEmpresa.sCNPJ)) {
+                    mEmpresa.sCNPJ = (String) model.elementAt(i);
+                } else if ("".equals(mEmpresa.sRazao_Social)) {
+                    mEmpresa.sRazao_Social = (String) model.elementAt(i);
+                } else if ("".equals(mEmpresa.sNome_Fantasia)) {
+                    mEmpresa.sNome_Fantasia = (String) model.elementAt(i);
+                } else if ("".equals(mEmpresa.sAtividade)) {
+                    mEmpresa.sAtividade = (String) model.elementAt(i);
+                }
+            }
+            return mEmpresa;
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public ModeloEmpresa Get (List model) { /* add Rafael */
+        try {
+            ModeloEmpresa modelEmpresa = new ModeloEmpresa();
+            for (int i = 0; i <= model.getItemCount(); i++) {
+                if (modelEmpresa.iEmpresa_ID <= 0) {
+                    modelEmpresa.iEmpresa_ID =  Integer.parseInt(model.getItem(i));
+                }  else if ("".equals(modelEmpresa.sCNPJ)) {
+                    modelEmpresa.sCNPJ = (String) model.getItem(i);
+                }else if ("".equals(modelEmpresa.sRazao_Social)) {
+                    modelEmpresa.sRazao_Social = (String) model.getItem(i);
+                } else if ("".equals(modelEmpresa.sNome_Fantasia)) {
+                    modelEmpresa.sNome_Fantasia = (String) model.getItem(i);
+                } else if ("".equals(modelEmpresa.sAtividade)) {
+                    modelEmpresa.sAtividade = (String) model.getItem(i);
+                }                
+            }
+                      
+            
+            return modelEmpresa;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }

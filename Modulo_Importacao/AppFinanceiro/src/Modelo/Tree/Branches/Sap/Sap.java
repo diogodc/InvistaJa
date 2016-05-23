@@ -5,14 +5,11 @@
  */
 package Modelo.Tree.Branches.Sap;
 
+import java.awt.List;
 import java.util.Comparator;
+import java.util.Vector;
 
-/**
- *
- * @author Rafael
- */
-public class Sap {
-
+public class Sap{
     private Long _Key;
 
     public Sap() {
@@ -22,11 +19,11 @@ public class Sap {
     public Sap(Long Key) {
         this._Key = Key;
     }
-
+    
     public Long Key() {
         return this._Key;
     }
-
+    
     public int compare(Sap sap) {
         return new compareStandard().compare(this, sap);
     }
@@ -53,6 +50,24 @@ public class Sap {
         @Override
         public int compare(Sap o1, Sap o2) {
             return o1.Key().compareTo(o2.Key());
+        }
+    }
+    
+    public Sap Get(Vector model) { /* add Rafael */
+        try {
+         
+            return null;
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    public Sap Get (List model) { /* add Rafael */
+        try {
+
+            return null;
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 }
