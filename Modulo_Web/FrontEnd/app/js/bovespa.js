@@ -1,9 +1,11 @@
 /**
  * Created by Rafael on 23/03/2016.
  */
-var bovespa = core.instance();
+var bovespa = core.instance({
+    'Api-Version': '1.08',
+    'Core-Version': '1.08'
+});
 
-bovespa.Version = '1.08';
 bovespa.require.register(
         [
             ['bovespa.view', './app/js/bovespa-view.js']
@@ -12,7 +14,8 @@ bovespa.require.register(
                     , ['bovespa.control.template', './app/js/bovespa-control-templates.js']
                     , ['bovespa.control.route', './app/js/bovespa-control-routes.js']
 
-        ]);
+        ]
+);
 
 bovespa.object.extend(bovespa, {
     name: 'bovespa',
@@ -21,7 +24,7 @@ bovespa.object.extend(bovespa, {
         bovespa.view.init();
 
         if (!bovespa.cookie.exists('company-id')) {
-            bovespa.view.pages.Company(bovespa.view, bovespa.control);           
+            bovespa.view.pages.Company(bovespa.view, bovespa.control);
         } else {
             bovespa.view.pages.Home(bovespa.view, bovespa.control);
         }

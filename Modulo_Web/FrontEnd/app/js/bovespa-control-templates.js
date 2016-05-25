@@ -1,7 +1,6 @@
 /*
  *
  */
-
 bovespa.template.register([
     {
         'name': 'bovespa-home',
@@ -434,6 +433,47 @@ bovespa.template.register([
                 root: 'data.0'
             }
         })
+    }
+]).register([
+    {
+        'name': 'bovespa-load-json',
+        view: {
+            self: '.bovespa',
+            render: function () {
+                bovespa.component({
+                    type: 'select',
+                    renderTo: '#select-company',
+                    id: 'select-company',
+                    class: ['', 's-size'],
+                    data: bovespa.memory({
+                        proxy: {
+                            url: 'app/json/company.json',
+                            root: 'data'
+                        }
+                    }),
+                    searchSensitive: false,
+                    displayMember: 'company-name',
+                    classMember: ['', 's-size-15']
+                });
+                bovespa.menu.register([{
+                        name: 'bovespa-company-proceed',
+                        attach: bovespa.$('.bovespa'),
+                        action: function (e) {
+                            var dt = bovespa.component.get('select-company').selectedItem();
+                            if (dt !== null) {
+                                bovespa.cookie(dt);
+                                if (bovespa.cookie.exists('company-name')) {
+                                    bovespa.view.pages.Home(bovespa.view, bovespa.control);
+                                }
+                            }
+                        }
+                    }]);
+            }
+        },
+        control: {
+            url: 'app/views/company.html'
+        }
+
     }
 ]).register([
     {

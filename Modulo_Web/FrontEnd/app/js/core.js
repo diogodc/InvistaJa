@@ -5,7 +5,7 @@
 (function (_object) {
     var _core = _object.core = {};
 
-    _core['instance'] = function () {
+    _core['instance'] = function (_set) {
         var sys_core;
         var sys = function object() {
         };
@@ -233,8 +233,7 @@
                 try {
                     JSON.parse(object);
                     return true;
-                }
-                catch (error) {
+                } catch (error) {
                     return false;
                 }
             }
@@ -583,7 +582,7 @@
                                 if (this['_mask_']) {
                                     if (this['_mask_']._render)
                                         this['_mask_']._render.remove();
-                                } else {                                     
+                                } else {
                                     this.each(function (e) {
                                         var _masks = sys_core.$(e).query_selector_Attribute_value('component-name', sys_core.name + '-' + 'mask');
                                         for (var x in _masks) {
@@ -2073,13 +2072,8 @@
         });
         /* ################### MEMORY #####################*/
 
-
+        sys_core.object.extend(sys_core,_set);
         return sys_core;
     };
-
-
-
-
-
     return _core;
 })(window);
