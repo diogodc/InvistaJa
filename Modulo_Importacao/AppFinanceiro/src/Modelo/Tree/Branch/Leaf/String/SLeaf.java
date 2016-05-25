@@ -31,6 +31,11 @@ public class SLeaf implements Leaf<SLeaf> {
     public int compare(SLeaf o2) {
         String _Key_1 = String.valueOf(this.getKey());
         String _Key_2 = String.valueOf(o2.getKey());
+        
+        if(_Key_1.equals(_Key_2)){
+            return 0;
+        }        
+        
         return _Key_1.compareTo(_Key_2);
     }
 
@@ -56,6 +61,11 @@ public class SLeaf implements Leaf<SLeaf> {
 
     @Override
     public SLeaf Get(List model) {
+       return null;
+    }
+
+    @Override
+    public Vector parseVector() {
        return null;
     }
 
