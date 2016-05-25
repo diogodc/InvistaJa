@@ -6,7 +6,7 @@
 package Modelo;
 
 
-import Modelo.Tree.Branches.Sap.Sap;
+import Modelo.Tree.Branch.Leaf.String.SLeaf;
 import java.awt.List;
 import java.util.Vector;
 
@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author E. Cardoso de Araújo
  */
-public class ModeloEmpresa extends Sap {
+public class ModeloEmpresa extends SLeaf {
 
     private int iEmpresa_ID;
     private String sRazao_Social;
@@ -80,10 +80,12 @@ public class ModeloEmpresa extends Sap {
         return this.sAtividade;
     }
 
-    public Long Key() { /* USADO PARA ORDENAÇÃO NA AVORE */
-
-        return Long.parseLong(String.valueOf(this.iEmpresa_ID));
+    @Override
+    public Object getKey() { /* USADO PARA ORDENAÇÃO NA AVORE */
+        return this.sRazao_Social;
     }
+    
+    @Override
     public ModeloEmpresa Get(Vector model) { /* add Rafael */
         try {
             ModeloEmpresa mEmpresa = new ModeloEmpresa();
@@ -106,6 +108,7 @@ public class ModeloEmpresa extends Sap {
         }
     }
 
+    @Override
     public ModeloEmpresa Get (List model) { /* add Rafael */
         try {
             ModeloEmpresa modelEmpresa = new ModeloEmpresa();
