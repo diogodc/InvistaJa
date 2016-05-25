@@ -5,16 +5,17 @@
  */
 package Modelo.Tree;
 
-import Modelo.Tree.Branches.Branches;
-import Modelo.Tree.Branches.Sap.Sap;
+import Modelo.Tree.Branch.Branch;
+import Modelo.Tree.Branch.Leaf.Leaf;
+
 
 /**
  *
  * @author Rafael
  */
-public class Tree< T extends Sap> {
+public class Tree<T extends Leaf> {
 
-    private Branches<T> _trunk;
+    private Branch<T> _trunk;
 
     public Tree() {
         this._trunk = null;
@@ -24,65 +25,128 @@ public class Tree< T extends Sap> {
         return this._trunk == null;
     }
 
-    public void add(T sap) {
-        Branches<T> _branches = new Branches(null, 0, sap);
+    public void add(T leaf) {
+        Branch<T> _branch = new Branch(leaf);
         if (this.isEmpty()) {
-            this._trunk = _branches;
+            this._trunk = _branch;
         } else {
-            this.add(this._trunk, _branches);
+            this.add(this._trunk, _branch);
         }
     }
 
-    protected void add(Branches _above, Branches _branches) {
-        if (_branches.getSap().onLeft(_above.getSap())) {
-            if (_above.getLeft() == null) {
-                _branches.setLevel(_above.getLevel() + 1);
-                _above.setLeft(_branches);
+    protected void add(Branch<T> _father, Branch<T> _branch) {
+        if (_branch.getLeaf().onLeft(_father.getLeaf())) {
+            if (_father.getLeft() == null) {
+                _branch.setLevel(_father.getLevel() + 1);
+                _father.setLeft(_branch);
 
             } else {
-                this.add(_above.getLeft(), _branches);
+                this.add(_father.getLeft(), _branch);
             }
+        } else if (_father.getRight() == null) {
+            _branch.setLevel(_father.getLevel() + 1);
+            _father.setRight(_branch);
         } else {
-            if (_above.getRight() == null) {
-                _branches.setLevel(_above.getLevel() + 1);
-                _above.setRight(_branches);
-            } else {
-                this.add(_above.getRight(), _branches);
-            }
+            this.add(_father.getRight(), _branch);
         }
-    }
-
-    public T search(Long Key) {
-        return this.search(this._trunk, new Sap(Key));
-    }
-
-    protected T search(Branches<T> _branches, Sap _search) {
-        T sap = null;
-
-        if (_branches != null) {
-            if (_branches.getSap().inPosition(_search)) {
-                sap = _branches.getSap();
-            } else if (_branches.getSap().onLeft(_search)) {
-                sap = (T) this.search(_branches.getLeft(), _search);
-            } else if (_branches.getSap().onRight(_search)) {
-                sap = (T) this.search(_branches.getRight(), _search);
-            }
-        }
-
-        return sap;
     }
 
     public void inOrder() {
         this.inOrder(this._trunk, "    ");
     }
 
-    protected void inOrder(Branches _branches, String predescessor) {
-        if (_branches != null) {
-            String _pred = " (LEVEL " + +_branches.getLevel() + ") ";
-            this.inOrder(_branches.getLeft(), "(LEFT) " + _pred + predescessor + "      ");
-            System.out.println("  " + predescessor + " (" + _branches.getSap().Key() + ") ===== (LEVEL " + _branches.getLevel() + ") ");
-            this.inOrder(_branches.getRight(), "(RIGHT) " + _pred + predescessor + "      ");
+    protected void inOrder(Branch<T> _branch, String predescessor) {
+        if (_branch != null) {
+            String _pred = " (LEVEL " + +_branch.getLevel() + ") ";
+            this.inOrder(_branch.getLeft(), "(LEFT) " + _pred + predescessor + "      ");
+            System.out.println("  " + predescessor + " (" + _branch.getLeaf().getKey() + ") ===== (LEVEL " + _branch.getLevel() + ") ");
+            this.inOrder(_branch.getRight(), "(RIGHT) " + _pred + predescessor + "      ");
         }
     }
 
+    public void preOrder() {
+        this.preOrder(this._trunk, "");
+    }
+
+    protected void preOrder(Branch<T> _branch, String predescessor) {
+        if (_branch != null) {
+            Boolean child = false;
+            System.out.println(predescessor + "Branch:  (LEVEL " + _branch.getLevel() + ")");
+            if (_branch.getLeft() != null) {
+                System.out.print(predescessor + "<(LEFT)");
+                preOrder(_branch.getLeft(), predescessor + "========");
+                child = true;
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + ">");
+            }
+
+            if (_branch.getRight() != null) {
+
+                if (child) {
+                    System.out.print(predescessor + ",");
+                }
+
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + "<(RIGHT) ");
+                preOrder(_branch.getRight(), predescessor + "========");
+
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + "> ");
+
+            }
+
+        }
+    }
+
+    public void posOrder() {
+        this.posOrder(this._trunk, "");
+    }
+
+    protected void posOrder(Branch<T> _branch, String predescessor) {
+        if (_branch != null) {
+            Boolean child = false;
+            if (_branch.getLeft() != null) {
+                System.out.print(predescessor + "<(LEFT)");
+                preOrder(_branch.getLeft(), predescessor + "========");
+                child = true;
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + ">");
+            }
+
+            if (_branch.getRight() != null) {
+
+                if (child) {
+                    System.out.print(predescessor + ",");
+                }
+
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + "<(RIGHT) ");
+                preOrder(_branch.getRight(), predescessor + "========");
+
+                if (predescessor == "") {
+                    System.out.println("");
+                }
+
+                System.out.print(predescessor + "> ");
+
+            }
+
+            System.out.println(predescessor + "Branch:  (LEVEL " + _branch.getLevel() + ")");
+        }
+    }
 }
