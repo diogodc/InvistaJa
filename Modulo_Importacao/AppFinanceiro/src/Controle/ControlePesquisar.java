@@ -35,6 +35,7 @@ public class ControlePesquisar {
     private final ArrayList<String> dados = new ArrayList();
 
     private final String orderBy; /* add Rafael  21/05/16 */
+
     private final CreateModel crModel; /* add Rafael  21/05/16 */
 
 
@@ -45,8 +46,9 @@ public class ControlePesquisar {
         this.tabela = tabela;
         this.parametros = parametros;
         this.condicao = condicao;
-        this.join = join;     
+        this.join = join;
         this.orderBy = " order by sys_guid() desc "; /* desordenando a consulta */
+
         this.crModel = null;
     }
 
@@ -59,6 +61,7 @@ public class ControlePesquisar {
         this.condicao = condicao;
         this.join = join;
         this.orderBy = " order by sys_guid() desc ";  /* desordenando a consulta */
+
         this.crModel = crModel;
     }
 
@@ -115,11 +118,11 @@ public class ControlePesquisar {
             Vector linhas = new Vector();
             Vector cabecalho = new Vector();
             Tree tree = new Tree();
-            
+
             if (!condicao.equals("")) {
                 sQuery = sQuery + " " + condicao;
             }
-            
+
             sQuery = sQuery + " " + this.orderBy; /* add Rafael 22/05/16*/
 
             conn.abrirConexao();
@@ -131,17 +134,20 @@ public class ControlePesquisar {
                             conn.getResultSetMetaData()));
                 } else {
                     /*  ADICIONANDO NA ARVORE */
+                    linhas.addElement(proximaLinha(conn.getResultSet(),
+                            conn.getResultSetMetaData()));
+
                     tree.add(this.crModel.Get(proximaLinha(conn.getResultSet(),
                             conn.getResultSetMetaData())));
                 }
             }
-            
+
             tree.inOrder();
-            
+
             for (int i = 1; i <= conn.getResultSetMetaData().getColumnCount(); i++) {
                 cabecalho.addElement(conn.getResultSetMetaData().getColumnLabel(i));
             }
-            
+
             codigo = conn.getResultSetMetaData().getColumnName(1);
             tabResultados.setModel(new javax.swing.table.DefaultTableModel(linhas, cabecalho));
             tabResultados.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -159,8 +165,8 @@ public class ControlePesquisar {
         }
     }
 
-    public List proximaLinha(ResultSet rs, ResultSetMetaData rsmd) throws SQLException {
-        List linhaAtual = new List();
+    public Vector proximaLinha(ResultSet rs, ResultSetMetaData rsmd) throws SQLException {
+        Vector linhaAtual = new Vector();
         try {
             for (int i = 1; i <= rsmd.getColumnCount(); ++i) {
                 linhaAtual.add(rs.getString(i));
