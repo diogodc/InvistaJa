@@ -5,7 +5,8 @@
  */
 package Modelo;
 
-import Modelo.Tree.Branches.Sap.Sap;
+
+import Modelo.Tree.Branch.Leaf.Leaf;
 import java.awt.List;
 import java.util.Vector;
 
@@ -14,7 +15,7 @@ import java.util.Vector;
  * @author Rafael
  * @param <T>
  */
-public class CreateModel<T extends Sap> {
+public class CreateModel<T extends Leaf> {
 
     private final T _model;
 
