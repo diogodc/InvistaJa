@@ -14,6 +14,9 @@ bovespa.object.extend(bovespa, {
             },
             'Company': function (view, control) {
                 control.pages.Company.call(this, view ? view : bovespa.view);
+            },
+            'Load': function (view, control) {
+                control.pages.Load.call(this, view ? view : bovespa.view);
             }
         }
     }
@@ -30,6 +33,13 @@ bovespa.object.extend(bovespa.view, {
             }]),
         'bovespa-home': bovespa.menu([{
                 name: 'bovespa-home',
+                attach: bovespa.view.main,
+                action: function (e) {
+                    bovespa.control.menu[this.name].action.call(this, e);
+                }
+            }]),
+        'bovespa-load-json': bovespa.menu([{
+                name: 'bovespa-load-json',
                 attach: bovespa.view.main,
                 action: function (e) {
                     bovespa.control.menu[this.name].action.call(this, e);

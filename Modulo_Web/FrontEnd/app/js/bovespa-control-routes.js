@@ -19,5 +19,10 @@ _router.register([
         name: 'bovespa-liquidity',
         route: 'bovespa:LIQUIDEZ'
     }
+]).register([
+    {
+        name: 'bovespa-load-json',
+        route: 'bovespa::'
+    }
 ]);
 

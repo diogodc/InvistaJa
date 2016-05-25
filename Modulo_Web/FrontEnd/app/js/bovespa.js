@@ -24,7 +24,7 @@ bovespa.object.extend(bovespa, {
         bovespa.view.init();
 
         if (!bovespa.cookie.exists('company-id')) {
-            bovespa.view.pages.Company(bovespa.view, bovespa.control);
+            bovespa.view.pages.Load(bovespa.view, bovespa.control);
         } else {
             bovespa.view.pages.Home(bovespa.view, bovespa.control);
         }

@@ -590,6 +590,134 @@
                                         }
                                     });
                                 }
+                            },
+                            fileFrame: function (_set) {
+                                var _FileFrame = {
+                                    _self: null,
+                                    validator: function (File, FileText) {
+                                        return true;
+                                    },
+                                    load: function (File, FileText) {
+
+                                    },
+                                    error: function () {
+
+                                    },
+                                    init: function () {
+
+                                    }
+                                };
+
+                                sys_core.object.extend(_FileFrame, _set);
+
+                                _FileFrame.init.call(_FileFrame);
+                                _FileFrame._self = this;
+                                _FileFrame._render = _FileFrame._self.create_element('div');
+                                _FileFrame._render.class().add('file-frame');
+                                _FileFrame._render.mark_component(['file-frame', sys_core.newID('file-frame')]);
+                                _FileFrame._render.attr('id', sys_core.newID('file-frame'));
+                                _FileFrame._render.css("min-height", '200px')
+                                        .css("border", "dashed 4px White")
+                                        .css("transition", "background-color 0.3s");
+
+                                sys_core.object.extend(_FileFrame, {
+                                    _dragHover: function (e) {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        _FileFrame._render.class().add((e.type == "dragover" ? "hover" : "dragleave"));
+                                    },
+                                    _drop: function (e) {
+                                        _FileFrame.init.call(_FileFrame);
+                                        _FileFrame._dragHover(e);
+                                        _FileFrame._File = e.dataTransfer.files[0];
+                                        _FileFrame._read(_FileFrame._File);
+                                    },
+                                    _read: function (File) {
+                                        var reader = new FileReader();
+                                        reader.onload = function (_File) {
+                                            var _text = _File.target.result;
+                                            if (!_FileFrame.validator(_File, _text)) {
+                                                _FileFrame.error.call(_FileFrame);
+                                                return false;
+                                            }
+
+                                            _FileFrame.load.call(_FileFrame, _File, _text);
+                                        };
+                                        reader.readAsText(File);
+                                    },
+                                    _click: function () {
+                                        var _input = null;
+
+                                        _FileFrame.init.call(_FileFrame);
+                                        _input = _FileFrame._self.create_element("input");
+                                        _input.css("opacity", "0");
+                                        _input.attr("type", "file");
+
+                                        _input.event("change", function (e) {
+
+                                            if (sys_core.isDefined(this.files[0])) {
+                                                _FileFrame._File = this.files[0];
+                                                _FileFrame._read(_FileFrame._File);
+                                            }
+                                        });
+
+                                        _input.each(function (e) {
+                                            e.click();
+                                            return false;
+                                        });
+
+                                        _input.remove();
+                                    }
+                                });
+
+                                _FileFrame._render.event("dragleave", _FileFrame._dragHover);
+                                _FileFrame._render.event("dragover", _FileFrame._dragHover);
+                                _FileFrame._render.event("drop", _FileFrame._drop);
+                                _FileFrame._render.event("click", _FileFrame._click);
+
+
+
+                                return {
+                                };
+                            },
+                            tost: function (settings) {
+                                var _tost = {
+                                    _self: null
+                                };
+
+
+                                sys_core.object.extend(_tost, settings);
+                                _tost._self = this;
+                                _tost._render = sys_core.$("body").create_element('div');
+                                _tost._body = _tost._render.create_element('div');
+
+                                sys_core.Rendering.settings(_tost._render, settings.attr);
+                                sys_core.Rendering.settings(_tost._body, settings.attr);
+
+                                _tost._render.class().add("tost");
+                                _tost._render.class().add("s-md-col-3");
+                                _tost._render.class().add("shadow");
+                                _tost._render.class().add("s-md-back-White");
+
+                                _tost._render.css("min-height", '50px')
+                                        .css("min-width", '190px')
+                                        .css("transition", "background-color 0.3s");
+
+                                _tost._render.css('position', 'absolute')
+                                        .css("z-index", '1')
+                                        .css('top', _tost._self.position().y + 'px')
+                                        .css('right', _tost._self.position().x - _tost._self.width() + 'px');
+
+                                _tost._body.class().add("s-center");
+                                _tost._body.css("min-height", '50px')
+                                        .css("min-width", '190px');
+
+                                _tost._body.create_element("span")
+                                        .content(settings.text || "");
+
+                                setTimeout(function () {
+                                    _tost._render.remove();
+                                }, 4000);
                             }
                         });
                         return instance;
@@ -2072,7 +2200,7 @@
         });
         /* ################### MEMORY #####################*/
 
-        sys_core.object.extend(sys_core,_set);
+        sys_core.object.extend(sys_core, _set);
         return sys_core;
     };
     return _core;

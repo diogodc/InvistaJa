@@ -12,6 +12,9 @@ bovespa.object.extend(bovespa, {
             },
             'Company': function (view) {
                 view.menu['bovespa-company'].action();
+            },
+            'Load': function (view) {
+                view.menu['bovespa-load-json'].action();
             }
         }
     }
@@ -30,6 +33,16 @@ bovespa.object.extend(bovespa.control, {
             }
         },
         'bovespa-home': {
+            action: function (mnu, e) {
+                var _mnu = this;
+                bovespa.router.get(_mnu.name).navigate(function () {
+                    bovespa.template.get(_mnu.name).load(function () {
+                        bovespa.ripple(['.ripple', 'click']);
+                    });
+                });
+            }
+        },
+        'bovespa-load-json': {
             action: function (mnu, e) {
                 var _mnu = this;
                 bovespa.router.get(_mnu.name).navigate(function () {

@@ -381,8 +381,7 @@ bovespa.template.register([
                         if (type === 'bar') {
                             var red = Math.ceil(255 * row.y / this.ymax);
                             return 'white';
-                        }
-                        else {
+                        } else {
                             return 'white';
                         }
                     }
@@ -440,38 +439,44 @@ bovespa.template.register([
         view: {
             self: '.bovespa',
             render: function () {
-                bovespa.component({
-                    type: 'select',
-                    renderTo: '#select-company',
-                    id: 'select-company',
-                    class: ['', 's-size'],
-                    data: bovespa.memory({
-                        proxy: {
-                            url: 'app/json/company.json',
-                            root: 'data'
-                        }
-                    }),
-                    searchSensitive: false,
-                    displayMember: 'company-name',
-                    classMember: ['', 's-size-15']
-                });
                 bovespa.menu.register([{
-                        name: 'bovespa-company-proceed',
+                        name: 'bovespa-proceed',
                         attach: bovespa.$('.bovespa'),
+                        _json: false,
                         action: function (e) {
-                            var dt = bovespa.component.get('select-company').selectedItem();
-                            if (dt !== null) {
-                                bovespa.cookie(dt);
-                                if (bovespa.cookie.exists('company-name')) {
-                                    bovespa.view.pages.Home(bovespa.view, bovespa.control);
-                                }
-                            }
+                           if(this._json){
+                               
+                           }else{
+                               e.tost({
+                                   attr:{
+                                      style:'background:white;',
+                                      class:'s-size'
+                                   },
+                                   text:'Arraste ou clique para selecionar um Json!'
+                               });
+                           }
                         }
-                    }]);
+                }]);
+
+                bovespa.$("#json-FileFrame").fileFrame({
+                    validator: function (File, FileText) {
+                        return bovespa.type.isJson(FileText);
+                    },
+                    load: function (File, FileText) {
+                        bovespa.menu.get("bovespa-proceed")._json = true;
+                        bovespa.menu.get("bovespa-proceed")._json_text = FileText;
+                    },
+                    error: function () {
+                        bovespa.menu.get("bovespa-proceed")._json = false;
+                    },
+                    init: function () {   
+                        bovespa.menu.get("bovespa-proceed")._json = false;                      
+                    }
+                });
             }
         },
         control: {
-            url: 'app/views/company.html'
+            url: 'app/views/load-json.html'
         }
 
     }
