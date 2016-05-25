@@ -89,9 +89,14 @@ public class ModeloEmpresa extends SLeaf {
     public ModeloEmpresa Get(Vector model) { /* add Rafael */
         try {
             ModeloEmpresa mEmpresa = new ModeloEmpresa();
+            
+            if("".equals((String) model.elementAt(0))){
+                return null;
+            }
+            
             for (int i = 0; i <= model.size(); i++) {
-                if (mEmpresa.iEmpresa_ID <= 0) {
-                    mEmpresa.iEmpresa_ID = (int) model.elementAt(i);
+                if (mEmpresa.iEmpresa_ID <= 0) {                    
+                     mEmpresa.iEmpresa_ID = Integer.parseInt(String.valueOf(model.elementAt(i))); 
                 } else if ("".equals(mEmpresa.sCNPJ)) {
                     mEmpresa.sCNPJ = (String) model.elementAt(i);
                 } else if ("".equals(mEmpresa.sRazao_Social)) {
