@@ -84,7 +84,7 @@ public class ModeloEmpresa extends SLeaf {
         /* USADO PARA ORDENAÇÃO NA ARVORE */
         return this.sRazao_Social;
     }
-    
+
     @Override
     public void setKey(Object _Key) {
         this.sRazao_Social = (String) _Key;

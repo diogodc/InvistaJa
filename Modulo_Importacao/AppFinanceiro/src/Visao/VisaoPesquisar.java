@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Visao;
 
 import Controle.ControlePesquisar;
-import Modelo.CreateModel;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,25 +9,17 @@ import javax.swing.JOptionPane;
  * @author E. Cardoso de Araújo
  */
 public class VisaoPesquisar extends javax.swing.JDialog {
-
-    public String tabela;
-    public Vector linhas = new Vector();
-    public Vector cabecalho = new Vector();
-    public String parametros;
-    public ArrayList<String> dados = new ArrayList();
-    public String codigo;
-    public String condicao;
-    public String join;
+    
+    private ArrayList<String> alDados;
     private final ControlePesquisar cPesquisar;
-
-    public VisaoPesquisar(java.awt.Frame parent,
+    
+    public VisaoPesquisar(java.awt.Frame parent, 
             boolean modal, String paramentros,
-            String tabela, String join, String condicao, CreateModel crModel/*,ArrayList<String> filtros*/) {
+            String tabela,String join, String condicao) {
         super(parent, modal);
-        cPesquisar = new ControlePesquisar(this, tabela,
-                paramentros, condicao, join, tabResultado,
-                txtFiltro, cboTipoPesquisa,crModel);
-        //this.carregaCombo(filtros);
+        cPesquisar = new ControlePesquisar(this,tabela,
+                paramentros,condicao,join,tabResultado,
+                txtFiltro,cboTipoPesquisa);
         initComponents();
     }
 
@@ -161,31 +146,24 @@ public class VisaoPesquisar extends javax.swing.JDialog {
 
     private void tabResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseClicked
         try {
-            cPesquisar.selecionar(tabResultado);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+            alDados = cPesquisar.selecionar(tabResultado);
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_tabResultadoMouseClicked
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        try {
-            cPesquisar.pesquisar(tabResultado, txtFiltro, cboTipoPesquisa, cboCampoPesquisa);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        try{
+            cPesquisar.pesquisar(tabResultado,txtFiltro,cboTipoPesquisa,cboCampoPesquisa);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void carregaCombo(ArrayList<String> filtros) {
-        if (filtros.size() > 0) {
-            for (int i = 0; i < filtros.size(); i++) {
-                cboCampoPesquisa.addItem(filtros.get(i));
-            }
-        }
+    public ArrayList<String> getDados(){
+        return alDados;
     }
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -214,7 +192,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                VisaoPesquisar dialog = new VisaoPesquisar(new javax.swing.JFrame(), true, "", "", null, "", null);
+                VisaoPesquisar dialog = new VisaoPesquisar(new javax.swing.JFrame(), true,"","",null,"");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
