@@ -1,6 +1,7 @@
 package Visao;
 
 import Controle.ControlePesquisar;
+import Modelo.CreateModel;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -12,7 +13,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
     
     private ArrayList<String> alDados;
     private final ControlePesquisar cPesquisar;
-    
+    private CreateModel mArvore;
     public VisaoPesquisar(java.awt.Frame parent, 
             boolean modal, String paramentros,
             String tabela,String join, String condicao) {
@@ -20,6 +21,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         cPesquisar = new ControlePesquisar(this,tabela,
                 paramentros,condicao,join,tabResultado,
                 txtFiltro,cboTipoPesquisa);
+        mArvore  = null;
         initComponents();
     }
 
@@ -216,4 +218,18 @@ public class VisaoPesquisar extends javax.swing.JDialog {
     private javax.swing.JTable tabResultado;
     private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the mArvore
+     */
+    public CreateModel getModeloArvore() {
+        return mArvore;
+    }
+
+    /**
+     * @param mArvore the mArvore to set
+     */
+    public void setModeloArvore(CreateModel mArvore) {
+        this.mArvore = mArvore;
+    }
 }

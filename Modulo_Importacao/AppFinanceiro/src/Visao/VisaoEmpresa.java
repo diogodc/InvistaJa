@@ -1,6 +1,8 @@
 package Visao;
 
 import Controle.ControleEmpresa;
+import Modelo.CreateModel;
+import Modelo.ModeloEmpresa;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,9 @@ import javax.swing.JOptionPane;
  * @author E. Cardoso de Araújo
  */
 public class VisaoEmpresa extends javax.swing.JInternalFrame {
+
     private ControleEmpresa cEmpresa;
+
     public VisaoEmpresa() {
         initComponents();
     }
@@ -235,87 +239,92 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtAtividadeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        try{
+        try {
             this.limpar();
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        try{    
+        try {
             cEmpresa = new ControleEmpresa();
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-        } 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        }
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        try{ 
+        try {
             txtCodEmpresa.setText(cEmpresa.salvar(txtCodEmpresa, txtCNPJ, txtAtividade, txtRazaoSocial, txtNomeFantasia));
-            if (!txtCodEmpresa.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),0);
+            if (!txtCodEmpresa.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 0);
             }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),1);
-        } 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 1);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        try{
-            if (cEmpresa.excluir(txtCodEmpresa)){
+        try {
+            if (cEmpresa.excluir(txtCodEmpresa)) {
                 this.limpar();
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
             }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-        } 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        try{
-            String sCampos; 
-            
-            sCampos =  "ID_EMPRESA,";
+        try {
+            String sCampos;
+
+            sCampos = "ID_EMPRESA,";
             sCampos += "CNPJ,";
             sCampos += "RAZAO_SOCIAL,";
             sCampos += "NOME_FANTASIA,";
             sCampos += "ATIVIDADE";
-            
-            VisaoPesquisar vPesquisar = new VisaoPesquisar(null,true,sCampos,"BVSP_EMPRESA","","");
-            
+
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
+
             vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
             vPesquisar.cboCampoPesquisa.addItem("CNPJ");
             vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
             vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
             vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
-            
+
+            /**
+             * RAFAEL 31/05/2016
+             */
+            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
+
             vPesquisar.setVisible(true);
             carregaCampos(vPesquisar.getDados());
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-        } 
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void limpar(){
+    private void limpar() {
         txtCodEmpresa.setText("");
         txtCNPJ.setText("");
         txtAtividade.setText("");
         txtRazaoSocial.setText("");
         txtNomeFantasia.setText("");
     }
-    
-    private void carregaCampos(ArrayList<String> alDados){
-        try{
-            if (alDados.size()!=0){ 
+
+    private void carregaCampos(ArrayList<String> alDados) {
+        try {
+            if (alDados != null) {
                 this.txtCodEmpresa.setText(alDados.get(0));
                 this.txtNomeFantasia.setText(alDados.get(1));
                 this.txtRazaoSocial.setText(alDados.get(2));
                 this.txtCNPJ.setText(alDados.get(3));
                 this.txtAtividade.setText(alDados.get(4));
             }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
     }
 

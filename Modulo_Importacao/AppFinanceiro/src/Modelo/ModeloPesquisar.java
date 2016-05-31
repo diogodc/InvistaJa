@@ -11,9 +11,9 @@ public class ModeloPesquisar {
     private String sTipoFiltro;
     private String sFiltro;
     private String sCampoFiltro;
-    private String sCondicao;
-
-
+    private String sCondicao; 
+    private CreateModel mArvore;
+    
     public String getParamentros() {
         return sParamentros;
     }
@@ -68,5 +68,30 @@ public class ModeloPesquisar {
 
     public void setCondicao(String sCondicao) {
         this.sCondicao = sCondicao;
+    }
+
+    /**
+     * @return 
+     * @add Rafael 22/05/16
+     * @desordenando a consulta
+     */
+    public String getOrderBy() {   
+        return "order by sys_guid() desc ";
+    }
+    
+    /**
+     * @return 
+     * @add Rafael 22/05/16
+     * @desordenando a consulta
+     */
+    public CreateModel geModeloArvore() {   
+        return mArvore;
+    }
+    
+   /**
+     * @param mArvore the mArvore to set
+     */
+    public void setModeloArvore(CreateModel mArvore) {
+        this.mArvore = mArvore;
     }
 }

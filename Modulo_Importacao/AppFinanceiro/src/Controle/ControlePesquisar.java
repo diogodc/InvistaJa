@@ -22,6 +22,7 @@ import javax.swing.table.TableModel;
  * @author E. Cardoso de Araújo
  */
 public class ControlePesquisar {
+
     private final String sTabela;
     private final String sParametros;
     private final String sCondicao;
@@ -29,24 +30,24 @@ public class ControlePesquisar {
     private String sCodigo;
     private final VisaoPesquisar vPesquisar;
     private final ArrayList<String> dados = new ArrayList();
-    
-    public ControlePesquisar(VisaoPesquisar vPesquisar,String tabela,String parametros,
-            String condicao,String join, JTable tabResultados,
-            JTextField txtFiltro,JComboBox cboTipoFiltro){
+
+    public ControlePesquisar(VisaoPesquisar vPesquisar, String tabela, String parametros,
+            String condicao, String join, JTable tabResultados,
+            JTextField txtFiltro, JComboBox cboTipoFiltro) {
         this.vPesquisar = vPesquisar;
         this.sTabela = tabela;
         this.sParametros = parametros;
         this.sCondicao = condicao;
         this.sJoin = join;
     }
-    
-    public void pesquisar(JTable tabResultados,JTextField txtFiltro,
-            JComboBox cboTipoFiltro, JComboBox cboCampoFiltro) throws Exception{
-        try{
+
+    public void pesquisar(JTable tabResultados, JTextField txtFiltro,
+            JComboBox cboTipoFiltro, JComboBox cboCampoFiltro) throws Exception {
+        try {
             DefaultTableModel dtm = (DefaultTableModel) tabResultados.getModel();
             dtm.getDataVector().clear();
             dtm.setColumnCount(0);
-            
+
             ModeloPesquisar mPesquisar = new ModeloPesquisar();
             mPesquisar.setFiltro(txtFiltro.getText());
             mPesquisar.setJoin(sJoin);
@@ -55,51 +56,51 @@ public class ControlePesquisar {
             mPesquisar.setCondicao(sCondicao);
             mPesquisar.setTipoFiltro(cboTipoFiltro.getSelectedItem().toString());
             mPesquisar.setCampoFiltro(cboCampoFiltro.getSelectedItem().toString());
-            
+            mPesquisar.setModeloArvore(this.vPesquisar.getModeloArvore());
+
             DadosPesquisar dPesquisar = new DadosPesquisar();
-            
-            HashMap hmRetorno = dPesquisar.carregarTabela(mPesquisar); 
-            
+
+            HashMap hmRetorno = dPesquisar.carregarTabela(mPesquisar);
             tabResultados.setModel((TableModel) hmRetorno.get("Tabela"));
             sCodigo = (String) hmRetorno.get("Codigo");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
- 
-    public ArrayList<String> selecionar(JTable tabResultados) throws SQLException, ClassNotFoundException, 
-            InstantiationException, IllegalAccessException, Exception{
-        try{
+
+    public ArrayList<String> selecionar(JTable tabResultados) throws SQLException, ClassNotFoundException,
+            InstantiationException, IllegalAccessException, Exception {
+        try {
             conn.abrirConexao();
-            
+
             String sSql = "";
-            int linha = tabResultados.getSelectedRow();  
-            
+            int linha = tabResultados.getSelectedRow();
+
             sSql += "SELECT * FROM " + sTabela;
             sSql += " WHERE " + sCodigo + "=" + tabResultados.getValueAt(linha, 0);
-            
+
             ResultSet rs = conn.Selecionar(sSql);
-            
+
             rs.next();
-            for (int iCont = 1;iCont <= conn.getResultSetMetaData().getColumnCount();iCont++){
+            for (int iCont = 1; iCont <= conn.getResultSetMetaData().getColumnCount(); iCont++) {
                 dados.add(rs.getString(iCont));
             }
-            
+
             vPesquisar.dispose();
-            
+
             conn.fecharConexao();
-            
+
             return dados;
         } catch (SQLException ex) {
             throw ex;
         } catch (ClassNotFoundException ex) {
             throw ex;
         } catch (InstantiationException ex) {
-           throw ex;
+            throw ex;
         } catch (IllegalAccessException ex) {
-           throw ex;
+            throw ex;
         } catch (Exception ex) {
             throw ex;
         }
-    }        
+    }
 }

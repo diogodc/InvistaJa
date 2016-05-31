@@ -19,14 +19,16 @@ public class CreateModel<T extends Leaf> {
     private final T _model;
     private String _searchOption;
     private Object _search;
-    
+
     public CreateModel(T model) {
         this._model = model;
+        this._search = "";
     }
 
     public CreateModel(T model, String searchOption) {
         this._model = model;
         this._searchOption = searchOption;
+        this._search = "";
     }
 
     public T Get(Vector model) {
