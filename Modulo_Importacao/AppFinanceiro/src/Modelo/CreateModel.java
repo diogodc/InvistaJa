@@ -5,7 +5,6 @@
  */
 package Modelo;
 
-
 import Modelo.Tree.Branch.Leaf.Leaf;
 import java.awt.List;
 import java.util.Vector;
@@ -18,17 +17,52 @@ import java.util.Vector;
 public class CreateModel<T extends Leaf> {
 
     private final T _model;
-
+    private String _searchOption;
+    private Object _search;
+    
     public CreateModel(T model) {
         this._model = model;
     }
 
+    public CreateModel(T model, String searchOption) {
+        this._model = model;
+        this._searchOption = searchOption;
+    }
+
     public T Get(Vector model) {
-        return (T) _model.Get(model);
+        return (T) getModel().Get(model);
     }
 
     public T Get(List model) {
-        return (T) _model.Get(model);
+        return (T) getModel().Get(model);
+    }
+
+    /**
+     * @return the _model
+     */
+    public T getModel() {
+        return _model;
+    }
+
+    /**
+     * @return the _searchOption
+     */
+    public String searchOption() {
+        return _searchOption;
+    }
+
+    /**
+     * @return the _search
+     */
+    public Object getSearch() {
+        return _search;
+    }
+
+    /**
+     * @param _search the _search to set
+     */
+    public void setSearch(Object _search) {
+        this._search = _search;
     }
 
 }

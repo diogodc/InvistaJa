@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Modelo.Tree.Branch.Leaf;
+
 import java.awt.List;
 import java.util.Comparator;
 import java.util.Vector;
@@ -13,10 +14,12 @@ import java.util.Vector;
  * @author Rafael
  */
 public interface Leaf<T extends Leaf> {
-     /**
+
+    /**
      * @return the _Key
      */
     public Object getKey();
+
     /**
      * @param _Key the _Key to set
      */
@@ -31,15 +34,17 @@ public interface Leaf<T extends Leaf> {
     public boolean onRight(T sap);
 
     public static class compareStandard
-            implements Comparator<Leaf> {    
+            implements Comparator<Leaf> {
 
         @Override
         public int compare(Leaf o1, Leaf o2) {
             return o1.compare(o2);
         }
     }
-    
+
     public T Get(Vector model);
 
-    public T Get (List model) ;
+    public T Get(List model);
+
+    public Vector parseVector();
 }

@@ -5,7 +5,6 @@
  */
 package Modelo;
 
-
 import Modelo.Tree.Branch.Leaf.String.SLeaf;
 import java.awt.List;
 import java.util.Vector;
@@ -81,22 +80,30 @@ public class ModeloEmpresa extends SLeaf {
     }
 
     @Override
-    public Object getKey() { /* USADO PARA ORDENAÇÃO NA AVORE */
+    public Object getKey() {
+        /* USADO PARA ORDENAÇÃO NA ARVORE */
         return this.sRazao_Social;
     }
     
     @Override
-    public ModeloEmpresa Get(Vector model) { /* add Rafael */
+    public void setKey(Object _Key) {
+        this.sRazao_Social = (String) _Key;
+        System.out.println(this.sRazao_Social);
+    }
+
+    @Override
+    public ModeloEmpresa Get(Vector model) {
+        /* add Rafael */
         try {
             ModeloEmpresa mEmpresa = new ModeloEmpresa();
-            
-            if("".equals((String) model.elementAt(0))){
+
+            if ("".equals((String) model.elementAt(0))) {
                 return null;
             }
-            
+
             for (int i = 0; i <= model.size(); i++) {
-                if (mEmpresa.iEmpresa_ID <= 0) {                    
-                     mEmpresa.iEmpresa_ID = Integer.parseInt(String.valueOf(model.elementAt(i))); 
+                if (mEmpresa.iEmpresa_ID <= 0) {
+                    mEmpresa.iEmpresa_ID = Integer.parseInt(String.valueOf(model.elementAt(i)));
                 } else if ("".equals(mEmpresa.sCNPJ)) {
                     mEmpresa.sCNPJ = (String) model.elementAt(i);
                 } else if ("".equals(mEmpresa.sRazao_Social)) {
@@ -114,24 +121,35 @@ public class ModeloEmpresa extends SLeaf {
     }
 
     @Override
-    public ModeloEmpresa Get (List model) { /* add Rafael */
+    public Vector parseVector() {
+        Vector model = new Vector();
+        model.add(this.iEmpresa_ID);
+        model.add(this.sCNPJ);
+        model.add(this.sRazao_Social);
+        model.add(this.sNome_Fantasia);
+        model.add(this.sAtividade);
+        return model;
+    }
+
+    @Override
+    public ModeloEmpresa Get(List model) {
+        /* add Rafael */
         try {
             ModeloEmpresa modelEmpresa = new ModeloEmpresa();
             for (int i = 0; i <= model.getItemCount(); i++) {
                 if (modelEmpresa.iEmpresa_ID <= 0) {
-                    modelEmpresa.iEmpresa_ID =  Integer.parseInt(model.getItem(i));
-                }  else if ("".equals(modelEmpresa.sCNPJ)) {
+                    modelEmpresa.iEmpresa_ID = Integer.parseInt(model.getItem(i));
+                } else if ("".equals(modelEmpresa.sCNPJ)) {
                     modelEmpresa.sCNPJ = (String) model.getItem(i);
-                }else if ("".equals(modelEmpresa.sRazao_Social)) {
+                } else if ("".equals(modelEmpresa.sRazao_Social)) {
                     modelEmpresa.sRazao_Social = (String) model.getItem(i);
                 } else if ("".equals(modelEmpresa.sNome_Fantasia)) {
                     modelEmpresa.sNome_Fantasia = (String) model.getItem(i);
                 } else if ("".equals(modelEmpresa.sAtividade)) {
                     modelEmpresa.sAtividade = (String) model.getItem(i);
-                }                
+                }
             }
-                      
-            
+
             return modelEmpresa;
         } catch (Exception ex) {
             throw ex;

@@ -7,7 +7,8 @@ package Modelo.Tree;
 
 import Modelo.Tree.Branch.Branch;
 import Modelo.Tree.Branch.Leaf.Leaf;
-
+import java.awt.List;
+import java.util.Vector;
 
 /**
  *
@@ -39,7 +40,6 @@ public class Tree<T extends Leaf> {
             if (_father.getLeft() == null) {
                 _branch.setLevel(_father.getLevel() + 1);
                 _father.setLeft(_branch);
-
             } else {
                 this.add(_father.getLeft(), _branch);
             }
@@ -148,5 +148,49 @@ public class Tree<T extends Leaf> {
 
             System.out.println(predescessor + "Branch:  (LEVEL " + _branch.getLevel() + ")");
         }
+    }
+
+    public Vector parseVector() {
+        Vector treeVector = new Vector();
+        this.parseVector(this._trunk, treeVector);
+        return treeVector;
+    }
+
+    protected void parseVector(Branch<T> _branch, Vector treeVector) {
+        if (_branch != null) {
+            this.parseVector(_branch.getLeft(), treeVector);
+            treeVector.add(_branch.getLeaf().parseVector());
+            this.parseVector(_branch.getRight(), treeVector);
+        }
+    }
+
+    public  Object search(T leaf) {
+        return search(this._trunk, leaf);
+    }
+
+    public Object search(T leaf, Boolean vector) {
+        T _leaf = search(this._trunk, leaf);
+        Vector treeVector = new Vector();
+
+        if (_leaf != null) {
+           treeVector.add(_leaf.parseVector());
+        }
+        
+        return treeVector;
+    } 
+
+    protected T search(Branch<T> _branch, T lSearch) {
+        T _leaf = null;
+
+        if (_branch != null) {
+            if (lSearch.inPosition(_branch.getLeaf())) {
+                _leaf = _branch.getLeaf();
+            } else if (lSearch.onLeft(_branch.getLeaf())) {
+                _leaf = (T) this.search(_branch.getLeft(), lSearch);
+            } else {
+                _leaf = (T) this.search(_branch.getRight(), lSearch);
+            }
+        }
+        return _leaf;
     }
 }
