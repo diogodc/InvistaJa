@@ -21,8 +21,7 @@ bovespa.require.register(
 
 bovespa.object.extend(bovespa, {
     name: 'bovespa',
-    'render': function () {
-        bovespa.JQuery = $;
+    'render': function () {       
         var _control = bovespa.control,
                 _view = bovespa.view,
                 _model = bovespa.model;

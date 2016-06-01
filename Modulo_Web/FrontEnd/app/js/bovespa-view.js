@@ -548,7 +548,7 @@ bovespa.object.extend(bovespa, {
                                 render: function (model) {
 
 
-                                    bovespa.JQuery('#card-graphic-lg').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-lg').highcharts({
                                         chart: {
                                             type: 'column'
                                         },
@@ -587,7 +587,7 @@ bovespa.object.extend(bovespa, {
                                         series: model.lg().results()
                                     });
 
-                                    bovespa.JQuery('#card-graphic-ilc').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-ilc').highcharts({
                                         chart: {
                                             type: 'column'
                                         },
@@ -626,7 +626,7 @@ bovespa.object.extend(bovespa, {
                                         series: model.ilc().results()
                                     });
 
-                                    bovespa.JQuery('#card-graphic-ils').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-ils').highcharts({
                                         chart: {
                                             type: 'column'
                                         },
@@ -665,7 +665,7 @@ bovespa.object.extend(bovespa, {
                                         series: model.ilc().results()
                                     });
 
-                                    bovespa.JQuery('#card-graphic-ccl').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-ccl').highcharts({
                                         chart: {
                                             type: 'column'
                                         },
@@ -831,7 +831,7 @@ bovespa.object.extend(bovespa, {
                                 render: function (model) {
 
 
-                                    bovespa.JQuery('#card-graphic-ga').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-ga').highcharts({
                                         chart: {
                                             plotBackgroundColor: null,
                                             plotBorderWidth: null,
@@ -858,7 +858,7 @@ bovespa.object.extend(bovespa, {
 
 
                                     });
-                                     bovespa.JQuery('#card-graphic-ga').highcharts({
+                                     bovespa._plugin_.JQuery('#card-graphic-ga').highcharts({
                                         chart: {
                                             plotBackgroundColor: null,
                                             plotBorderWidth: null,

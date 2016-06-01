@@ -16,6 +16,10 @@ bovespa.object.extend(bovespa, {
             this._init_navigation(view);
             this._init_mnu();
         },
+        _init_plugins: function () {
+            bovespa._plugin = bovespa.object.create({});
+            bovespa._plugin_.JQuery = $;
+        },
         _init_navigation: function (view) {
             this._navigation_ = bovespa.object.create({});
             bovespa.object.extend(this._navigation_, {
