@@ -1,11 +1,11 @@
 /*
- 
+
  */
 
 (function (_object) {
     var _core = _object.core = {};
 
-    _core['instance'] = function () {
+    _core['instance'] = function (_set) {
         var sys_core;
         var sys = function object() {
         };
@@ -15,7 +15,7 @@
         };
         Number.prototype.formatMoney = function (c, d, t) {
             var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "JLib 1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         };
 
         sys_core = {};
@@ -185,7 +185,7 @@
             router: {},
             request: {},
             template: {},
-            $: {}
+            JLib: {}
         });
 
         sys_core.object.extend(sys_core.type, {
@@ -233,14 +233,15 @@
                 try {
                     JSON.parse(object);
                     return true;
-                }
-                catch (error) {
+                } catch (error) {
                     return false;
                 }
             }
         });
 
-        sys_core.object.extend(sys_core, {$: function $(prototype) {
+        /* ################### BIBLIOTECA DE MANIPULAÇÃO DE DOCUMENTOS E ESTILO HTML #################### */
+        sys_core.object.extend(sys_core, {
+            JLib: function JLib(prototype) {
                 var _element;
                 sys_core.object.extend(this, {
                     query: function (qr) {
@@ -268,331 +269,13 @@
 
                 sys_core.object.extend(this, {
                     dom: function dom() {
+                        var mlh = sys_core.JLib.mlh(_element);
                         var instance = sys_core.object.create({
-                            component: 'dom-element'
+                            'component-name': 'dom-element',
+                            'component-date': new Date()
                         });
-                        sys_core.object.extend(instance, {
-                            class: function () {
-                                var _class = sys_core.object.create({
-                                    component: 'class-element'
-                                });
 
-                                sys_core.object.extend(_class, {
-                                    remove: function (name_class) {
-                                        if (_element.el.classList) {
-                                            _element.el.classList.remove(name_class);
-                                        } else {
-                                            var _class = _element.get('class').trim();
-                                            this.attr('class', _class.replace(name_class, ""));
-                                        }
-                                    },
-                                    add: function (name_class) {
-                                        if (_element.el.classList) {
-                                            _element.el.classList.add(name_class);
-                                        } else {
-                                            var _class = _element.get('class').trim();
-                                            this.attr('class', _class + " " + name_class);
-                                        }
-                                    },
-                                    contains: function (name_class) {
-                                        if (_element.el.classList)
-                                            return  _element.el.classList.contains(name_class);
-
-
-                                        var _class = _element.get('class').trim();
-                                        return _class.contains(name_class);
-                                    }
-
-                                });
-
-                                return _class;
-                            },
-                            create_id: function create_id(previous) {
-                                this.each(function (e) {
-                                    var _id, attr;
-                                    _id = (previous == undefined ? '' : previous + '-') + sys_core.generateUUID();
-                                    attr = document.createAttribute("id");
-                                    attr.value = _id;
-                                    e.setAttributeNode(attr);
-                                });
-                                return this;
-                            },
-                            get_id: function get_id() {
-                                return this.el.getAttribute('id') ? this.el.getAttribute('id') : '';
-                            },
-                            get: function get(get) {
-                                return this.el.getAttribute(get);
-                            },
-                            create_element: function create_element(element_type, element_html5) {
-                                var _element;
-                                if (element_html5 != undefined)
-                                    _element = document.createElementNS(element_html5, element_type);
-                                else
-                                    _element = document.createElement(element_type);
-                                _element = sys_core.$(_element);
-                                sys_core.object.extend(_element, {
-                                    isHtml5: element_html5 != undefined
-                                });
-                                this.each(function (e) {
-                                    e.appendChild(_element.el);
-                                });
-                                return _element;
-                            },
-                            css: function css(_css, _style) {
-                                switch (_css) {
-                                    case 'background-Color' :
-                                        _css = 'backgroundColor';
-                                        break;
-                                }
-
-                                this.each(function (e) {
-                                    e.style[_css] = _style;
-                                });
-                                return this;
-                            },
-                            attr: function attr(_attr, _value) {
-
-                                this.each(function (e) {
-                                    var attr;
-                                    if (this.isHtml5 === true)
-                                        e.setAttributeNS(null, _attr, _value);
-                                    else {
-                                        attr = document.createAttribute(_attr);
-                                        attr.value = _value;
-                                        e.setAttributeNode(attr);
-                                    }
-                                });
-                                return this;
-                            },
-                            content: function content(content) {
-                                this.each(function (e) {
-                                    e.innerHTML = content;
-                                });
-                                return this;
-                            },
-                            mark_component: function (comp) {
-                                this.each(function (e) {
-                                    var _comp
-                                            , comp_name
-                                            , comp_id;
-                                    comp_name = sys_core.name + '-' + comp[0];
-                                    _comp = document.createAttribute("component-name");
-                                    _comp.value = comp_name;
-                                    e.setAttributeNode(_comp);
-                                    comp_id = sys_core.name + '-' + comp[1];
-                                    _comp = document.createAttribute("component-id");
-                                    _comp.value = comp_id;
-                                    e.setAttributeNode(_comp);
-                                });
-                                return this;
-                            },
-                            query_selector_Attribute: function query_selector_Attribute(attribute, context) {
-                                var nodeList = (context || this.el).getElementsByTagName('*');
-                                var nodeArray = [];
-                                var iterator = 0;
-                                var node = null;
-                                while (node = nodeList[iterator++]) {
-                                    if (node.getAttribute(attribute))
-                                        nodeArray.push(node);
-                                }
-
-                                return nodeArray;
-                            },
-                            query_selector_Attribute_value: function query_selector_Attribute_value(attribute, value, context) {
-                                var nodeList = (context || this.el).getElementsByTagName('*');
-                                var nodeArray = [];
-                                var iterator = 0;
-                                var node = null;
-                                while (node = nodeList[iterator++]) {
-                                    if (node.getAttribute(attribute))
-                                        if (node.getAttribute(attribute) == value) {
-                                            nodeArray.push(sys_core.$(node));
-                                        }
-
-                                }
-
-                                return nodeArray;
-                            },
-                            query: function (qr, context) {
-                                var nodeArray = [];
-                                var iterator = 0;
-                                var node = null;
-                                var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
-                                var queryValue = qr.substring(1);
-                                var nodeList = (query === "") ? (context || this.el).getElementsByTagName(qr) : (context || this.el).getElementsByTagName('*');
-                                while (node = nodeList[iterator++]) {
-                                    var _node = node.getAttribute(query);
-                                    if (sys_core.isDefined(_node) && query !== "") {
-                                        if (_node.contains(queryValue))
-                                            nodeArray.push(sys_core.$(node));
-                                    } else {
-                                        if (query == "") {
-                                            nodeArray.push(sys_core.$(node));
-                                        }
-                                    }
-                                }
-
-                                return nodeArray;
-                            },
-                            height: function height() {
-                                var _height = 0;
-
-                                this.each(function (elementPassed) {
-                                    var DoOffset = true;
-
-                                    if (!elementPassed) {
-                                        return 0;
-                                    }
-                                    if (!elementPassed.style) {
-                                        return 0;
-                                    }
-
-
-                                    var thisHeight = 0;
-                                    var heightBase = parseInt(elementPassed.style.height);
-                                    var heightOffset = parseInt(elementPassed.offsetHeight);
-                                    var heightScroll = parseInt(elementPassed.scrollHeight);
-                                    var heightClient = parseInt(elementPassed.clientHeight);
-                                    var heightNode = 0;
-                                    var heightRects = 0;
-                                    //
-
-                                    if (DoOffset) {
-                                        if (heightOffset > thisHeight) {
-                                            thisHeight = heightOffset;
-                                        }
-                                    }
-
-                                    if (thisHeight == 0) {
-                                        thisHeight = heightClient;
-                                    }
-
-
-                                    _height = thisHeight;
-                                });
-
-
-                                return _height;
-                            },
-                            width: function width() {
-                                var _width = 0;
-
-                                this.each(function (elementPassed) {
-                                    var DoOffset = true;
-
-                                    if (!elementPassed) {
-                                        return 0;
-                                    }
-                                    if (!elementPassed.style) {
-                                        return 0;
-                                    }
-
-
-                                    var thisWidth = 0;
-                                    var widthBase = parseInt(elementPassed.style.width);
-                                    var widthOffset = parseInt(elementPassed.offsetWidth);
-                                    var widthScroll = parseInt(elementPassed.scrollWidth);
-                                    var widthClient = parseInt(elementPassed.clientWidth);
-                                    var widthNode = 0;
-                                    var widthRects = 0;
-                                    //
-
-                                    if (DoOffset) {
-                                        if (widthOffset > thisWidth) {
-                                            thisWidth = widthOffset;
-                                        }
-                                    }
-
-                                    if (thisWidth == 0) {
-                                        thisWidth = widthClient;
-                                    }
-
-
-                                    _width = thisWidth;
-                                });
-
-
-                                return _width;
-                            },
-                            remove: function remove() {
-                                this.each(function (e) {
-                                    if (e.parentNode) {
-                                        e.parentNode.removeChild(e);
-                                    }
-                                });
-                            },
-                            position: function position() {
-                                var xPos = 0;
-                                var yPos = 0;
-
-                                this.each(function (e) {
-                                    var el = e;
-                                    while (el) {
-
-                                        if (el.tagName == "BODY") {
-                                            // deal with browser quirks with body/window/document and page scroll
-                                            var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-                                            var yScroll = el.scrollTop || document.documentElement.scrollTop;
-
-                                            xPos += (el.offsetLeft - xScroll + el.clientLeft);
-                                            yPos += (el.offsetTop - yScroll + el.clientTop);
-                                        } else {
-                                            // for all other non-BODY elements
-                                            xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-                                            yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-                                        }
-
-                                        el = el.offsetParent;
-                                    }
-                                });
-
-                                return {
-                                    x: xPos,
-                                    y: yPos
-                                };
-                            },
-                            mask: function () {
-                                var _mask = {
-                                    _self: null,
-                                    _render: null,
-                                    _resize_mask: function () {
-                                        this._render.css("min-height", this._self.height() + 'px')
-                                                .css("min-width", this._self.width() + 'px')
-                                                .css('position', 'fixed')
-                                                .css("z-index", '1')
-                                                .css("background", 'black')
-                                                .css('top', this._self.position().y + 'px')
-                                                .css('left', this._self.position().x + 'px')
-                                                .css('opacity', "0.4");
-                                    }
-                                };
-
-                                this.unmask();
-                                _mask._self = this;
-                                _mask._render = _mask._self.create_element('div');
-                                _mask._render.class().add('mask');
-                                _mask._render.mark_component(['mask', sys_core.newID('mask')]);
-                                _mask._render.attr('id', sys_core.newID('mask'));
-                                sys_core.onResize(function () {
-                                    _mask._resize_mask.call(_mask);
-                                });
-
-                                this['_mask_'] = _mask;
-                            },
-                            unmask: function () {
-                                if (this['_mask_']) {
-                                    if (this['_mask_']._render)
-                                        this['_mask_']._render.remove();
-                                } else {                                     
-                                    this.each(function (e) {
-                                        var _masks = sys_core.$(e).query_selector_Attribute_value('component-name', sys_core.name + '-' + 'mask');
-                                        for (var x in _masks) {
-                                            _masks[x].remove();
-                                        }
-                                    });
-                                }
-                            }
-                        });
+                        sys_core.object.extend(instance, mlh);
                         return instance;
                     }
                 });
@@ -681,7 +364,607 @@
                 }
 
                 return _element;
-            }});
+            }
+        });
+
+        sys_core.object.extend(sys_core.JLib, {
+            mlh: function () {
+                return  {
+                    class: function () {
+                        var _class,
+                                _self;
+
+                        _class = sys_core.object.create({
+                            component: 'class-element'
+                        });
+                        _self = this;
+
+                        sys_core.object.extend(_class, {
+                            remove: function (name_class) {
+                                if (_self.el.classList) {
+                                    _self.el.classList.remove(name_class);
+                                } else {
+                                    var _class = _self.get('class').trim();
+                                    this.attr('class', _class.replace(name_class, ""));
+                                }
+                            },
+                            add: function (name_class) {
+                                if (_self.el.classList) {
+                                    _self.el.classList.add(name_class);
+                                } else {
+                                    var _class = _self.get('class').trim();
+                                    this.attr('class', _class + " " + name_class);
+                                }
+                            },
+                            contains: function (name_class) {
+                                if (_self.el.classList)
+                                    return  _self.el.classList.contains(name_class);
+
+
+                                var _class = _self.get('class').trim();
+                                return _class.contains(name_class);
+                            }
+                        });
+
+                        return _class;
+                    },
+                    create_id: function create_id(previous) {
+                        this.each(function (e) {
+                            var _id, attr;
+                            _id = (previous == undefined ? '' : previous + '-') + sys_core.generateUUID();
+                            attr = document.createAttribute("id");
+                            attr.value = _id;
+                            e.setAttributeNode(attr);
+                        });
+                        return this;
+                    },
+                    get_id: function get_id() {
+                        return this.el.getAttribute('id') ? this.el.getAttribute('id') : '';
+                    },
+                    get: function get(get) {
+                        return this.el.getAttribute(get);
+                    },
+                    create_element: function create_element(element_type, element_html5) {
+                        var _element;
+                        if (element_html5 != undefined)
+                            _element = document.createElementNS(element_html5, element_type);
+                        else
+                            _element = document.createElement(element_type);
+                        _element = sys_core.JLib(_element);
+                        sys_core.object.extend(_element, {
+                            isHtml5: element_html5 != undefined
+                        });
+                        this.each(function (e) {
+                            e.appendChild(_element.el);
+                        });
+                        return _element;
+                    },
+                    css: function css(_css, _style) {
+                        switch (_css) {
+                            case 'background-Color' :
+                                _css = 'backgroundColor';
+                                break;
+                        }
+
+                        this.each(function (e) {
+                            e.style[_css] = _style;
+                        });
+                        return this;
+                    },
+                    attr: function attr(_attr, _value) {
+
+                        this.each(function (e) {
+                            var attr;
+                            if (this.isHtml5 === true)
+                                e.setAttributeNS(null, _attr, _value);
+                            else {
+                                attr = document.createAttribute(_attr);
+                                attr.value = _value;
+                                e.setAttributeNode(attr);
+                            }
+                        });
+                        return this;
+                    },
+                    content: function content(content) {
+                        this.each(function (e) {
+                            e.innerHTML = content;
+                        });
+                        return this;
+                    },
+                    mark_component: function (comp) {
+                        this.each(function (e) {
+                            var _comp
+                                    , comp_name
+                                    , comp_id;
+                            comp_name = sys_core.name + '-' + comp[0];
+                            _comp = document.createAttribute("component-name");
+                            _comp.value = comp_name;
+                            e.setAttributeNode(_comp);
+                            comp_id = sys_core.name + '-' + comp[1];
+                            _comp = document.createAttribute("component-id");
+                            _comp.value = comp_id;
+                            e.setAttributeNode(_comp);
+                        });
+                        return this;
+                    },
+                    query_selector_Attribute: function query_selector_Attribute(attribute, context) {
+                        var nodeList = (context || this.el).getElementsByTagName('*');
+                        var nodeArray = [];
+                        var iterator = 0;
+                        var node = null;
+                        while (node = nodeList[iterator++]) {
+                            if (node.getAttribute(attribute))
+                                nodeArray.push(node);
+                        }
+
+                        return nodeArray;
+                    },
+                    query_selector_Attribute_value: function query_selector_Attribute_value(attribute, value, context) {
+                        var nodeList = (context || this.el).getElementsByTagName('*');
+                        var nodeArray = [];
+                        var iterator = 0;
+                        var node = null;
+                        while (node = nodeList[iterator++]) {
+                            if (node.getAttribute(attribute))
+                                if (node.getAttribute(attribute) == value) {
+                                    nodeArray.push(sys_core.JLib(node));
+                                }
+
+                        }
+
+                        return nodeArray;
+                    },
+                    query: function (qr, context) {
+                        var nodeArray = [];
+                        var iterator = 0;
+                        var node = null;
+                        var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
+                        var queryValue = qr.substring(1);
+                        var nodeList = (query === "") ? (context || this.el).getElementsByTagName(qr) : (context || this.el).getElementsByTagName('*');
+                        while (node = nodeList[iterator++]) {
+                            var _node = node.getAttribute(query);
+                            if (sys_core.isDefined(_node) && query !== "") {
+                                if (_node.contains(queryValue))
+                                    nodeArray.push(sys_core.JLib(node));
+                            } else {
+                                if (query == "") {
+                                    nodeArray.push(sys_core.JLib(node));
+                                }
+                            }
+                        }
+
+                        return nodeArray;
+                    },
+                    height: function height() {
+                        var _height = 0;
+
+                        this.each(function (elementPassed) {
+                            var DoOffset = true;
+
+                            if (!elementPassed) {
+                                return 0;
+                            }
+                            if (!elementPassed.style) {
+                                return 0;
+                            }
+
+
+                            var thisHeight = 0;
+                            var heightBase = parseInt(elementPassed.style.height);
+                            var heightOffset = parseInt(elementPassed.offsetHeight);
+                            var heightScroll = parseInt(elementPassed.scrollHeight);
+                            var heightClient = parseInt(elementPassed.clientHeight);
+                            var heightNode = 0;
+                            var heightRects = 0;
+                            //
+
+                            if (DoOffset) {
+                                if (heightOffset > thisHeight) {
+                                    thisHeight = heightOffset;
+                                }
+                            }
+
+                            if (thisHeight == 0) {
+                                thisHeight = heightClient;
+                            }
+
+
+                            _height = thisHeight;
+                        });
+
+
+                        return _height;
+                    },
+                    width: function width() {
+                        var _width = 0;
+
+                        this.each(function (elementPassed) {
+                            var DoOffset = true;
+
+                            if (!elementPassed) {
+                                return 0;
+                            }
+                            if (!elementPassed.style) {
+                                return 0;
+                            }
+
+
+                            var thisWidth = 0;
+                            var widthBase = parseInt(elementPassed.style.width);
+                            var widthOffset = parseInt(elementPassed.offsetWidth);
+                            var widthScroll = parseInt(elementPassed.scrollWidth);
+                            var widthClient = parseInt(elementPassed.clientWidth);
+                            var widthNode = 0;
+                            var widthRects = 0;
+                            //
+
+                            if (DoOffset) {
+                                if (widthOffset > thisWidth) {
+                                    thisWidth = widthOffset;
+                                }
+                            }
+
+                            if (thisWidth == 0) {
+                                thisWidth = widthClient;
+                            }
+
+
+                            _width = thisWidth;
+                        });
+
+
+                        return _width;
+                    },
+                    remove: function remove() {
+                        this.each(function (e) {
+                            if (e.parentNode) {
+                                e.parentNode.removeChild(e);
+                            }
+                        });
+                    },
+                    position: function position() {
+                        var xPos = 0;
+                        var yPos = 0;
+
+                        this.each(function (e) {
+                            var el = e;
+                            while (el) {
+
+                                if (el.tagName == "BODY") {
+                                    // deal with browser quirks with body/window/document and page scroll
+                                    var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+                                    var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+                                    xPos += (el.offsetLeft - xScroll + el.clientLeft);
+                                    yPos += (el.offsetTop - yScroll + el.clientTop);
+                                } else {
+                                    // for all other non-BODY elements
+                                    xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+                                    yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+                                }
+
+                                el = el.offsetParent;
+                            }
+                        });
+
+                        return {
+                            x: xPos,
+                            y: yPos
+                        };
+                    },
+                    mask: function () {
+                        var _mask = {
+                            _self: null,
+                            _render: null,
+                            _resize_mask: function () {
+                                this._render.css("min-height", this._self.height() + 'px')
+                                        .css("min-width", this._self.width() + 'px')
+                                        .css('position', 'fixed')
+                                        .css("z-index", '1')
+                                        .css("background", 'black')
+                                        .css('top', this._self.position().y + 'px')
+                                        .css('left', this._self.position().x + 'px')
+                                        .css('opacity', "0.4");
+                            },
+                            get: function () {
+                                return _mask._child_;
+                            }
+                        };
+
+                        this.unmask();
+                        _mask._self = this;
+                        _mask._render = _mask._self.create_element('div');
+                        _mask._child_ = _mask._render.create_element('div');
+                        _mask._render.class().add('mask');
+                        _mask._render.mark_component(['mask', sys_core.newID('mask')]);
+                        _mask._render.attr('id', sys_core.newID('mask'));
+                        _mask._child_.css("z-index", "1");
+                        _mask._child_.css("height", "100%");
+                        _mask._child_.css("width", "100%");
+                        _mask._child_.css('opacity', "1");
+                        _mask._child_.css('background', "white");
+
+
+                        sys_core.onResize(function () {
+                            _mask._resize_mask.call(_mask);
+                        });
+
+                        this['_mask_'] = _mask;
+
+                        return this['_mask_'];
+                    },
+                    unmask: function () {
+                        if (this['_mask_']) {
+                            if (this['_mask_']._render)
+                                this['_mask_']._render.remove();
+                        } else {
+                            this.each(function (e) {
+                                var _masks = sys_core.JLib(e).query_selector_Attribute_value('component-name', sys_core.name + '-' + 'mask');
+                                for (var x in _masks) {
+                                    _masks[x].remove();
+                                }
+                            });
+                        }
+                    },
+                    fileFrame: function (_set) {
+                        var _FileFrame = {
+                            _self: null,
+                            validator: function (File, FileText) {
+                                return true;
+                            },
+                            load: function (File, FileText) {
+
+                            },
+                            error: function () {
+
+                            },
+                            init: function () {
+
+                            }
+                        };
+
+                        sys_core.object.extend(_FileFrame, _set);
+
+                        _FileFrame.init.call(_FileFrame);
+                        _FileFrame._self = this;
+                        _FileFrame._render = _FileFrame._self.create_element('div');
+                        _FileFrame._render.class().add('file-frame');
+                        _FileFrame._render.mark_component(['file-frame', sys_core.newID('file-frame')]);
+                        _FileFrame._render.attr('id', sys_core.newID('file-frame'));
+                        _FileFrame._render.css("min-height", '200px')
+                                .css("border", "dashed 4px White")
+                                .css("transition", "background-color 0.3s");
+
+                        sys_core.object.extend(_FileFrame, {
+                            _dragHover: function (e) {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                _FileFrame._render.class().add((e.type == "dragover" ? "hover" : "dragleave"));
+                            },
+                            _drop: function (e) {
+                                _FileFrame.init.call(_FileFrame);
+                                _FileFrame._dragHover(e);
+                                _FileFrame._File = e.dataTransfer.files[0];
+                                _FileFrame._read(_FileFrame._File);
+                            },
+                            _read: function (File) {
+                                var reader = new FileReader();
+                                reader.onload = function (_File) {
+                                    var _text = _File.target.result;
+                                    if (!_FileFrame.validator(_File, _text)) {
+                                        _FileFrame.error.call(_FileFrame);
+                                        return false;
+                                    }
+
+                                    _FileFrame.load.call(_FileFrame, _File, _text);
+                                };
+                                reader.readAsText(File);
+                            },
+                            _click: function () {
+                                var _input = null;
+
+                                _FileFrame.init.call(_FileFrame);
+                                _input = _FileFrame._self.create_element("input");
+                                _input.css("opacity", "0");
+                                _input.attr("type", "file");
+
+                                _input.event("change", function (e) {
+
+                                    if (sys_core.isDefined(this.files[0])) {
+                                        _FileFrame._File = this.files[0];
+                                        _FileFrame._read(_FileFrame._File);
+                                    }
+                                });
+
+                                _input.each(function (e) {
+                                    e.click();
+                                    return false;
+                                });
+
+                                _input.remove();
+                            }
+                        });
+
+                        _FileFrame._render.event("dragleave", _FileFrame._dragHover);
+                        _FileFrame._render.event("dragover", _FileFrame._dragHover);
+                        _FileFrame._render.event("drop", _FileFrame._drop);
+                        _FileFrame._render.event("click", _FileFrame._click);
+
+
+
+                        return {
+                        };
+                    },
+                    tost: function (settings) {
+                        var _tost = {
+                            _self: null
+                        },
+                        _position_top = 0,
+                                _position_right = 0;
+
+
+                        sys_core.object.extend(_tost, settings);
+                        _tost._self = this;
+                        _tost._render = sys_core.JLib("body").create_element('div');
+                        _tost._body = _tost._render.create_element('div');
+
+                        sys_core.Rendering.settings(_tost._render, settings.attr);
+                        sys_core.Rendering.settings(_tost._body, settings.attr);
+
+                        _tost._render.class().add("tost");
+                        _tost._render.class().add("s-md-col-3");
+                        _tost._render.class().add("shadow");
+                        _tost._render.class().add("s-md-back-White");
+
+                        _tost._render.css("min-height", '50px')
+                                .css("min-width", '190px')
+                                .css("transition", "background-color 0.3s");
+
+                        _position_top = _tost._self.position().y;
+                        _position_right = _tost._self.position().x - _tost._self.width();
+                        _position_right = _position_right <= 0 ? _tost._self.position().x : _position_right;
+
+                        _tost._render.css('position', 'absolute')
+                                .css("z-index", '1')
+                                .css('top', _position_top + 'px')
+                                .css('right', _position_right + 'px');
+
+                        _tost._body.class().add("s-center");
+                        _tost._body.css("min-height", '50px')
+                                .css("min-width", '190px');
+
+                        _tost._body.create_element("span")
+                                .content(settings.text || "");
+
+                        setTimeout(function () {
+                            _tost._render.remove();
+                        }, 4000);
+                    },
+                    chart: function (settings) {
+                        var _chart = {
+                            _self: null
+                        };
+                    },
+                    table: function (settings) {
+                        var _table = {
+                            _self: null
+                        };
+
+
+                        if (!sys_core.isDefined(settings.id)) {
+                            sys_core.object.extend(settings, {
+                                id: sys_core.newID('table')
+                            });
+                        } else {
+                            settings.id = sys_core.name + '-' + settings.id;
+                        }
+
+
+
+                        _table._self = this;
+                        _table._render = _table._self.create_element('div');
+                        _table._div_ = _table._render.create_element('div');
+                        _table._table_ = _table._div_.create_element('table');
+                        _table._thead_ = _table._table_.create_element('thead');
+                        _table._tbody_ = _table._table_.create_element('tbody');
+                        _table._columns_ = _table._thead_.create_element('tr');
+
+                        _table._render.class().add('s-table');
+                        _table._div_.class().add('s-table-body');
+                        _table._table_.css('min-height', '50%');
+
+                        _table._render.mark_component(['data-table', settings.id]);
+                        _table._div_.mark_component(['data-table-div', settings.id]);
+                        _table._table_.mark_component(['data-table-main', settings.id]);
+
+                        _table._thead_.mark_component(['data-table-head', settings.id]);
+                        _table._tbody_.mark_component(['data-table-body', settings.id]);
+                        _table._columns_.mark_component(['data-table-columns', settings.id]);
+
+
+                        /* RENDER COLUMNS*/
+
+                        sys_core.each(settings.columns, function (col) {
+                            var _column = _table._columns_.create_element('th');
+
+                            _column.mark_component(['data-row-columns', settings.id]);
+                            sys_core.Rendering.settings(_column, {
+                                'data-column': col['data-name']
+                            });
+
+                            sys_core.eachProto(col, function (proto_value, protoName) {
+                                var _title;
+                                if (protoName === "title") {
+                                    _title = _column.create_element('div')
+                                            .create_element('span');
+                                    _title.create_element('text').content(proto_value.text ? proto_value.text : '');
+                                    _title.create_element('subText').content(proto_value.subText ? proto_value.subText : '');
+                                }
+                            });
+                        });
+
+                        /* RENDER COLUMNS*/
+
+
+                        /* RENDER ROWS*/
+                        settings.model.each(function () {
+                            var _rows = _table._tbody_
+                                    .create_element('tr'),
+                                    data = this;
+
+                            _rows.mark_component(['data-row', settings.id]);
+                            sys_core.Rendering.settings(_rows, {
+                                'data-row': data.getIndex() + 1,
+                                data: data.raw()
+                            });
+
+                            sys_core.each(settings.columns, function (col) {
+                                var _cell = _rows.create_element('td');
+                                var dtValue = data.get(col['data-name']);
+
+                                _rows.mark_component(['data-row-cell', settings.id]);
+                                sys_core.Rendering.settings(_cell, {
+                                    'data-column': col['data-name']
+                                });
+
+                                if (sys_core.type.isFunction(col.render)) {
+                                    dtValue = col.render(dtValue);
+                                }
+
+
+                                _cell.create_element('div')
+                                        .create_element('span')
+                                        .content(dtValue);
+                            });
+                        });
+
+                        /* RENDER ROWS*/
+
+                        return _table;
+                    },
+                    replace: function (settings) {
+                        var _regx = {
+                            _self: null
+                        };
+
+                        _regx._self = this;
+                        _regx._self.each(function (e) {
+                            _regx._child = _regx._self.query(settings.tag, e);
+                            for (var x in  _regx._child) {
+                                _regx._child[x].each(function (e) {
+                                    if (e.textContent === settings.from) {
+                                        _regx._child[x].content(settings.to || "");
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                };
+            }
+
+        });
+        /* ################### BIBLIOTECA DE MANIPULAÇÃO DE DOCUMENTOS E ESTILO HTML #################### */
 
         /* ################### STRUCTURE #################### */
         sys_core.object.extend(sys_core, {structure: function structure(_structure) {
@@ -862,7 +1145,7 @@
                 }
 
 
-                ele = sys_core.$(document.createElement(eType));
+                ele = sys_core.JLib(document.createElement(eType));
                 ele.attr('class', eClass);
 
                 return comp_structure.construct_element(ele, config);
@@ -924,7 +1207,7 @@
                 };
                 sys_core.object.extend(ajax, {
                     clearSlashes: function (path) {
-                        return path.toString().replace(/\/$/, '').replace(/^\//, '');
+                        return path.toString().replace(/\/JLib /, '').replace(/^\//, '');
                     },
                     getUrl: function () {
                         return this.root + this.clearSlashes(location.pathname) + '/' + this['url'];
@@ -989,14 +1272,16 @@
                         module = null;
 
                 module = _require.modulos[modName];
-                if (!sys_core.isDefined(module) && sys_core.isDefined(module.complete))
+                if (!sys_core.isDefined(module))
+                    return false;
+                else if (sys_core.isDefined(module.complete))
                     return false;
 
                 module.load = 'complete';
                 module.id = 'require-' + sys_core.generateUUID();
                 new Function('', _require.readModule(module.path + '?' + module.id))();
 
-                sys_core.$('head').include(sys_core.structure({
+                sys_core.JLib('head').include(sys_core.structure({
                     stype: 'script',
                     libs: module
                 }).me());
@@ -1022,8 +1307,7 @@
 
                 sys_core.object.extend(router, config[0]);
 
-                router['route'] = router['route'].replace(/#(.*)$/, '');
-
+                router['route'] = router['route'].replace(/#(.*)JLib /, '');
                 if (typeof config[1] == 'function') { //callback
                     router['callback'] = config[1];
                 } else {
@@ -1033,12 +1317,15 @@
 
                 sys_core.object.extend(router, {
                     navigate: function (callback) {
-                        window.location.href = window.location.href.replace(/#(.*)$/, '') + '#' + this['route'] + "?" + sys_core.generateUUID().substring(1, 8).toUpperCase();
+                        var location = window.location.href.replace(/#(.*)$/, '');
+                        var route = this['route'].replace(/#(.*)$/, '');
+
+
+                        window.location.href = location + '#' + route + "?" + sys_core.generateUUID().substring(1, 8).toUpperCase();
                         (callback ? callback : this.callback).call(this, true);
                         return this;
                     }
                 });
-                router.init();
                 return router;
             }});
         sys_core.object.extend(sys_core.router, {
@@ -1112,10 +1399,10 @@
                         pattern: /\@\{(\w*)\}/g,
                         'view-text': '',
                         'inject-json': function (dataBind) {
-                            var view = main.$(this.self);
+                            var view = main.JLib(this.self);
                             sys_core.eachProtoRecursive(dataBind, function (v, n, s) {
                                 view.each(function (e) {
-                                    var expressions = main.$(e).query_selector_Attribute_value('bind-value', s);
+                                    var expressions = main.JLib(e).query_selector_Attribute_value('bind-value', s);
                                     sys_core.each(expressions, function (bind) {
                                         bind.content(v);
                                     });
@@ -1124,14 +1411,14 @@
                         },
                         'render-html': function (text) {
                             this['view-text'] = text;
-                            main.$(this.self).mark_component(['view-template', '000']);
-                            main.$(this.self).attr('template-name', _template.name);
+                            main.JLib(this.self).mark_component(['view-template', '000']);
+                            main.JLib(this.self).attr('template-name', _template.name);
 
                             if (sys_core.isDefined(this.html)) {
-                                main.$(this.self).content('');
-                                main.Rendering(main.$(this.self), this.html);
+                                main.JLib(this.self).content('');
+                                main.Rendering(main.JLib(this.self), this.html);
                             } else {
-                                main.$(this.self).content(this['view-text']);
+                                main.JLib(this.self).content(this['view-text']);
                             }
                         },
                         'render': function (model) {
@@ -1145,14 +1432,13 @@
                         init: function (view, model, callback) {
                             this.render(view, this, model, callback);
                         },
-                        'render-before': function (view, control, model, callback) {
+                        'render-before': function (view, model) {
 
                         },
-                        'render-after': function (view, control, model, callback) {
+                        'render-after': function (view, model) {
 
                         },
                         'render': function (view, control, model, callback) {
-                            control['render-before'](view, control, model, callback);
                             main.request({
                                 url: this.url + '?get-template*' + sys_core.newID('template'),
                                 success: function () {
@@ -1168,8 +1454,9 @@
                             return this;
                         },
                         'render-view': function (view_text, view, model, callback) {
+                            this['render-before'](view, model);
                             view.init.call(view, view_text, model, callback);
-                            this['render-after'](view, this, model, callback);
+                            this['render-after'](view, model);
                             (callback ? callback.call(this, view, model) : false);
                         }
                     }
@@ -1228,7 +1515,7 @@
 
                 if (config.tType === "line") {
                     chart_theme = sys_core.config.chart.theme[config.theme][config.tType];
-                    render_to = sys_core.$(config.renderTo);
+                    render_to = sys_core.JLib(config.renderTo);
                     render_to.each(function (e) {
                         var chart = e.getContext("2d"),
                                 data_values = null,
@@ -1283,10 +1570,10 @@
             },
             table: function (_object) {
                 var _self = null,
-                        $ = null;
+                        JLib = null;
 
-                $ = sys_core.$;
-                _self = $(_object.renderTo);
+                JLib = sys_core.JLib;
+                _self = JLib(_object.renderTo);
                 if (!sys_core.isDefined(_object.id)) {
                     sys_core.object.extend(_object, {
                         id: sys_core.newID('table')
@@ -1371,13 +1658,13 @@
             },
             select: function (_object) {
                 var _self = null,
-                        $ = null,
+                        JLib = null,
                         mask = null;
 
 
 
-                $ = sys_core.$;
-                _self = $(_object.renderTo);
+                JLib = sys_core.JLib;
+                _self = JLib(_object.renderTo);
 
 
                 if (!sys_core.isDefined(_object.id)) {
@@ -1463,8 +1750,8 @@
                     cs_searchText.attr('type', 'text');
 
 
-                    /* EVENTOS DE PERDA DE FOCUS 
-                     * AO PEDER O FOCO - REMOVE TUDO                     * 
+                    /* EVENTOS DE PERDA DE FOCUS
+                     * AO PEDER O FOCO - REMOVE TUDO                     *
                      * */
                     sys_core.component.components.select[_object.id]['_focus_txt'] = false;
                     sys_core.component.components.select[_object.id]['_focus_body'] = false;
@@ -1525,16 +1812,16 @@
 
                     /* EVENTOS DE PERDA DE FOCUS */
 
-                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS 
+                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS
                      * TRATA A POSIÇÃO  - TOP E LEFT
-                     * TRATA O TAMANHO  - WIDTH                     
+                     * TRATA O TAMANHO  - WIDTH
                      * */
                     sys_core.onResize(function () {
                         cs_comp.each(function (e) {
                             cs_selectBox.css('z-index', '1');
                             cs_selectBox.css('width', cs_input.width() + 'px');
-                            cs_selectBox.css('left', $(e.parentNode).position().x + 'px');
-                            cs_selectBox.css('top', $(e.parentNode).position().y + 'px');
+                            cs_selectBox.css('left', JLib(e.parentNode).position().x + 'px');
+                            cs_selectBox.css('top', JLib(e.parentNode).position().y + 'px');
                             cs_searchText.css('width', cs_input.width() + 'px');
                             cs_selectOptions.css('width', cs_input.width() + 'px');
                         });
@@ -1599,8 +1886,8 @@
                         var _option = this;
                         cs_input.attr('value', _option.innerText);
                         sys_core.Rendering.settings(cs_input, {
-                            'data-option': $(_option).get('data-option'),
-                            'data': $(_option).get('data')
+                            'data-option': JLib(_option).get('data-option'),
+                            'data': JLib(_option).get('data')
                         });
                         cs_selectBox.remove();
                     });
@@ -1619,7 +1906,7 @@
             },
             get: function (_id) {
                 var comp_id = sys_core.name + '-' + _id,
-                        comp_obj = sys_core.$(comp_id),
+                        comp_obj = sys_core.JLib(comp_id),
                         comp_name = comp_obj.get('component-name').replace(sys_core.name + '-', '');
 
                 var comp = {};
@@ -1746,7 +2033,7 @@
                 });
             },
             'table': function (s_table) {
-                var _table = sys_core.$(document.createElement('table'));
+                var _table = sys_core.JLib(document.createElement('table'));
 
                 if (sys_core.isDefined(s_table.columns)) {
                     if (sys_core.type.isArray(s_table.columns)) {
@@ -1758,10 +2045,10 @@
                 return _table;
             },
             'view': function (s_view) {
-                return  sys_core.$(document.createElement('div'));
+                return  sys_core.JLib(document.createElement('div'));
             },
             'title': function (s_title) {
-                var _title = sys_core.$(document.createElement('div'));
+                var _title = sys_core.JLib(document.createElement('div'));
 
                 _title.create_element('span')
                         .create_element('text')
@@ -1769,12 +2056,12 @@
                 return _title;
             },
             'literal': function (s_literal) {
-                var _literal = sys_core.$(document.createElement('literal-child'));
+                var _literal = sys_core.JLib(document.createElement('literal-child'));
                 sys_core.eachProto(s_literal, function (proto_value, protoName) {
                     if (protoName === 'settings') {
                         sys_core.Rendering.settings(_literal, proto_value);
                     } else {
-                        var child_literal = sys_core.$(document.createElement(protoName));
+                        var child_literal = sys_core.JLib(document.createElement(protoName));
 
                         if (sys_core.type.isObject(proto_value)) {
                             child_literal.include(sys_core.Rendering.literal(proto_value));
@@ -1795,16 +2082,16 @@
         /* ################### RIPPLE #####################*/
         sys_core.object.extend(sys_core, {
             ripple: function (config) {
-                var $ = sys_core.$,
+                var JLib = sys_core.JLib,
                         self = config[0],
                         event = config[1];
 
-                sys_core.$(self).event(event, function (e) {
+                sys_core.JLib(self).event(event, function (e) {
                     e.preventDefault();
-                    var self = $(this),
+                    var self = JLib(this),
                             _affect = self
                             .create_element('div'),
-                            ripple_name = $(this).get('ripple-name'),
+                            ripple_name = JLib(this).get('ripple-name'),
                             ripple = {};
 
                     if (!self.class().contains('ripple')) {
@@ -1821,10 +2108,10 @@
 
                     _affect.css("position", 'absolute')
                             .css('background', ripple.color ? ripple.color : '')
-                            .css("height", $(this).height() + 'px')
-                            .css("width", $(this).width() + 'px')
-                            .css('top', $(this).position().y + 'px')
-                            .css('left', $(this).position().x + 'px');
+                            .css("height", JLib(this).height() + 'px')
+                            .css("width", JLib(this).width() + 'px')
+                            .css('top', JLib(this).position().y + 'px')
+                            .css('left', JLib(this).position().x + 'px');
 
                     window.setTimeout(function () {
 //                         self.class().remove('ripple');
@@ -1922,9 +2209,11 @@
                         }
                     }
                 });
+
                 if (_parameter_settings['proxy']) {
                     sys_core.object.extend(memory['proxy'], _parameter_settings['proxy']);
                 }
+
                 sys_core.object.extend(memory['proxy'], {
                     load_data: function (fn) {
                         var s_scope = this;
@@ -1961,9 +2250,10 @@
                                     var parts = this['root'].split('.');
                                     var dt = memory['data'];
 
-                                    for (var i = 0; i < parts.length; i++) {
+                                    for (var i in parts) {
                                         dt = dt[parts[i]];
                                     }
+
                                     memory['data'] = dt;
                                 }
                             }
@@ -1972,6 +2262,7 @@
                         fn.call(memory, memory['data']);
                     }
                 });
+
                 if (_parameter_settings['data']) {
                     sys_core.object.extend(memory['data'], _parameter_settings['data']);
                 }
@@ -1979,9 +2270,10 @@
                 var _data_store_object = function (data, x) {
                     return  sys_core.object.create({
                         get: function (node_name) {
-                            var _r;
-                            if (data[x][node_name]) {
-                                _r = data[x][node_name];
+                            var _r, dt = data[x] || data;
+
+                            if (dt[node_name]) {
+                                _r = dt[node_name];
                             } else {
                                 _r = '';
                             }
@@ -1989,13 +2281,14 @@
                             return _r;
                         },
                         getIndex: function () {
-                            return Number(x);
+                            return Number(x || 0);
                         },
                         raw: function () {
-                            return data[x];
+                            return data[x] || data;
                         }
                     });
                 };
+
                 sys_core.object.extend(memory, {
                     load: function (self_fn) {
                         if (Array.isArray(this['data'])) {
@@ -2010,17 +2303,20 @@
                         var data;
 
                         data = this['data'];
-                        for (var x in data) {
-                            self_fn.call(_data_store_object(data, x));
+                        if (sys_core.type.isArray(data)) {
+                            for (var x in data) {
+                                self_fn.call(_data_store_object(data, x));
+                            }
+                        } else {
+                            self_fn.call(_data_store_object(data, null));
                         }
                     },
                     toArray: function () {
-                        var dataFields = [];
+                        var dataFields = {};
 
                         memory['model'].each(function () {
                             var field = this.name;
                             dataFields[field] = [];
-
                             memory.each(function () {
                                 dataFields[field].push(this.get(field));
                             });
@@ -2049,20 +2345,31 @@
                     },
                     count: function () {
                         var y = 0;
-                        for (var x in memory['data']) {
-                            y += 1;
-                        }
+                        if (sys_core.type.isArray(memory['data']))
+                            for (var x in memory['data']) {
+                                y += 1;
+                            }
+                        else
+                            y = memory['data'] ? 1 : 0;
+
                         return y;
                     },
                     query: function (fn) {
                         var data = this['data'],
                                 _query = [];
 
-                        for (var x in data) {
-                            if (fn.call(_data_store_object(data, x))) {
-                                _query.push(_data_store_object(data, x));
+                        if (sys_core.type.isArray(data)) {
+                            for (var x in data) {
+                                if (fn.call(_data_store_object(data, x))) {
+                                    _query.push(_data_store_object(data, x));
+                                }
+                            }
+                        } else {
+                            if (fn.call(_data_store_object(data, null))) {
+                                _query.push(_data_store_object(data, null));
                             }
                         }
+
 
                         return _query;
                     }
@@ -2073,13 +2380,8 @@
         });
         /* ################### MEMORY #####################*/
 
-
+        sys_core.object.extend(sys_core, _set);
         return sys_core;
     };
-
-
-
-
-
     return _core;
 })(window);

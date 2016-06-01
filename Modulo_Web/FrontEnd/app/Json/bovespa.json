@@ -1,38 +1,242 @@
 {
     "app": "bovespa",
     "success": true,
-    "data": [
+    "company": [
         {
+            "ID_EMPRESA": 1,
+            "CNPJ": "21222",
+            "RAZAO_SOCIAL": "EMPRESA TESTE",
+            "NOME_FANTASIA": "PYLOT ",
+            "ATIVIDADE": "SEM"
+        }
+    ],
+    "data": {
+        "1": {
             "indebtedness": {
-                "PCT": [{
-                        "year": 2011,
-                        "result": 9.84
-                    }, {
-                        "year": 2012,
-                        "result": 89.14
-                    }, {
-                        "year": 2013,
-                        "result": 85.14
-                    }],
-                "CE": [{
-                        "year": 2015,
-                        "result": 66.48
-                    }, {
-                        "year": 2014,
-                        "result": 0.95
-                    }, {
-                        "year": 2013,
-                        "result": 16.95
-                    }],
-                "IPL": [{
-                        "year": 2015,
-                        "result": 93.47
-                    }, {
-                        "year": 2014,
-                        "result": 92.68
-
-                    }]
+                "pct": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [                        
+                        {
+                            "year": 2014,
+                            "indicator": 19.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 35.6
+                        }
+                    ]
+                },
+                "ce": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [                       
+                        {
+                            "year": 2014,
+                            "indicator": 79.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 85.6
+                        }
+                    ]
+                },
+                "ipl": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2015,
+                            "indicator": 59.8
+                        },
+                        {
+                            "year": 2014,
+                            "indicator": 79.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 35.6
+                        }
+                    ]
+                }
+            },
+            "liquidity": {
+                "lg": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2013,
+                            "indicator": 0.67
+                        },
+                        {
+                            "year": 2014,
+                            "indicator": 0.80
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 1
+                        }
+                    ]
+                },
+                "ilc": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 19.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 35.6
+                        }
+                    ]
+                },
+                "ils": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 19.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 35.6
+                        }
+                    ]
+                },
+                "ccl": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 19.8
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 35.6
+                        }
+                    ]
+                }
+            },
+            "profitability": {
+                "ga": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 0.24
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 0.45
+                        }
+                    ]
+                },
+                "ml": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 9.84
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 4.85
+                        }
+                    ]
+                },
+                "ra": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 4.47
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 2.85
+                        }
+                    ]
+                },
+                "rpl": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 8.54
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 4.15
+                        }
+                    ]
+                }
+            },
+            "midterm": {
+                "pme": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 84.44
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 100.45
+                        }
+                    ]
+                },
+                "pmr": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 86.44
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 79.45
+                        }
+                    ]
+                },
+                "pmp": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 15.44
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 17.45
+                        }
+                    ]
+                },
+                "co": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 15.44
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 17.45
+                        }
+                    ]
+                },
+                 "cf": {
+                    "analysis": "Em 2014 empresa era menos dependente de capital de terceiros",
+                    "results": [
+                        {
+                            "year": 2014,
+                            "indicator": 15.44
+                        },
+                        {
+                            "year": 2015,
+                            "indicator": 17.45
+                        }
+                    ]
+                }
             }
         }
-    ]
+    }
+
 }

@@ -1,7 +1,6 @@
 /*
  *
  */
-
 bovespa.template.register([
     {
         'name': 'bovespa-home',
@@ -382,8 +381,7 @@ bovespa.template.register([
                         if (type === 'bar') {
                             var red = Math.ceil(255 * row.y / this.ymax);
                             return 'white';
-                        }
-                        else {
+                        } else {
                             return 'white';
                         }
                     }
@@ -434,6 +432,63 @@ bovespa.template.register([
                 root: 'data.0'
             }
         })
+    }
+]).register([
+    {
+        'name': 'bovespa-load-json',
+        view: {
+            self: '.bovespa',
+            render: function () {
+                bovespa.menu.register([{
+                        name: 'bovespa-proceed',
+                        attach: bovespa.$('.bovespa'),
+                        _json: false,
+                        action: function (e) {
+                           if(this._json){
+                               console.log(JSON.parse(this._json_text));
+                              //bovespa.model.init(JSON.parse(this._json_text));
+                              bovespa.view.pages.Home(bovespa.view, bovespa.control);
+                           }else{
+                               e.tost({
+                                   attr:{
+                                      style:'background:white;',
+                                      class:'s-size'
+                                   },
+                                   text:'Arraste ou clique para selecionar um Json!'
+                               });
+                           }
+                        }
+                }]);
+
+                bovespa.$("#json-FileFrame").fileFrame({
+                    validator: function (File, FileText) {
+                        return bovespa.type.isJson(FileText);
+                    },
+                    load: function (File, FileText) {
+                        bovespa.menu.get("bovespa-proceed")._json = true;
+                        bovespa.menu.get("bovespa-proceed")._json_text = FileText;
+                    },
+                    error: function () {
+                      this._self.tost({
+                          attr:{
+                             style:'background:white;',
+                             class:'s-size'
+                          },
+                          text:'Selecione um Json valido!'
+                      });
+
+                        bovespa.menu.get("bovespa-proceed")._json = false;
+                    },
+                    init: function () {
+                        bovespa.menu.get("bovespa-proceed")._json = false;
+                    }
+                });
+            }
+        },
+        control: {
+            url: 'app/views/load-json.html'
+        }
+
     }
 ]).register([
     {

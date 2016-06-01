@@ -1,32 +1,7 @@
 {
     "app": "bovespa",
     "success": true,
-    "data": [
-        
-            {
-                "company-name": "VELOS",
-                "company-id": 0
-            },
-            {
-                "company-name": "PLASTO",
-                "company-id": 1
-            },
-            {
-                "company-name": "SEALOUD",
-                "company-id": 2
-            },
-            {
-                "company-name": "ZOID",
-                "company-id": 3
-            },
-            {
-                "company-name": "BOINK",
-                "company-id": 4
-            },
-            {
-                "company-name": "FUELTON",
-                "company-id": 5
-            }
+    "company": [
         
     ]
 }
