@@ -3,6 +3,7 @@ package Controle;
 import Dados.DadosEmpresa;
 import Modelo.ModeloEmpresa;
 import Visao.VisaoEmpresa;
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -88,6 +89,16 @@ public class ControleEmpresa {
             DadosEmpresa dEmpresa = new DadosEmpresa();
             
             return dEmpresa.excluir(Integer.parseInt(txtCodEmpresa.getText()));  
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void exportar() throws Exception{
+        try{
+            DadosEmpresa dEmpresa = new DadosEmpresa();
+            ArrayList<ModeloEmpresa> almEmpresa = dEmpresa.carregarEmpresa();
+            
         }catch(Exception ex){
             throw ex;
         }

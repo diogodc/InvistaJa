@@ -49,9 +49,10 @@ public class ControleImportar {
     }
 
     public boolean lerArquivo(JTextField txtCaminho,
-                JComboBox cboTipoRelatorio,JComboBox cboEmpresa) throws Exception{
+                JComboBox cboTipoRelatorio,JTextField txtCodEmpresa) throws Exception{
         try{
             if (!validarArquivo(txtCaminho)){ return false;}  
+            if (txtCodEmpresa.getText().trim().isEmpty()){return false;}
             
             DadosImportar dImportar = new DadosImportar();
             BufferedReader brLeitor = new BufferedReader( new FileReader(txtCaminho.getText()));
@@ -59,18 +60,21 @@ public class ControleImportar {
             switch (cboTipoRelatorio.getSelectedIndex()) {
                 case 0:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.DRE);
+                            txtCodEmpresa.getText().trim()),tipoRelatorio.DRE);
                 case 1:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.BPA);
+                            txtCodEmpresa.getText().trim()),tipoRelatorio.BPA);
                 default:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            getEmpresaSelecionada(cboEmpresa)),tipoRelatorio.BPP);
+                            txtCodEmpresa.getText().trim()),tipoRelatorio.BPP);
             }
         }catch(Exception ex){
             throw ex;                                       
         }
     }
+    
+    /*
+    ----Desuso devido a mudança de filtro-----
     private int getEmpresaSelecionada(JComboBox cboEmpresa) throws Exception{
         try{
             String sEmpresa = cboEmpresa.getSelectedItem().toString();
@@ -94,7 +98,8 @@ public class ControleImportar {
         }catch(Exception ex){
             throw ex;
         }
-    }
+    }*/
+    
     private boolean validarArquivo(JTextField txtCaminho){
         try{
             if (txtCaminho.getText().trim().isEmpty()) {
@@ -110,8 +115,9 @@ public class ControleImportar {
         }
     }
     
-    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor,int iEmpresa_ID) throws Exception{
+    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor,String sEmpresa_ID) throws Exception{
         try{
+            int iEmpresa_ID = Integer.parseInt(sEmpresa_ID);
             String sLinha;
             ArrayList<ModeloImportar> lMImportar = new ArrayList<ModeloImportar>();
             

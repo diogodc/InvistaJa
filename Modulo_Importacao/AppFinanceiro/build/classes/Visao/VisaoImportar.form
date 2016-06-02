@@ -53,23 +53,28 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtCaminhoArquivo" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="btnSelecionar" min="-2" pref="106" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnImportar" min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="btnSelecionar" min="-2" pref="106" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtCaminhoArquivo" min="-2" pref="712" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="cboTipoRelatorio" min="-2" pref="221" max="-2" attributes="0"/>
+                      <Component id="btnProcurarEmpresa" min="-2" pref="106" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCodEmpresa" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboEmpresa" pref="384" max="32767" attributes="0"/>
+                      <Component id="txtDscEmpresa" min="-2" pref="668" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboTipoRelatorio" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnImportar" min="-2" pref="109" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnExportar" min="-2" pref="114" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -82,18 +87,27 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtCaminhoArquivo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cboTipoRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cboEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtCaminhoArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDscEmpresa" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnProcurarEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cboTipoRelatorio" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnImportar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExportar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnImportar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,7 +118,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Informe o arquivo CSV para importa&#xe7;&#xe3;o dos dados:"/>
+        <Property name="text" type="java.lang.String" value="Informe os dados para a importa&#xe7;&#xe3;o:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCaminhoArquivo">
@@ -119,7 +133,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSelecionar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Selecionar"/>
+        <Property name="text" type="java.lang.String" value="Arquivo"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelecionarActionPerformed"/>
@@ -139,17 +153,34 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cboEmpresa">
+    <Component class="javax.swing.JTextField" name="txtCodEmpresa">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Empresa"/>
-          </StringArray>
-        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtDscEmpresa">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDscEmpresaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnProcurarEmpresa">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Empresa"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcurarEmpresaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnExportar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Exportar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
