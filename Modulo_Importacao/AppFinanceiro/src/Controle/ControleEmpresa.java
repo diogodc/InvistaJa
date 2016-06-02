@@ -8,6 +8,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import com.google.gson.Gson;
 
 /**
  *
@@ -98,7 +99,7 @@ public class ControleEmpresa {
         try{
             DadosEmpresa dEmpresa = new DadosEmpresa();
             ArrayList<ModeloEmpresa> almEmpresa = dEmpresa.carregarEmpresa();
-            
+            Gson gson = new Gson();
         }catch(Exception ex){
             throw ex;
         }
