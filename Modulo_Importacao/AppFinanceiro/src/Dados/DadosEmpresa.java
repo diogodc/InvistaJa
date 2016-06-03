@@ -26,7 +26,7 @@ public class DadosEmpresa {
             sSql +="    BVSP_EMPRESA.ID_EMPRESA, " ;
             sSql +="    BVSP_EMPRESA.RAZAO_SOCIAL, " ;
             sSql +="    BVSP_EMPRESA.NOME_FANTASIA, " ;
-            sSql +="    BVSP_EMPRESA.CNPJ, " ;
+            sSql +="    BVSP_EMPRESA.CNPJ," ;
             sSql +="    BVSP_EMPRESA.ATIVIDADE " ;
             sSql +=" FROM BVSP_EMPRESA " ;
             
@@ -34,8 +34,8 @@ public class DadosEmpresa {
             
             while(rs.next()){
                 ModeloEmpresa mEmpresa = new ModeloEmpresa();
-                mEmpresa.setEmpresa_ID(rs.getInt("EMPRESA_ID"));
-                mEmpresa.setCNPJ(rs.getString("RAZAO_SOCIAL"));
+                mEmpresa.setEmpresa_ID(rs.getInt("ID_EMPRESA"));
+                mEmpresa.setCNPJ(rs.getString("CNPJ"));
                 mEmpresa.setNome_Fantasia(rs.getString("NOME_FANTASIA"));
                 mEmpresa.setRazao_Social(rs.getString("RAZAO_SOCIAL"));
                 mEmpresa.setAtividade(rs.getString("ATIVIDADE"));

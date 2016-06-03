@@ -8,11 +8,13 @@ package Modelo;
 import Modelo.Tree.Branch.Leaf.String.SLeaf;
 import java.awt.List;
 import java.util.Vector;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author E. Cardoso de Araújo
  */
+@XmlRootElement
 public class ModeloEmpresa extends SLeaf {
 
     private int iEmpresa_ID;

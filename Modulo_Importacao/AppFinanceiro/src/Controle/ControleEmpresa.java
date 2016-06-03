@@ -100,6 +100,8 @@ public class ControleEmpresa {
             DadosEmpresa dEmpresa = new DadosEmpresa();
             ArrayList<ModeloEmpresa> almEmpresa = dEmpresa.carregarEmpresa();
             Gson gson = new Gson();
+            String sTeste = gson.toJson(almEmpresa);
+            System.out.println(sTeste);
         }catch(Exception ex){
             throw ex;
         }
