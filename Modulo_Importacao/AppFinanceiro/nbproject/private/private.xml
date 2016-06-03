@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/Dados/DadosEmpresa.java</file>
             <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/Modelo/ModeloEmpresa.java</file>
+            <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/App/AppFinanceiro.java</file>
             <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/Visao/VisaoEmpresa.java</file>
+            <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/Modelo/CreateModel.java</file>
             <file>file:/C:/Projetos/BOVESPA_ANALYTICS/Modulo_Importacao/AppFinanceiro/src/Controle/ControleEmpresa.java</file>
         </group>
     </open-files>

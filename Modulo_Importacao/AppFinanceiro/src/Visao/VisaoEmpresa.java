@@ -319,7 +319,11 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
         try{
-            cEmpresa.exportar();
+            if (cEmpresa.exportar()){
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
+            }else{
+                JOptionPane.showMessageDialog(null, "Não foi possivel gerar o arquivo!", this.getTitle(), 0);
+            }
         }catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }

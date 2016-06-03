@@ -1,14 +1,14 @@
 package Controle;
 
+import static App.AppFinanceiro.converteParaJson;
+import static App.AppFinanceiro.gravarArquivo;
 import Dados.DadosEmpresa;
 import Modelo.ModeloEmpresa;
 import Visao.VisaoEmpresa;
-import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import com.google.gson.Gson;
 
 /**
  *
@@ -95,15 +95,15 @@ public class ControleEmpresa {
         }
     }
     
-    public void exportar() throws Exception{
+    public boolean exportar() throws Exception{
         try{
             DadosEmpresa dEmpresa = new DadosEmpresa();
-            ArrayList<ModeloEmpresa> almEmpresa = dEmpresa.carregarEmpresa();
-            Gson gson = new Gson();
-            String sTeste = gson.toJson(almEmpresa);
-            System.out.println(sTeste);
+            return gravarArquivo("empresas.json",
+                    converteParaJson(dEmpresa.carregarEmpresa()));
         }catch(Exception ex){
             throw ex;
         }
     }
+    
+    
 }
