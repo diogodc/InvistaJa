@@ -9,20 +9,20 @@
             <Property name="text" type="java.lang.String" value="Dados"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuImportar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Importar dados"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportarActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuCadEmpresas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar empresas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCadEmpresasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuImportar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Importar dados"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportarActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

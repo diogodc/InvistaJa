@@ -198,8 +198,11 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnProcurarEmpresaActionPerformed
 
     private void carregaCampos(ArrayList<String> alDados){
-        this.txtCodEmpresa.setText(alDados.get(0));
-        this.txtDscEmpresa.setText(alDados.get(2));
+        if (alDados != null){
+            this.txtCodEmpresa.setText(alDados.get(0));
+            this.txtDscEmpresa.setText(alDados.get(2));
+        }
+        
     }
 
     

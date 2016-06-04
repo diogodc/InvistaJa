@@ -33,8 +33,8 @@ public class VisaoInicio extends javax.swing.JFrame {
         pnlInicio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuDados = new javax.swing.JMenu();
-        mnuImportar = new javax.swing.JMenuItem();
         mnuCadEmpresas = new javax.swing.JMenuItem();
+        mnuImportar = new javax.swing.JMenuItem();
         mnuAcoes = new javax.swing.JMenu();
         mnuSair = new javax.swing.JMenuItem();
 
@@ -57,14 +57,6 @@ public class VisaoInicio extends javax.swing.JFrame {
 
         mnuDados.setText("Dados");
 
-        mnuImportar.setText("Importar dados");
-        mnuImportar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuImportarActionPerformed(evt);
-            }
-        });
-        mnuDados.add(mnuImportar);
-
         mnuCadEmpresas.setText("Cadastrar empresas");
         mnuCadEmpresas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +64,14 @@ public class VisaoInicio extends javax.swing.JFrame {
             }
         });
         mnuDados.add(mnuCadEmpresas);
+
+        mnuImportar.setText("Importar dados");
+        mnuImportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuImportarActionPerformed(evt);
+            }
+        });
+        mnuDados.add(mnuImportar);
 
         jMenuBar1.add(mnuDados);
 
