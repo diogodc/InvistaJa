@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package App;
 
 import Dados.DadosManipulacao;
@@ -48,14 +43,11 @@ public class AppFinanceiro {
     public static boolean gravarArquivo(String sNomeArquivo, 
             String sConteudo) throws Exception{
         try{
-            if ((new File(sCaminhoArquivos)).mkdir()){
-                Formatter fArquivo = new Formatter(sCaminhoArquivos + sNomeArquivo);
-                fArquivo.format(sConteudo);
-                fArquivo.close();
-                return true;
-            }else{
-                return false;
-            } 
+            (new File(sCaminhoArquivos)).mkdir();
+            Formatter fArquivo = new Formatter(sCaminhoArquivos + sNomeArquivo);
+            fArquivo.format(sConteudo);
+            fArquivo.close();
+            return true;
         }catch(Exception ex){
             throw ex;
         }

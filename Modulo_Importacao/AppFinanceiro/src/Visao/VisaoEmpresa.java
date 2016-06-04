@@ -289,29 +289,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try {
-            String sCampos;
-
-            sCampos = "ID_EMPRESA,";
-            sCampos += "CNPJ,";
-            sCampos += "RAZAO_SOCIAL,";
-            sCampos += "NOME_FANTASIA,";
-            sCampos += "ATIVIDADE";
-
-            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
-
-            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
-            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
-            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
-            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
-            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
-
-            /**
-             * RAFAEL 31/05/2016
-             */
-            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
-
-            vPesquisar.setVisible(true);
-            carregaCampos(vPesquisar.getDados());
+           this.carregaBusca();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
@@ -346,6 +324,36 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 this.txtCNPJ.setText(alDados.get(3));
                 this.txtAtividade.setText(alDados.get(4));
             }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        }
+    }
+    
+    private void carregaBusca(){
+        try {
+            String sCampos;
+
+            sCampos = "ID_EMPRESA,";
+            sCampos += "CNPJ,";
+            sCampos += "RAZAO_SOCIAL,";
+            sCampos += "NOME_FANTASIA,";
+            sCampos += "ATIVIDADE";
+
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
+
+            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
+            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
+            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
+            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
+            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
+
+            /**
+             * RAFAEL 31/05/2016
+             */
+            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
+
+            vPesquisar.setVisible(true);
+            carregaCampos(vPesquisar.getDados());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }

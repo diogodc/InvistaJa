@@ -94,10 +94,12 @@
                           <Component id="btnSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtDscEmpresa" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnProcurarEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnProcurarEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cboTipoRelatorio" min="-2" max="-2" attributes="0"/>
