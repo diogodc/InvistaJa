@@ -28,7 +28,7 @@ public class DadosImportar {
     
     private HashMap selecionarTipoRelatorio(tipoRelatorio tRelatorio){
         try{
-            String sTabela,sID,sIndice;
+            String sTabela,sIndice;
             HashMap hDadosTabela = new HashMap();
             
             if (tRelatorio == tipoRelatorio.DRE){
@@ -58,8 +58,9 @@ public class DadosImportar {
             String sTabela = hDadosTabela.get("sTabela").toString();
             String sIndice = hDadosTabela.get("sIndice").toString();
             
+            conn.abrirConexao();
+            
             for (int i = 1; i < lImportar.size(); i++){
-                conn.abrirConexao();
                 
                 ModeloImportar mImportar = lImportar.get(i);      
                 
@@ -79,16 +80,16 @@ public class DadosImportar {
                 sSql += "         '" + mImportar.getPeriodo_1()+ "',";
                 sSql += "         '" + mImportar.getPeriodo_2()+ "',";
                 sSql += "         '" + mImportar.getPeriodo_3()+ "',";
-                sSql += "         " + mImportar.getValor_1()   + ",";
-                sSql += "         " + mImportar.getValor_2()   + ",";
-                sSql += "         " + mImportar.getValor_3()   + ",";
+                sSql += "          " + mImportar.getValor_1()   + ",";
+                sSql += "          " + mImportar.getValor_2()   + ",";
+                sSql += "          " + mImportar.getValor_3()   + ",";
                 sSql += "         '" + mImportar.getConta()    + "',";
                 sSql += "         '" + mImportar.getDescricao()+ "'";
                 sSql += "        )";
                 
                 if (!sSql.trim().isEmpty()){
                     conn.Inserir(sSql);                    
-                }
+                }  
             }
             return true;
         }catch(Exception ex){

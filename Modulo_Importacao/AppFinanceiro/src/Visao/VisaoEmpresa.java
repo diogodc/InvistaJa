@@ -280,10 +280,10 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         try {
             txtCodEmpresa.setText(cEmpresa.salvar(txtCodEmpresa, txtCNPJ, txtAtividade, txtRazaoSocial, txtNomeFantasia));
             if (!txtCodEmpresa.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 0);
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 1);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
