@@ -30,6 +30,7 @@ public class DadosPesquisar {
              */
             sFiltro = mPesquisar.getFiltro();
             if (mPesquisar.geModeloArvore() != null) {
+				mPesquisar.geModeloArvore().setSearch("");
                 if (mPesquisar.geModeloArvore().searchOption().equals(mPesquisar.getCampoFiltro()) && !sFiltro.equals("")) {
                     mPesquisar.geModeloArvore().setSearch(sFiltro);
                     sFiltro = "";
