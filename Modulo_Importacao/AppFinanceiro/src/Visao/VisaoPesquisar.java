@@ -14,6 +14,7 @@ public class VisaoPesquisar extends javax.swing.JDialog {
     private ArrayList<String> alDados;
     private final ControlePesquisar cPesquisar;
     private CreateModel mArvore;
+    
     public VisaoPesquisar(java.awt.Frame parent, 
             boolean modal, String paramentros,
             String tabela,String join, String condicao) {
@@ -53,6 +54,9 @@ public class VisaoPesquisar extends javax.swing.JDialog {
         tabResultado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabResultadoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tabResultadoMouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(tabResultado);
@@ -161,6 +165,10 @@ public class VisaoPesquisar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void tabResultadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseEntered
+
+    }//GEN-LAST:event_tabResultadoMouseEntered
 
     public ArrayList<String> getDados(){
         return alDados;

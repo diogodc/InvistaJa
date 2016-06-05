@@ -62,6 +62,17 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         txtCodEmpresa.setEnabled(false);
         txtCodEmpresa.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +317,18 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+
+    }//GEN-LAST:event_formKeyReleased
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+
+    }//GEN-LAST:event_formKeyTyped
 
     private void limpar() {
         txtCodEmpresa.setText("");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dados;
 
 import static App.AppFinanceiro.conn;
@@ -21,7 +16,7 @@ public class DadosImportar {
             tipoRelatorio tRelatorio) throws Exception{
         try{
             if (lImportar.size()> 0){
-                return this.inserirDadosRelatorio(
+                return this.inserirDados(
                         selecionarTipoRelatorio(tRelatorio),lImportar);
             }else{
                 return false;
@@ -33,22 +28,22 @@ public class DadosImportar {
     
     private HashMap selecionarTipoRelatorio(tipoRelatorio tRelatorio){
         try{
-            String sTabela,sPai_ID;
+            String sTabela,sID,sIndice;
             HashMap hDadosTabela = new HashMap();
             
             if (tRelatorio == tipoRelatorio.DRE){
                 sTabela = "BVSP_DRE";
-                sPai_ID = "ID_DRE";
+                sIndice = "DRE";
             }else if (tRelatorio == tipoRelatorio.BPA){
                 sTabela = "BVSP_BPA";
-                sPai_ID = "ID_BPA";
+                sIndice = "BPA";
             }else{
                 sTabela = "BVSP_BPP";
-                sPai_ID = "ID_BPP";
+                sIndice = "BPP";
             }
             
             hDadosTabela.put("sTabela", sTabela);
-            hDadosTabela.put("sPai_ID", sPai_ID);
+            hDadosTabela.put("sIndice", sIndice);
             
             return hDadosTabela;
         }catch(Exception ex){
@@ -56,32 +51,50 @@ public class DadosImportar {
         }
     }
     
-    private boolean inserirDadosRelatorio(HashMap hDadosTabela,  
+    private boolean inserirDados(HashMap hDadosTabela,  
             ArrayList<ModeloImportar> lImportar) throws Exception{
         try{
             String sSql;
+            String sTabela = hDadosTabela.get("sTabela").toString();
+            String sIndice = hDadosTabela.get("sIndice").toString();
             
             for (int i = 1; i < lImportar.size(); i++){
-                ModeloImportar mImportar = lImportar.get(i);
-
-                sSql = " INSERT INTO "+ hDadosTabela.get("sTabela") +"_DADOS(" +",EMPRESA_ID,PERIODO_1,PERIODO_2,PERIODO_3)";
-                sSql += " VALUES( ";
-                sSql += "   ," ;
-                sSql += "   ," + mImportar.getEmpresa_ID();
-                sSql += "   ," + mImportar.getPeriodo_1();
-                sSql += "   ," + mImportar.getPeriodo_2();
-                sSql += "   ," + mImportar.getPeriodo_3();                
-                sSql += " ) '";
-
+                conn.abrirConexao();
+                
+                ModeloImportar mImportar = lImportar.get(i);      
+                
+                sSql  = "INSERT INTO " + sTabela;
+                sSql += "        (ID_EMPRESA,";    
+                sSql += "        " + sIndice + "_PERIODO1,";
+                sSql += "        " + sIndice + "_PERIODO2,";
+                sSql += "        " + sIndice + "_PERIODO3,";
+                sSql += "        " + sIndice + "_VALOR1,";
+                sSql += "        " + sIndice + "_VALOR2,";
+                sSql += "        " + sIndice + "_VALOR3,";
+                sSql += "        " + sIndice + "_CONTA_CONTABIL,";
+                sSql += "        " + sIndice + "_DESCRICAO";
+                sSql += "        )";
+                sSql += "      VALUES";
+                sSql += "        (" + mImportar.getEmpresa_ID()+ ",";
+                sSql += "         '" + mImportar.getPeriodo_1()+ "',";
+                sSql += "         '" + mImportar.getPeriodo_2()+ "',";
+                sSql += "         '" + mImportar.getPeriodo_3()+ "',";
+                sSql += "         " + mImportar.getValor_1()   + ",";
+                sSql += "         " + mImportar.getValor_2()   + ",";
+                sSql += "         " + mImportar.getValor_3()   + ",";
+                sSql += "         '" + mImportar.getConta()    + "',";
+                sSql += "         '" + mImportar.getDescricao()+ "'";
+                sSql += "        )";
+                
                 if (!sSql.trim().isEmpty()){
-                    return conn.Inserir(sSql);                    
-                }else{
-                    return false;
+                    conn.Inserir(sSql);                    
                 }
             }
-            return false;
+            return true;
         }catch(Exception ex){
             throw ex;
+        }finally{
+            conn.fecharConexao();
         }
     }
 }

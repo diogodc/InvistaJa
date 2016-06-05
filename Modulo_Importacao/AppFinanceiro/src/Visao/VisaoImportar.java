@@ -165,7 +165,9 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-            cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio,txtCodEmpresa);
+           if (cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio,txtCodEmpresa)){
+               JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
+           }
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         }
@@ -174,7 +176,6 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try{    
             cImportar = new ControleImportar(this);
-            //cImportar.carregarEmpresas(cboEmpresa);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -204,7 +205,6 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         
     }
 
-    
     private void carregaBusca(){
         try{
             String sCampos;
