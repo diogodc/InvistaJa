@@ -136,6 +136,9 @@ public class ControleImportar {
                     int iQuantReg = sVetCelula.length;
                     mImportar.setEmpresa_ID(iEmpresa_ID);
  
+                    mImportar.setPeriodo_1(lPeriodo.get(0));
+                    mImportar.setPeriodo_2(lPeriodo.get(1));
+                    mImportar.setPeriodo_3(lPeriodo.get(2));
                     if (iQuantReg > 0){
                         mImportar.setConta(sVetCelula[0].trim());
                     }
@@ -143,15 +146,12 @@ public class ControleImportar {
                         mImportar.setDescricao(sVetCelula[1].trim());
                     }
                     if (iQuantReg>2){
-                        mImportar.setPeriodo_1(lPeriodo.get(0));
                         mImportar.setValor_1(sVetCelula[2].trim());
                     }
                     if (iQuantReg>3){
-                        mImportar.setPeriodo_2(lPeriodo.get(1));
                         mImportar.setValor_2(sVetCelula[3].trim());
                     }
                     if (iQuantReg>4){
-                        mImportar.setPeriodo_3(lPeriodo.get(2));
                         mImportar.setValor_3(sVetCelula[4].trim());
                     }
                     lMImportar.add(mImportar); 

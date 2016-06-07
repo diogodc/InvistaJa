@@ -58,13 +58,15 @@ public class DadosImportar {
             String sTabela = hDadosTabela.get("sTabela").toString();
             String sIndice = hDadosTabela.get("sIndice").toString();
             
-            conn.abrirConexao();
+            if (lImportar.size() == 0){return false;}
             
             for (int i = 1; i < lImportar.size(); i++){
-                
-                ModeloImportar mImportar = lImportar.get(i);      
-                
-                sSql  = "INSERT INTO " + sTabela;
+                conn.abrirConexao();
+
+                ModeloImportar mImportar = lImportar.get(i); 
+
+                sSql  = "";
+                sSql += "INSERT INTO " + sTabela;
                 sSql += "        (ID_EMPRESA,";    
                 sSql += "        " + sIndice + "_PERIODO1,";
                 sSql += "        " + sIndice + "_PERIODO2,";
@@ -86,16 +88,15 @@ public class DadosImportar {
                 sSql += "         '" + mImportar.getConta()    + "',";
                 sSql += "         '" + mImportar.getDescricao()+ "'";
                 sSql += "        )";
-                
+
                 if (!sSql.trim().isEmpty()){
                     conn.Inserir(sSql);                    
                 }  
+                conn.fecharConexao();
             }
             return true;
         }catch(Exception ex){
             throw ex;
-        }finally{
-            conn.fecharConexao();
         }
     }
 }
