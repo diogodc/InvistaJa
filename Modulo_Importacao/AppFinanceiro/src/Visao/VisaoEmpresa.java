@@ -273,7 +273,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         try {
-            this.limpar();
+            cEmpresa.limpar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
@@ -281,7 +281,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try {
-            cEmpresa = new ControleEmpresa();
+            cEmpresa = new ControleEmpresa(this);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
@@ -289,8 +289,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            txtCodEmpresa.setText(cEmpresa.salvar(txtCodEmpresa, txtCNPJ, txtAtividade, txtRazaoSocial, txtNomeFantasia));
-            if (!txtCodEmpresa.getText().isEmpty()) {
+            if (cEmpresa.salvar()) {
                 JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
             }
         } catch (Exception ex) {
@@ -300,8 +299,8 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            if (cEmpresa.excluir(txtCodEmpresa)) {
-                this.limpar();
+            if (cEmpresa.excluir()) {
+                cEmpresa.limpar();
                 JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
             }
         } catch (Exception ex) {
@@ -311,7 +310,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         try {
-           this.carregaBusca();
+           cEmpresa.carregaBusca();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
@@ -351,75 +350,24 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnZerarHistoricoActionPerformed
 
-    private void limpar() {
-        txtCodEmpresa.setText("");
-        txtCNPJ.setText("");
-        txtAtividade.setText("");
-        txtRazaoSocial.setText("");
-        txtNomeFantasia.setText("");
-    }
-
-    private void carregaCampos(ArrayList<String> alDados) {
-        try {
-            if (alDados != null) {
-                this.txtCodEmpresa.setText(alDados.get(0));
-                this.txtNomeFantasia.setText(alDados.get(1));
-                this.txtRazaoSocial.setText(alDados.get(2));
-                this.txtCNPJ.setText(alDados.get(3));
-                this.txtAtividade.setText(alDados.get(4));
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
-        }
-    }
-    
-    private void carregaBusca(){
-        try {
-            String sCampos;
-
-            sCampos = "ID_EMPRESA,";
-            sCampos += "CNPJ,";
-            sCampos += "RAZAO_SOCIAL,";
-            sCampos += "NOME_FANTASIA,";
-            sCampos += "ATIVIDADE";
-
-            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
-
-            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
-            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
-            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
-            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
-            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
-
-            /**
-             * RAFAEL 31/05/2016
-             */
-            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
-
-            vPesquisar.setVisible(true);
-            carregaCampos(vPesquisar.getDados());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnExportar;
-    private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnZerarHistorico;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    public javax.swing.JButton btnExcluir;
+    public javax.swing.JButton btnExportar;
+    public javax.swing.JButton btnNovo;
+    public javax.swing.JButton btnPesquisar;
+    public javax.swing.JButton btnSalvar;
+    public javax.swing.JButton btnZerarHistorico;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtAtividade;
-    private javax.swing.JFormattedTextField txtCNPJ;
-    private javax.swing.JTextField txtCodEmpresa;
-    private javax.swing.JTextField txtNomeFantasia;
-    private javax.swing.JTextField txtRazaoSocial;
+    public javax.swing.JTextField txtAtividade;
+    public javax.swing.JFormattedTextField txtCNPJ;
+    public javax.swing.JTextField txtCodEmpresa;
+    public javax.swing.JTextField txtNomeFantasia;
+    public javax.swing.JTextField txtRazaoSocial;
     // End of variables declaration//GEN-END:variables
 }

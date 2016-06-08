@@ -15,6 +15,17 @@ import java.util.ArrayList;
  * @author E. Cardoso de Araújo
  */
 public class DadosEmpresa {
+    
+    private ModeloEmpresa mEmpresa;
+    
+    public DadosEmpresa(ModeloEmpresa mEmpresa){
+        this.mEmpresa = mEmpresa;
+    }
+    
+    public DadosEmpresa(){
+        this.mEmpresa = null;
+    }
+    
     public ArrayList<ModeloEmpresa> carregarEmpresa() throws Exception{
         try{
             conn.abrirConexao();
@@ -50,23 +61,23 @@ public class DadosEmpresa {
         }
     }
     
-    public String salvar(ModeloEmpresa mEmpresa) throws Exception{
+    public String salvar() throws Exception{
         try{
-            if(mEmpresa == null){return "";}
+            if(this.mEmpresa == null){return "";}
             
-            if (mEmpresa.getEmpresa_ID() == 0) {
-                return this.inserir(mEmpresa);               
+            if (this.mEmpresa.getEmpresa_ID() == 0) {
+                return this.inserir();               
             }else{
-                return this.atualizar(mEmpresa);
+                return this.atualizar();
             }
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    private String inserir(ModeloEmpresa mEmpresa) throws Exception{
+    private String inserir() throws Exception{
         try{
-            if(mEmpresa == null){return "";}
+            if(this.mEmpresa == null){return "";}
             
             conn.abrirConexao();
             String sSql;
@@ -79,10 +90,10 @@ public class DadosEmpresa {
             sSql += "     ATIVIDADE) ";
             sSql += " VALUES ";
             sSql += "     (BVSP_EMPRESA_SEQ.NEXTVAL";
-            sSql += "     ,'" + mEmpresa.getRazao_Social().replace("'", "''") + "'";
-            sSql += "     ,'" + mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
-            sSql += "     ,'" + mEmpresa.getCNPJ().replace("'", "''") + "'";
-            sSql += "     ,'" + mEmpresa.getAtividade().replace("'", "''") + "'";
+            sSql += "     ,'" + this.mEmpresa.getRazao_Social().replace("'", "''") + "'";
+            sSql += "     ,'" + this.mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
+            sSql += "     ,'" + this.mEmpresa.getCNPJ().replace("'", "''") + "'";
+            sSql += "     ,'" + this.mEmpresa.getAtividade().replace("'", "''") + "'";
             sSql += "    ) ";
             
             if (!sSql.trim().isEmpty()){
@@ -101,7 +112,7 @@ public class DadosEmpresa {
         }
     }
     
-    private String atualizar(ModeloEmpresa mEmpresa) throws Exception{
+    private String atualizar() throws Exception{
         try{
             if(mEmpresa == null){return "";}
             
@@ -109,11 +120,11 @@ public class DadosEmpresa {
             String sSql;
             
             sSql =  "UPDATE BVSP_EMPRESA SET";
-            sSql += "    RAZAO_SOCIAL = " + mEmpresa.getRazao_Social().replace("'", "''");
-            sSql += "    NOME_FANTASIA = " + mEmpresa.getNome_Fantasia().replace("'", "''");
-            sSql += "    CNPJ = " + mEmpresa.getCNPJ().replace("'", "''");
-            sSql += "    ATIVIDADE = " + mEmpresa.getAtividade().replace("'", "''");
-            sSql += " WHERE ID_EMPRESA = " + mEmpresa.getEmpresa_ID();
+            sSql += "    RAZAO_SOCIAL = " + this.mEmpresa.getRazao_Social().replace("'", "''");
+            sSql += "    NOME_FANTASIA = " + this.mEmpresa.getNome_Fantasia().replace("'", "''");
+            sSql += "    CNPJ = " + this.mEmpresa.getCNPJ().replace("'", "''");
+            sSql += "    ATIVIDADE = " + this.mEmpresa.getAtividade().replace("'", "''");
+            sSql += " WHERE ID_EMPRESA = " + this.mEmpresa.getEmpresa_ID();
             
             if (sSql.trim().isEmpty()){
                 if (conn.Alterar(sSql)){
@@ -161,6 +172,14 @@ public class DadosEmpresa {
             
             conn.fecharConexao();
             
+            return false;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public boolean zerarHistorico(){
+        try{
             return false;
         }catch(Exception ex){
             throw ex;

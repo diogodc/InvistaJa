@@ -3,18 +3,26 @@ package Controle;
 import static App.AppFinanceiro.converteParaJson;
 import static App.AppFinanceiro.gravarArquivo;
 import Dados.DadosEmpresa;
+import Modelo.CreateModel;
 import Modelo.ModeloEmpresa;
 import Visao.VisaoEmpresa;
+import Visao.VisaoPesquisar;
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
  * @author E. Cardoso de Araújo
  */
 public class ControleEmpresa {
+    private VisaoEmpresa vEmpresa;
+    private DadosEmpresa dEmpresa;
+    
+    public ControleEmpresa(VisaoEmpresa vEmpresa){
+        this.vEmpresa = vEmpresa;
+        this.dEmpresa = new DadosEmpresa(this.getModelo());
+    }
     
     public static void abrirVisao(JDesktopPane pnl) throws Exception{
         try{
@@ -27,50 +35,37 @@ public class ControleEmpresa {
         }
     }
     
-    public String salvar(JTextField txtCodEmpresa,JFormattedTextField txtCNPJ,
-            JTextField txtAtividade,JTextField txtRazaoSocial,
-            JTextField txtNomeFantasia) throws Exception{
+    public boolean salvar() throws Exception{
         try{
-            if (!this.validarCampos(txtCNPJ,txtAtividade,txtRazaoSocial,
-                    txtNomeFantasia)){return "";}
+            if (!this.validarCampos()){return false;}
+                        
+            vEmpresa.txtCodEmpresa.setText(this.dEmpresa.salvar());
             
-            DadosEmpresa dEmpresa = new DadosEmpresa();
-            ModeloEmpresa mEmpresa = new ModeloEmpresa();
-            
-            if (!txtCodEmpresa.getText().trim().isEmpty()){
-                mEmpresa.setEmpresa_ID(Integer.parseInt(txtCodEmpresa.getText().trim()));
+            if (!vEmpresa.txtCodEmpresa.getText().isEmpty()){
+                return true;
             }else{
-                mEmpresa.setEmpresa_ID(0);
+                return false;
             }
-            
-            mEmpresa.setCNPJ(txtCNPJ.getText().trim());
-            mEmpresa.setNome_Fantasia(txtNomeFantasia.getText().trim());
-            mEmpresa.setRazao_Social(txtRazaoSocial.getText().trim());
-            mEmpresa.setAtividade(txtAtividade.getText().trim());
-            
-            return dEmpresa.salvar(mEmpresa);
-               
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    private boolean validarCampos(JFormattedTextField txtCNPJ,
-            JTextField txtAtividade,JTextField txtRazaoSocial,JTextField txtNomeFantasia){
+    private boolean validarCampos(){
         try{
-            if(txtCNPJ.getText().replace(".", "").replace("-", "").replace("/", "").trim().isEmpty()){
+            if(vEmpresa.txtCNPJ.getText().replace(".", "").replace("-", "").replace("/", "").trim().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe o CNPJ da empresa!", "Atenção!",1);
                 return false;
-            }else if (txtCNPJ.getText().replace(".", "").replace("-", "").replace("/", "").trim().length() != 14){
+            }else if (vEmpresa.txtCNPJ.getText().replace(".", "").replace("-", "").replace("/", "").trim().length() != 14){
                 JOptionPane.showMessageDialog(null, "O CNPJ deve ter 14 números!", "Atenção!",1);
                 return false;
-            }else if(txtAtividade.getText().isEmpty()){
+            }else if(vEmpresa.txtAtividade.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe a atividade da empresa!", "Atenção!",1);
                 return false;
-            }else if(txtRazaoSocial.getText().isEmpty()){
+            }else if(vEmpresa.txtRazaoSocial.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe a razão social da empresa!", "Atenção!",1);
                 return false;
-            }else if(txtNomeFantasia.getText().isEmpty()){
+            }else if(vEmpresa.txtNomeFantasia.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe a nome fantasia da empresa!", "Atenção!",1);
                 return false;
             }
@@ -80,16 +75,15 @@ public class ControleEmpresa {
         }
     }
     
-    public boolean excluir(JTextField txtCodEmpresa) throws Exception{
+    public boolean excluir() throws Exception{
         try{
-            if (txtCodEmpresa.getText().isEmpty()){
+            if (vEmpresa.txtCodEmpresa.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Informe uma empresa!", "Atenção!",1);
                 return false;
             }
-            
-            DadosEmpresa dEmpresa = new DadosEmpresa();
-            
-            return dEmpresa.excluir(Integer.parseInt(txtCodEmpresa.getText()));  
+                 
+            return this.dEmpresa.excluir(Integer.parseInt(
+                    vEmpresa.txtCodEmpresa.getText()));  
         }catch(Exception ex){
             throw ex;
         }
@@ -97,9 +91,8 @@ public class ControleEmpresa {
     
     public boolean exportar() throws Exception{
         try{
-            DadosEmpresa dEmpresa = new DadosEmpresa();
             return gravarArquivo("empresas.json",
-                    converteParaJson(dEmpresa.carregarEmpresa()));
+                    converteParaJson(this.dEmpresa.carregarEmpresa()));
         }catch(Exception ex){
             throw ex;
         }
@@ -107,10 +100,87 @@ public class ControleEmpresa {
     
     public boolean zerarHistorico(){
         try{
+                       
+            
             return false;
         }catch(Exception ex){
             throw ex;
         }
     }
     
+    private ModeloEmpresa getModelo(){
+        try{
+            ModeloEmpresa mEmpresa = new ModeloEmpresa();
+            
+            if (!vEmpresa.txtCodEmpresa.getText().trim().isEmpty()){
+                mEmpresa.setEmpresa_ID(Integer.parseInt(
+                        vEmpresa.txtCodEmpresa.getText().trim()));
+            }else{
+                mEmpresa.setEmpresa_ID(0);
+            }
+            mEmpresa.setCNPJ(vEmpresa.txtCNPJ.getText().trim());
+            mEmpresa.setNome_Fantasia(vEmpresa.txtNomeFantasia.getText().trim());
+            mEmpresa.setRazao_Social(vEmpresa.txtRazaoSocial.getText().trim());
+            mEmpresa.setAtividade(vEmpresa.txtAtividade.getText().trim());
+            return mEmpresa;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void limpar() {
+        try{
+            vEmpresa.txtCodEmpresa.setText("");
+            vEmpresa.txtCNPJ.setText("");
+            vEmpresa.txtAtividade.setText("");
+            vEmpresa.txtRazaoSocial.setText("");
+            vEmpresa.txtNomeFantasia.setText("");
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+     private void carregaCampos(ArrayList<String> alDados) {
+        try {
+            if (alDados != null) {
+                vEmpresa.txtCodEmpresa.setText(alDados.get(0));
+                vEmpresa.txtNomeFantasia.setText(alDados.get(1));
+                vEmpresa.txtRazaoSocial.setText(alDados.get(2));
+                vEmpresa.txtCNPJ.setText(alDados.get(3));
+                vEmpresa.txtAtividade.setText(alDados.get(4));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+     
+     public void carregaBusca(){
+        try {
+            String sCampos;
+
+            sCampos = "ID_EMPRESA,";
+            sCampos += "CNPJ,";
+            sCampos += "RAZAO_SOCIAL,";
+            sCampos += "NOME_FANTASIA,";
+            sCampos += "ATIVIDADE";
+
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
+
+            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
+            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
+            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
+            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
+            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
+
+            /**
+             * RAFAEL 31/05/2016
+             */
+            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
+
+            vPesquisar.setVisible(true);
+            carregaCampos(vPesquisar.getDados());
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
 }
