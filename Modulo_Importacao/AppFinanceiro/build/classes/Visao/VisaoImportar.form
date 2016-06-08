@@ -68,8 +68,16 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="cboTipoRelatorio" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cboTipoRelatorio" min="-2" pref="229" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkDRE" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkBPA" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chkBPP" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnImportar" min="-2" pref="109" max="-2" attributes="0"/>
@@ -100,7 +108,12 @@
                           <Component id="txtDscEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboTipoRelatorio" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cboTipoRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkDRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBPA" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkBPP" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnImportar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -181,6 +194,24 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBPP">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="BPP"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkDRE">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="DRE"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkBPA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="BPA"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -32,6 +32,9 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
         txtDscEmpresa = new javax.swing.JTextField();
         btnProcurarEmpresa = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
+        chkBPP = new javax.swing.JCheckBox();
+        chkDRE = new javax.swing.JCheckBox();
+        chkBPA = new javax.swing.JCheckBox();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -101,6 +104,15 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
             }
         });
 
+        chkBPP.setText("BPP");
+        chkBPP.setEnabled(false);
+
+        chkDRE.setText("DRE");
+        chkDRE.setEnabled(false);
+
+        chkBPA.setText("BPA");
+        chkBPA.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +133,14 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chkDRE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chkBPA)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chkBPP)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,7 +164,11 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
                             .addComponent(btnProcurarEmpresa)
                             .addComponent(txtDscEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboTipoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chkDRE)
+                            .addComponent(chkBPA)
+                            .addComponent(chkBPP)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnImportar)
                         .addComponent(btnExportar)))
@@ -165,7 +188,25 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
+           if (this.cboTipoRelatorio.getSelectedIndex() == 1 
+                   && this.chkDRE.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!",1);
+           }else if (this.cboTipoRelatorio.getSelectedIndex() == 2
+                   && this.chkBPA.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!",1);
+           }else if (this.cboTipoRelatorio.getSelectedIndex() == 3 
+                   && this.chkBPP.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!",1);   
+           }  
+           
            if (cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio,txtCodEmpresa)){
+               if (this.cboTipoRelatorio.getSelectedIndex() == 1){
+                   this.chkDRE.setSelected(true);
+               }else if (this.cboTipoRelatorio.getSelectedIndex() == 2){
+                   this.chkBPA.setSelected(true);
+               }else{
+                   this.chkBPP.setSelected(true);
+               }
                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
            }
         }catch(Exception ex){
@@ -238,6 +279,9 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnProcurarEmpresa;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JComboBox<String> cboTipoRelatorio;
+    private javax.swing.JCheckBox chkBPA;
+    private javax.swing.JCheckBox chkBPP;
+    private javax.swing.JCheckBox chkDRE;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField txtCaminhoArquivo;

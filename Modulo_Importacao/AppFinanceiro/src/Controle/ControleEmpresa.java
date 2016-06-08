@@ -105,5 +105,12 @@ public class ControleEmpresa {
         }
     }
     
+    public boolean zerarHistorico(){
+        try{
+            return false;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
     
 }

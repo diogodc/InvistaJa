@@ -38,6 +38,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         btnNovo = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
+        btnZerarHistorico = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -152,6 +153,13 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
             }
         });
 
+        btnZerarHistorico.setText("Zerar Histórico");
+        btnZerarHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZerarHistoricoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -166,6 +174,8 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnZerarHistorico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -178,8 +188,9 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnNovo)
                     .addComponent(btnPesquisar)
-                    .addComponent(btnExportar))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(btnExportar)
+                    .addComponent(btnZerarHistorico))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,7 +249,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,6 +341,16 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_formKeyTyped
 
+    private void btnZerarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZerarHistoricoActionPerformed
+        try{
+            if (cEmpresa.zerarHistorico()){
+                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
+        }
+    }//GEN-LAST:event_btnZerarHistoricoActionPerformed
+
     private void limpar() {
         txtCodEmpresa.setText("");
         txtCNPJ.setText("");
@@ -388,6 +409,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnZerarHistorico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
