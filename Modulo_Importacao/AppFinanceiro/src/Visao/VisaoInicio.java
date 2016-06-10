@@ -1,11 +1,8 @@
 package Visao;
 
+import static App.AppFinanceiro.abrirVisao;
 import Controle.ControleEmpresa;
 import Controle.ControleImportar;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -124,7 +121,7 @@ public class VisaoInicio extends javax.swing.JFrame {
 
     private void mnuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportarActionPerformed
         try{
-            ControleImportar.abrirVisao(pnlInicio);
+            abrirVisao(pnlInicio,new VisaoImportar());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
@@ -132,7 +129,7 @@ public class VisaoInicio extends javax.swing.JFrame {
 
     private void mnuCadEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadEmpresasActionPerformed
         try {
-            ControleEmpresa.abrirVisao(pnlInicio);
+            abrirVisao(pnlInicio,new VisaoEmpresa());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
@@ -180,6 +177,6 @@ public class VisaoInicio extends javax.swing.JFrame {
     private javax.swing.JMenu mnuDados;
     private javax.swing.JMenuItem mnuImportar;
     private javax.swing.JMenuItem mnuSair;
-    private javax.swing.JDesktopPane pnlInicio;
+    public javax.swing.JDesktopPane pnlInicio;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,11 +1,16 @@
 package App;
 
 import Dados.DadosManipulacao;
+import Visao.VisaoImportar;
 import Visao.VisaoInicio;
 import com.google.gson.Gson;
+import java.awt.Component;
 import java.io.File;
 import java.util.Formatter;
+import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -30,7 +35,17 @@ public class AppFinanceiro {
     
     public static DadosManipulacao conn = new DadosManipulacao();
     
-    public static String converteParaJson(Object objeto){
+    public static String converteStringParaJson(Object objeto){
+        try{
+            Gson gson = new Gson();
+            String sJson = gson.toJson(objeto);
+            return sJson;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public static String converteJsonParaString(Object objeto){
         try{
             Gson gson = new Gson();
             String sJson = gson.toJson(objeto);
@@ -51,5 +66,29 @@ public class AppFinanceiro {
         }catch(Exception ex){
             throw ex;
         }
+    }
+    
+    public static void abrirVisao(JDesktopPane pnl,JInternalFrame form) throws Exception{
+        try{
+            pnl.add(form);
+            form.setVisible(true);
+            form.setMaximum(true);
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public static String abrirVisaoArquivo(JInternalFrame form){
+        try{
+            JFileChooser fileChooser = new JFileChooser();  
+            fileChooser.setDialogTitle("Informe o caminho do arquivo"); 
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            if (fileChooser.showOpenDialog((Component) form) == JFileChooser.APPROVE_OPTION){  
+                return fileChooser.getSelectedFile().getPath();
+            }
+            return "";
+        }catch(Exception ex){
+            throw ex;
+        } 
     }
 }

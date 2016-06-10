@@ -1,6 +1,6 @@
 package Controle;
 
-import static App.AppFinanceiro.converteParaJson;
+import static App.AppFinanceiro.converteStringParaJson;
 import static App.AppFinanceiro.gravarArquivo;
 import Dados.DadosEmpresa;
 import Modelo.CreateModel;
@@ -8,7 +8,6 @@ import Modelo.ModeloEmpresa;
 import Visao.VisaoEmpresa;
 import Visao.VisaoPesquisar;
 import java.util.ArrayList;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,22 +23,11 @@ public class ControleEmpresa {
         this.dEmpresa = new DadosEmpresa(this.getModelo());
     }
     
-    public static void abrirVisao(JDesktopPane pnl) throws Exception{
-        try{
-            VisaoEmpresa visaoEmpresa = new VisaoEmpresa(); 
-            pnl.add(visaoEmpresa);
-            visaoEmpresa.setVisible(true);
-            visaoEmpresa.setMaximum(true);
-        }catch(Exception ex){
-            throw ex;
-        }
-    }
-    
     public boolean salvar() throws Exception{
         try{
             if (!this.validarCampos()){return false;}
                         
-            vEmpresa.txtCodEmpresa.setText(this.dEmpresa.salvar());
+            vEmpresa.txtCodEmpresa.setText(this.dEmpresa.salvar(this.getModelo()));
             
             if (!vEmpresa.txtCodEmpresa.getText().isEmpty()){
                 return true;
@@ -92,17 +80,15 @@ public class ControleEmpresa {
     public boolean exportar() throws Exception{
         try{
             return gravarArquivo("empresas.json",
-                    converteParaJson(this.dEmpresa.carregarEmpresa()));
+                    converteStringParaJson(this.dEmpresa.carregarEmpresa()));
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    public boolean zerarHistorico(){
-        try{
-                       
-            
-            return false;
+    public String zerarHistorico() throws Exception{
+        try{           
+            return this.dEmpresa.zerarHistorico(this.getModelo());
         }catch(Exception ex){
             throw ex;
         }

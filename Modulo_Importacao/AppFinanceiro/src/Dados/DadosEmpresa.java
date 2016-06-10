@@ -61,23 +61,23 @@ public class DadosEmpresa {
         }
     }
     
-    public String salvar() throws Exception{
+    public String salvar(ModeloEmpresa mEmpresa) throws Exception{
         try{
             if(this.mEmpresa == null){return "";}
             
             if (this.mEmpresa.getEmpresa_ID() == 0) {
-                return this.inserir();               
+                return this.inserir(mEmpresa);               
             }else{
-                return this.atualizar();
+                return this.atualizar(mEmpresa);
             }
         }catch(Exception ex){
             throw ex;
         }
     }
     
-    private String inserir() throws Exception{
+    private String inserir(ModeloEmpresa mEmpresa) throws Exception{
         try{
-            if(this.mEmpresa == null){return "";}
+            if(mEmpresa == null){return "";}
             
             conn.abrirConexao();
             String sSql;
@@ -90,10 +90,10 @@ public class DadosEmpresa {
             sSql += "     ATIVIDADE) ";
             sSql += " VALUES ";
             sSql += "     (BVSP_EMPRESA_SEQ.NEXTVAL";
-            sSql += "     ,'" + this.mEmpresa.getRazao_Social().replace("'", "''") + "'";
-            sSql += "     ,'" + this.mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
-            sSql += "     ,'" + this.mEmpresa.getCNPJ().replace("'", "''") + "'";
-            sSql += "     ,'" + this.mEmpresa.getAtividade().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getRazao_Social().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getCNPJ().replace("'", "''") + "'";
+            sSql += "     ,'" + mEmpresa.getAtividade().replace("'", "''") + "'";
             sSql += "    ) ";
             
             if (!sSql.trim().isEmpty()){
@@ -112,7 +112,7 @@ public class DadosEmpresa {
         }
     }
     
-    private String atualizar() throws Exception{
+    private String atualizar(ModeloEmpresa mEmpresa) throws Exception{
         try{
             if(mEmpresa == null){return "";}
             
@@ -120,11 +120,11 @@ public class DadosEmpresa {
             String sSql;
             
             sSql =  "UPDATE BVSP_EMPRESA SET";
-            sSql += "    RAZAO_SOCIAL = " + this.mEmpresa.getRazao_Social().replace("'", "''");
-            sSql += "    NOME_FANTASIA = " + this.mEmpresa.getNome_Fantasia().replace("'", "''");
-            sSql += "    CNPJ = " + this.mEmpresa.getCNPJ().replace("'", "''");
-            sSql += "    ATIVIDADE = " + this.mEmpresa.getAtividade().replace("'", "''");
-            sSql += " WHERE ID_EMPRESA = " + this.mEmpresa.getEmpresa_ID();
+            sSql += "    RAZAO_SOCIAL = " + mEmpresa.getRazao_Social().replace("'", "''");
+            sSql += "    NOME_FANTASIA = " + mEmpresa.getNome_Fantasia().replace("'", "''");
+            sSql += "    CNPJ = " + mEmpresa.getCNPJ().replace("'", "''");
+            sSql += "    ATIVIDADE = " + mEmpresa.getAtividade().replace("'", "''");
+            sSql += " WHERE ID_EMPRESA = " + mEmpresa.getEmpresa_ID();
             
             if (sSql.trim().isEmpty()){
                 if (conn.Alterar(sSql)){
@@ -178,9 +178,45 @@ public class DadosEmpresa {
         }
     }
     
-    public boolean zerarHistorico(){
+    public String zerarHistorico(ModeloEmpresa mEmpresa) throws Exception{
         try{
-            return false;
+            conn.abrirConexao();
+            
+            if (mEmpresa.getEmpresa_ID() == 0){ return "Informe uma empresa!";}
+            
+            String sRetorno = "";
+            
+            if (conn.Excluir("DELETE FROM BVSP_ISF WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID())){//Deleta o Indices de situação financeira
+                sRetorno += "-Indices de situação financeira\n";
+            }
+            if (conn.Excluir("DELETE FROM BVSP_IDRENTA WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID())){//Deleta o Indices de rentabilidade
+                sRetorno += "-Indices de rentabilidade\n";
+            }
+            if (conn.Excluir("DELETE FROM BVSP_DRE WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID())){//Deleta o DRE
+                sRetorno += "-Demostrativo de resultados\n";
+            }
+            if (conn.Excluir("DELETE FROM BVSP_BPA WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID())){//Deleta o BPA
+                sRetorno += "-Balanço patrimonial ativo\n";
+            }
+            if (conn.Excluir("DELETE FROM BVSP_BPP WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID())){//Deleta o BPP
+                sRetorno += "-Balanço patrimonial passivo\n";
+            }
+            
+            if (!sRetorno.isEmpty()){
+                sRetorno += "Foram zerados para esta empresa!";
+            }
+            if (sRetorno.isEmpty()){
+                sRetorno += "Não foram encontrado dados!";
+            }
+            
+            conn.fecharConexao();
+            
+            return sRetorno;
         }catch(Exception ex){
             throw ex;
         }

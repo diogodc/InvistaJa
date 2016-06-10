@@ -1,9 +1,6 @@
 package Visao;
 
 import Controle.ControleEmpresa;
-import Modelo.CreateModel;
-import Modelo.ModeloEmpresa;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -342,9 +339,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnZerarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZerarHistoricoActionPerformed
         try{
-            if (cEmpresa.zerarHistorico()){
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
-            }
+            JOptionPane.showMessageDialog(null, cEmpresa.zerarHistorico(), this.getTitle(), 1);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }

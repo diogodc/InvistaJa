@@ -1,9 +1,7 @@
 package Visao;
 
+import static App.AppFinanceiro.abrirVisaoArquivo;
 import Controle.ControleImportar;
-import Modelo.CreateModel;
-import Modelo.ModeloEmpresa;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -180,7 +178,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         try{
-            txtCaminhoArquivo.setText(cImportar.abrirVisaoArquivo());
+            txtCaminhoArquivo.setText(abrirVisaoArquivo(this));
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -188,30 +186,10 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-           if (this.cboTipoRelatorio.getSelectedIndex() == 1 
-                   && this.chkDRE.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!",1);
-           }else if (this.cboTipoRelatorio.getSelectedIndex() == 2
-                   && this.chkBPA.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!",1);
-           }else if (this.cboTipoRelatorio.getSelectedIndex() == 3 
-                   && this.chkBPP.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!",1);   
-           }  
-           
-           if (cImportar.lerArquivo(txtCaminhoArquivo,cboTipoRelatorio,txtCodEmpresa)){
-               if (this.cboTipoRelatorio.getSelectedIndex() == 1){
-                   this.chkDRE.setSelected(true);
-               }else if (this.cboTipoRelatorio.getSelectedIndex() == 2){
-                   this.chkBPA.setSelected(true);
-               }else{
-                   this.chkBPP.setSelected(true);
-               }
-               JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(),1);
-           }
-        }catch(Exception ex){
+             cImportar.Importar();
+         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-        }
+        } 
     }//GEN-LAST:event_btnImportarActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -232,60 +210,25 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnProcurarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarEmpresaActionPerformed
          try {
-           this.carregaBusca();
+           cImportar.carregaBusca();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
     }//GEN-LAST:event_btnProcurarEmpresaActionPerformed
-
-    private void carregaCampos(ArrayList<String> alDados){
-        if (alDados != null){
-            this.txtCodEmpresa.setText(alDados.get(0));
-            this.txtDscEmpresa.setText(alDados.get(2));
-        }
-        
-    }
-
-    private void carregaBusca(){
-        try{
-            String sCampos;
-
-            sCampos = "ID_EMPRESA,";
-            sCampos += "CNPJ,";
-            sCampos += "RAZAO_SOCIAL,";
-            sCampos += "NOME_FANTASIA,";
-            sCampos += "ATIVIDADE";
-
-            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
-
-            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
-            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
-            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
-            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
-            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
-
-            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
-
-            vPesquisar.setVisible(true);
-            carregaCampos(vPesquisar.getDados());
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
-        } 
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExportar;
-    private javax.swing.JButton btnImportar;
-    private javax.swing.JButton btnProcurarEmpresa;
-    private javax.swing.JButton btnSelecionar;
-    private javax.swing.JComboBox<String> cboTipoRelatorio;
-    private javax.swing.JCheckBox chkBPA;
-    private javax.swing.JCheckBox chkBPP;
-    private javax.swing.JCheckBox chkDRE;
+    public javax.swing.JButton btnExportar;
+    public javax.swing.JButton btnImportar;
+    public javax.swing.JButton btnProcurarEmpresa;
+    public javax.swing.JButton btnSelecionar;
+    public javax.swing.JComboBox<String> cboTipoRelatorio;
+    public javax.swing.JCheckBox chkBPA;
+    public javax.swing.JCheckBox chkBPP;
+    public javax.swing.JCheckBox chkDRE;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtCaminhoArquivo;
-    private javax.swing.JTextField txtCodEmpresa;
-    private javax.swing.JTextField txtDscEmpresa;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JTextField txtCaminhoArquivo;
+    public javax.swing.JTextField txtCodEmpresa;
+    public javax.swing.JTextField txtDscEmpresa;
     // End of variables declaration//GEN-END:variables
 }

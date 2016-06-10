@@ -3,70 +3,43 @@ package Controle;
 import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosEmpresa;
 import Dados.DadosImportar;
+import Modelo.CreateModel;
 import Modelo.ModeloEmpresa;
 import Modelo.ModeloImportar;
 import Visao.VisaoImportar;
+import Visao.VisaoPesquisar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
-import javax.swing.JDesktopPane;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class ControleImportar {
  
-    private final VisaoImportar visao;
+    private final VisaoImportar vImportar;
 
-    public ControleImportar(VisaoImportar visao){
-        this.visao = visao;
-    }
-     
-    public static void abrirVisao(JDesktopPane pnl) throws Exception{
-        try{
-            VisaoImportar visaoImportar = new VisaoImportar(); 
-            pnl.add(visaoImportar);
-            visaoImportar.setVisible(true);
-            visaoImportar.setMaximum(true);
-        }catch(Exception ex){
-            throw ex;
-        }
+    public ControleImportar(VisaoImportar vImportar){
+        this.vImportar = vImportar;
     }
     
-    public String abrirVisaoArquivo(){
+    private boolean lerArquivo() throws Exception{
         try{
-            JFileChooser fileChooser = new JFileChooser();  
-            fileChooser.setDialogTitle("Informe o caminho do arquivo"); 
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            if (fileChooser.showOpenDialog(visao) == JFileChooser.APPROVE_OPTION){  
-                return fileChooser.getSelectedFile().getPath();
-            }
-            return "";
-        }catch(Exception ex){
-            throw ex;
-        } 
-    }
-
-    public boolean lerArquivo(JTextField txtCaminho,
-                JComboBox cboTipoRelatorio,JTextField txtCodEmpresa) throws Exception{
-        try{
-            if (!validarArquivo(txtCaminho)){ return false;}  
-            if (txtCodEmpresa.getText().trim().isEmpty()){return false;}
+            if (!validarArquivo()){ return false;}  
+            if (this.vImportar.txtCodEmpresa.getText().trim().isEmpty()){return false;}
             
             DadosImportar dImportar = new DadosImportar();
-            BufferedReader brLeitor = new BufferedReader( new FileReader(txtCaminho.getText()));
+            BufferedReader brLeitor = new BufferedReader( new FileReader(this.vImportar.txtCaminhoArquivo.getText()));
             
-            switch (cboTipoRelatorio.getSelectedIndex()) {
+            switch (this.vImportar.cboTipoRelatorio.getSelectedIndex()) {
                 case 0:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            txtCodEmpresa.getText().trim()),tipoRelatorio.DRE);
+                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.DRE);
                 case 1:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            txtCodEmpresa.getText().trim()),tipoRelatorio.BPA);
+                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.BPA);
                 default:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            txtCodEmpresa.getText().trim()),tipoRelatorio.BPP);
+                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.BPP);
             }
         }catch(Exception ex){
             throw ex;                                       
@@ -100,12 +73,12 @@ public class ControleImportar {
         }
     }*/
     
-    private boolean validarArquivo(JTextField txtCaminho){
+    private boolean validarArquivo(){
         try{
-            if (txtCaminho.getText().trim().isEmpty()) {
+            if (this.vImportar.txtCaminhoArquivo.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Informe o caminho do .CSV", "Atenção!",0);
                 return false;
-            }else if (!txtCaminho.getText().trim().toUpperCase().contains(".CSV")){
+            }else if (!this.vImportar.txtCaminhoArquivo.getText().trim().toUpperCase().contains(".CSV")){
                 JOptionPane.showMessageDialog(null, "Informe um arquivo do tipo .CSV", "Atenção!",0);
                 return false;
             }
@@ -175,6 +148,80 @@ public class ControleImportar {
                 ModeloEmpresa mEmpresa = lmEmpresa.get(i);
                 cboEmpresa.addItem(mEmpresa.getEmpresa_ID() + "-" + mEmpresa.getRazao_Social());
             }
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void carregaBusca(){
+        try{
+            String sCampos;
+
+            sCampos = "ID_EMPRESA,";
+            sCampos += "CNPJ,";
+            sCampos += "RAZAO_SOCIAL,";
+            sCampos += "NOME_FANTASIA,";
+            sCampos += "ATIVIDADE";
+
+            VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
+
+            vPesquisar.cboCampoPesquisa.addItem("ID_EMPRESA");
+            vPesquisar.cboCampoPesquisa.addItem("CNPJ");
+            vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
+            vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
+            vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
+
+            vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
+
+            vPesquisar.setVisible(true);
+            carregaCampos(vPesquisar.getDados());
+        }catch(Exception ex){
+            throw ex;
+        } 
+    }
+    
+    private void carregaCampos(ArrayList<String> alDados){
+        if (alDados != null){
+            this.vImportar.txtCodEmpresa.setText(alDados.get(0));
+            this.vImportar.txtDscEmpresa.setText(alDados.get(2));
+        } 
+    }
+    
+    public void Importar() throws Exception{
+        try{
+            if (validaImportar()){
+                 if (this.lerArquivo()){
+                     if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0){
+                         this.vImportar.chkDRE.setSelected(true);
+                     }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1){
+                         this.vImportar.chkBPA.setSelected(true);
+                     }else{
+                         this.vImportar.chkBPP.setSelected(true);
+                     }
+                     JOptionPane.showMessageDialog(null, "Sucesso!", this.vImportar.getTitle(),1);
+                 }
+            }
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    private boolean validaImportar(){
+        try{
+            if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0 
+                   && this.vImportar.chkDRE.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!",1);
+                return false;
+           }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1
+                   && this.vImportar.chkBPA.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!",1);
+                return false;
+           }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 2 
+                   && this.vImportar.chkBPP.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!",1); 
+                return false;
+           }
+           return true;
         }catch(Exception ex){
             throw ex;
         }
