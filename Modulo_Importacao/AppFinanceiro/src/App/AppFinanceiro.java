@@ -27,7 +27,7 @@ public class AppFinanceiro {
         visaoInicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }  
     
-    public static String sCaminhoArquivos = "C:\\Arquivos_Json\\";
+    public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json";
     
     public enum tipoRelatorio{
         DRE,BPA,BPP;
