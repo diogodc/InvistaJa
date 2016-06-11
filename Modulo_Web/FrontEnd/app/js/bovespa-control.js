@@ -13,12 +13,14 @@ bovespa.object.extend(bovespa, {
             }, this);
         },
         _init: function (view, model) {
+            this._init_plugins();
             this._init_navigation(view);
             this._init_mnu();
         },
         _init_plugins: function () {
-            bovespa._plugin = bovespa.object.create({});
-            bovespa._plugin_.JQuery = $;
+            bovespa._plugin_ = bovespa.object.create({});
+            bovespa._plugin_['JQuery'] = $;
+            bovespa._plugin_['Highcharts'] = Highcharts;
         },
         _init_navigation: function (view) {
             this._navigation_ = bovespa.object.create({});
@@ -55,6 +57,9 @@ bovespa.object.extend(bovespa, {
                     _route.navigate(function () {
                         view._view_.Midterm().load();
                     });
+                },
+                'Exit': function (e) {
+                    bovespa.control._navigation_.Company();
                 }
             });
         },

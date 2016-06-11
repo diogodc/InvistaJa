@@ -24,7 +24,7 @@ bovespa.object.extend(bovespa, {
                                         class: ['', 's-size'],
                                         data: bovespa.model.Company(),
                                         searchSensitive: false,
-                                        displayMember: 'RAZAO_SOCIAL',
+                                        displayMember: 'sRazao_Social',
                                         classMember: ['', 's-size-15']
                                     });
                                     bovespa.menu([{
@@ -33,7 +33,7 @@ bovespa.object.extend(bovespa, {
                                             action: function (e) {
                                                 var dt = bovespa.component.get('select-company').selectedItem();
                                                 if (dt !== null) {
-                                                    bovespa.cookie(dt);
+                                                    bovespa.storage(dt);
                                                     bovespa.render();
                                                 }
                                             }
@@ -96,6 +96,15 @@ bovespa.object.extend(bovespa, {
                                             name: 'bovespa-midterm',
                                             attach: bovespa.view._main_,
                                             navigation: 'Midterm',
+                                            action: function (e) {
+                                                bovespa.control._mnu_['bovespa-navigation'].call(this, e);
+                                            }
+                                        }]);
+
+                                    view._mnu_._exit_ = bovespa.menu([{
+                                            name: 'bovespa-exit',
+                                            attach: bovespa.view._main_,
+                                            navigation: 'Exit',
                                             action: function (e) {
                                                 bovespa.control._mnu_['bovespa-navigation'].call(this, e);
                                             }
@@ -363,7 +372,7 @@ bovespa.object.extend(bovespa, {
                                     bovespa.menu.get('bovespa-indebtedness-ipl').action();
 
                                     bovespa.JLib(this.self).unmask();
-                                    bovespa.JLib(this.self).tost({text: 'Completo'});
+                                    bovespa.JLib(this.self).tost({text: 'Endividamento calculado!'});
                                 }
                             },
                             control: {
@@ -727,7 +736,7 @@ bovespa.object.extend(bovespa, {
                                         }
                                     });
 
-                                    bovespa.JLib(this.self).tost({text: 'Carregamento Completo'});
+                                    bovespa.JLib(this.self).tost({text: 'Liquidez calculada!'});
                                     bovespa.JLib(this.self).replace({
                                         tag: "text",
                                         to: '',
@@ -830,63 +839,107 @@ bovespa.object.extend(bovespa, {
                                 self: '.s-body-content',
                                 render: function (model) {
 
+                                    bovespa.config.chart.themes().Profitability();
 
                                     bovespa._plugin_.JQuery('#card-graphic-ga').highcharts({
                                         chart: {
-                                            plotBackgroundColor: null,
-                                            plotBorderWidth: null,
-                                            plotShadow: false,
-                                            type: 'pie'
+                                            type: 'bar'
+                                        },
+                                        xAxis: {
+                                            categories: model.ga().categories(),
+                                            title: {
+                                                text: null
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            selected: 1
                                         },
                                         title: {
                                             text: ''
                                         },
-                                        tooltip: {
-                                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                        },
-                                        plotOptions: {
-                                            pie: {
-                                                allowPointSelect: true,
-                                                cursor: 'pointer',
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                showInLegend: true
+                                        yAxis: {
+                                            title: {
+                                                text: ''
                                             }
                                         },
                                         series: model.ga().results()
-
-
                                     });
-                                     bovespa._plugin_.JQuery('#card-graphic-ga').highcharts({
+                                    bovespa._plugin_.JQuery('#card-graphic-ml').highcharts({
                                         chart: {
-                                            plotBackgroundColor: null,
-                                            plotBorderWidth: null,
-                                            plotShadow: false,
-                                            type: 'pie'
+                                            type: 'bar'
+                                        },
+                                        xAxis: {
+                                            categories: model.ml().categories(),
+                                            title: {
+                                                text: null
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            selected: 1
                                         },
                                         title: {
                                             text: ''
                                         },
-                                        tooltip: {
-                                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                        },
-                                        plotOptions: {
-                                            pie: {
-                                                allowPointSelect: true,
-                                                cursor: 'pointer',
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                showInLegend: true
+                                        yAxis: {
+                                            title: {
+                                                text: ''
                                             }
                                         },
-                                        series: model.ga().results()
-
-
+                                        series: model.ml().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-ra').highcharts({
+                                        chart: {
+                                            type: 'bar'
+                                        },
+                                        xAxis: {
+                                            categories: model.ra().categories(),
+                                            title: {
+                                                text: null
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            }
+                                        },
+                                        series: model.ra().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-rpl').highcharts({
+                                        chart: {
+                                            type: 'bar'
+                                        },
+                                        xAxis: {
+                                            categories: model.rpl().categories(),
+                                            title: {
+                                                text: null
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            }
+                                        },
+                                        series: model.rpl().results()
                                     });
 
-
+                                    bovespa.JLib(".highcharts-legend-item").remove();
+                                    bovespa.JLib(this.self).replace({
+                                        tag: "text",
+                                        to: '',
+                                        from: "Highcharts.com"
+                                    });
 
                                     this['inject-json']({
                                         bovespa: {
@@ -899,12 +952,7 @@ bovespa.object.extend(bovespa, {
                                         }
                                     });
 
-                                    bovespa.JLib(this.self).tost({text: 'Carregamento Completo'});
-                                    bovespa.JLib(this.self).replace({
-                                        tag: "text",
-                                        to: '',
-                                        from: "Highcharts.com"
-                                    });
+                                    bovespa.JLib(this.self).tost({text: 'Rentabilidade calculada!'});
                                 }
                             },
                             control: {
@@ -968,7 +1016,9 @@ bovespa.object.extend(bovespa, {
                                             categories: function () {
                                                 var _categories = [];
 
-                                                _categories.push(name);
+                                                _dt._results_.each(function () {
+                                                    _categories.push(this.get('year'));
+                                                });
 
                                                 return _categories;
                                             }
@@ -995,6 +1045,542 @@ bovespa.object.extend(bovespa, {
                                 url: 'app/views/profitability.html'
                             },
                             model: bovespa.model.Profitability()
+                        }
+                    ]);
+                },
+                Midterm: function () {
+                    return bovespa.template([
+                        {
+                            'name': 'bovespa-midterm',
+                            view: {
+                                self: '.s-body-content',
+                                render: function (model) {
+                                    bovespa._plugin_.Highcharts.createElement('link', {
+                                        href: 'https://fonts.googleapis.com/css?family=Signika:400,700',
+                                        rel: 'stylesheet',
+                                        type: 'text/css'
+                                    }, null, document.getElementsByTagName('head')[0]);
+                                    bovespa._plugin_.Highcharts.wrap(bovespa._plugin_.Highcharts.Chart.prototype, 'getContainer', function (proceed) {
+                                        proceed.call(this);
+                                        this.container.style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+                                    });
+                                    bovespa._plugin_.Highcharts.theme = {
+                                        colors: ["black", "#8085e9", "#8d4654", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+                                            "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+                                        chart: {
+                                            backgroundColor: 'white',
+                                            style: {
+                                                fontFamily: "Signika, serif"
+                                            }
+                                        },
+                                        title: {
+                                            style: {
+                                                color: 'black',
+                                                fontSize: '16px',
+                                                fontWeight: 'bold'
+                                            }
+                                        },
+                                        subtitle: {
+                                            style: {
+                                                color: 'black'
+                                            }
+                                        },
+                                        tooltip: {
+                                            borderWidth: 0
+                                        },
+                                        legend: {
+                                            itemStyle: {
+                                                fontWeight: 'bold',
+                                                fontSize: '13px'
+                                            }
+                                        },
+                                        xAxis: {
+                                            labels: {
+                                                style: {
+                                                    color: '#6e6e70'
+                                                }
+                                            }
+                                        },
+                                        yAxis: {
+                                            labels: {
+                                                style: {
+                                                    color: '#6e6e70'
+                                                }
+                                            }
+                                        },
+                                        plotOptions: {
+                                            series: {
+                                                shadow: true
+                                            },
+                                            candlestick: {
+                                                lineColor: '#404048'
+                                            },
+                                            map: {
+                                                shadow: false
+                                            }
+                                        },
+                                        // Highstock specific
+                                        navigator: {
+                                            xAxis: {
+                                                gridLineColor: '#D0D0D8'
+                                            }
+                                        },
+                                        rangeSelector: {
+                                            buttonTheme: {
+                                                fill: 'white',
+                                                stroke: '#C0C0C8',
+                                                'stroke-width': 1,
+                                                states: {
+                                                    select: {
+                                                        fill: '#D0D0D8'
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        scrollbar: {
+                                            trackBorderColor: '#C0C0C8'
+                                        },
+                                        // General
+                                        background2: '#E0E0E8'
+
+                                    };
+                                    bovespa._plugin_.Highcharts.setOptions(bovespa._plugin_.Highcharts.theme);
+
+                                    bovespa._plugin_.JQuery('#card-graphic-pme').highcharts({
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            plotLines: model.pme().plotLines()
+                                        },
+                                        series: model.pme().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-pmr').highcharts({
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            plotLines: model.pmr().plotLines()
+                                        },
+                                        series: model.pmr().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-pmp').highcharts({
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            plotLines: model.pmp().plotLines()
+                                        },
+                                        series: model.pmp().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-cf').highcharts({
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            plotLines: model.cf().plotLines()
+                                        },
+                                        series: model.cf().results()
+                                    });
+                                    bovespa._plugin_.JQuery('#card-graphic-co').highcharts({
+                                        rangeSelector: {
+                                            selected: 1
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            plotLines: model.co().plotLines()
+                                        },
+                                        series: model.co().results()
+                                    });
+
+
+
+                                    bovespa.JLib(this.self).replace({
+                                        tag: "text",
+                                        to: '',
+                                        from: "Highcharts.com"
+                                    });
+
+                                    this['inject-json']({
+                                        bovespa: {
+                                            'midterm': {
+                                                pme: {
+                                                    analysis: model.pme().analysis()
+                                                },
+                                                pmr: {
+                                                    analysis: model.pmr().analysis()
+                                                },
+                                                pmp: {
+                                                    analysis: model.pmp().analysis()
+                                                },
+                                                co: {
+                                                    analysis: model.co().analysis()
+                                                },
+                                                cf: {
+                                                    analysis: model.cf().analysis()
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                    bovespa.JLib(this.self).tost({text: 'Prazos médios calculados!'});
+                                }
+                            },
+                            control: {
+                                'model_change': function (name, model, libs) {
+                                    var mc = bovespa.object.create({});
+
+                                    mc[name] = function () {
+                                        var _dt = bovespa.object.create({});
+                                        model.each(function () {
+                                            _dt._results_ = bovespa.memory({
+                                                model: {
+                                                    fields: [{name: 'year'}, {name: 'indicator'}]
+                                                }
+                                            });
+
+                                            _dt._results_.data = [];
+                                            _dt._results_.data = this.get(name).results;
+                                            _dt._analysis_ = null;
+                                        });
+
+
+                                        bovespa.object.extend(_dt, {
+                                            average: function () {
+                                                return  _dt._results_.sum("indicator") / _dt._results_.count();
+                                            },
+                                            total: function () {
+                                                return  _dt._results_.sum("indicator");
+                                            },
+                                            analysis: function () {
+                                                var _analysis = {
+                                                    min: {
+                                                        value: null,
+                                                        year: null
+                                                    },
+                                                    max: {
+                                                        value: null,
+                                                        year: null
+                                                    }
+                                                },
+                                                _l = false,
+                                                        _situation;
+
+                                                _dt._results_.each(function () {
+                                                    var _indicator = Number(this.get('indicator')),
+                                                            _year = this.get('year');
+
+                                                    if (_l === false) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                        _l = true;
+                                                    }
+
+
+
+
+                                                    if (_analysis.max.value < _indicator) {
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                    }
+                                                    if (_analysis.min.value > _indicator) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+                                                    }
+
+
+                                                });
+
+                                                return libs.preAnalysis(_analysis);
+                                            },
+                                            results: function () {
+                                                var _results = [];
+                                                var _name = "";
+
+                                                _dt._results_.each(function () {
+                                                    _results.push(this.get('indicator'));
+                                                    _name += (_name !== "" ? " - " : "") + this.get('year');
+                                                });
+
+                                                return [{
+                                                        name: _name,
+                                                        data: _results,
+                                                        tooltip: {
+                                                            valueDecimals: 4
+                                                        }
+                                                    }];
+                                            },
+                                            results_average: function () {
+                                                var _average,
+                                                        _memory = bovespa.memory({
+                                                            model: _dt._results_.model,
+                                                            data: []
+                                                        });
+
+                                                _memory.data = [];
+                                                _average = _dt.average();
+
+                                                _dt._results_.each(function () {
+                                                    _memory.data.push({year: this.get('year'), indicator: _average});
+                                                });
+
+                                                return _memory;
+                                            },
+                                            categories: function () {
+                                                var _categories = [];
+
+                                                _categories.push(name);
+
+                                                return _categories;
+                                            },
+                                            name: function () {
+                                                return name;
+                                            },
+                                            plotLines: function () {
+                                                var _analysis = {
+                                                    min: {
+                                                        value: null,
+                                                        year: null
+                                                    },
+                                                    max: {
+                                                        value: null,
+                                                        year: null
+                                                    }
+                                                },
+                                                _l = false,
+                                                        _situation;
+
+                                                _dt._results_.each(function () {
+                                                    var _indicator = Number(this.get('indicator')),
+                                                            _year = this.get('year');
+
+                                                    if (_l === false) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                        _l = true;
+                                                    }
+
+
+
+
+                                                    if (_analysis.max.value < _indicator) {
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                    }
+                                                    if (_analysis.min.value > _indicator) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+                                                    }
+
+
+                                                });
+
+                                                return  libs.plotLines(_analysis);
+                                            }
+                                        });
+
+                                        return {
+                                            average: _dt.average,
+                                            total: _dt.total,
+                                            analysis: _dt.analysis,
+                                            results: _dt.results,
+                                            results_average: _dt.results_average,
+                                            categories: _dt.categories,
+                                            plotLines: _dt.plotLines
+                                        };
+                                    };
+                                    return mc;
+                                },
+                                'render-before': function (view, model) {
+                                    /* ALTERANDO O MODEL */
+                                    bovespa.object.extend(model, this.model_change("pme", model, {
+                                        ideal_value: 0,
+                                        condition: "+",
+                                        preAnalysis: function (_analysis) {
+                                            var _situation;
+                                            if (_analysis.min.year < _analysis.max.year) {
+                                                _situation = " <p style='display: block;'>A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". Pois em " + _analysis.min.year + " a empresa conseguia vender os produtos estocados em até " + _analysis.min.value + " dias. </p> ";
+                                            } else {
+                                                _situation = " <p style='display: block;'>A situação melhouro " + _analysis.max.year + "/" + _analysis.min.year + ". Pois em " + _analysis.min.year + " a empresa conseguiu vender os produtos estocados em até " + _analysis.min.value + " dias e " + (_analysis.max.value - _analysis.min.value) + " dias antes do ano anterior. </p> ";
+                                            }
+
+                                            return _situation;
+                                        }
+                                        , plotLines: function (_analysis) {
+                                            return [
+                                                {
+                                                    value: _analysis.min.value,
+                                                    color: (0 < _analysis.min.value ? 'yellow' : 'green'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }, {
+                                                    value: _analysis.max.value,
+                                                    color: (0 < _analysis.max.value ? 'red' : 'yellow'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }
+                                            ];
+                                        }
+                                    }));
+                                    bovespa.object.extend(model, this.model_change("pmr", model, {
+                                        ideal_value: 0,
+                                        condition: "+",
+                                        preAnalysis: function (_analysis) {
+                                            var _situation;
+                                            if (_analysis.min.year < _analysis.max.year) {
+                                                _situation = " <p style='display: block;'>A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes em até " + _analysis.min.value + " dias. </p> ";
+                                            } else {
+                                                _situation = " <p style='display: block;'>A situação melhouro " + _analysis.max.year + "/" + _analysis.min.year + ". Pois em " + _analysis.min.year + " a empresa conseguiu receber as vendas a prazo de clientes " + _analysis.min.value + " dias e " + (_analysis.max.value - _analysis.min.value) + " dias antes do ano anterior. </p> ";
+                                            }
+
+                                            return _situation;
+                                        },
+                                        plotLines: function (_analysis) {
+                                            return [
+                                                {
+                                                    value: _analysis.min.value,
+                                                    color: (0 < _analysis.min.value ? 'yellow' : 'green'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }, {
+                                                    value: _analysis.max.value,
+                                                    color: (0 < _analysis.max.value ? 'red' : 'yellow'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }
+                                            ];
+                                        }
+                                    }));
+                                    bovespa.object.extend(model, this.model_change("pmp", model, {
+                                        ideal_value: 0,
+                                        condition: "-",
+                                        preAnalysis: function (_analysis) {
+                                            var _situation;
+                                            if (_analysis.max.year < _analysis.min.year) {
+                                                _situation = " <p style='display: block;'>A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". Pois em " + _analysis.min.year + " a dividas com fornecedores venciam em até " + _analysis.min.value + " dias. </p> ";
+                                            } else {
+                                                _situation = " <p style='display: block;'>A situação melhorou " + _analysis.min.year + "/" + _analysis.max.year + ". Pois em " + _analysis.max.year + " a dividas com fornecedores venciam em até " + _analysis.max.value + " dias. </p> ";
+                                            }
+
+                                            return _situation;
+                                        },
+                                        plotLines: function (_analysis) {
+                                            return [
+                                                {
+                                                    value: _analysis.max.value,
+                                                    color: (_analysis.max.value < _analysis.max.value ? 'yellow' : 'green'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }, {
+                                                    value: _analysis.min.value,
+                                                    color: (0 < _analysis.min.value ? 'red' : 'yellow'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }
+                                            ];
+                                        }
+                                    }));
+                                    bovespa.object.extend(model, this.model_change("co", model, {
+                                        ideal_value: 0,
+                                        condition: "-",
+                                        preAnalysis: function (_analysis) {
+                                            var _situation;
+                                            if (_analysis.min.year < _analysis.max.year) {
+                                                _situation = " <p style='display: block;'>A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes em até " + _analysis.min.value + " dias. </p> ";
+                                            } else {
+                                                _situation = " <p style='display: block;'>A situação melhouro " + _analysis.max.year + "/" + _analysis.min.year + ". Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes " + (_analysis.max.value - _analysis.min.value) + " dias antes. </p> ";
+                                            }
+
+                                            return _situation;
+                                        },
+                                        plotLines: function (_analysis) {
+                                            return [
+                                                {
+                                                    value: _analysis.max.value,
+                                                    color: (_analysis.max.value < _analysis.max.value ? 'yellow' : 'green'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }, {
+                                                    value: _analysis.min.value,
+                                                    color: (0 < _analysis.min.value ? 'red' : 'yellow'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }
+                                            ];
+                                        }
+                                    }));
+                                    bovespa.object.extend(model, this.model_change("cf", model, {
+                                        ideal_value: 0,
+                                        condition: "-",
+                                        preAnalysis: function (_analysis) {
+                                            var _situation;
+                                            if (_analysis.min.year < _analysis.max.year) {
+                                                _situation = " <p >A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". <br> Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes em até " + (_analysis.min.value < 0 ? (_analysis.min.value * -1) + " dias antes" : _analysis.min.value + " dias depois") + " que as dividas com fornecedores vencecem. </p> ";
+                                            } else {
+                                                _situation = "<p>";
+                                                _situation += " A situação melhouro " + _analysis.max.year + "/" + _analysis.min.year + ".";
+                                                _situation += " <br>No ano de " + _analysis.min.year + " a empresa conseguiu receber as vendas a prazo de clientes " + (_analysis.min.value < 0 ? (_analysis.min.value * -1) + " dias antes" : _analysis.min.value + " dias depois") + " que as dividas com fornecedores vencecem.";
+                                                _situation += " <br>No ano de " + _analysis.max.year + " recebia " + (_analysis.max.value - _analysis.min.value) + " dias depois se comparado a " + _analysis.min.year + ". </p> ";
+                                            }
+
+
+                                            return _situation;
+                                        },
+                                        plotLines: function (_analysis) {
+                                            return [
+                                                {
+                                                    value: _analysis.min.value,
+                                                    color: (0 < _analysis.min.value ? 'yellow' : 'green'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }, {
+                                                    value: _analysis.max.value,
+                                                    color: (0 < _analysis.max.value ? 'red' : 'yellow'),
+                                                    dashStyle: 'shortdash',
+                                                    width: 2
+                                                }
+                                            ];
+                                        }
+                                    }));
+                                },
+                                url: 'app/views/midterm.html'
+                            },
+                            model: bovespa.model.Midterm()
                         }
                     ]);
                 }

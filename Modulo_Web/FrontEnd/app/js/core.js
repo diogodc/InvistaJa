@@ -1,5 +1,5 @@
 /*
-
+ 
  */
 
 (function (_object) {
@@ -1191,7 +1191,7 @@
                     request: createRequest(),
                     response: '',
                     method: 'GET',
-                    root: '/'
+                    root: 'http://localhost/'
                 });
                 sys_core.object.extend(ajax, _parameter_settings);
                 ajax.request.addEventListener('progress', function (e) {
@@ -1207,7 +1207,7 @@
                 };
                 sys_core.object.extend(ajax, {
                     clearSlashes: function (path) {
-                        return path.toString().replace(/\/JLib /, '').replace(/^\//, '');
+                        return path.toString().replace(/\/$/, '').replace(/^\//, '');
                     },
                     getUrl: function () {
                         return this.root + this.clearSlashes(location.pathname) + '/' + this['url'];
@@ -1462,7 +1462,7 @@
                     }
                 });
                 main.object.extend(_template, {
-                    model: bovespa.memory({
+                    model: sys_core.memory({
                     })
                 });
 
@@ -2186,7 +2186,8 @@
         sys_core.object.extend(sys_core, {
             memory: function memory(_parameter_settings) {
                 var memory;
-                memory = sys_core.object.create(sys_core.memory);
+                memory = sys_core.object.create({
+                });
 
                 sys_core.object.extend(memory, {'type': 'json'}, 'proxy');
                 sys_core.object.extend(memory, [], 'data');
@@ -2299,6 +2300,9 @@
                         }
                         this['proxy'].load_data(self_fn);
                     },
+                    loadData:function(data){
+                       this['data']  = data;
+                    },
                     each: function (self_fn) {
                         var data;
 
@@ -2370,15 +2374,39 @@
                             }
                         }
 
-
-                        return _query;
-                    }
+                        
+                        return {
+                            each : function (fn){
+                               sys_core.each(_query, function (_data){
+                                   fn.call(_data);
+                               }); 
+                            }                            
+                        };
+                    }                    
                 });
 
                 return memory;
             }
         });
         /* ################### MEMORY #####################*/
+
+        /* ################### STORAGE #####################*/
+        sys_core.object.extend(sys_core, {
+            storage: function (_dataStorage) {
+                sys_core.eachProto(_dataStorage, function (stValue, stName) {
+                    localStorage.setItem(stName, stValue);
+                });
+            }
+        });
+        sys_core.object.extend(sys_core.storage, {
+            get: function (stName) {
+                return  localStorage[stName];
+            },
+            exists: function (stName) {
+                return !(!localStorage.getItem(stName));
+            }
+        });
+        /* ################### STORAGE #####################*/
 
         sys_core.object.extend(sys_core, _set);
         return sys_core;
