@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<div class="s-md-row shadow s-md-back-White s-columns-3 s-card-seek" style="min-height:8.7em;">
+    <div class="s-card  shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.pct'></json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>participação de capital de terceiros</span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+    <div class="s-card  shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.ce'></json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>Composição do Endividamento</span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+    <div class="s-card shadow-none">
+        <div class="s-card-body">
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-17 s-md-font-GrayCyan-200 title">    
+                    <span><json bind-value='bovespa.indebtedness.ipl'>0%</json></span>                           
+                </div>
+            </div>
+            <div class="s-card-content">                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">   
+                    <span>Imobilização do Patrimônio Líquido </span>
+                </div>
+            </div>                    
+        </div>               
+    </div>
+</div>  
+<div class="s-md-row margin-left-1">
+
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Cyan-700">        
+        <div class="s-card-body s-md-back-Cyan-600"> 
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
+                    <span>Participação de Capital de Terceiros</span>
+                </div>
+            </div>
+            <div class="s-card-content"  id="card-graphic-pct">                        
+                <div class="">
+                    <canvas id="graphic-pct" style="height: 244px;"></canvas>
+                </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-pct">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-pct">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-pct">                           
+                <span></span>
+            </div>
+        </div>       
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    <json bind-value='bovespa.indebtedness.pct.analysis'></json>                  
+                </p>
+                <p>                    
+                  
+                </p>
+            </li>            
+        </ol>
+    </div>
+</div>
+<div class="s-md-row margin-left-1">
+
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Green-700">
+        <div class="s-card-body s-md-back-Green-600"> 
+            <div class="s-card-content" >                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
+                    <span>Composição do Endividamento</span>
+                </div>
+            </div>
+            <div class="s-card-content"  id="card-graphic-ce">                        
+                <div   class='s-md-chart-theme-green'>
+                   <canvas id="graphic-ce" style="height: 244px;"></canvas>
+                </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-ce">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-ce">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-ce">                           
+                <span></span>
+            </div>
+        </div>     
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Integer sed mollis sapien. Aenean at erat ligula.                     
+                </p>
+                <p>                    
+                    Aenean placerat blandit sollicitudin. 
+                    Sed ornare pretium maximus. 
+                    Curabitur sed scelerisque dolor, a ultricies nisi. Ut sit amet magna eget sapien luctus hendrerit vulputate at risus. 
+                    Sed augue dolor, tempor ut fermentum et, consequat in tortor. 
+                    Aliquam sed ullamcorper nunc. Donec sapien nisi, ullamcorper non auctor id, viverra sit amet neque. Sed viverra quam ligula, 
+                    sed sodales erat tincidunt sit amet.
+                </p>
+            </li>            
+        </ol>
+    </div>
+</div>
+<div class="s-md-row margin-left-1">
+
+</div>
+<div class="s-md-row margin-left-1 s-columns-2">
+    <div class="s-card s-md-back-Orange-700">
+        <div class="s-card-body s-md-back-Orange-600"> 
+            <div class="s-card-content" >                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
+                    <span>Imobilização do Patrimônio Líquido</span>
+                </div>
+            </div>
+            <div class="s-card-content"  id="card-graphic-ipl">                        
+                <div   class='s-md-chart-theme-orange' style=" min-height: 234px;">
+                     <canvas id="graphic-ipl" style="height: 244px;"></canvas>
+                </div>
+            </div> 
+            <div class="s-card-content"  id="card-table-ipl">
+                <div class="s-card">
+                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                        <div class="s-card-content">                        
+                            <div id="table-ipl">
+
+                            </div>
+                        </div>              
+                    </div>                         
+                </div>
+            </div> 
+        </div>       
+        <div class="s-card-action">
+            <div class="btn-spherical btn-add btn-card-center s-md-back-Yellow-500 right s-md-font-White" mnu-name="bovespa-indebtedness-ipl">                           
+                <span></span>
+            </div>
+        </div>     
+    </div>
+    <div>          
+        <ol class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+            <li>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Integer sed mollis sapien. Aenean at erat ligula.                     
+                </p>
+                <p>                    
+                    Aenean placerat blandit sollicitudin. 
+                    Sed ornare pretium maximus. 
+                    Curabitur sed scelerisque dolor, a ultricies nisi. Ut sit amet magna eget sapien luctus hendrerit vulputate at risus. 
+                    Sed augue dolor, tempor ut fermentum et, consequat in tortor. 
+                    Aliquam sed ullamcorper nunc. Donec sapien nisi, ullamcorper non auctor id, viverra sit amet neque. Sed viverra quam ligula, 
+                    sed sodales erat tincidunt sit amet.
+                </p>
+            </li>            
+        </ol>
+    </div>
+</div>
+

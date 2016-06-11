@@ -1,0 +1,50 @@
+/*
+####################### CARDS #######################
+*/
+.s-card {
+  position: relative;
+  margin: 0.5rem 0 1rem 0;
+  background-color: #fff;
+  transition: box-shadow 0.25s;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.s-card div {
+  display: block;
+}
+.s-card .s-card-position-horizontal {
+  display: inline-block;
+}
+.s-card .s-card-body .s-card-content,
+.s-card .s-card-head .s-card-content {
+  padding: 20px;
+}
+.s-card .s-card-action {
+  position: relative;
+  background-color: inherit;
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  padding: 20px;
+}
+.s-card-seek {
+  width: 100%;
+  /*    div {
+        color: #878ea2;
+        font-weight: 600;
+    }
+    span{
+        font-weight: 800;
+        color: #a0a7b8;
+    }*/
+}
+.s-card-seek > div {
+  border-right: 1px solid rgba(160, 160, 160, 0.2);
+  height: 100%;
+  padding: 0px;
+  margin: 0;
+}
+.s-card-seek > div:last-child {
+  border-right: 0px;
+}
+/*
+####################### CARDS #######################
+*/

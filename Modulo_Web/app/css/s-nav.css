@@ -1,0 +1,52 @@
+/*
+####################### MENU-NEVEGAÇÃO #######################
+*/
+.s-menu-nav {
+  box-shadow: 0 0 10px rgba(51, 51, 51, 0.38);
+  height: 100%;
+  min-height: 100%;
+}
+.s-menu-nav ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.s-menu-nav ul li div {
+  padding: 2.100em;
+}
+.s-menu-nav-mnu {
+  color: #adb3b8;
+  cursor: pointer;
+  font-size: 1em;
+  width: 100%;
+  padding: 0px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.s-menu-nav-mnu:hover {
+  background-color: #3c4a57;
+}
+.s-menu-nav-mnu:active .s-md-nav-mnu-item-wrap {
+  background-color: #3c4a57;
+  height: 100%;
+}
+.s-menu-nav-hidden {
+  min-height: 0px;
+  max-height: 0px;
+  visibility: hidden;
+  position: fixed;
+}
+.s-menu-nav-mnu-item {
+  padding: 0 !important;
+  min-height: 0px;
+  max-height: 0px;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  max-width: 15.75em;
+  height: 259%;
+  z-index: 0;
+}
+/*
+####################### MENU-NEVEGAÇÃO #######################
+*/
