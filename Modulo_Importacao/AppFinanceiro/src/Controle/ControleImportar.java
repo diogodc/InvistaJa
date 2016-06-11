@@ -161,7 +161,10 @@ public class ControleImportar {
             sCampos += "CNPJ,";
             sCampos += "RAZAO_SOCIAL,";
             sCampos += "NOME_FANTASIA,";
-            sCampos += "ATIVIDADE";
+            sCampos += "ATIVIDADE,";
+            sCampos += "BPA,";
+            sCampos += "BPP,";
+            sCampos += "DRE";
 
             VisaoPesquisar vPesquisar = new VisaoPesquisar(null, true, sCampos, "BVSP_EMPRESA", "", "");
 
@@ -170,11 +173,14 @@ public class ControleImportar {
             vPesquisar.cboCampoPesquisa.addItem("RAZAO_SOCIAL");
             vPesquisar.cboCampoPesquisa.addItem("NOME_FANTASIA");
             vPesquisar.cboCampoPesquisa.addItem("ATIVIDADE");
+            vPesquisar.cboCampoPesquisa.addItem("BPA");
+            vPesquisar.cboCampoPesquisa.addItem("BPP");
+            vPesquisar.cboCampoPesquisa.addItem("DRE");
 
             vPesquisar.setModeloArvore(new <ModeloEmpresa>CreateModel(new ModeloEmpresa(), "RAZAO_SOCIAL"));
 
             vPesquisar.setVisible(true);
-            carregaCampos(vPesquisar.getDados());
+            this.carregaCampos(vPesquisar.getDados());
         }catch(Exception ex){
             throw ex;
         } 
@@ -184,6 +190,15 @@ public class ControleImportar {
         if (alDados != null){
             this.vImportar.txtCodEmpresa.setText(alDados.get(0));
             this.vImportar.txtDscEmpresa.setText(alDados.get(2));
+            if (alDados.get(5).equals('S')){
+                this.vImportar.chkBPA.setSelected(true);
+            }
+            if (alDados.get(6).equals('S')){
+                this.vImportar.chkBPP.setSelected(true);
+            }
+            if (alDados.get(7).equals('S')){
+                this.vImportar.chkDRE.setSelected(true);
+            }
         } 
     }
     

@@ -2,7 +2,7 @@ bovespa.object.extend(bovespa, {
     model: {
         load: function (callback, scope) {
             this._init(function () {
-                callback.call(scope, bovespa.model._data_._load);
+                callback.call(scope, bovespa.model._data_._load ,  bovespa.model._data_._sucess);
             });
         },
         _init: function (callback) {
@@ -27,15 +27,18 @@ bovespa.object.extend(bovespa, {
 
             if (bovespa.storage.exists('iEmpresa_ID')) {
                 this._data_._load = true;
+                this._data_._sucess = false;
+                var _scope = this;
                 this._init_data(function (data) {
-                    var _scope = this,
-                            _dtCompany;
+                    var _dtCompany;
 
                     _scope._data_._base_.loadData(data);
                     _dtCompany = _scope._data_._base_.query(function () {
                         return this.get('company-id') == bovespa.storage.get('iEmpresa_ID');
                     });
                     _dtCompany.each(function () {
+                        _scope._data_._sucess = true;
+
                         _scope._data_._indebtedness_ = bovespa.memory({
                             model: {
                                 fields: [{
@@ -91,6 +94,7 @@ bovespa.object.extend(bovespa, {
                     callback.call(_scope);
                 });
             } else {
+                this._data_._load = false;
                 callback.call(this);
             }
         },

@@ -90,11 +90,29 @@ public class DadosImportar {
                 sSql += "        )";
 
                 if (!sSql.trim().isEmpty()){
-                    conn.Inserir(sSql);                    
+                    if (conn.Inserir(sSql)){
+                        this.atualizarIndiceImportado(sIndice,
+                                mImportar.getEmpresa_ID());
+                    }                    
                 }  
                 conn.fecharConexao();
             }
             return true;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    private void atualizarIndiceImportado(String sIndice,
+            int iEmpresa_ID) throws Exception{
+        try{
+            String sSql;
+            
+            sSql  = "UPDATE BVSP_EMPRESA SET ";
+            sSql += "   BVSP_EMPRESA." + sIndice + " = 'S' ";
+            sSql += "WHERE BVSP_EMPRESA.ID_EMPRESA = " + iEmpresa_ID;
+            
+            conn.Alterar(sSql);
         }catch(Exception ex){
             throw ex;
         }
