@@ -15,37 +15,41 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class ControleImportar {
- 
+
     private final VisaoImportar vImportar;
 
-    public ControleImportar(VisaoImportar vImportar){
+    public ControleImportar(VisaoImportar vImportar) {
         this.vImportar = vImportar;
     }
-    
-    private boolean lerArquivo() throws Exception{
-        try{
-            if (!validarArquivo()){ return false;}  
-            if (this.vImportar.txtCodEmpresa.getText().trim().isEmpty()){return false;}
-            
+
+    private boolean lerArquivo() throws Exception {
+        try {
+            if (!validarArquivo()) {
+                return false;
+            }
+            if (this.vImportar.txtCodEmpresa.getText().trim().isEmpty()) {
+                return false;
+            }
+
             DadosImportar dImportar = new DadosImportar();
-            BufferedReader brLeitor = new BufferedReader( new FileReader(this.vImportar.txtCaminhoArquivo.getText()));
-            
+            BufferedReader brLeitor = new BufferedReader(new FileReader(this.vImportar.txtCaminhoArquivo.getText()));
+
             switch (this.vImportar.cboTipoRelatorio.getSelectedIndex()) {
                 case 0:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.DRE);
+                            this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.DRE);
                 case 1:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.BPA);
+                            this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.BPA);
                 default:
                     return dImportar.importarDados(manipularArquivo(brLeitor,
-                            this.vImportar.txtCodEmpresa.getText().trim()),tipoRelatorio.BPP);
+                            this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.BPP);
             }
-        }catch(Exception ex){
-            throw ex;                                       
+        } catch (Exception ex) {
+            throw ex;
         }
     }
-    
+
     /*
     ----Desuso devido a mudança de filtro-----
     private int getEmpresaSelecionada(JComboBox cboEmpresa) throws Exception{
@@ -72,89 +76,90 @@ public class ControleImportar {
             throw ex;
         }
     }*/
-    
-    private boolean validarArquivo(){
-        try{
+    private boolean validarArquivo() {
+        try {
             if (this.vImportar.txtCaminhoArquivo.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Informe o caminho do .CSV", "Atenção!",0);
+                JOptionPane.showMessageDialog(null, "Informe o caminho do .CSV", "Atenção!", 0);
                 return false;
-            }else if (!this.vImportar.txtCaminhoArquivo.getText().trim().toUpperCase().contains(".CSV")){
-                JOptionPane.showMessageDialog(null, "Informe um arquivo do tipo .CSV", "Atenção!",0);
+            } else if (!this.vImportar.txtCaminhoArquivo.getText().trim().toUpperCase().contains(".CSV")) {
+                JOptionPane.showMessageDialog(null, "Informe um arquivo do tipo .CSV", "Atenção!", 0);
                 return false;
             }
             return true;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
-    
-    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor,String sEmpresa_ID) throws Exception{
-        try{
+
+    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor, String sEmpresa_ID) throws Exception {
+        try {
             int iEmpresa_ID = Integer.parseInt(sEmpresa_ID);
             String sLinha;
             ArrayList<ModeloImportar> lMImportar = new ArrayList<ModeloImportar>();
             ArrayList<String> lPeriodo = new ArrayList<String>();
             int iCont = 0;
-            
-            while ((sLinha = brLeitor.readLine()) != null){
+
+            while ((sLinha = brLeitor.readLine()) != null) {
                 iCont++;
-                if (iCont == 1){
-                    String [] sVetCelula = sLinha.split(";");
+                if (iCont == 1) {
+                    String[] sVetCelula = sLinha.split(";");
                     lPeriodo.add(sVetCelula[2]);
                     lPeriodo.add(sVetCelula[3]);
                     lPeriodo.add(sVetCelula[4]);
-                }else{
+                } else {
                     ModeloImportar mImportar = new ModeloImportar();
-                    String [] sVetCelula = sLinha.split(";");
+                    String[] sVetCelula = sLinha.split(";");
                     int iQuantReg = sVetCelula.length;
                     mImportar.setEmpresa_ID(iEmpresa_ID);
- 
+
                     mImportar.setPeriodo_1(lPeriodo.get(0));
                     mImportar.setPeriodo_2(lPeriodo.get(1));
                     mImportar.setPeriodo_3(lPeriodo.get(2));
-                    if (iQuantReg > 0){
+                    if (iQuantReg > 0) {
                         mImportar.setConta(sVetCelula[0].trim());
                     }
-                    if (iQuantReg>1){
+                    if (iQuantReg > 1) {
                         mImportar.setDescricao(sVetCelula[1].trim());
                     }
-                    if (iQuantReg>2){
+                    if (iQuantReg > 2) {
                         mImportar.setValor_1(sVetCelula[2].trim());
                     }
-                    if (iQuantReg>3){
+                    if (iQuantReg > 3) {
                         mImportar.setValor_2(sVetCelula[3].trim());
                     }
-                    if (iQuantReg>4){
+                    if (iQuantReg > 4) {
                         mImportar.setValor_3(sVetCelula[4].trim());
                     }
-                    lMImportar.add(mImportar); 
-                } 
+                    lMImportar.add(mImportar);
+                }
             }
-            
+
             return lMImportar;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
-    
-    public void carregarEmpresas(JComboBox cboEmpresa) throws Exception{
-        try{
+
+    public void carregarEmpresas(JComboBox cboEmpresa) throws Exception {
+        try {
             DadosEmpresa dEmpresa = new DadosEmpresa();
             ArrayList<ModeloEmpresa> lmEmpresa = dEmpresa.carregarEmpresa();
-            
-            if (lmEmpresa.isEmpty()){ return;}
-            
-            for (int i = 0; i<lmEmpresa.size();i++){
+
+            if (lmEmpresa.isEmpty()) {
+                return;
+            }
+
+            for (int i = 0; i < lmEmpresa.size(); i++) {
                 ModeloEmpresa mEmpresa = lmEmpresa.get(i);
                 cboEmpresa.addItem(mEmpresa.getEmpresa_ID() + "-" + mEmpresa.getRazao_Social());
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
-    
-    public void carregaBusca(){
-        try{
+
+    public void carregaBusca() {
+        try {
             String sCampos;
 
             sCampos = "ID_EMPRESA,";
@@ -181,63 +186,87 @@ public class ControleImportar {
 
             vPesquisar.setVisible(true);
             this.carregaCampos(vPesquisar.getDados());
-        }catch(Exception ex){
-            throw ex;
-        } 
-    }
-    
-    private void carregaCampos(ArrayList<String> alDados){
-        if (alDados != null){
-            this.vImportar.txtCodEmpresa.setText(alDados.get(0));
-            this.vImportar.txtDscEmpresa.setText(alDados.get(2));
-            if (alDados.get(5).equals('S')){
-                this.vImportar.chkBPA.setSelected(true);
-            }
-            if (alDados.get(6).equals('S')){
-                this.vImportar.chkBPP.setSelected(true);
-            }
-            if (alDados.get(7).equals('S')){
-                this.vImportar.chkDRE.setSelected(true);
-            }
-        } 
-    }
-    
-    public void Importar() throws Exception{
-        try{
-            if (validaImportar()){
-                 if (this.lerArquivo()){
-                     if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0){
-                         this.vImportar.chkDRE.setSelected(true);
-                     }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1){
-                         this.vImportar.chkBPA.setSelected(true);
-                     }else{
-                         this.vImportar.chkBPP.setSelected(true);
-                     }
-                     JOptionPane.showMessageDialog(null, "Sucesso!", this.vImportar.getTitle(),1);
-                 }
-            }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
-    
-    private boolean validaImportar(){
-        try{
-            if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0 
-                   && this.vImportar.chkDRE.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!",1);
+
+    private void carregaCampos(ArrayList<String> alDados) {
+        if (alDados != null) {
+            this.vImportar.txtCodEmpresa.setText(alDados.get(0));
+            this.vImportar.txtDscEmpresa.setText(alDados.get(2));
+            
+            this.vImportar.chkBPA.setSelected(false);
+            if (alDados.get(5) != null) {
+                if (alDados.get(5).equals("S")) {
+                    this.vImportar.chkBPA.setSelected(true);
+                } else {
+                    this.vImportar.chkBPA.setSelected(false);
+                }
+            } else {
+                this.vImportar.chkBPA.setSelected(false);
+            }
+            
+            this.vImportar.chkBPP.setSelected(false);
+            if (alDados.get(6) != null) {
+                if (alDados.get(6).equals("S")) {
+                    this.vImportar.chkBPP.setSelected(true);
+                } else {
+                    this.vImportar.chkBPP.setSelected(false);
+                }
+            }else{
+                this.vImportar.chkBPP.setSelected(false);
+            }
+            
+            this.vImportar.chkDRE.setSelected(false);
+            if (alDados.get(7) != null) {
+                if (alDados.get(7).equals("S")) {
+                    this.vImportar.chkDRE.setSelected(true);
+                } else {
+                    this.vImportar.chkDRE.setSelected(false);
+                }
+            }else{
+                this.vImportar.chkDRE.setSelected(false);
+            }
+        }
+    }
+
+    public void Importar() throws Exception {
+        try {
+            if (validaImportar()) {
+                if (this.lerArquivo()) {
+                    if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0) {
+                        this.vImportar.chkDRE.setSelected(true);
+                    } else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1) {
+                        this.vImportar.chkBPA.setSelected(true);
+                    } else {
+                        this.vImportar.chkBPP.setSelected(true);
+                    }
+                    JOptionPane.showMessageDialog(null, "Sucesso!", this.vImportar.getTitle(), 1);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+    private boolean validaImportar() {
+        try {
+            if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0
+                    && this.vImportar.chkDRE.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!", 1);
                 return false;
-           }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1
-                   && this.vImportar.chkBPA.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!",1);
+            } else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1
+                    && this.vImportar.chkBPA.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!", 1);
                 return false;
-           }else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 2 
-                   && this.vImportar.chkBPP.isSelected() == true){
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!",1); 
+            } else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 2
+                    && this.vImportar.chkBPP.isSelected() == true) {
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!", 1);
                 return false;
-           }
-           return true;
-        }catch(Exception ex){
+            }
+            return true;
+        } catch (Exception ex) {
             throw ex;
         }
     }

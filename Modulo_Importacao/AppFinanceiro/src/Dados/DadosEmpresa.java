@@ -207,6 +207,9 @@ public class DadosEmpresa {
                 sRetorno += "-Balanço patrimonial passivo\n";
             }
             
+            conn.Alterar("UPDATE BVSP_EMPRESA SET BPP=NULL,BPA=NULL,DRE=NULL WHERE ID_EMPRESA = " 
+                    + mEmpresa.getEmpresa_ID()); //Atualiza os indices importados
+            
             if (!sRetorno.isEmpty()){
                 sRetorno += "Foram zerados para esta empresa!";
             }

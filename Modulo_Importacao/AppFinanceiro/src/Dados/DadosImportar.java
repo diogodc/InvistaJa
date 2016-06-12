@@ -55,6 +55,7 @@ public class DadosImportar {
             ArrayList<ModeloImportar> lImportar) throws Exception{
         try{
             String sSql;
+            int iEmpresa_ID = 0;
             String sTabela = hDadosTabela.get("sTabela").toString();
             String sIndice = hDadosTabela.get("sIndice").toString();
             
@@ -88,15 +89,15 @@ public class DadosImportar {
                 sSql += "         '" + mImportar.getConta()    + "',";
                 sSql += "         '" + mImportar.getDescricao()+ "'";
                 sSql += "        )";
-
+                
+                iEmpresa_ID = mImportar.getEmpresa_ID();
+                
                 if (!sSql.trim().isEmpty()){
-                    if (conn.Inserir(sSql)){
-                        this.atualizarIndiceImportado(sIndice,
-                                mImportar.getEmpresa_ID());
-                    }                    
+                    conn.Inserir(sSql);                        
                 }  
                 conn.fecharConexao();
             }
+             this.atualizarIndiceImportado(sIndice,iEmpresa_ID);
             return true;
         }catch(Exception ex){
             throw ex;
@@ -106,6 +107,7 @@ public class DadosImportar {
     private void atualizarIndiceImportado(String sIndice,
             int iEmpresa_ID) throws Exception{
         try{
+            conn.abrirConexao();
             String sSql;
             
             sSql  = "UPDATE BVSP_EMPRESA SET ";
@@ -113,6 +115,8 @@ public class DadosImportar {
             sSql += "WHERE BVSP_EMPRESA.ID_EMPRESA = " + iEmpresa_ID;
             
             conn.Alterar(sSql);
+            
+            conn.fecharConexao();
         }catch(Exception ex){
             throw ex;
         }

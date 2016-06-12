@@ -29,7 +29,6 @@ public class ControlePesquisar {
     private final String sJoin;
     private String sCodigo;
     private final VisaoPesquisar vPesquisar;
-    private final ArrayList<String> dados = new ArrayList();
 
     public ControlePesquisar(VisaoPesquisar vPesquisar, String tabela, String parametros,
             String condicao, String join, JTable tabResultados,
@@ -68,39 +67,17 @@ public class ControlePesquisar {
         }
     }
 
-    public ArrayList<String> selecionar(JTable tabResultados) throws SQLException, ClassNotFoundException,
-            InstantiationException, IllegalAccessException, Exception {
-        try {
-            conn.abrirConexao();
-
-            String sSql = "";
-            int linha = tabResultados.getSelectedRow();
-
-            sSql += "SELECT * FROM " + sTabela;
-            sSql += " WHERE " + sCodigo + "=" + tabResultados.getValueAt(linha, 0);
-
-            ResultSet rs = conn.Selecionar(sSql);
-
-            rs.next();
-            for (int iCont = 1; iCont <= conn.getResultSetMetaData().getColumnCount(); iCont++) {
-                dados.add(rs.getString(iCont));
-            }
-
+    public ArrayList<String> selecionar() throws Exception{
+        try{
+            DadosPesquisar dPesquisar = new DadosPesquisar();
+            int iLinha = this.vPesquisar.tabResultado.getSelectedRow();
+            Object oCampo = this.vPesquisar.tabResultado.getValueAt(iLinha, 0);
+            
+            return dPesquisar.selecionar(oCampo,sCodigo, sTabela);
+        }catch(Exception ex){
+            throw ex;
+        }finally{
             vPesquisar.dispose();
-
-            conn.fecharConexao();
-
-            return dados;
-        } catch (SQLException ex) {
-            throw ex;
-        } catch (ClassNotFoundException ex) {
-            throw ex;
-        } catch (InstantiationException ex) {
-            throw ex;
-        } catch (IllegalAccessException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw ex;
         }
     }
 }

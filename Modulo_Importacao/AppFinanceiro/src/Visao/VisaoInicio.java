@@ -36,10 +36,11 @@ public class VisaoInicio extends javax.swing.JFrame {
         mnuSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Aplicativo Financeiro");
+        setTitle("Bovespa Analytics");
 
-        pnlInicio.setBackground(java.awt.SystemColor.control);
+        pnlInicio.setBackground(new java.awt.Color(204, 204, 255));
         pnlInicio.setToolTipText("");
+        pnlInicio.setAutoscrolls(true);
 
         javax.swing.GroupLayout pnlInicioLayout = new javax.swing.GroupLayout(pnlInicio);
         pnlInicio.setLayout(pnlInicioLayout);
@@ -103,6 +104,8 @@ public class VisaoInicio extends javax.swing.JFrame {
                 .addComponent(pnlInicio)
                 .addGap(0, 0, 0))
         );
+
+        getAccessibleContext().setAccessibleName("Bovespa Analytics");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -1,7 +1,6 @@
 package App;
 
 import Dados.DadosManipulacao;
-import Visao.VisaoImportar;
 import Visao.VisaoInicio;
 import com.google.gson.Gson;
 import java.awt.Component;
@@ -27,7 +26,7 @@ public class AppFinanceiro {
         visaoInicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }  
     
-    public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json";
+    public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
     
     public enum tipoRelatorio{
         DRE,BPA,BPP;

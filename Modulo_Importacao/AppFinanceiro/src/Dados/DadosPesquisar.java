@@ -7,10 +7,9 @@ import Modelo.Tree.Tree;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -143,6 +142,41 @@ public class DadosPesquisar {
             }
             return linhaAtual;
         } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+    
+    public ArrayList<String> selecionar(Object oCampo,String sCodigo,String sTabela) throws SQLException, ClassNotFoundException,
+            InstantiationException, IllegalAccessException, Exception {
+        try {
+            conn.abrirConexao();
+
+            ArrayList<String> dados = new ArrayList();
+            
+            String sSql = "";
+
+            sSql += "SELECT * FROM " + sTabela;
+            sSql += " WHERE " + sCodigo + "=" + oCampo;
+
+            ResultSet rs = conn.Selecionar(sSql);
+
+            rs.next();
+            for (int iCont = 1; iCont <= conn.getResultSetMetaData().getColumnCount(); iCont++) {
+                dados.add(rs.getString(iCont));
+            }
+
+            conn.fecharConexao();
+
+            return dados;
+        } catch (SQLException ex) {
+            throw ex;
+        } catch (ClassNotFoundException ex) {
+            throw ex;
+        } catch (InstantiationException ex) {
+            throw ex;
+        } catch (IllegalAccessException ex) {
+            throw ex;
+        } catch (Exception ex) {
             throw ex;
         }
     }
