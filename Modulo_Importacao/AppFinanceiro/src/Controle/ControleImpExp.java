@@ -1,12 +1,15 @@
 package Controle;
 
+import static App.AppFinanceiro.converteObjetoParaJson;
+import static App.AppFinanceiro.gravarArquivo;
 import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosEmpresa;
-import Dados.DadosImportar;
+import Dados.DadosImpExp;
 import Modelo.CreateModel;
+import Modelo.Indicadores.ModeloIndicadores;
 import Modelo.ModeloEmpresa;
-import Modelo.ModeloImportar;
-import Visao.VisaoImportar;
+import Modelo.ModeloImpExp;
+import Visao.VisaoImpExp;
 import Visao.VisaoPesquisar;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,11 +17,11 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-public class ControleImportar {
+public class ControleImpExp {
 
-    private final VisaoImportar vImportar;
+    private final VisaoImpExp vImportar;
 
-    public ControleImportar(VisaoImportar vImportar) {
+    public ControleImpExp(VisaoImpExp vImportar) {
         this.vImportar = vImportar;
     }
 
@@ -31,7 +34,7 @@ public class ControleImportar {
                 return false;
             }
 
-            DadosImportar dImportar = new DadosImportar();
+            DadosImpExp dImportar = new DadosImpExp();
             BufferedReader brLeitor = new BufferedReader(new FileReader(this.vImportar.txtCaminhoArquivo.getText()));
 
             switch (this.vImportar.cboTipoRelatorio.getSelectedIndex()) {
@@ -91,11 +94,11 @@ public class ControleImportar {
         }
     }
 
-    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor, String sEmpresa_ID) throws Exception {
+    private ArrayList<ModeloImpExp> manipularArquivo(BufferedReader brLeitor, String sEmpresa_ID) throws Exception {
         try {
             int iEmpresa_ID = Integer.parseInt(sEmpresa_ID);
             String sLinha;
-            ArrayList<ModeloImportar> lMImportar = new ArrayList<ModeloImportar>();
+            ArrayList<ModeloImpExp> lMImportar = new ArrayList<ModeloImpExp>();
             ArrayList<String> lPeriodo = new ArrayList<String>();
             int iCont = 0;
 
@@ -107,7 +110,7 @@ public class ControleImportar {
                     lPeriodo.add(sVetCelula[3]);
                     lPeriodo.add(sVetCelula[4]);
                 } else {
-                    ModeloImportar mImportar = new ModeloImportar();
+                    ModeloImpExp mImportar = new ModeloImpExp();
                     String[] sVetCelula = sLinha.split(";");
                     int iQuantReg = sVetCelula.length;
                     mImportar.setEmpresa_ID(iEmpresa_ID);
@@ -267,6 +270,34 @@ public class ControleImportar {
             }
             return true;
         } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    public boolean exportar() throws Exception{
+        try{
+            if (this.calcularIndicadores()){
+                return gravarArquivo("json_Bovespa.json",converteObjetoParaJson(this.gerarIndicadores()));
+            }
+            return false;
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    private boolean calcularIndicadores(){
+        try{
+            
+            return false;
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    private ArrayList<ModeloIndicadores> gerarIndicadores(){
+        try{
+            return new ArrayList<ModeloIndicadores>();
+        }catch (Exception ex) {
             throw ex;
         }
     }

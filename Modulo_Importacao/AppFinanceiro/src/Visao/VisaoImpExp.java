@@ -1,18 +1,18 @@
 package Visao;
 
 import static App.AppFinanceiro.abrirVisaoArquivo;
-import Controle.ControleImportar;
+import Controle.ControleImpExp;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author E. Cardoso de Araújo
  */
-public class VisaoImportar extends javax.swing.JInternalFrame {
+public class VisaoImpExp extends javax.swing.JInternalFrame {
     
-    private ControleImportar cImportar;
+    private ControleImpExp cManipulacao;
     
-    public VisaoImportar() {
+    public VisaoImpExp() {
         initComponents(); 
     }
 
@@ -186,7 +186,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void btnImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportarActionPerformed
          try{
-             cImportar.Importar();
+             cManipulacao.Importar();
          }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -194,7 +194,7 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try{    
-            cImportar = new ControleImportar(this);
+            cManipulacao = new ControleImpExp(this);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
         } 
@@ -205,12 +205,16 @@ public class VisaoImportar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDscEmpresaActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        // TODO add your handling code here:
+        try{
+            cManipulacao.exportar();
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(),0);
+        } 
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void btnProcurarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarEmpresaActionPerformed
          try {
-           cImportar.carregaBusca();
+           cManipulacao.carregaBusca();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }

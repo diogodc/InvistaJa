@@ -2,7 +2,7 @@ package Dados;
 
 import static App.AppFinanceiro.conn;
 import App.AppFinanceiro.tipoRelatorio;
-import Modelo.ModeloImportar;
+import Modelo.ModeloImpExp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,9 +10,9 @@ import java.util.HashMap;
  *
  * @author E. Cardoso de Araújo
  */
-public class DadosImportar {
+public class DadosImpExp {
         
-    public boolean importarDados(ArrayList<ModeloImportar> lImportar, 
+    public boolean importarDados(ArrayList<ModeloImpExp> lImportar, 
             tipoRelatorio tRelatorio) throws Exception{
         try{
             if (lImportar.size()> 0){
@@ -52,7 +52,7 @@ public class DadosImportar {
     }
     
     private boolean inserirDados(HashMap hDadosTabela,  
-            ArrayList<ModeloImportar> lImportar) throws Exception{
+            ArrayList<ModeloImpExp> lImportar) throws Exception{
         try{
             String sSql;
             int iEmpresa_ID = 0;
@@ -64,7 +64,7 @@ public class DadosImportar {
             for (int i = 1; i < lImportar.size(); i++){
                 conn.abrirConexao();
 
-                ModeloImportar mImportar = lImportar.get(i); 
+                ModeloImpExp mImportar = lImportar.get(i); 
 
                 sSql  = "";
                 sSql += "INSERT INTO " + sTabela;
@@ -117,6 +117,14 @@ public class DadosImportar {
             conn.Alterar(sSql);
             
             conn.fecharConexao();
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public void calcularPCT(){
+        try{
+            
         }catch(Exception ex){
             throw ex;
         }

@@ -34,7 +34,7 @@ public class AppFinanceiro {
     
     public static DadosManipulacao conn = new DadosManipulacao();
     
-    public static String converteStringParaJson(Object objeto){
+    public static String converteObjetoParaJson(Object objeto){
         try{
             Gson gson = new Gson();
             String sJson = gson.toJson(objeto);
@@ -44,7 +44,7 @@ public class AppFinanceiro {
         }
     }
     
-    public static String converteJsonParaString(Object objeto){
+    public static String converteJsonParaObjeto(Object objeto){
         try{
             Gson gson = new Gson();
             String sJson = gson.toJson(objeto);

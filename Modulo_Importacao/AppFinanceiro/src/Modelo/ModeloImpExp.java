@@ -4,7 +4,7 @@ package Modelo;
  *
  * @author E. Cardoso de Araújo
  */
-public class ModeloImportar {
+public class ModeloImpExp {
    private int iEmpresa_ID;
    private String sConta;
    private String sDescricao;
@@ -15,7 +15,7 @@ public class ModeloImportar {
    private String dValor_2;
    private String dValor_3;
    
-   public ModeloImportar(){
+   public ModeloImpExp(){
        iEmpresa_ID = 0;
        sConta = "";
        sDescricao = "";
@@ -27,7 +27,7 @@ public class ModeloImportar {
        dValor_3 = "0.0";
    }
    
-    public ModeloImportar(int iEmpresa_ID,String sConta,String sDescricao,
+    public ModeloImpExp(int iEmpresa_ID,String sConta,String sDescricao,
             String sPeriodo_1,String sPeriodo_2,String sPeriodo_3,
             String dValor_1, String dValor_2, String dValor_3){
        this.iEmpresa_ID = iEmpresa_ID;

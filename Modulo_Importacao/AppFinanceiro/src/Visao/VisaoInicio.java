@@ -2,7 +2,7 @@ package Visao;
 
 import static App.AppFinanceiro.abrirVisao;
 import Controle.ControleEmpresa;
-import Controle.ControleImportar;
+import Controle.ControleImpExp;
 import javax.swing.JOptionPane;
 
 /**
@@ -124,7 +124,7 @@ public class VisaoInicio extends javax.swing.JFrame {
 
     private void mnuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportarActionPerformed
         try{
-            abrirVisao(pnlInicio,new VisaoImportar());
+            abrirVisao(pnlInicio,new VisaoImpExp());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
