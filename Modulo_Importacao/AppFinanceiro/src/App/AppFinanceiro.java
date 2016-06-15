@@ -1,7 +1,7 @@
 package App;
 
 import Dados.DadosManipulacao;
-import Visao.VisaoServidor;
+import Visao.VisaoAutenticacao;
 import com.google.gson.Gson;
 import java.awt.Component;
 import java.io.File;
@@ -21,7 +21,7 @@ public class AppFinanceiro {
      */
         
     public static void main(String[] args) {
-        VisaoServidor vServidor = new VisaoServidor(); 
+        VisaoAutenticacao vServidor = new VisaoAutenticacao(); 
         vServidor.setVisible(true);
     }  
     

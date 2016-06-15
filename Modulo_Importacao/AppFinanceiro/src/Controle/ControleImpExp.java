@@ -6,7 +6,7 @@ import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosEmpresa;
 import Dados.DadosImpExp;
 import Modelo.CreateModel;
-import Modelo.Indicadores.ModeloIndicadores;
+import Modelo.ModeloIndicadores;
 import Modelo.ModeloEmpresa;
 import Modelo.ModeloImpExp;
 import Visao.VisaoImpExp;
