@@ -1,3 +1,7 @@
+/*
+ * VIEW - BOVESPA
+ * 1° CONTROLAR A VISUALIZAÇÃO DA PAGINA
+ */
 bovespa.object.extend(bovespa, {
     view: {
         render: function () {
@@ -13,9 +17,9 @@ bovespa.object.extend(bovespa, {
                 Company: function () {
                     return bovespa.template([
                         {
-                            'name': 'bovespa-company',
+                            'name': 'bovespa-company',/* NOME DO TEMPLATE */
                             view: {
-                                self: '.bovespa',
+                                self: '.bovespa', /* FOCO DA RENDERIZAÇÃO */
                                 render: function () {
                                     if (bovespa.storage.exists('tost')) {
                                         bovespa.JLib(this.self).tost({text: 'Empresa sem detalhamento!'});
@@ -45,11 +49,11 @@ bovespa.object.extend(bovespa, {
                                 }
                             },
                             control: {
-                                url: 'app/views/company.html'
+                                url: 'app/views/company.html' /* VIEW HTML DA RENDERIZAÇÃO */
                             }
                         }
                     ]);
-                },
+                }, /* VIEW DE SELEÇÃO DE EMPRESAS */
                 Home: function () {
                     return bovespa.template([{
                             'name': 'bovespa-home',
@@ -120,7 +124,7 @@ bovespa.object.extend(bovespa, {
                                 }
                             }
                         }]);
-                },
+                }, /* VIEW DO ESQUELETO DA PAGINA  */
                 Indebtedness: function () {
                     return bovespa.template([
                         {
@@ -541,7 +545,7 @@ bovespa.object.extend(bovespa, {
                             model: bovespa.model.Indebtedness()
                         }
                     ]);
-                },
+                }, /* VIEW DOS INDICADORES DE ENDIVIDAMENTO */
                 Liquidity: function () {
                     return bovespa.template([
                         {
@@ -985,7 +989,7 @@ bovespa.object.extend(bovespa, {
                             model: bovespa.model.Liquidity()
                         }
                     ]);
-                },
+                }, /* VIEW DOS INDICADORES DE LIQUIDEZ */
                 Profitability: function () {
                     return bovespa.template([
                         {
@@ -1330,7 +1334,7 @@ bovespa.object.extend(bovespa, {
                             model: bovespa.model.Profitability()
                         }
                     ]);
-                },
+                }, /* VIEW DOS INDICADORES DE RENTABILIDADE */
                 Midterm: function () {
                     return bovespa.template([
                         {
@@ -1779,7 +1783,7 @@ bovespa.object.extend(bovespa, {
                             model: bovespa.model.Midterm()
                         }
                     ]);
-                }
+                } /* VIEW DOS INDICADORES DE PRAZOS MEDIOS */
             });
         }
     }

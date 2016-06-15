@@ -1,3 +1,7 @@
+/*
+ * CONTROL - BOVESPA
+ * 1° CONTROLAR A NAVEGAÇÃO DO SITE
+ */
 bovespa.object.extend(bovespa, {
     control: {
         render: function (view, model) {
@@ -6,14 +10,14 @@ bovespa.object.extend(bovespa, {
             model.load(function (load, sucess) {
                 view.render();
 
-                if (load && !sucess) {
+                if (load && !sucess) { /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
                     bovespa.storage.removeAll();
                     bovespa.storage({tost: 'Empresa sem detalhamento!'});
                 }
 
                 if (load && sucess) {
                     this._navigation_.Home();
-                } else {
+                } else {  /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
                     this._navigation_.Company();
                 }
             }, this);
@@ -23,22 +27,22 @@ bovespa.object.extend(bovespa, {
             this._init_navigation(view);
             this._init_mnu();
         },
-        _init_plugins: function () {
+        _init_plugins: function () {  /* INSTANCIANDO PLUGINS DOS GRAFICOS */
             bovespa._plugin_ = bovespa.object.create({});
             bovespa._plugin_['JQuery'] = $;
             bovespa._plugin_['Highcharts'] = Highcharts;
         },
         _init_navigation: function (view) {
             this._navigation_ = bovespa.object.create({});
-            bovespa.object.extend(this._navigation_, {
+            bovespa.object.extend(this._navigation_, { /* CONTROLES DE NAVEGAÇÃO PARA CADA PAGINA DO SITE */
                 'Home': function () {
                     view._view_.Home().load(function () {
                         view._view_.Indebtedness().load();
                     });                    
                 },
                 'Company': function () {
-                    var _route = bovespa.router([{route: 'bovespa:EMPRESAS'}]);
-                    _route.navigate(function () {
+                    var _route = bovespa.router([{route: 'bovespa:EMPRESAS'}]); /* ALTERANDO A URL */
+                    _route.navigate(function () { /* INSTANCIANDO A VIEW HTML NO CORPO DA PAGINA  */
                         view._view_.Company().load();
                     });
                 },
@@ -74,7 +78,7 @@ bovespa.object.extend(bovespa, {
         },
         _init_mnu: function () {
             this._mnu_ = bovespa.object.create({});
-            bovespa.object.extend(this._mnu_, {
+            bovespa.object.extend(this._mnu_, { /* CONTROLE DO MENU LATERAL */
                 'bovespa-mun-hidden': function (e) {
                     var sclass = 's-menu-nav-hidden-none';
                     this.attach.each(function (e) {
@@ -88,12 +92,12 @@ bovespa.object.extend(bovespa, {
                         }
                     });
                 },
-                'bovespa-navigation': function (e) {
+                'bovespa-navigation': function (e) { /* CONTROLE DO MENU NAVEGAÇÃO */
                     bovespa.control._navigation_[this.navigation].call(this, e);
                 }
             });
         },
-        _mnu_select: function (e) {
+        _mnu_select: function (e) { /* CONTROLE DE SELEÇÃO DO MENU */
             e.each(function (e) {
                 var _class = 's-menu-nav-mnu-select';
                 var mnu = bovespa.JLib('.' + _class);

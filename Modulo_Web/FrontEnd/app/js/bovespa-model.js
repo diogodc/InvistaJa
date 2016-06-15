@@ -33,7 +33,7 @@ bovespa.object.extend(bovespa, {
                 }
             });
 
-            if (bovespa.storage.exists('iEmpresa_ID')) {
+            if (bovespa.storage.exists('iEmpresa_ID')) {/* VERIFICANDO SE A EMPRESA JÁ FOI SELECIONADA */
                 this._data_._load = true;
                 this._data_._success = false;
                 var _scope = this;
@@ -44,7 +44,7 @@ bovespa.object.extend(bovespa, {
                     _dtCompany = _scope._data_._base_.query(function () {
                         return this.get('company-id') == bovespa.storage.get('iEmpresa_ID');
                     });
-                    _dtCompany.each(function () {
+                    _dtCompany.each(function () { /* INSTANCIANDO O MODEL DE CADA INDICADOR */
                         _scope._data_._success = true;
 
                         _scope._data_._indebtedness_ = bovespa.memory({

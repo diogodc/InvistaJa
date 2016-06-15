@@ -6,6 +6,7 @@ var bovespa = core.instance({
     'Core-Version': '1.08'
 });
 
+/* RESGISTRANDO  OS ARQUIVOS JS NECESSARIOS */
 bovespa.require.register(
         [
             ['bovespa.JQuery', 'app/plugins/jquery/1.8.2/jquery.min.js'],
@@ -26,13 +27,15 @@ bovespa.object.extend(bovespa, {
                 _view = bovespa.view,
                 _model = bovespa.model;
         _control.render(_view, _model);
+        
+        console.log(bovespa);
     }
 });
 
+/* BUSCANDO  OS ARQUIVOS JS NECESSARIOS */
 bovespa.onReady(function () {
     bovespa.require([
         'bovespa.JQuery',
-//        'bovespa.HighChart',
         'bovespa.HighStock',
         'bovespa.ChartJS',
         'bovespa.config',
