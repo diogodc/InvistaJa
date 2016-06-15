@@ -34,11 +34,11 @@ bovespa.object.extend(bovespa, {
         },
         _init_navigation: function (view) {
             this._navigation_ = bovespa.object.create({});
-            bovespa.object.extend(this._navigation_, { /* CONTROLES DE NAVEGAÇÃO PARA CADA PAGINA DO SITE */
+            bovespa.object.extend(this._navigation_, {/* CONTROLES DE NAVEGAÇÃO PARA CADA PAGINA DO SITE */
                 'Home': function () {
                     view._view_.Home().load(function () {
                         view._view_.Indebtedness().load();
-                    });                    
+                    });
                 },
                 'Company': function () {
                     var _route = bovespa.router([{route: 'bovespa:EMPRESAS'}]); /* ALTERANDO A URL */
@@ -78,7 +78,7 @@ bovespa.object.extend(bovespa, {
         },
         _init_mnu: function () {
             this._mnu_ = bovespa.object.create({});
-            bovespa.object.extend(this._mnu_, { /* CONTROLE DO MENU LATERAL */
+            bovespa.object.extend(this._mnu_, {/* CONTROLE DO MENU LATERAL */
                 'bovespa-mun-hidden': function (e) {
                     var sclass = 's-menu-nav-hidden-none';
                     this.attach.each(function (e) {
@@ -111,5 +111,46 @@ bovespa.object.extend(bovespa, {
 
             e.class().add('s-menu-nav-mnu-select');
         }
+    }
+});
+
+bovespa.onResize(function () {
+    var sclass = 's-menu-nav-hidden-none';
+    if (bovespa.width() >= bovespa.config.responsive['med-width']) {
+
+        bovespa.JLib('.s-menu-nav').each(function (e) {
+            var mnu = this.query_selector_Attribute_value('mnu-hidden', 'mnu-main', e);
+            for (var x in mnu) {
+                mnu[x].class().add(sclass);
+            }
+        });
+
+
+        bovespa.JLib('.table-Sek s-columns').each(function (e) {
+            if (bovespa.JLib(e).class().contains('s-columns-6')) {
+                bovespa.JLib(e).css('height', 'calc(8.8125em)');
+            }
+        });
+
+        bovespa.JLib('.bovespa').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-body-content').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-menu-bar').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-menu-nav').css('width' ,bovespa.width() + 'px');
+    }
+
+    if (bovespa.width() < bovespa.config.responsive['med-width']) {
+        bovespa.JLib('.bovespa').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-body-content').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-menu-bar').css('width' ,bovespa.width() + 'px');
+        bovespa.JLib('.s-menu-nav').css('width' ,bovespa.width() + 'px');
+        
+        bovespa.JLib('.table-Sek').each(function (e) {
+            if (bovespa.JLib(e).class().contains('s-columns-6')) {
+                bovespa.JLib(e).css('height', 'calc(8.8125em * 4.2)');
+            }
+            if (bovespa.JLib(e).class().contains('s-columns-4')) {
+                bovespa.JLib(e).css('height', 'calc(8.8125em * 4.2)');
+            }
+        });
     }
 });
