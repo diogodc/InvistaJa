@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.Indicadores;
+package Modelo;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

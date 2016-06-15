@@ -4,6 +4,8 @@
  * 2° BUSCAR JSON
  * 3° TRATAR JSON  /* ALTERAR OS CAMPOS PRINCIPAIS DO JSON, O ADAPTANDO AO BOVESPA
  */
+/* global bovespa */
+
 bovespa.object.extend(bovespa, {
     model: {
         load: function (callback, scope) {

@@ -1,8 +1,8 @@
 package Visao;
 
 import static App.AppFinanceiro.abrirVisao;
-import Controle.ControleEmpresa;
-import Controle.ControleImpExp;
+import static App.AppFinanceiro.conn;
+import Dados.DadosManipulacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,7 +27,15 @@ public class VisaoInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         pnlInicio = new javax.swing.JDesktopPane();
+        jToolBar1 = new javax.swing.JToolBar();
+        txtDados = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuDados = new javax.swing.JMenu();
         mnuCadEmpresas = new javax.swing.JMenuItem();
@@ -35,22 +43,43 @@ public class VisaoInicio extends javax.swing.JFrame {
         mnuAcoes = new javax.swing.JMenu();
         mnuSair = new javax.swing.JMenuItem();
 
+        jMenu1.setText("File");
+        jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("File");
+        jMenuBar3.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar3.add(jMenu4);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bovespa Analytics");
 
-        pnlInicio.setBackground(new java.awt.Color(204, 204, 255));
+        pnlInicio.setBackground(new java.awt.Color(51, 51, 51));
         pnlInicio.setToolTipText("");
         pnlInicio.setAutoscrolls(true);
+
+        jToolBar1.setRollover(true);
+
+        txtDados.setEditable(false);
+        jToolBar1.add(txtDados);
+
+        pnlInicio.setLayer(jToolBar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pnlInicioLayout = new javax.swing.GroupLayout(pnlInicio);
         pnlInicio.setLayout(pnlInicioLayout);
         pnlInicioLayout.setHorizontalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
         );
         pnlInicioLayout.setVerticalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
+                .addGap(0, 451, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         mnuDados.setText("Dados");
@@ -80,7 +109,7 @@ public class VisaoInicio extends javax.swing.JFrame {
             }
         });
 
-        mnuSair.setText("Sair");
+        mnuSair.setText("Fechar");
         mnuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuSairActionPerformed(evt);
@@ -104,8 +133,6 @@ public class VisaoInicio extends javax.swing.JFrame {
                 .addComponent(pnlInicio)
                 .addGap(0, 0, 0))
         );
-
-        getAccessibleContext().setAccessibleName("Bovespa Analytics");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -174,12 +201,20 @@ public class VisaoInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    public javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu mnuAcoes;
     private javax.swing.JMenuItem mnuCadEmpresas;
     private javax.swing.JMenu mnuDados;
     private javax.swing.JMenuItem mnuImportar;
     private javax.swing.JMenuItem mnuSair;
     public javax.swing.JDesktopPane pnlInicio;
+    public javax.swing.JTextField txtDados;
     // End of variables declaration//GEN-END:variables
 }
