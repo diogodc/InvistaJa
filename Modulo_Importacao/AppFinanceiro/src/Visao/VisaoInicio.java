@@ -1,8 +1,8 @@
 package Visao;
 
 import static App.AppFinanceiro.abrirVisao;
-import Controle.ControleEmpresa;
-import Controle.ControleImpExp;
+import static App.AppFinanceiro.conn;
+import Dados.DadosManipulacao;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +16,7 @@ public class VisaoInicio extends javax.swing.JFrame {
      */
     public VisaoInicio() {
         initComponents();
+        conn = new DadosManipulacao();
     }
 
     /**

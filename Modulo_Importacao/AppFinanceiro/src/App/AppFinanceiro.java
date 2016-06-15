@@ -1,14 +1,13 @@
 package App;
 
 import Dados.DadosManipulacao;
-import Visao.VisaoInicio;
+import Visao.VisaoServidor;
 import com.google.gson.Gson;
 import java.awt.Component;
 import java.io.File;
 import java.util.Formatter;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 /**
@@ -20,10 +19,10 @@ public class AppFinanceiro {
     /**
      * @param args the command line arguments
      */
+        
     public static void main(String[] args) {
-        VisaoInicio visaoInicio = new VisaoInicio(); 
-        visaoInicio.setVisible(true);
-        visaoInicio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        VisaoServidor vServidor = new VisaoServidor(); 
+        vServidor.setVisible(true);
     }  
     
     public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
@@ -32,7 +31,7 @@ public class AppFinanceiro {
         DRE,BPA,BPP;
     }
     
-    public static DadosManipulacao conn = new DadosManipulacao();
+    public static DadosManipulacao conn;
     
     public static String converteObjetoParaJson(Object objeto){
         try{
