@@ -76,18 +76,20 @@
                 window.addEventListener('load', callback, false);
             },
             onResize: function (callback, _width) {
-
                 if (sys_core.isDefined(_width)) {
                     _width = 0;
                 }
 
-
                 setTimeout(function () {
+                    var _onResize = false;
                     if (_width !== sys_core.width()) {
                         _width = sys_core.width();
-                        callback();
+                        _onResize = callback();
                     }
-                    sys_core.onResize(callback, _width);
+
+                    if (!_onResize) {
+                        sys_core.onResize(callback, _width);
+                    }
                 }, 1);
 
 
@@ -103,7 +105,6 @@
 //                });
             },
             eachProto: function (ary, callback) {
-
                 for (var key in ary) {
                     if (ary.hasOwnProperty(key)) {
                         if (ary[key] && callback(ary[key], key, ary)) {
@@ -264,6 +265,12 @@
                         var nodeArray = [];
                         var iterator = 0;
                         var node = null;
+                        
+                        if(qr.trim() == ''){
+                            return nodeArray;
+                        }
+                        
+                        
                         var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
                         var queryValue = qr.substring(1);
                         while (node = nodeList[iterator++]) {
@@ -1682,13 +1689,13 @@
             select: function (_object) {
                 var _self = null,
                         JLib = null,
-                        mask = null;
+                        mask = null,
+                        _select = this;
 
 
 
                 JLib = sys_core.JLib;
                 _self = JLib(_object.renderTo);
-
 
                 if (!sys_core.isDefined(_object.id)) {
                     sys_core.object.extend(_object, {
@@ -1696,7 +1703,11 @@
                     });
                 }
 
+                _object.id = _object.id.replace(sys_core.name + '-', '');
                 _object.id = sys_core.name + '-' + _object.id;
+
+
+
 
                 var cs_comp,
                         cs_input,
@@ -1921,6 +1932,26 @@
                         cs_selectOptions.remove();
                         cs_selectBox.remove();
                     };
+
+                    _object['_chrome_event'] = function () {
+                        if (!sys_core.isChrome()) {
+                            cs_comp.remove();
+                            bovespa.component(_object);
+                        }
+                    };
+                    
+                    window.removeEventListener('Event', _object['_chrome_event']);
+                    window.addEventListener('Event', _object['_chrome_event']);
+
+                    _object['_chrome_'] = true;
+                    sys_core.onResize(function () {
+                        if (!sys_core.isChrome() && _object['_chrome_']) {
+                            _object['_chrome_'] = false;
+                            window.dispatchEvent(sys_core.Event);
+                            return true;
+                        }
+                    });
+
                     /* RENDER OPTIONS*/
                 } else {
                     cs_comp.css('padding-top', '5px');
@@ -2560,6 +2591,9 @@
                 return true;
             }
         });
+
+        sys_core.Event = new Event('Event');
+
         sys_core.object.extend(sys_core, _set);
         return sys_core;
     };
