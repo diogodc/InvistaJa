@@ -3,6 +3,7 @@ package Visao;
 import static App.AppFinanceiro.abrirVisao;
 import static App.AppFinanceiro.conn;
 import Dados.DadosManipulacao;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,11 +37,13 @@ public class VisaoInicio extends javax.swing.JFrame {
         pnlInicio = new javax.swing.JDesktopPane();
         jToolBar1 = new javax.swing.JToolBar();
         txtDados = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuDados = new javax.swing.JMenu();
         mnuCadEmpresas = new javax.swing.JMenuItem();
         mnuImportar = new javax.swing.JMenuItem();
         mnuAcoes = new javax.swing.JMenu();
+        mnuTrocarUsuario = new javax.swing.JMenuItem();
         mnuSair = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
@@ -59,6 +62,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         setTitle("Bovespa Analytics");
 
         pnlInicio.setBackground(new java.awt.Color(51, 51, 51));
+        pnlInicio.setForeground(new java.awt.Color(102, 102, 102));
         pnlInicio.setToolTipText("");
         pnlInicio.setAutoscrolls(true);
 
@@ -67,18 +71,27 @@ public class VisaoInicio extends javax.swing.JFrame {
         txtDados.setEditable(false);
         jToolBar1.add(txtDados);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/logo.png"))); // NOI18N
+
         pnlInicio.setLayer(jToolBar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pnlInicio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pnlInicioLayout = new javax.swing.GroupLayout(pnlInicio);
         pnlInicio.setLayout(pnlInicioLayout);
         pnlInicioLayout.setHorizontalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlInicioLayout.setVerticalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
-                .addGap(0, 451, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -108,6 +121,14 @@ public class VisaoInicio extends javax.swing.JFrame {
                 mnuAcoesActionPerformed(evt);
             }
         });
+
+        mnuTrocarUsuario.setText("Trocar usuário");
+        mnuTrocarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTrocarUsuarioActionPerformed(evt);
+            }
+        });
+        mnuAcoes.add(mnuTrocarUsuario);
 
         mnuSair.setText("Fechar");
         mnuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +186,25 @@ public class VisaoInicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuCadEmpresasActionPerformed
 
+    private void mnuTrocarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuTrocarUsuarioActionPerformed
+        try {
+            this.trocarUsuario();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
+        }
+    }//GEN-LAST:event_mnuTrocarUsuarioActionPerformed
+
+    private void trocarUsuario(){
+        try{
+            this.pnlInicio.removeAll();
+            this.pnlInicio.repaint();
+            new VisaoAutenticacao().setVisible(true);
+            this.dispose();
+        }catch(Exception ex){
+            throw ex;
+        } 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -201,6 +241,7 @@ public class VisaoInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -214,6 +255,7 @@ public class VisaoInicio extends javax.swing.JFrame {
     private javax.swing.JMenu mnuDados;
     private javax.swing.JMenuItem mnuImportar;
     private javax.swing.JMenuItem mnuSair;
+    private javax.swing.JMenuItem mnuTrocarUsuario;
     public javax.swing.JDesktopPane pnlInicio;
     public javax.swing.JTextField txtDados;
     // End of variables declaration//GEN-END:variables
