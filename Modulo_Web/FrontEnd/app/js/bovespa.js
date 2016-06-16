@@ -23,13 +23,11 @@ bovespa.require.register(
 bovespa.object.extend(bovespa, {
     name: 'bovespa',
     'render': function () {
-        bovespa.storage({'iEmpresa_ID':3});
+//        bovespa.storage({'iEmpresa_ID':3});
         var _control = bovespa.control,
                 _view = bovespa.view,
                 _model = bovespa.model;
         _control.render(_view, _model);
-        
-        console.log(bovespa);
     }
 });
 

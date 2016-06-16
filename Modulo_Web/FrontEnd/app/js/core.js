@@ -75,16 +75,32 @@
             onReady: function (callback) {
                 window.addEventListener('load', callback, false);
             },
-            onResize: function (callback) {
+            onResize: function (callback, _width) {
+
+                if (sys_core.isDefined(_width)) {
+                    _width = 0;
+                }
+
+
+                setTimeout(function () {
+                    if (_width !== sys_core.width()) {
+                        _width = sys_core.width();
+                        callback();
+                    }
+                    sys_core.onResize(callback, _width);
+                }, 1);
+
+
 //                document.getElementsByTagName("body")[0].onresize = callback;
                 window.addEventListener('resize', callback);
-                var observer = new MutationObserver(callback);
-                observer.observe(document.body, {
-                    attributes: true,
-                    childList: true,
-                    characterData: true,
-                    subtree: true
-                });
+
+//                var observer = new MutationObserver(callback);
+//                observer.observe(document.body, {
+//                    attributes: true,
+//                    childList: true,
+//                    characterData: true,
+//                    subtree: true
+//                });
             },
             eachProto: function (ary, callback) {
 
@@ -329,7 +345,15 @@
                         this.each(function (e) {
                             e.appendChild(el instanceof Element ? el : el.getElement());
                         });
+                    },
+                    up: function () {
+                        var parentNode;
 
+                        this.each(function (e) {
+                            parentNode = sys_core.JLib(e.parentNode);
+                        });
+
+                        return parentNode;
                     }
                 });
 
@@ -577,41 +601,41 @@
                     width: function width() {
                         var _width = 0;
 
-                        this.each(function (elementPassed) {
-                            var DoOffset = true;
+                        if (sys_core.isChrome()) {
+                            this.each(function (elementPassed) {
+                                var DoOffset = true;
 
-                            if (!elementPassed) {
-                                return 0;
-                            }
-                            if (!elementPassed.style) {
-                                return 0;
-                            }
-
-
-                            var thisWidth = 0;
-                            var widthBase = parseInt(elementPassed.style.width);
-                            var widthOffset = parseInt(elementPassed.offsetWidth);
-                            var widthScroll = parseInt(elementPassed.scrollWidth);
-                            var widthClient = parseInt(elementPassed.clientWidth);
-                            var widthNode = 0;
-                            var widthRects = 0;
-                            //
-
-                            if (DoOffset) {
-                                if (widthOffset > thisWidth) {
-                                    thisWidth = widthOffset;
+                                if (!elementPassed) {
+                                    return 0;
                                 }
-                            }
-
-                            if (thisWidth == 0) {
-                                thisWidth = widthClient;
-                            }
+                                if (!elementPassed.style) {
+                                    return 0;
+                                }
 
 
-                            _width = thisWidth;
-                        });
+                                var thisWidth = 0;
+                                var widthBase = parseInt(elementPassed.style.width);
+                                var widthOffset = parseInt(elementPassed.offsetWidth);
+                                var widthScroll = parseInt(elementPassed.scrollWidth);
+                                var widthClient = parseInt(elementPassed.clientWidth);
+                                var widthNode = 0;
+                                var widthRects = 0;
+                                //
+
+                                if (DoOffset) {
+                                    if (widthOffset > thisWidth) {
+                                        thisWidth = widthOffset;
+                                    }
+                                }
+
+                                if (thisWidth == 0) {
+                                    thisWidth = widthClient;
+                                }
 
 
+                                _width = thisWidth;
+                            });
+                        }
                         return _width;
                     },
                     remove: function remove() {
@@ -1688,11 +1712,6 @@
                 cs_comp.mark_component(['select', _object.id]);
                 cs_comp.attr('id', _object.id);
 
-
-
-                cs_input = cs_comp.create_element('input');
-                _self.mask();
-
                 sys_core.component.components.select[_object.id] = {
                     selectedItem: function () {
                         var _selectedItem = cs_input.get('data');
@@ -1709,11 +1728,6 @@
                     }
                 };
 
-                cs_input.attr('value', 'Selecione uma empresa ...');
-                cs_input.css('text-align', 'center');
-                cs_comp.css('padding-top', '5px');
-                cs_comp.css('padding-bottom', '10px');
-                cs_comp.class().add('s-size-15');
 
                 if (sys_core.isDefined(_object.class)) {
                     sys_core.each(_object.class, function (c) {
@@ -1721,187 +1735,242 @@
                     });
                 }
 
+                if (sys_core.isChrome()) {
+                    cs_input = cs_comp.create_element('input');
 
-                _object.data.load(function () {
-                    cs_input.event('focus', event_rendering);
-                    _self.unmask();
-                });
+                    cs_input.attr('value', 'Selecione uma empresa ...');
+                    cs_input.css('text-align', 'center');
+                    cs_comp.css('padding-top', '5px');
+                    cs_comp.css('padding-bottom', '10px');
+                    cs_comp.class().add('s-size-15');
 
-                /* RENDER OPTIONS*/
-                event_rendering = function () {
-                    if (cs_selectBox) {
+                    _self.mask();
+
+                    _object.data.load(function () {
+                        cs_input.event('focus', event_rendering);
+                        _self.unmask();
+                    });
+
+                    /* RENDER OPTIONS*/
+                    event_rendering = function () {
+                        if (cs_selectBox) {
+                            cs_searchText.remove();
+                            cs_selectOptions.remove();
+                            cs_selectBox.remove();
+                        }
+
+                        cs_selectBox = _self.create_element('div');
+                        cs_searchText = cs_selectBox.create_element('div').create_element('input');
+                        cs_selectOptions = cs_selectBox.create_element('div');
+
+                        cs_selectBox.class().add('select-default');
+                        cs_selectBox.mark_component(['select-selection', _object.id]);
+                        cs_selectBox.attr('style', "height:200px;z-index: 1;");
+                        cs_selectBox.css('position', 'fixed');
+                        cs_selectBox.css('height', '200px');
+
+                        cs_selectOptions.attr('style', "height:125px;overflow-y:scroll;");
+                        cs_searchText.attr('type', 'text');
+
+
+                        /* EVENTOS DE PERDA DE FOCUS
+                         * AO PEDER O FOCO - REMOVE TUDO                     *
+                         * */
+                        sys_core.component.components.select[_object.id]['_focus_txt'] = false;
+                        sys_core.component.components.select[_object.id]['_focus_body'] = false;
+
+                        cs_searchText.event('blur', function () {
+                            sys_core.component.components.select[_object.id]._focus_txt = false;
+
+                            var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                    _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                            if (!_focus_body && !_focus_txt)
+                                event_lostFocus();
+                        });
+
+                        cs_selectOptions.event('blur', function () {
+                            sys_core.component.components.select[_object.id]._focus_body = false;
+
+                            var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                    _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                            if (!_focus_body && !_focus_txt)
+                                event_lostFocus();
+                        });
+
+                        cs_selectBox.event('blur', function () {
+                            sys_core.component.components.select[_object.id]._focus_body = false;
+
+                            var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
+                                    _focus_body = sys_core.component.components.select[_object.id]._focus_body;
+
+                            if (!_focus_body && !_focus_txt)
+                                event_lostFocus();
+                        });
+
+                        cs_searchText.event('focusin', function () {
+                            sys_core.component.components.select[_object.id]._focus_txt = true;
+                        });
+
+                        cs_selectOptions.event('focusin', function () {
+                            sys_core.component.components.select[_object.id]._focus_body = true;
+                        });
+
+                        cs_searchText.event('mouseover', function () {
+                            sys_core.component.components.select[_object.id]._focus_txt = true;
+                        });
+
+                        cs_selectOptions.event('mouseover', function () {
+                            sys_core.component.components.select[_object.id]._focus_body = true;
+                        });
+
+                        cs_searchText.event('mouseout', function () {
+                            sys_core.component.components.select[_object.id]._focus_txt = false;
+                        });
+
+                        cs_selectOptions.event('mouseout', function () {
+                            sys_core.component.components.select[_object.id]._focus_body = false;
+                        });
+
+                        /* EVENTOS DE PERDA DE FOCUS */
+
+                        /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS
+                         * TRATA A POSIÇÃO  - TOP E LEFT
+                         * TRATA O TAMANHO  - WIDTH
+                         * */
+                        sys_core.onResize(function () {
+                            cs_comp.each(function (e) {
+                                cs_selectBox.css('z-index', '1');
+                                cs_selectBox.css('width', cs_input.width() + 'px');
+                                cs_selectBox.css('left', JLib(e.parentNode).position().x + 'px');
+                                cs_selectBox.css('top', JLib(e.parentNode).position().y + 'px');
+                                cs_searchText.css('width', cs_input.width() + 'px');
+                                cs_selectOptions.css('width', cs_input.width() + 'px');
+                            });
+                        });
+                        /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS */
+
+                        /* EVENTOS DE PESQUISA */
+                        cs_searchText.each(function (e) {
+                            e.focus();
+                        });
+                        cs_searchText.event('keyup', function () {
+                            var _value = this.value;
+                            var _data;
+
+                            if (_value === "") {
+                                event_reset.call(_object.data);
+                            } else {
+                                _data = _object.data.query(function () {
+                                    if (_object.searchSensitive)
+                                        return this.get(_object.displayMember).contains(_value);
+                                    else
+                                        return this.get(_object.displayMember).toLowerCase().contains(_value.toLowerCase());
+                                });
+                                event_search.call(_data);
+                            }
+                        });
+                        /* EVENTOS DE PESQUISA */
+
+                        event_reset.call(_object.data);
+                    };
+
+                    event_reset = function () {
+                        cs_selectOptions.content('');
+                        this.each(function () {
+                            event_option.call(this);
+                        });
+                    };
+
+                    event_search = function () {
+                        cs_selectOptions.content('');
+                        sys_core.each(this, function (data) {
+                            event_option.call(data);
+                        });
+                    };
+
+                    event_option = function () {
+                        var dtOption = cs_selectOptions.create_element('div'),
+                                data = this;
+                        sys_core.Rendering.settings(dtOption, {
+                            'data-option': data.getIndex() + 1,
+                            data: data.raw()
+                        });
+
+                        if (sys_core.isDefined(_object.classMember)) {
+                            sys_core.each(_object.classMember, function (c) {
+                                dtOption.class().add(c);
+                            });
+                        }
+
+                        dtOption.content(data.get(_object.displayMember));
+                        dtOption.event('click', function () {
+                            var _option = this;
+                            cs_input.attr('value', _option.innerText);
+                            sys_core.Rendering.settings(cs_input, {
+                                'data-option': JLib(_option).get('data-option'),
+                                'data': JLib(_option).get('data')
+                            });
+                            cs_selectBox.remove();
+                        });
+                    };
+
+                    event_lostFocus = function () {
                         cs_searchText.remove();
                         cs_selectOptions.remove();
                         cs_selectBox.remove();
-                    }
+                    };
+                    /* RENDER OPTIONS*/
+                } else {
+                    cs_comp.css('padding-top', '5px');
+                    cs_comp.css('padding-bottom', '10px');
+                    cs_comp.class().add('s-size-15');
 
-                    cs_selectBox = _self.create_element('div');
-                    cs_searchText = cs_selectBox.create_element('div').create_element('input');
-                    cs_selectOptions = cs_selectBox.create_element('div');
-
+                    cs_input = cs_comp.create_element('div');
+                    cs_selectBox = cs_input.create_element('select');
                     cs_selectBox.class().add('select-default');
                     cs_selectBox.mark_component(['select-selection', _object.id]);
-                    cs_selectBox.attr('style', "height:200px;z-index: 1;");
-                    cs_selectBox.css('position', 'fixed');
-                    cs_selectBox.css('height', '200px');
-
-                    cs_selectOptions.attr('style', "height:125px;overflow-y:scroll;");
-                    cs_searchText.attr('type', 'text');
 
 
-                    /* EVENTOS DE PERDA DE FOCUS
-                     * AO PEDER O FOCO - REMOVE TUDO                     *
-                     * */
-                    sys_core.component.components.select[_object.id]['_focus_txt'] = false;
-                    sys_core.component.components.select[_object.id]['_focus_body'] = false;
+                    _object.data.load(function () {
+                        var _primary = true;
+                        this.each(function () {
+                            var dtOption = cs_selectBox.create_element('option'),
+                                    data = this;
 
-                    cs_searchText.event('blur', function () {
-                        sys_core.component.components.select[_object.id]._focus_txt = false;
-
-                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
-                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
-                        if (!_focus_body && !_focus_txt)
-                            event_lostFocus();
-                    });
-
-                    cs_selectOptions.event('blur', function () {
-                        sys_core.component.components.select[_object.id]._focus_body = false;
-
-                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
-                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
-                        if (!_focus_body && !_focus_txt)
-                            event_lostFocus();
-                    });
-
-                    cs_selectBox.event('blur', function () {
-                        sys_core.component.components.select[_object.id]._focus_body = false;
-
-                        var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
-                                _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
-                        if (!_focus_body && !_focus_txt)
-                            event_lostFocus();
-                    });
-
-                    cs_searchText.event('focusin', function () {
-                        sys_core.component.components.select[_object.id]._focus_txt = true;
-                    });
-
-                    cs_selectOptions.event('focusin', function () {
-                        sys_core.component.components.select[_object.id]._focus_body = true;
-                    });
-
-                    cs_searchText.event('mouseover', function () {
-                        sys_core.component.components.select[_object.id]._focus_txt = true;
-                    });
-
-                    cs_selectOptions.event('mouseover', function () {
-                        sys_core.component.components.select[_object.id]._focus_body = true;
-                    });
-
-                    cs_searchText.event('mouseout', function () {
-                        sys_core.component.components.select[_object.id]._focus_txt = false;
-                    });
-
-                    cs_selectOptions.event('mouseout', function () {
-                        sys_core.component.components.select[_object.id]._focus_body = false;
-                    });
-
-                    /* EVENTOS DE PERDA DE FOCUS */
-
-                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS
-                     * TRATA A POSIÇÃO  - TOP E LEFT
-                     * TRATA O TAMANHO  - WIDTH
-                     * */
-                    sys_core.onResize(function () {
-                        cs_comp.each(function (e) {
-                            cs_selectBox.css('z-index', '1');
-                            cs_selectBox.css('width', cs_input.width() + 'px');
-                            cs_selectBox.css('left', JLib(e.parentNode).position().x + 'px');
-                            cs_selectBox.css('top', JLib(e.parentNode).position().y + 'px');
-                            cs_searchText.css('width', cs_input.width() + 'px');
-                            cs_selectOptions.css('width', cs_input.width() + 'px');
-                        });
-                    });
-                    /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS */
-
-                    /* EVENTOS DE PESQUISA */
-                    cs_searchText.each(function (e) {
-                        e.focus();
-                    });
-                    cs_searchText.event('keyup', function () {
-                        var _value = this.value;
-                        var _data;
-
-                        if (_value === "") {
-                            event_reset.call(_object.data);
-                        } else {
-                            _data = _object.data.query(function () {
-                                if (_object.searchSensitive)
-                                    return this.get(_object.displayMember).contains(_value);
-                                else
-                                    return this.get(_object.displayMember).toLowerCase().contains(_value.toLowerCase());
+                            sys_core.Rendering.settings(dtOption, {
+                                'data-option': data.getIndex() + 1,
+                                data: data.raw()
                             });
-                            event_search.call(_data);
-                        }
-                    });
-                    /* EVENTOS DE PESQUISA */
 
-                    event_reset.call(_object.data);
-                };
+                            if (sys_core.isDefined(_object.classMember)) {
+                                sys_core.each(_object.classMember, function (c) {
+                                    dtOption.class().add(c);
+                                });
+                            }
 
-                event_reset = function () {
-                    cs_selectOptions.content('');
-                    this.each(function () {
-                        event_option.call(this);
-                    });
-                };
+                            dtOption.css('display', 'block');
+                            dtOption.content(data.get(_object.displayMember));
+                            dtOption.event('click', function () {
+                                var _option = this;
+                                sys_core.Rendering.settings(cs_input, {
+                                    'data-option': JLib(_option).get('data-option'),
+                                    'data': JLib(_option).get('data')
+                                });
+                            });
 
-                event_search = function () {
-                    cs_selectOptions.content('');
-                    sys_core.each(this, function (data) {
-                        event_option.call(data);
-                    });
-                };
-
-                event_option = function () {
-                    var dtOption = cs_selectOptions.create_element('div'),
-                            data = this;
-                    sys_core.Rendering.settings(dtOption, {
-                        'data-option': data.getIndex() + 1,
-                        data: data.raw()
-                    });
-
-                    if (sys_core.isDefined(_object.classMember)) {
-                        sys_core.each(_object.classMember, function (c) {
-                            dtOption.class().add(c);
+                            if (_primary) {
+                                dtOption.each(function (e) {
+                                    e.click.call(e);
+                                });
+                                _primary = false;
+                            }
                         });
-                    }
-
-                    dtOption.content(data.get(_object.displayMember));
-                    dtOption.event('click', function () {
-                        var _option = this;
-                        cs_input.attr('value', _option.innerText);
-                        sys_core.Rendering.settings(cs_input, {
-                            'data-option': JLib(_option).get('data-option'),
-                            'data': JLib(_option).get('data')
-                        });
-                        cs_selectBox.remove();
                     });
-                };
+                }
 
-                event_lostFocus = function () {
-                    cs_searchText.remove();
-                    cs_selectOptions.remove();
-                    cs_selectBox.remove();
-                };
-                /* RENDER OPTIONS*/
-
-
-
-                return;
+                return false;
             },
             get: function (_id) {
                 var comp_id = sys_core.name + '-' + _id,
@@ -2410,6 +2479,87 @@
         });
         /* ################### STORAGE #####################*/
 
+        sys_core.object.extend(sys_core, {
+            browserVersion: function () {
+                var browser = sys_core.browser,
+                        version = navigator.appVersion,
+                        userAgent = navigator.userAgent,
+                        _version;
+                if (browser.isIE()) {
+                    var thestart = parseFloat(version.indexOf("MSIE")) + 1;
+                    _version = parseFloat(version.substring(thestart + 4, thestart + 7));
+                    return  _version ? _version : 11;
+                } else if (browser.isOpera()) {
+                    return userAgent.between('opera', '') || userAgent.between('opr', '');
+                } else if (browser.isEdeg()) {
+                    return userAgent.between('edge', '');
+                } else if (browser.isChrome()) {
+                    return userAgent.between('chrome', '');
+                } else if (browser.isFirefox()) {
+                    return userAgent.between('firefox', '');
+                } else {
+                    return '';
+                }
+
+
+                return navigator.appVersion;
+            },
+            isIE: function () {
+                if (navigator.appName == 'Microsoft Internet Explorer') {
+                    return true;
+                } else if (navigator.userAgent.match(/MSIE\s([\d]+)/)) {
+                    return true;
+                } else if (navigator.appName == 'Netscape' && new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null) {
+                    return true;
+                }
+                return false;
+            },
+            isOpera: function () {
+                var nav = navigator.userAgent.toLowerCase();
+                return Object.prototype.toString.call(window.opera) == '[object Opera]' || nav.indexOf("opera") != -1 || nav.indexOf("opr") != -1;
+            },
+            isWebKit: function () {
+                return navigator.userAgent.indexOf('AppleWebKit/') > -1;
+            },
+            isGecko: function () {
+                return navigator.userAgent.indexOf('Gecko') > -1 && navigator.userAgent.indexOf('KHTML') === -1;
+            },
+            isMobileSafari: function () {
+                return  /Apple.*Mobile/.test(navigator.userAgent);
+            },
+            isEdeg: function () {
+                var nav = navigator.userAgent.toLowerCase();
+                return  nav.indexOf("edge") != -1;
+            },
+            isFirefox: function () {
+                var nav = navigator.userAgent.toLowerCase();
+
+                if (nav.indexOf("mozilla") != -1) {
+                    if (nav.indexOf("firefox") != -1) {
+                        return   true;
+                    } else if (nav.indexOf("firefox") != -1) {
+                        return  true;
+                    }
+                }
+
+                return true;
+            },
+            isChrome: function () {
+                var ua = navigator.userAgent.toLowerCase();
+                var is_chrome = /chrome/.test(ua);
+
+                return is_chrome && !sys_core.isEdeg();
+            },
+            isSafari: function () {
+                var nav = navigator.userAgent.toLowerCase();
+
+                if (nav.indexOf("Safari") != -1) {
+                    return   true;
+                }
+
+                return true;
+            }
+        });
         sys_core.object.extend(sys_core, _set);
         return sys_core;
     };
