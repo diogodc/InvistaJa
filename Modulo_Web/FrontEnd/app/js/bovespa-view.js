@@ -311,7 +311,52 @@ bovespa.object.extend(bovespa, {
                                         model: model.ce().results()
                                     });/* CONSTRUÇÃO DA TABLE */
 
-                                    /* CONSTRUÇÃO DO CHARTJS */
+                                    bovespa.config.chart.themes().Indebtedness().Ipl();/* TEMA DO CHART */
+                                    bovespa._plugin_.JQuery('#graphic-ipl').highcharts({
+                                        chart: {
+                                            type: 'bar'
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: {
+                                            allowDecimals: false,
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value; // clean, unformatted number for year
+                                                }
+                                            }
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value.formatMoney(2, ',', '.') + '%';
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                        },
+                                        plotOptions: {
+                                            area: {
+                                                pointStart: 2013,
+                                                marker: {
+                                                    enabled: false,
+                                                    symbol: 'circle',
+                                                    radius: 2,
+                                                    states: {
+                                                        hover: {
+                                                            enabled: true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        series: model.ipl().results_data()
+                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */                           
                                     bovespa.JLib("table-ipl").table({
                                         columns: [
                                             {
