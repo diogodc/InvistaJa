@@ -186,11 +186,15 @@ bovespa.object.extend(bovespa, {
                                             }
                                         },
                                         tooltip: {
-                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                            footerFormat: ' ',
+                                            shared: true,
+                                            useHTML: true
                                         },
                                         plotOptions: {
-                                            area: {
-                                                pointStart: 2013,
+                                            bar: {
+                                                pointStart: model.pct().year(),
                                                 marker: {
                                                     enabled: false,
                                                     symbol: 'circle',
@@ -262,11 +266,15 @@ bovespa.object.extend(bovespa, {
                                             }
                                         },
                                         tooltip: {
-                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                            footerFormat: ' ',
+                                            shared: true,
+                                            useHTML: true
                                         },
                                         plotOptions: {
                                             area: {
-                                                pointStart: 2013,
+                                                pointStart: model.ce().year(),
                                                 marker: {
                                                     enabled: false,
                                                     symbol: 'circle',
@@ -338,11 +346,15 @@ bovespa.object.extend(bovespa, {
                                             }
                                         },
                                         tooltip: {
-                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                            footerFormat: ' ',
+                                            shared: true,
+                                            useHTML: true
                                         },
                                         plotOptions: {
-                                            area: {
-                                                pointStart: 2013,
+                                            bar: {
+                                                pointStart: model.ipl().year(),
                                                 marker: {
                                                     enabled: false,
                                                     symbol: 'circle',
@@ -356,7 +368,7 @@ bovespa.object.extend(bovespa, {
                                             }
                                         },
                                         series: model.ipl().results_data()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */                           
+                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                     bovespa.JLib("table-ipl").table({
                                         columns: [
                                             {
@@ -558,6 +570,48 @@ bovespa.object.extend(bovespa, {
                                                         name: 'Indice Médio',
                                                         data: _data_average
                                                     }];
+                                            },
+                                            year: function () {
+                                                var _analysis = {
+                                                    min: {
+                                                        value: null,
+                                                        year: null
+                                                    },
+                                                    max: {
+                                                        value: null,
+                                                        year: null
+                                                    }
+                                                },
+                                                _l = false,
+                                                        _situation;
+
+                                                _dt._results_.each(function () {
+                                                    var _indicator = Number(this.get('indicator')),
+                                                            _year = this.get('year');
+
+                                                    if (_l === false) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                        _l = true;
+                                                    }
+
+
+                                                    if (_analysis.max.year < _year) {
+                                                        _analysis.max.value = _indicator;
+                                                        _analysis.max.year = _year;
+                                                    }
+                                                    if (_analysis.min.year > _year) {
+                                                        _analysis.min.value = _indicator;
+                                                        _analysis.min.year = _year;
+                                                    }
+
+
+                                                });
+
+                                                return  _analysis.min.year;
                                             }
                                         });
 
@@ -567,7 +621,8 @@ bovespa.object.extend(bovespa, {
                                             analysis: _dt.analysis,
                                             results: _dt.results,
                                             results_average: _dt.results_average,
-                                            results_data: _dt.results_data
+                                            results_data: _dt.results_data,
+                                            year:_dt.year
                                         };
                                     };
 
