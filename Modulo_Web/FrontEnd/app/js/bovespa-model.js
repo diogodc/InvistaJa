@@ -32,7 +32,7 @@ bovespa.object.extend(bovespa, {
                     root: ''
                 }
             });
-
+            
             if (bovespa.storage.exists('iEmpresa_ID')) {/* VERIFICANDO SE A EMPRESA JÁ FOI SELECIONADA */
                 this._data_._load = true;
                 this._data_._success = false;

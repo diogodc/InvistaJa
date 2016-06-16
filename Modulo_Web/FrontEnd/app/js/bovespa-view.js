@@ -17,7 +17,7 @@ bovespa.object.extend(bovespa, {
                 Company: function () {
                     return bovespa.template([
                         {
-                            'name': 'bovespa-company',/* NOME DO TEMPLATE */
+                            'name': 'bovespa-company', /* NOME DO TEMPLATE */
                             view: {
                                 self: '.bovespa', /* FOCO DA RENDERIZAÇÃO */
                                 render: function () {
@@ -159,31 +159,52 @@ bovespa.object.extend(bovespa, {
                                         }
                                     }); /* LER OBJETO É SUBSTITUI NO HTML, COM NAMESPACE CORREPONDENTE DO OBJETO NO HTML */
 
-                                    bovespa.component({
-                                        type: 'chart',
-                                        tType: 'line',
-                                        model: [model.pct().results(), model.pct().results_average()],
-                                        label: 'year',
-                                        values: 'indicator',
-                                        renderTo: 'graphic-pct',
-                                        theme: 'Cyan',
-                                        configs: [{
-                                                fillColor: "rgba(128, 222, 234, 0.6)",
-                                                strokeColor: "#ffffff",
-                                                pointColor: "#00bcd4",
-                                                pointStrokeColor: "#ffffff",
-                                                pointHighlightFill: "#ffffff",
-                                                pointHighlightStroke: "#ffffff"
-                                            }, {
-                                                label: "Second dataset",
-                                                fillColor: "rgba(128, 222, 234, 0.3)",
-                                                strokeColor: "#80deea",
-                                                pointColor: "#00bcd4",
-                                                pointStrokeColor: "#80deea",
-                                                pointHighlightFill: "#80deea",
-                                                pointHighlightStroke: "#80deea"
-                                            }]
-                                    });  /* CONSTRUÇÃO DO CHARTJS */
+                                    bovespa.config.chart.themes().Indebtedness().Pct();/* TEMA DO CHART */
+                                    bovespa._plugin_.JQuery('#graphic-pct').highcharts({
+                                        chart: {
+                                            type: 'area'
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: {
+                                            allowDecimals: false,
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value; // clean, unformatted number for year
+                                                }
+                                            }
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value.formatMoney(2, ',', '.') + '%';
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                        },
+                                        plotOptions: {
+                                            area: {
+                                                pointStart: 2013,
+                                                marker: {
+                                                    enabled: false,
+                                                    symbol: 'circle',
+                                                    radius: 2,
+                                                    states: {
+                                                        hover: {
+                                                            enabled: true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        series: model.pct().results_data()
+                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                     bovespa.JLib("table-pct").table({
                                         columns: [
                                             {
@@ -214,31 +235,52 @@ bovespa.object.extend(bovespa, {
                                         model: model.pct().results()
                                     }); /* CONSTRUÇÃO DA TABLE */
 
-                                    bovespa.component({
-                                        type: 'chart',
-                                        tType: 'line',
-                                        model: [model.ce().results(), model.ce().results_average()],
-                                        label: 'year',
-                                        values: 'indicator',
-                                        renderTo: 'graphic-ce',
-                                        theme: 'Green',
-                                        configs: [{
-                                                fillColor: "rgba(142, 234, 128, 0.6)",
-                                                strokeColor: "#ffffff",
-                                                pointColor: "#3dd400",
-                                                pointStrokeColor: "#ffffff",
-                                                pointHighlightFill: "#ffffff",
-                                                pointHighlightStroke: "#ffffff"
-                                            }, {
-                                                label: "Second dataset",
-                                                fillColor: "rgba(142, 234, 128, 0.3)",
-                                                strokeColor: "#80ea92",
-                                                pointColor: "#3dd400",
-                                                pointStrokeColor: "#b4ea80",
-                                                pointHighlightFill: "#b4ea80",
-                                                pointHighlightStroke: "#b4ea80"
-                                            }]
-                                    }); /* CONSTRUÇÃO DO CHARTJS */
+                                    bovespa.config.chart.themes().Indebtedness().Ce();/* TEMA DO CHART */
+                                    bovespa._plugin_.JQuery('#graphic-ce').highcharts({
+                                        chart: {
+                                            type: 'area'
+                                        },
+                                        title: {
+                                            text: ''
+                                        },
+                                        xAxis: {
+                                            allowDecimals: false,
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value; // clean, unformatted number for year
+                                                }
+                                            }
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: ''
+                                            },
+                                            labels: {
+                                                formatter: function () {
+                                                    return this.value.formatMoney(2, ',', '.') + '%';
+                                                }
+                                            }
+                                        },
+                                        tooltip: {
+                                            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+                                        },
+                                        plotOptions: {
+                                            area: {
+                                                pointStart: 2013,
+                                                marker: {
+                                                    enabled: false,
+                                                    symbol: 'circle',
+                                                    radius: 2,
+                                                    states: {
+                                                        hover: {
+                                                            enabled: true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        series: model.ce().results_data()
+                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                     bovespa.JLib("table-ce").table({
                                         columns: [
                                             {
@@ -269,31 +311,7 @@ bovespa.object.extend(bovespa, {
                                         model: model.ce().results()
                                     });/* CONSTRUÇÃO DA TABLE */
 
-                                    bovespa.component({
-                                        type: 'chart',
-                                        tType: 'line',
-                                        model: [model.ipl().results(), model.ipl().results_average()],
-                                        label: 'year',
-                                        values: 'indicator',
-                                        renderTo: 'graphic-ipl',
-                                        theme: 'Orange',
-                                        configs: [{
-                                                fillColor: "rgba(234, 208, 128, 0.6)",
-                                                strokeColor: "#ffffff",
-                                                pointColor: "#d4ab00",
-                                                pointStrokeColor: "#ffffff",
-                                                pointHighlightFill: "#ffffff",
-                                                pointHighlightStroke: "#ffffff"
-                                            }, {
-                                                label: "Second dataset",
-                                                fillColor: "rgba(234, 208, 128, 0.3)",
-                                                strokeColor: "#ead080",
-                                                pointColor: "#d4ab00",
-                                                pointStrokeColor: "#ead680",
-                                                pointHighlightFill: "#ead680",
-                                                pointHighlightStroke: "#ead680"
-                                            }]
-                                    }); /* CONSTRUÇÃO DO CHARTJS */
+                                    /* CONSTRUÇÃO DO CHARTJS */
                                     bovespa.JLib("table-ipl").table({
                                         columns: [
                                             {
@@ -381,6 +399,13 @@ bovespa.object.extend(bovespa, {
                                     bovespa.menu.get('bovespa-indebtedness-ce').action(); /* PRÉ-EXECUTANDO BOTÃO QUEN CONTROLA A VISUALIZAÇÃO DA TABLE */
                                     bovespa.menu.get('bovespa-indebtedness-ipl').action();/* PRÉ-EXECUTANDO BOTÃO QUEN CONTROLA A VISUALIZAÇÃO DA TABLE */
 
+                                    bovespa.JLib(".highcharts-legend-item").remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                    bovespa.JLib(this.self).replace({
+                                        tag: "text",
+                                        to: '',
+                                        from: "Highcharts.com"
+                                    });
+
                                     bovespa.JLib(this.self).unmask(); /* DESABILITA A MASK */
                                     bovespa.JLib(this.self).tost({text: 'Endividamento calculado!'}); /* MOSTRA POP-UP */
                                 }
@@ -399,6 +424,7 @@ bovespa.object.extend(bovespa, {
                                             });
 
                                             _dt._results_.data = [];
+                                            _dt._results_.name = name;
                                             _dt._results_.data = this.get(name).results;
                                             _dt._analysis_ = this.get(name).analysis;
                                         });
@@ -470,6 +496,23 @@ bovespa.object.extend(bovespa, {
                                                 });
 
                                                 return _memory;
+                                            },
+                                            results_data: function () {
+                                                var _data = [],
+                                                        _data_average = [];
+
+                                                _dt._results_.each(function () {
+                                                    _data.push(this.get('indicator'));
+                                                    _data_average.push(_dt.average());
+                                                });
+
+                                                return  [{
+                                                        name: 'Indice Anual',
+                                                        data: _data
+                                                    }, {
+                                                        name: 'Indice Médio',
+                                                        data: _data_average
+                                                    }];
                                             }
                                         });
 
@@ -478,7 +521,8 @@ bovespa.object.extend(bovespa, {
                                             total: _dt.total,
                                             analysis: _dt.analysis,
                                             results: _dt.results,
-                                            results_average: _dt.results_average
+                                            results_average: _dt.results_average,
+                                            results_data: _dt.results_data
                                         };
                                     };
 
@@ -1788,3 +1832,39 @@ bovespa.object.extend(bovespa, {
         }
     }
 });
+//
+//bovespa.onResize(function () {
+//    var sclass = 's-menu-nav-hidden-none';
+//    if (bovespa.width() >= bovespa.config.responsive['med-width']) {
+//
+//        bovespa.JLib('.s-menu-nav').each(function (e) {
+//            var mnu = this.query_selector_Attribute_value('mnu-hidden', 'mnu-main', e);
+//            for (var x in mnu) {
+//                mnu[x].class().add(sclass);
+//            }
+//        });
+//
+//
+//        bovespa.JLib('.table-Sek s-columns').each(function (e) {
+//            if (bovespa.JLib(e).class().contains('s-columns-6')) {
+//                bovespa.JLib(e).css('height', 'calc(8.8125em)');
+//            }
+//        });
+//    }
+//
+//    if (bovespa.width() < bovespa.config.responsive['med-width']) {
+//        bovespa.JLib('.bovespa').css('width' ,bovespa.width() + 'px');
+//        bovespa.JLib('.s-body-content').css('width' ,bovespa.width() + 'px');
+//        bovespa.JLib('.s-menu-bar').css('width' ,bovespa.width() + 'px');
+//        bovespa.JLib('.s-menu-nav').css('width' ,bovespa.width() + 'px');
+//        
+//        bovespa.JLib('.table-Sek').each(function (e) {
+//            if (bovespa.JLib(e).class().contains('s-columns-6')) {
+//                bovespa.JLib(e).css('height', 'calc(8.8125em * 4.2)');
+//            }
+//            if (bovespa.JLib(e).class().contains('s-columns-4')) {
+//                bovespa.JLib(e).css('height', 'calc(8.8125em * 4.2)');
+//            }
+//        });
+//    }
+//});
