@@ -94,26 +94,24 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnProcurarEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDscEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCaminhoArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtCaminhoArquivo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnProcurarEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtDscEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cboTipoRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkDRE" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkBPA" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkBPP" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cboTipoRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkDRE" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkBPA" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkBPP" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnImportar" alignment="3" min="-2" max="-2" attributes="0"/>
