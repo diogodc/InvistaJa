@@ -1637,6 +1637,7 @@ input {
         max-height: 0px;
         visibility: hidden;
         top: -2%;
+        
     }
     .s-menu-nav > .s-menu-nav-mnu {
         -webkit-border-radius: 2.5px;

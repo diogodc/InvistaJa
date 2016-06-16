@@ -2,7 +2,7 @@ bovespa.object.extend(bovespa, {
     config: {
         responsive: {
             'min-width': 367,
-            'med-width': 767
+            'med-width': 689
         },
         chart: {
             theme: {
@@ -475,7 +475,7 @@ bovespa.object.extend(bovespa, {
                                     fontFamily: "Signika, serif"
                                 }
                             },
-                             title: {
+                            title: {
                                 style: {
                                     color: 'black',
                                     fontSize: '16px',
@@ -642,6 +642,198 @@ bovespa.object.extend(bovespa, {
 
                         };
                         bovespa._plugin_.Highcharts.setOptions(bovespa._plugin_.Highcharts.theme);
+                    },
+                    Indebtedness: function () {
+                        return {
+                            Pct: function () {
+                                bovespa._plugin_.Highcharts.createElement('link', {
+                                    href: 'https://fonts.googleapis.com/css?family=Signika:400,700',
+                                    rel: 'stylesheet',
+                                    type: 'text/css'
+                                }, null, document.getElementsByTagName('head')[0]);
+                                bovespa._plugin_.Highcharts.wrap(bovespa._plugin_.Highcharts.Chart.prototype, 'getContainer', function (proceed) {
+                                    proceed.call(this);
+                                    this.container.style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+                                });
+                                bovespa._plugin_.Highcharts.theme = {
+                                    colors: ["rgba(128, 222, 234, 0.6)", "rgba(128, 222, 234, 0.3)"],
+                                    chart: {
+                                        backgroundColor: '#0097A7',
+                                        style: {
+                                            fontFamily: "'Unica One', sans-serif"
+                                        },
+                                        plotBorderColor: '#606063'
+                                    }, title: {
+                                        style: {
+                                            color: 'white',
+                                            fontSize: '16px',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    subtitle: {
+                                        style: {
+                                            color: 'white'
+                                        }
+                                    },
+                                    tooltip: {
+                                        borderWidth: 0
+                                    },
+                                    legend: {
+                                        itemStyle: {
+                                            fontWeight: 'bold',
+                                            fontSize: '13px',
+                                            color: 'white'
+                                        }
+                                    },
+                                    xAxis: {
+                                        labels: {
+                                            style: {
+                                                color: 'white',
+                                                fontWeight: 'bold'
+                                            }
+                                        }
+                                    },
+                                    yAxis: {
+                                        labels: {
+                                            style: {
+                                                color: 'white',
+                                                fontWeight: 'bold'
+                                            }
+                                        }
+                                    },
+                                    plotOptions: {
+                                        series: {
+                                            shadow: true
+                                        },
+                                        candlestick: {
+                                            lineColor: 'white'
+                                        },
+                                        map: {
+                                            shadow: false
+                                        }
+                                    },
+                                    // Highstock specific
+                                    navigator: {
+                                        xAxis: {
+                                            gridLineColor: 'white'
+                                        }
+                                    },
+                                    rangeSelector: {
+                                        buttonTheme: {
+                                            fill: 'white',
+                                            stroke: 'white',
+                                            'stroke-width': 1,
+                                            states: {
+                                                select: {
+                                                    fill: 'white'
+                                                }
+                                            }
+                                        }
+                                    },
+                                    scrollbar: {
+                                        trackBorderColor: 'white'
+                                    },
+                                    // General
+                                    background2: 'white'
+
+                                };
+                                bovespa._plugin_.Highcharts.setOptions(bovespa._plugin_.Highcharts.theme);
+                            },
+                             Ce: function () {
+                                bovespa._plugin_.Highcharts.createElement('link', {
+                                    href: 'https://fonts.googleapis.com/css?family=Signika:400,700',
+                                    rel: 'stylesheet',
+                                    type: 'text/css'
+                                }, null, document.getElementsByTagName('head')[0]);
+                                bovespa._plugin_.Highcharts.wrap(bovespa._plugin_.Highcharts.Chart.prototype, 'getContainer', function (proceed) {
+                                    proceed.call(this);
+                                    this.container.style.background = 'url(http://www.highcharts.com/samples/graphics/sand.png)';
+                                });
+                                bovespa._plugin_.Highcharts.theme = {
+                                    colors: ["rgba(234, 208, 128, 0.6)", "rgba(234, 208, 128, 0.3)"],
+                                    chart: {
+                                        backgroundColor: '#F57C00',
+                                        style: {
+                                            fontFamily: "'Unica One', sans-serif"
+                                        },
+                                        plotBorderColor: '#606063'
+                                    }, title: {
+                                        style: {
+                                            color: 'white',
+                                            fontSize: '16px',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    subtitle: {
+                                        style: {
+                                            color: 'white'
+                                        }
+                                    },
+                                    tooltip: {
+                                        borderWidth: 0
+                                    },
+                                    legend: {
+                                        itemStyle: {
+                                            fontWeight: 'bold',
+                                            fontSize: '13px',
+                                            color: 'white'
+                                        }
+                                    },
+                                    xAxis: {
+                                        labels: {
+                                            style: {
+                                                color: 'white',
+                                                fontWeight: 'bold'
+                                            }
+                                        }
+                                    },
+                                    yAxis: {
+                                        labels: {
+                                            style: {
+                                                color: 'white',
+                                                fontWeight: 'bold'
+                                            }
+                                        }
+                                    },
+                                    plotOptions: {
+                                        series: {
+                                            shadow: true
+                                        },
+                                        candlestick: {
+                                            lineColor: 'white'
+                                        },
+                                        map: {
+                                            shadow: false
+                                        }
+                                    },
+                                    // Highstock specific
+                                    navigator: {
+                                        xAxis: {
+                                            gridLineColor: 'white'
+                                        }
+                                    },
+                                    rangeSelector: {
+                                        buttonTheme: {
+                                            fill: 'white',
+                                            stroke: 'white',
+                                            'stroke-width': 1,
+                                            states: {
+                                                select: {
+                                                    fill: 'white'
+                                                }
+                                            }
+                                        }
+                                    },
+                                    scrollbar: {
+                                        trackBorderColor: 'white'
+                                    },
+                                    // General
+                                    background2: 'white'
+
+                                };
+                                bovespa._plugin_.Highcharts.setOptions(bovespa._plugin_.Highcharts.theme);
+                            }
+                        };
                     }
                 };
             }

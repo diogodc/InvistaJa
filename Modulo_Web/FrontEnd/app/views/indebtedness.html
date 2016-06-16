@@ -43,22 +43,32 @@
         </div>               
     </div>
 </div> 
-<div class="s-md-row margin-left-1 s-columns-2">
-    <div class="s-card s-md-back-Cyan-700">        
+<div class="s-md-row margin-left-1 s-columns-3">
+    <div class="s-card s-md-back-Cyan-700">
         <div class="s-card-body s-md-back-Cyan-600"> 
-            <div class="s-card-content">
+            <div class="s-card-content" >                        
                 <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
-                    <span>Participação de Capital de Terceiros</span>
+                    <span>Participação de capital de terceiros</span>
                 </div>
+            </div>                      
+        </div>
+        <div class="s-card-action">
+            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-pct">                           
+                <span>+</span>
             </div>
-            <div class="s-card-content"  id="card-graphic-pct">                        
-                <div class="">
-                    <canvas id="graphic-pct" style="height: 244px;"></canvas>
+            <div class="s-uppercase s-size-12 s-md-font-White">          
+                <json bind-value='bovespa.indebtedness.pct.analysis' style="min-height: 100px;"></json>           
+            </div>          
+        </div> 
+        <div class="s-card-action s-md-back-Cyan-600">
+            <div class="s-card-content"  id="card-graphic-pct">                 
+                <div id="graphic-pct">
+
                 </div>
             </div> 
             <div class="s-card-content"  id="card-table-pct">
                 <div class="s-card">
-                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                    <div class="s-card-body" style=" min-height: 387px;">   <!-- overflow-y: scroll; height: 253px; -->     
                         <div class="s-card-content">                        
                             <div id="table-pct">
 
@@ -68,37 +78,33 @@
                 </div>
             </div> 
         </div>       
-        <div class="s-card-action">
-            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-pct">                           
-                <span>+</span>
-            </div>
-        </div>       
     </div>
-    <div>   
-        <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-            <json bind-value='bovespa.indebtedness.pct.analysis'></json>              
-        </div>
-    </div>
-</div>
-<div class="s-md-row margin-left-1">
 
-</div>
-<div class="s-md-row margin-left-1 s-columns-2">
-    <div class="s-card s-md-back-Green-700">
-        <div class="s-card-body s-md-back-Green-600"> 
+    <div class="s-card s-md-back-Orange-700">
+        <div class="s-card-body s-md-back-Orange-600"> 
             <div class="s-card-content" >                        
                 <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
                     <span>Composição do Endividamento</span>
                 </div>
+            </div>          
+        </div>
+        <div class="s-card-action">
+            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-ce">                           
+                <span>+</span>
             </div>
-            <div class="s-card-content"  id="card-graphic-ce">                        
-                <div   class='s-md-chart-theme-green'>
-                    <canvas id="graphic-ce" style="height: 244px;"></canvas>
+            <div class="s-uppercase s-size-12 s-md-font-White">          
+                <json bind-value='bovespa.indebtedness.ce.analysis' style="min-height: 100px;"></json>           
+            </div>          
+        </div> 
+        <div class="s-card-action s-md-back-Cyan-600">
+            <div class="s-card-content"  id="card-graphic-ce">                 
+                <div id="graphic-ce">
+
                 </div>
             </div> 
             <div class="s-card-content"  id="card-table-ce">
                 <div class="s-card">
-                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                    <div class="s-card-body" style=" min-height: 387px;">   <!-- overflow-y: scroll; height: 253px; -->     
                         <div class="s-card-content">                        
                             <div id="table-ce">
 
@@ -107,38 +113,29 @@
                     </div>                         
                 </div>
             </div> 
-        </div>       
+        </div>          
+    </div> 
+
+    <div class="s-card s-md-back-White">
+        <div class="s-card-body"> 
+            <div class="s-card-content" >                        
+                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">                           
+                    <span>IMOBILIZAÇÃO DO PATRIMÔNIO LÍQUIDO</span>
+                </div>
+            </div>           
+        </div> 
         <div class="s-card-action">
-            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-ce">                           
+            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-ipl">                           
                 <span>+</span>
             </div>
-        </div>     
-    </div>
-    <div>          
-        <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-            <json bind-value='bovespa.indebtedness.ce.analysis'></json>              
+            <div class="s-uppercase s-size-12 s-md-font-White">          
+                <json bind-value='bovespa.indebtedness.ipl.analysis' style="min-height: 100px;"></json>           
+            </div>          
         </div>
-    </div>
-</div>
-<div class="s-md-row margin-left-1">
-
-</div>
-<div class="s-md-row margin-left-1 s-columns-2">
-    <div class="s-card s-md-back-Orange-700">
-        <div class="s-card-body s-md-back-Orange-600"> 
-            <div class="s-card-content" >                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-White title">                           
-                    <span>Imobilização do Patrimônio Líquido</span>
-                </div>
-            </div>
-            <div class="s-card-content"  id="card-graphic-ipl">                        
-                <div   class='s-md-chart-theme-orange'>
-                    <canvas id="graphic-ipl" style="height: 244px;"></canvas>
-                </div>
-            </div> 
+        <div class="s-card-action s-md-back-Cyan-600">
             <div class="s-card-content"  id="card-table-ipl">
                 <div class="s-card">
-                    <div class="s-card-body" style=" min-height: 234px;">   <!-- overflow-y: scroll; height: 253px; -->     
+                    <div class="s-card-body" style=" min-height: 387px;">   <!-- overflow-y: scroll; height: 253px; -->     
                         <div class="s-card-content">                        
                             <div id="table-ipl">
 
@@ -147,17 +144,6 @@
                     </div>                         
                 </div>
             </div> 
-        </div>       
-        <div class="s-card-action">
-            <div class="btn-spherical btn-card-center s-md-back-Red-400 right s-md-font-Black" mnu-name="bovespa-indebtedness-ipl">                           
-                <span>+</span>
-            </div>
-        </div>     
-    </div>
-    <div>          
-        <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-            <json bind-value='bovespa.indebtedness.ipl.analysis'></json>              
         </div>
     </div>
 </div>
-
