@@ -75,16 +75,32 @@
             onReady: function (callback) {
                 window.addEventListener('load', callback, false);
             },
-            onResize: function (callback) {
+            onResize: function (callback, _width) {
+
+                if (sys_core.isDefined(_width)) {
+                    _width = 0;
+                }
+
+
+                setTimeout(function () {
+                    if (_width !== sys_core.width()) {
+                        _width = sys_core.width();
+                        callback();
+                    }
+                    sys_core.onResize(callback, _width);
+                }, 1);
+
+
 //                document.getElementsByTagName("body")[0].onresize = callback;
                 window.addEventListener('resize', callback);
-                var observer = new MutationObserver(callback);
-                observer.observe(document.body, {
-                    attributes: true,
-                    childList: true,
-                    characterData: true,
-                    subtree: true
-                });
+
+//                var observer = new MutationObserver(callback);
+//                observer.observe(document.body, {
+//                    attributes: true,
+//                    childList: true,
+//                    characterData: true,
+//                    subtree: true
+//                });
             },
             eachProto: function (ary, callback) {
 
@@ -329,7 +345,15 @@
                         this.each(function (e) {
                             e.appendChild(el instanceof Element ? el : el.getElement());
                         });
+                    },
+                    up: function () {
+                        var parentNode;
 
+                        this.each(function (e) {
+                            parentNode = sys_core.JLib(e.parentNode);
+                        });
+
+                        return parentNode;
                     }
                 });
 
