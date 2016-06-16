@@ -47,7 +47,7 @@ public class ControleAutenticacao {
     private void setIpServidor(){
         try{
          if (this.vAutenticacao.cboServidor.getSelectedIndex() == 0){
-            sIpServidor = "127.0.0.1";
+            sIpServidor = "localhost";
         }else{
             sIpServidor = "187.85.160.51";
         }
