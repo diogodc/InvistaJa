@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="AppFinanceiro">
+  <ClassDiagramComponents>
+    <Class name="AppFinanceiro" package="App" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="sCaminhoArquivos" type="String" visibility="public" isStatic="true"/>
+        <Field name="conn" type="DadosManipulacao" visibility="public" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="converteObjetoParaJson" returnType="String" visibility="public" isStatic="true">
+          <Argument type="Object" name="objeto"/>
+        </Method>
+        <Method name="converteJsonParaObjeto" returnType="String" visibility="public" isStatic="true">
+          <Argument type="Object" name="objeto"/>
+        </Method>
+        <Method name="gravarArquivo" returnType="boolean" visibility="public" isStatic="true">
+          <Argument type="String" name="sNomeArquivo"/>
+          <Argument type="String" name="sConteudo"/>
+        </Method>
+        <Method name="abrirVisao" returnType="void" visibility="public" isStatic="true">
+          <Argument type="JDesktopPane" name="pnl"/>
+          <Argument type="JInternalFrame" name="form"/>
+        </Method>
+        <Method name="abrirVisaoArquivo" returnType="String" visibility="public" isStatic="true">
+          <Argument type="JInternalFrame" name="form"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ControleAutenticacao" package="Controle" visibility="public" xPosition="456.0" yPosition="20.0">
+      <Fields>
+        <Field name="vAutenticacao" type="VisaoAutenticacao" visibility="private"/>
+        <Field name="dAutenticacao" type="DadosAutenticacao" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="VisaoAutenticacao" name="vAutenticacao"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="autenticar" returnType="void" visibility="public"/>
+        <Method name="setIpServidor" returnType="void" visibility="private"/>
+        <Method name="getModelo" returnType="ModeloUsuario" visibility="private"/>
+        <Method name="abrirView" returnType="void" visibility="private">
+          <Argument type="ModeloUsuario" name="mUsuario"/>
+        </Method>
+        <Method name="validaCampos" returnType="boolean" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="ControleEmpresa" package="Controle" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="vEmpresa" type="VisaoEmpresa" visibility="private"/>
+        <Field name="dEmpresa" type="DadosEmpresa" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="VisaoEmpresa" name="vEmpresa"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="salvar" returnType="boolean" visibility="public"/>
+        <Method name="validarCampos" returnType="boolean" visibility="private"/>
+        <Method name="excluir" returnType="boolean" visibility="public"/>
+        <Method name="exportar" returnType="boolean" visibility="public"/>
+        <Method name="zerarHistorico" returnType="String" visibility="public"/>
+        <Method name="getModelo" returnType="ModeloEmpresa" visibility="private"/>
+        <Method name="limpar" returnType="void" visibility="public"/>
+        <Method name="carregaCampos" returnType="void" visibility="private">
+          <Argument type="ArrayList&lt;String&gt;" name="alDados"/>
+        </Method>
+        <Method name="carregaBusca" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ControleImpExp" package="Controle" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="vImportar" type="VisaoImpExp" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="VisaoImpExp" name="vImportar"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="lerArquivo" returnType="boolean" visibility="private"/>
+        <Method name="validarArquivo" returnType="boolean" visibility="private"/>
+        <Method name="manipularArquivo" returnType="ArrayList&lt;ModeloImpExp&gt;" visibility="private">
+          <Argument type="BufferedReader" name="brLeitor"/>
+          <Argument type="String" name="sEmpresa_ID"/>
+        </Method>
+        <Method name="carregarEmpresas" returnType="void" visibility="public">
+          <Argument type="JComboBox" name="cboEmpresa"/>
+        </Method>
+        <Method name="carregaBusca" returnType="void" visibility="public"/>
+        <Method name="carregaCampos" returnType="void" visibility="private">
+          <Argument type="ArrayList&lt;String&gt;" name="alDados"/>
+        </Method>
+        <Method name="Importar" returnType="void" visibility="public"/>
+        <Method name="validaImportar" returnType="boolean" visibility="private"/>
+        <Method name="exportar" returnType="boolean" visibility="public"/>
+        <Method name="calcularIndicadores" returnType="boolean" visibility="private"/>
+        <Method name="gerarIndicadores" returnType="ArrayList&lt;ModeloIndicadores&gt;" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="ControlePesquisar" package="Controle" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="sTabela" type="String" visibility="private" isFinal="true"/>
+        <Field name="sParametros" type="String" visibility="private" isFinal="true"/>
+        <Field name="sCondicao" type="String" visibility="private" isFinal="true"/>
+        <Field name="sJoin" type="String" visibility="private" isFinal="true"/>
+        <Field name="sCodigo" type="String" visibility="private"/>
+        <Field name="vPesquisar" type="VisaoPesquisar" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="VisaoPesquisar" name="vPesquisar"/>
+          <Argument type="String" name="tabela"/>
+          <Argument type="String" name="parametros"/>
+          <Argument type="String" name="condicao"/>
+          <Argument type="String" name="join"/>
+          <Argument type="JTable" name="tabResultados"/>
+          <Argument type="JTextField" name="txtFiltro"/>
+          <Argument type="JComboBox" name="cboTipoFiltro"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="pesquisar" returnType="void" visibility="public">
+          <Argument type="JTable" name="tabResultados"/>
+          <Argument type="JTextField" name="txtFiltro"/>
+          <Argument type="JComboBox" name="cboTipoFiltro"/>
+          <Argument type="JComboBox" name="cboCampoFiltro"/>
+        </Method>
+        <Method name="selecionar" returnType="ArrayList&lt;String&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DadosAutenticacao" package="Dados" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="autenticar" returnType="ModeloUsuario" visibility="public">
+          <Argument type="ModeloUsuario" name="mUsuario"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DadosConexao" package="Dados" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields>
+        <Field name="sIpServidor" type="String" visibility="public" isStatic="true"/>
+        <Field name="sDriver" type="String" visibility="private" isFinal="true"/>
+        <Field name="sBanco" type="String" visibility="private" isFinal="true"/>
+        <Field name="sUsuario" type="String" visibility="private" isFinal="true"/>
+        <Field name="sSenha" type="String" visibility="private" isFinal="true"/>
+        <Field name="cConnection" type="Connection" visibility="private"/>
+        <Field name="sStatement" type="Statement" visibility="private"/>
+        <Field name="rResultSet" type="ResultSet" visibility="private"/>
+        <Field name="rResultSetMetaData" type="ResultSetMetaData" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getDriver" returnType="String" visibility="public"/>
+        <Method name="getBanco" returnType="String" visibility="public"/>
+        <Method name="getUsuario" returnType="String" visibility="public"/>
+        <Method name="getSenha" returnType="String" visibility="public"/>
+        <Method name="getConnection" returnType="Connection" visibility="public"/>
+        <Method name="setConnection" returnType="void" visibility="public">
+          <Argument type="Connection" name="cConnection"/>
+        </Method>
+        <Method name="getStatement" returnType="Statement" visibility="public"/>
+        <Method name="setStatement" returnType="void" visibility="public">
+          <Argument type="Statement" name="sStatement"/>
+        </Method>
+        <Method name="getResultSet" returnType="ResultSet" visibility="public"/>
+        <Method name="setResultSet" returnType="void" visibility="public">
+          <Argument type="ResultSet" name="rResultSet"/>
+        </Method>
+        <Method name="getResultSetMetaData" returnType="ResultSetMetaData" visibility="public"/>
+        <Method name="setResultSetMetaData" returnType="void" visibility="public">
+          <Argument type="ResultSetMetaData" name="rResultSetMetaData"/>
+        </Method>
+        <Method name="abrirConexao" returnType="boolean" visibility="public"/>
+        <Method name="fecharConexao" returnType="boolean" visibility="public"/>
+        <Method name="consultar" returnType="ResultSet" visibility="public">
+          <Argument type="String" name="sConsulta"/>
+        </Method>
+        <Method name="alterar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sAlteracao"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DadosEmpresa" package="Dados" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="mEmpresa" type="ModeloEmpresa" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ModeloEmpresa" name="mEmpresa"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="carregarEmpresa" returnType="ArrayList&lt;ModeloEmpresa&gt;" visibility="public"/>
+        <Method name="salvar" returnType="String" visibility="public">
+          <Argument type="ModeloEmpresa" name="mEmpresa"/>
+        </Method>
+        <Method name="inserir" returnType="String" visibility="private">
+          <Argument type="ModeloEmpresa" name="mEmpresa"/>
+        </Method>
+        <Method name="atualizar" returnType="String" visibility="private">
+          <Argument type="ModeloEmpresa" name="mEmpresa"/>
+        </Method>
+        <Method name="getUltimoID" returnType="String" visibility="private"/>
+        <Method name="excluir" returnType="boolean" visibility="public">
+          <Argument type="int" name="codEmpresa"/>
+        </Method>
+        <Method name="zerarHistorico" returnType="String" visibility="public">
+          <Argument type="ModeloEmpresa" name="mEmpresa"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DadosImpExp" package="Dados" visibility="public" xPosition="20.0" yPosition="293.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="importarDados" returnType="boolean" visibility="public">
+          <Argument type="ArrayList&lt;ModeloImpExp&gt;" name="lImportar"/>
+          <Argument type="tipoRelatorio" name="tRelatorio"/>
+        </Method>
+        <Method name="selecionarTipoRelatorio" returnType="HashMap" visibility="private">
+          <Argument type="tipoRelatorio" name="tRelatorio"/>
+        </Method>
+        <Method name="inserirDados" returnType="boolean" visibility="private">
+          <Argument type="HashMap" name="hDadosTabela"/>
+          <Argument type="ArrayList&lt;ModeloImpExp&gt;" name="lImportar"/>
+        </Method>
+        <Method name="atualizarIndiceImportado" returnType="void" visibility="private">
+          <Argument type="String" name="sIndice"/>
+          <Argument type="int" name="iEmpresa_ID"/>
+        </Method>
+        <Method name="calcularPCT" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DadosManipulacao" package="Dados" visibility="public" xPosition="116.0" yPosition="499.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="Selecionar" returnType="ResultSet" visibility="public">
+          <Argument type="String" name="sQuery"/>
+        </Method>
+        <Method name="Alterar" returnType="boolean" visibility="public">
+          <Argument type="String" name="sQuery"/>
+        </Method>
+        <Method name="Excluir" returnType="boolean" visibility="public">
+          <Argument type="String" name="sQuery"/>
+        </Method>
+        <Method name="Inserir" returnType="boolean" visibility="public">
+          <Argument type="String" name="sQuery"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DadosPesquisar" package="Dados" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="sqlPesquisar" returnType="String" visibility="private">
+          <Argument type="ModeloPesquisar" name="mPesquisar"/>
+        </Method>
+        <Method name="carregarTabela" returnType="HashMap" visibility="public">
+          <Argument type="ModeloPesquisar" name="mPesquisar"/>
+        </Method>
+        <Method name="proximaLinha" returnType="Vector" visibility="private">
+          <Argument type="ResultSet" name="rs"/>
+          <Argument type="ResultSetMetaData" name="rsmd"/>
+        </Method>
+        <Method name="selecionar" returnType="ArrayList&lt;String&gt;" visibility="public">
+          <Argument type="Object" name="oCampo"/>
+          <Argument type="String" name="sCodigo"/>
+          <Argument type="String" name="sTabela"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CreateModel" package="Modelo" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields>
+        <Field name="_model" type="T" visibility="private" isFinal="true"/>
+        <Field name="_searchOption" type="String" visibility="private"/>
+        <Field name="_search" type="Object" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="T" name="model"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="T" name="model"/>
+          <Argument type="String" name="searchOption"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="Vector" name="model"/>
+        </Method>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="List" name="model"/>
+        </Method>
+        <Method name="getModel" returnType="T" visibility="public"/>
+        <Method name="searchOption" returnType="String" visibility="public"/>
+        <Method name="getSearch" returnType="Object" visibility="public"/>
+        <Method name="setSearch" returnType="void" visibility="public">
+          <Argument type="Object" name="_search"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloEmpresa" package="Modelo" visibility="public" xPosition="1220.0" yPosition="420.0">
+      <Fields>
+        <Field name="iEmpresa_ID" type="int" visibility="private"/>
+        <Field name="sRazao_Social" type="String" visibility="private"/>
+        <Field name="sNome_Fantasia" type="String" visibility="private"/>
+        <Field name="sCNPJ" type="String" visibility="private"/>
+        <Field name="sAtividade" type="String" visibility="private"/>
+        <Field name="cBPP" type="String" visibility="private"/>
+        <Field name="cBPA" type="String" visibility="private"/>
+        <Field name="cDRE" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+          <Argument type="String" name="sRazao_Social"/>
+          <Argument type="String" name="sNome_Fantasia"/>
+          <Argument type="String" name="sCNPJ"/>
+          <Argument type="String" name="sAtividade"/>
+          <Argument type="String" name="cBPA"/>
+          <Argument type="String" name="cBPP"/>
+          <Argument type="String" name="cDRE"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setEmpresa_ID" returnType="void" visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+        </Method>
+        <Method name="setRazao_Social" returnType="void" visibility="public">
+          <Argument type="String" name="sRazao_Social"/>
+        </Method>
+        <Method name="setNome_Fantasia" returnType="void" visibility="public">
+          <Argument type="String" name="sNome_Fantasia"/>
+        </Method>
+        <Method name="setCNPJ" returnType="void" visibility="public">
+          <Argument type="String" name="sCNPJ"/>
+        </Method>
+        <Method name="setAtividade" returnType="void" visibility="public">
+          <Argument type="String" name="sAtividade"/>
+        </Method>
+        <Method name="getEmpresa_ID" returnType="int" visibility="public"/>
+        <Method name="getRazao_Social" returnType="String" visibility="public"/>
+        <Method name="getNome_Fantasia" returnType="String" visibility="public"/>
+        <Method name="getCNPJ" returnType="String" visibility="public"/>
+        <Method name="getAtividade" returnType="String" visibility="public"/>
+        <Method name="getKey" returnType="Object" visibility="public"/>
+        <Method name="setKey" returnType="void" visibility="public">
+          <Argument type="Object" name="_Key"/>
+        </Method>
+        <Method name="Get" returnType="ModeloEmpresa" visibility="public">
+          <Argument type="Vector" name="model"/>
+        </Method>
+        <Method name="parseVector" returnType="Vector" visibility="public"/>
+        <Method name="Get" returnType="ModeloEmpresa" visibility="public">
+          <Argument type="List" name="model"/>
+        </Method>
+        <Method name="getBPP" returnType="String" visibility="public"/>
+        <Method name="setBPP" returnType="void" visibility="public">
+          <Argument type="String" name="cBPP"/>
+        </Method>
+        <Method name="getBPA" returnType="String" visibility="public"/>
+        <Method name="setBPA" returnType="void" visibility="public">
+          <Argument type="String" name="cBPA"/>
+        </Method>
+        <Method name="getDRE" returnType="String" visibility="public"/>
+        <Method name="setDRE" returnType="void" visibility="public">
+          <Argument type="String" name="cDRE"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloImpExp" package="Modelo" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Fields>
+        <Field name="iEmpresa_ID" type="int" visibility="private"/>
+        <Field name="sConta" type="String" visibility="private"/>
+        <Field name="sDescricao" type="String" visibility="private"/>
+        <Field name="sPeriodo_1" type="String" visibility="private"/>
+        <Field name="sPeriodo_2" type="String" visibility="private"/>
+        <Field name="sPeriodo_3" type="String" visibility="private"/>
+        <Field name="dValor_1" type="String" visibility="private"/>
+        <Field name="dValor_2" type="String" visibility="private"/>
+        <Field name="dValor_3" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+          <Argument type="String" name="sConta"/>
+          <Argument type="String" name="sDescricao"/>
+          <Argument type="String" name="sPeriodo_1"/>
+          <Argument type="String" name="sPeriodo_2"/>
+          <Argument type="String" name="sPeriodo_3"/>
+          <Argument type="String" name="dValor_1"/>
+          <Argument type="String" name="dValor_2"/>
+          <Argument type="String" name="dValor_3"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setEmpresa_ID" returnType="void" visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+        </Method>
+        <Method name="setConta" returnType="void" visibility="public">
+          <Argument type="String" name="sConta"/>
+        </Method>
+        <Method name="setDescricao" returnType="void" visibility="public">
+          <Argument type="String" name="sDescricao"/>
+        </Method>
+        <Method name="setPeriodo_1" returnType="void" visibility="public">
+          <Argument type="String" name="sPeriodo_1"/>
+        </Method>
+        <Method name="setPeriodo_2" returnType="void" visibility="public">
+          <Argument type="String" name="sPeriodo_2"/>
+        </Method>
+        <Method name="setPeriodo_3" returnType="void" visibility="public">
+          <Argument type="String" name="sPeriodo_3"/>
+        </Method>
+        <Method name="setValor_1" returnType="void" visibility="public">
+          <Argument type="String" name="dValor_1"/>
+        </Method>
+        <Method name="setValor_2" returnType="void" visibility="public">
+          <Argument type="String" name="dValor_2"/>
+        </Method>
+        <Method name="setValor_3" returnType="void" visibility="public">
+          <Argument type="String" name="dValor_3"/>
+        </Method>
+        <Method name="getEmpresa_ID" returnType="int" visibility="public"/>
+        <Method name="getConta" returnType="String" visibility="public"/>
+        <Method name="getDescricao" returnType="String" visibility="public"/>
+        <Method name="getPeriodo_1" returnType="String" visibility="public"/>
+        <Method name="getPeriodo_2" returnType="String" visibility="public"/>
+        <Method name="getPeriodo_3" returnType="String" visibility="public"/>
+        <Method name="getValor_1" returnType="String" visibility="public"/>
+        <Method name="getValor_2" returnType="String" visibility="public"/>
+        <Method name="getValor_3" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ModeloIndicadores" package="Modelo" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields>
+        <Field name="iEmpresa_ID" type="int" visibility="private"/>
+        <Field name="mrEndividamento" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
+        <Field name="mrLiquidez" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
+        <Field name="mrRentabilidade" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
+        <Field name="mrPrazosMedios" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrEndividamento"/>
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrLiquidez"/>
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrRentabilidade"/>
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrPrazosMedios"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEmpresa_ID" returnType="int" visibility="public"/>
+        <Method name="setEmpresa_ID" returnType="void" visibility="public">
+          <Argument type="int" name="iEmpresa_ID"/>
+        </Method>
+        <Method name="getEndividamento" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
+        <Method name="setEndividamento" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrEndividamento"/>
+        </Method>
+        <Method name="getLiquidez" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
+        <Method name="setLiquidez" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrLiquidez"/>
+        </Method>
+        <Method name="getRentabilidade" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
+        <Method name="setRentabilidade" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrRentabilidade"/>
+        </Method>
+        <Method name="getMrPrazosMedios" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
+        <Method name="setMrPrazosMedios" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrPrazosMedios"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloPesquisar" package="Modelo" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields>
+        <Field name="sParamentros" type="String" visibility="private"/>
+        <Field name="sTabela" type="String" visibility="private"/>
+        <Field name="sJoin" type="String" visibility="private"/>
+        <Field name="sTipoFiltro" type="String" visibility="private"/>
+        <Field name="sFiltro" type="String" visibility="private"/>
+        <Field name="sCampoFiltro" type="String" visibility="private"/>
+        <Field name="sCondicao" type="String" visibility="private"/>
+        <Field name="mArvore" type="CreateModel" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getParamentros" returnType="String" visibility="public"/>
+        <Method name="setParamentros" returnType="void" visibility="public">
+          <Argument type="String" name="sParamentros"/>
+        </Method>
+        <Method name="getTabela" returnType="String" visibility="public"/>
+        <Method name="setTabela" returnType="void" visibility="public">
+          <Argument type="String" name="sTabela"/>
+        </Method>
+        <Method name="getJoin" returnType="String" visibility="public"/>
+        <Method name="setJoin" returnType="void" visibility="public">
+          <Argument type="String" name="sJoin"/>
+        </Method>
+        <Method name="getTipoFiltro" returnType="String" visibility="public"/>
+        <Method name="setTipoFiltro" returnType="void" visibility="public">
+          <Argument type="String" name="sTipoFiltro"/>
+        </Method>
+        <Method name="getFiltro" returnType="String" visibility="public"/>
+        <Method name="setFiltro" returnType="void" visibility="public">
+          <Argument type="String" name="sFiltro"/>
+        </Method>
+        <Method name="getCampoFiltro" returnType="String" visibility="public"/>
+        <Method name="setCampoFiltro" returnType="void" visibility="public">
+          <Argument type="String" name="sCampoFiltro"/>
+        </Method>
+        <Method name="getCondicao" returnType="String" visibility="public"/>
+        <Method name="setCondicao" returnType="void" visibility="public">
+          <Argument type="String" name="sCondicao"/>
+        </Method>
+        <Method name="getOrderBy" returnType="String" visibility="public"/>
+        <Method name="geModeloArvore" returnType="CreateModel" visibility="public"/>
+        <Method name="setModeloArvore" returnType="void" visibility="public">
+          <Argument type="CreateModel" name="mArvore"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloResultados" package="Modelo" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="sNomeIndicador" type="String" visibility="private"/>
+        <Field name="iAno" type="int" visibility="private"/>
+        <Field name="dIndicador" type="double" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="sNomeIndicador"/>
+          <Argument type="int" name="iAno"/>
+          <Argument type="double" name="dIndicador"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getAno" returnType="int" visibility="public"/>
+        <Method name="setAno" returnType="void" visibility="public">
+          <Argument type="int" name="iAno"/>
+        </Method>
+        <Method name="getIndicador" returnType="double" visibility="public"/>
+        <Method name="setIndicador" returnType="void" visibility="public">
+          <Argument type="double" name="dIndicador"/>
+        </Method>
+        <Method name="getNomeIndicador" returnType="String" visibility="public"/>
+        <Method name="setNomeIndicador" returnType="void" visibility="public">
+          <Argument type="String" name="sNomeIndicador"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloUsuario" package="Modelo" visibility="public" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="sUsuario" type="String" visibility="private"/>
+        <Field name="sSenha" type="String" visibility="private"/>
+        <Field name="sUsuario_ID" type="String" visibility="private"/>
+        <Field name="sUsuario_Nome" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="sUsuario"/>
+          <Argument type="String" name="sSenha"/>
+          <Argument type="String" name="sUsuario_ID"/>
+          <Argument type="String" name="sUsuario_Nome"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getUsuario" returnType="String" visibility="public"/>
+        <Method name="setUsuario" returnType="void" visibility="public">
+          <Argument type="String" name="sUsuario"/>
+        </Method>
+        <Method name="getSenha" returnType="String" visibility="public"/>
+        <Method name="setSenha" returnType="void" visibility="public">
+          <Argument type="String" name="sSenha"/>
+        </Method>
+        <Method name="getUsuario_ID" returnType="String" visibility="public"/>
+        <Method name="setUsuario_ID" returnType="void" visibility="public">
+          <Argument type="String" name="sUsuario_ID"/>
+        </Method>
+        <Method name="getUsuario_Nome" returnType="String" visibility="public"/>
+        <Method name="setUsuario_Nome" returnType="void" visibility="public">
+          <Argument type="String" name="sUsuario_Nome"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Branch" package="Modelo.Tree.Branch" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="_left" type="Branch" visibility="private"/>
+        <Field name="_right" type="Branch" visibility="private"/>
+        <Field name="_father" type="Branch" visibility="private"/>
+        <Field name="_level" type="Integer" visibility="private"/>
+        <Field name="_leaf" type="T" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="T" name="_leaf"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="T" name="_leaf"/>
+          <Argument type="Integer" name="_level"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getLeft" returnType="Branch" visibility="public"/>
+        <Method name="setLeft" returnType="void" visibility="public">
+          <Argument type="Branch" name="_left"/>
+        </Method>
+        <Method name="getRight" returnType="Branch" visibility="public"/>
+        <Method name="setRight" returnType="void" visibility="public">
+          <Argument type="Branch" name="_right"/>
+        </Method>
+        <Method name="getFather" returnType="Branch" visibility="public"/>
+        <Method name="setFather" returnType="void" visibility="public">
+          <Argument type="Branch" name="_father"/>
+        </Method>
+        <Method name="getLevel" returnType="Integer" visibility="public"/>
+        <Method name="setLevel" returnType="void" visibility="public">
+          <Argument type="Integer" name="_level"/>
+        </Method>
+        <Method name="getLeaf" returnType="T" visibility="public"/>
+        <Method name="setLeaf" returnType="void" visibility="public">
+          <Argument type="T" name="_leaf"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="SLeaf" package="Modelo.Tree.Branch.Leaf.String" visibility="public" xPosition="1220.0" yPosition="820.0">
+      <Fields>
+        <Field name="_key" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getKey" returnType="Object" visibility="public"/>
+        <Method name="setKey" returnType="void" visibility="public">
+          <Argument type="Object" name="_Key"/>
+        </Method>
+        <Method name="compare" returnType="int" visibility="public">
+          <Argument type="SLeaf" name="o2"/>
+        </Method>
+        <Method name="inPosition" returnType="boolean" visibility="public">
+          <Argument type="SLeaf" name="sap"/>
+        </Method>
+        <Method name="onLeft" returnType="boolean" visibility="public">
+          <Argument type="SLeaf" name="sap"/>
+        </Method>
+        <Method name="onRight" returnType="boolean" visibility="public">
+          <Argument type="SLeaf" name="sap"/>
+        </Method>
+        <Method name="Get" returnType="SLeaf" visibility="public">
+          <Argument type="Vector" name="model"/>
+        </Method>
+        <Method name="Get" returnType="SLeaf" visibility="public">
+          <Argument type="List" name="model"/>
+        </Method>
+        <Method name="parseVector" returnType="Vector" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Tree" package="Modelo.Tree" visibility="public" xPosition="1520.0" yPosition="820.0">
+      <Fields>
+        <Field name="_trunk" type="Branch&lt;T&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="isEmpty" returnType="boolean" visibility="public"/>
+        <Method name="add" returnType="void" visibility="public">
+          <Argument type="T" name="leaf"/>
+        </Method>
+        <Method name="add" returnType="void" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_father"/>
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+        </Method>
+        <Method name="inOrder" returnType="void" visibility="public"/>
+        <Method name="inOrder" returnType="void" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+          <Argument type="String" name="predescessor"/>
+        </Method>
+        <Method name="preOrder" returnType="void" visibility="public"/>
+        <Method name="preOrder" returnType="void" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+          <Argument type="String" name="predescessor"/>
+        </Method>
+        <Method name="posOrder" returnType="void" visibility="public"/>
+        <Method name="posOrder" returnType="void" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+          <Argument type="String" name="predescessor"/>
+        </Method>
+        <Method name="parseVector" returnType="Vector" visibility="public"/>
+        <Method name="parseVector" returnType="void" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+          <Argument type="Vector" name="treeVector"/>
+        </Method>
+        <Method name="search" returnType="Object" visibility="public">
+          <Argument type="T" name="leaf"/>
+        </Method>
+        <Method name="search" returnType="Object" visibility="public">
+          <Argument type="T" name="leaf"/>
+          <Argument type="Boolean" name="vector"/>
+        </Method>
+        <Method name="search" returnType="T" visibility="protected">
+          <Argument type="Branch&lt;T&gt;" name="_branch"/>
+          <Argument type="T" name="lSearch"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoAutenticacao" package="Visao" visibility="public" xPosition="1820.0" yPosition="820.0">
+      <Fields>
+        <Field name="cAutenticacao" type="ControleAutenticacao" visibility="private"/>
+        <Field name="btnCancelar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnConfirmar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="cboServidor" type="javax.swing.JComboBox&lt;String&gt;" visibility="public"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jTextField1" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextField2" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtSenha" type="javax.swing.JPasswordField" visibility="public"/>
+        <Field name="txtUsuario" type="javax.swing.JTextField" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="cboServidorActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnCancelarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnConfirmarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formWindowOpened" returnType="void" visibility="private">
+          <Argument type="java.awt.event.WindowEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoEmpresa" package="Visao" visibility="public" xPosition="2120.0" yPosition="820.0">
+      <Fields>
+        <Field name="cEmpresa" type="ControleEmpresa" visibility="private"/>
+        <Field name="btnExcluir" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnExportar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnNovo" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnPesquisar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnSalvar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnZerarHistorico" type="javax.swing.JButton" visibility="public"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="txtAtividade" type="javax.swing.JTextField" visibility="public"/>
+        <Field name="txtCNPJ" type="javax.swing.JFormattedTextField" visibility="public"/>
+        <Field name="txtCodEmpresa" type="javax.swing.JTextField" visibility="public"/>
+        <Field name="txtNomeFantasia" type="javax.swing.JTextField" visibility="public"/>
+        <Field name="txtRazaoSocial" type="javax.swing.JTextField" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="txtCodEmpresaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtRazaoSocialActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtNomeFantasiaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="txtAtividadeActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnNovoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formInternalFrameOpened" returnType="void" visibility="private">
+          <Argument type="javax.swing.event.InternalFrameEvent" name="evt"/>
+        </Method>
+        <Method name="btnSalvarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnExcluirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnPesquisarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnExportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formKeyPressed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="formKeyReleased" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="formKeyTyped" returnType="void" visibility="private">
+          <Argument type="java.awt.event.KeyEvent" name="evt"/>
+        </Method>
+        <Method name="btnZerarHistoricoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoImpExp" package="Visao" visibility="public" xPosition="20.0" yPosition="1220.0">
+      <Fields>
+        <Field name="cManipulacao" type="ControleImpExp" visibility="private"/>
+        <Field name="btnExportar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnImportar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnProcurarEmpresa" type="javax.swing.JButton" visibility="public"/>
+        <Field name="btnSelecionar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="cboTipoRelatorio" type="javax.swing.JComboBox&lt;String&gt;" visibility="public"/>
+        <Field name="chkBPA" type="javax.swing.JCheckBox" visibility="public"/>
+        <Field name="chkBPP" type="javax.swing.JCheckBox" visibility="public"/>
+        <Field name="chkDRE" type="javax.swing.JCheckBox" visibility="public"/>
+        <Field name="jComboBox1" type="javax.swing.JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="txtCaminhoArquivo" type="javax.swing.JTextField" visibility="public"/>
+        <Field name="txtCodEmpresa" type="javax.swing.JTextField" visibility="public"/>
+        <Field name="txtDscEmpresa" type="javax.swing.JTextField" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="btnSelecionarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnImportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formInternalFrameOpened" returnType="void" visibility="private">
+          <Argument type="javax.swing.event.InternalFrameEvent" name="evt"/>
+        </Method>
+        <Method name="txtDscEmpresaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnExportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnProcurarEmpresaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoInicio" package="Visao" visibility="public" xPosition="320.0" yPosition="1220.0">
+      <Fields>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jMenu1" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="jMenu2" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="jMenu3" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="jMenu4" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="jMenuBar1" type="javax.swing.JMenuBar" visibility="private"/>
+        <Field name="jMenuBar2" type="javax.swing.JMenuBar" visibility="private"/>
+        <Field name="jMenuBar3" type="javax.swing.JMenuBar" visibility="private"/>
+        <Field name="jToolBar1" type="javax.swing.JToolBar" visibility="public"/>
+        <Field name="mnuAcoes" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="mnuCadEmpresas" type="javax.swing.JMenuItem" visibility="private"/>
+        <Field name="mnuDados" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="mnuImportar" type="javax.swing.JMenuItem" visibility="private"/>
+        <Field name="mnuSair" type="javax.swing.JMenuItem" visibility="private"/>
+        <Field name="mnuTrocarUsuario" type="javax.swing.JMenuItem" visibility="private"/>
+        <Field name="pnlInicio" type="javax.swing.JDesktopPane" visibility="public"/>
+        <Field name="txtDados" type="javax.swing.JTextField" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="mnuAcoesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="mnuSairActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="mnuImportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="mnuCadEmpresasActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="mnuTrocarUsuarioActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="trocarUsuario" returnType="void" visibility="private"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoPesquisar" package="Visao" visibility="public" xPosition="620.0" yPosition="1220.0">
+      <Fields>
+        <Field name="alDados" type="ArrayList&lt;String&gt;" visibility="private"/>
+        <Field name="cPesquisar" type="ControlePesquisar" visibility="private" isFinal="true"/>
+        <Field name="mArvore" type="CreateModel" visibility="private"/>
+        <Field name="btnPesquisar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="cboCampoPesquisa" type="javax.swing.JComboBox&lt;String&gt;" visibility="public"/>
+        <Field name="cboTipoPesquisa" type="javax.swing.JComboBox" visibility="public"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="public"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="tabResultado" type="javax.swing.JTable" visibility="public"/>
+        <Field name="txtFiltro" type="javax.swing.JTextField" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="java.awt.Frame" name="parent"/>
+          <Argument type="boolean" name="modal"/>
+          <Argument type="String" name="paramentros"/>
+          <Argument type="String" name="tabela"/>
+          <Argument type="String" name="join"/>
+          <Argument type="String" name="condicao"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="tabResultadoMouseClicked" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="btnPesquisarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="tabResultadoMouseEntered" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="getDados" returnType="ArrayList&lt;String&gt;" visibility="public"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+        <Method name="getModeloArvore" returnType="CreateModel" visibility="public"/>
+        <Method name="setModeloArvore" returnType="void" visibility="public">
+          <Argument type="CreateModel" name="mArvore"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Interface name="Leaf" package="Modelo.Tree.Branch.Leaf" visibility="public" xPosition="920.0" yPosition="820.0">
+      <Methods>
+        <Method name="getKey" returnType="Object" visibility="public"/>
+        <Method name="setKey" returnType="void" visibility="public">
+          <Argument type="Object" name="_Key"/>
+        </Method>
+        <Method name="compare" returnType="int" visibility="public">
+          <Argument type="T" name="o2"/>
+        </Method>
+        <Method name="inPosition" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="onLeft" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="onRight" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="Vector" name="model"/>
+        </Method>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="List" name="model"/>
+        </Method>
+        <Method name="parseVector" returnType="Vector" visibility="public"/>
+      </Methods>
+    </Interface>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="Controle.ControleEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mArvore" source="Visao.VisaoPesquisar" target="Modelo.CreateModel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cPesquisar" source="Visao.VisaoPesquisar" target="Controle.ControlePesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_right" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dAutenticacao" source="Controle.ControleAutenticacao" target="Dados.DadosAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mrEndividamento" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
+    <HasRelation name="dEmpresa" source="Controle.ControleEmpresa" target="Dados.DadosEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mArvore" source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mrLiquidez" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
+    <IsRelation name="is" source="Modelo.ModeloEmpresa" target="Modelo.Tree.Branch.Leaf.String.SLeaf"/>
+    <UseRelation source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.String.SLeaf" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Tree.Tree" target="Modelo.Tree.Branch.Branch" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mrPrazosMedios" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
+    <UseRelation source="Controle.ControleAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vEmpresa" source="Controle.ControleEmpresa" target="Visao.VisaoEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_left" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cEmpresa" source="Visao.VisaoEmpresa" target="Controle.ControleEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Dados.DadosManipulacao" target="Dados.DadosConexao"/>
+    <HasRelation name="_father" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mEmpresa" source="Dados.DadosEmpresa" target="Modelo.ModeloEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cAutenticacao" source="Visao.VisaoAutenticacao" target="Controle.ControleAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cManipulacao" source="Visao.VisaoImpExp" target="Controle.ControleImpExp" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conn" source="App.AppFinanceiro" target="Dados.DadosManipulacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Visao.VisaoPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vAutenticacao" source="Controle.ControleAutenticacao" target="Visao.VisaoAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vImportar" source="Controle.ControleImpExp" target="Visao.VisaoImpExp" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vPesquisar" source="Controle.ControlePesquisar" target="Visao.VisaoPesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosPesquisar" target="Modelo.ModeloPesquisar" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.Leaf"/>
+    <UseRelation source="Dados.DadosEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Controle.ControleImpExp" target="Modelo.ModeloIndicadores" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mrRentabilidade" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
+    <UseRelation source="Dados.DadosImpExp" target="Modelo.ModeloImpExp" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Controle.ControleImpExp" target="Modelo.ModeloImpExp" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
