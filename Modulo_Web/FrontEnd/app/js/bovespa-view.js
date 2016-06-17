@@ -159,56 +159,7 @@ bovespa.object.extend(bovespa, {
                                         }
                                     }); /* LER OBJETO É SUBSTITUI NO HTML, COM NAMESPACE CORREPONDENTE DO OBJETO NO HTML */
 
-                                    bovespa.config.chart.themes().Indebtedness().Pct();/* TEMA DO CHART */
-                                    bovespa._plugin_.JQuery('#graphic-pct').highcharts({
-                                        chart: {
-                                            type: 'area'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            allowDecimals: false,
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value; // clean, unformatted number for year
-                                                }
-                                            }
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value.formatMoney(2, ',', '.') + '%';
-                                                }
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            bar: {
-                                                pointStart: model.pct().year(),
-                                                marker: {
-                                                    enabled: false,
-                                                    symbol: 'circle',
-                                                    radius: 2,
-                                                    states: {
-                                                        hover: {
-                                                            enabled: true
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        series: model.pct().results_data()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
+
                                     bovespa.JLib("table-pct").table({
                                         columns: [
                                             {
@@ -238,57 +189,133 @@ bovespa.object.extend(bovespa, {
                                         ],
                                         model: model.pct().results()
                                     }); /* CONSTRUÇÃO DA TABLE */
-
-                                    bovespa.config.chart.themes().Indebtedness().Ce();/* TEMA DO CHART */
-                                    bovespa._plugin_.JQuery('#graphic-ce').highcharts({
-                                        chart: {
-                                            type: 'area'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            allowDecimals: false,
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value; // clean, unformatted number for year
-                                                }
-                                            }
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value.formatMoney(2, ',', '.') + '%';
-                                                }
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            area: {
-                                                pointStart: model.ce().year(),
-                                                marker: {
-                                                    enabled: false,
-                                                    symbol: 'circle',
-                                                    radius: 2,
-                                                    states: {
-                                                        hover: {
-                                                            enabled: true
+                                    bovespa.JLib("card-graphic-pct").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa.config.chart.themes().Indebtedness().Pct();/* TEMA DO CHART */
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'area'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    allowDecimals: false,
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value; // clean, unformatted number for year
                                                         }
                                                     }
-                                                }
-                                            }
-                                        },
-                                        series: model.ce().results_data()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + '%';
+                                                        }
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:black;padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    area: {
+                                                        pointStart: model.pct().year(),
+                                                        marker: {
+                                                            enabled: false,
+                                                            symbol: 'circle',
+                                                            radius: 2,
+                                                            states: {
+                                                                hover: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                series: model.pct().results_data()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-ce").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa.config.chart.themes().Indebtedness().Ce();/* TEMA DO CHART */
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'area'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    allowDecimals: false,
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value; // clean, unformatted number for year
+                                                        }
+                                                    }
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + '%';
+                                                        }
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:black;padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    area: {
+                                                        pointStart: model.ce().year(),
+                                                        marker: {
+                                                            enabled: false,
+                                                            symbol: 'circle',
+                                                            radius: 2,
+                                                            states: {
+                                                                hover: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                series: model.ce().results_data()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
                                     bovespa.JLib("table-ce").table({
                                         columns: [
                                             {
@@ -319,56 +346,69 @@ bovespa.object.extend(bovespa, {
                                         model: model.ce().results()
                                     });/* CONSTRUÇÃO DA TABLE */
 
-                                    bovespa.config.chart.themes().Indebtedness().Ipl();/* TEMA DO CHART */
-                                    bovespa._plugin_.JQuery('#graphic-ipl').highcharts({
-                                        chart: {
-                                            type: 'bar'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            allowDecimals: false,
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value; // clean, unformatted number for year
-                                                }
-                                            }
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            labels: {
-                                                formatter: function () {
-                                                    return this.value.formatMoney(2, ',', '.') + '%';
-                                                }
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            bar: {
-                                                pointStart: model.ipl().year(),
-                                                marker: {
-                                                    enabled: false,
-                                                    symbol: 'circle',
-                                                    radius: 2,
-                                                    states: {
-                                                        hover: {
-                                                            enabled: true
+                                    bovespa.JLib("card-graphic-ipl").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa.config.chart.themes().Indebtedness().Ipl();/* TEMA DO CHART */
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'bar'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    allowDecimals: false,
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value; // clean, unformatted number for year
                                                         }
                                                     }
-                                                }
-                                            }
-                                        },
-                                        series: model.ipl().results_data()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + '%';
+                                                        }
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:black;padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    bar: {
+                                                        pointStart: model.ipl().year(),
+                                                        marker: {
+                                                            enabled: false,
+                                                            symbol: 'circle',
+                                                            radius: 2,
+                                                            states: {
+                                                                hover: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                series: model.ipl().results_data()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
                                     bovespa.JLib("table-ipl").table({
                                         columns: [
                                             {
@@ -398,7 +438,6 @@ bovespa.object.extend(bovespa, {
                                         ],
                                         model: model.ipl().results()
                                     });/* CONSTRUÇÃO DA TABLE */
-
 
                                     bovespa.menu.register([{
                                             name: 'bovespa-indebtedness-pct',
@@ -699,158 +738,212 @@ bovespa.object.extend(bovespa, {
                                 render: function (model) {
                                     bovespa.config.chart.themes().Liquidity();/* TEMA DO CHART */
 
-                                    bovespa._plugin_.JQuery('#card-graphic-lg').highcharts({
-                                        chart: {
-                                            type: 'column'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        subtitle: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            categories: [
-                                                'Liquidez Geral'
-                                            ],
-                                            crosshair: true
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0
-                                            }
-                                        },
-                                        series: model.lg().results()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-lc').highcharts({
-                                        chart: {
-                                            type: 'column'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        subtitle: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            categories: [
-                                                'Índice De Liquidez Corrente'
-                                            ],
-                                            crosshair: true
-                                        }, tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0
-                                            }
-                                        },
-                                        series: model.ilc().results()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-ls').highcharts({
-                                        chart: {
-                                            type: 'column'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        subtitle: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            categories: [
-                                                'Índice De Liquidez Seca'
-                                            ],
-                                            crosshair: true
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: ''
-                                            }
-                                        }, tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0
-                                            }
-                                        },
-                                        series: model.ils().results()
-                                    }); /* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-ccl').highcharts({
-                                        chart: {
-                                            type: 'column'
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        subtitle: {
-                                            text: ''
-                                        },
-                                        xAxis: {
-                                            categories: [
-                                                'Capital Circulante Líquido'
-                                            ],
-                                            crosshair: true
-                                        },
-                                        yAxis: {
-                                            min: 0,
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
-                                            pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
-                                            footerFormat: ' ',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        plotOptions: {
-                                            column: {
-                                                pointPadding: 0.2,
-                                                borderWidth: 0
-                                            }
-                                        },
-                                        series: model.ccl().results()
-                                    });/* CONSTRUÇÃO DO HIGHCHARTS */
+                                    bovespa.JLib("card-graphic-lg").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                subtitle: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    categories: [
+                                                        'Liquidez Geral'
+                                                    ],
+                                                    crosshair: true
+                                                },
+                                                yAxis: {
+                                                    min: 0,
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    column: {
+                                                        pointPadding: 0.2,
+                                                        borderWidth: 0
+                                                    }
+                                                },
+                                                series: model.lg().results()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
 
-                                    bovespa.JLib(".highcharts-legend-item").remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                    bovespa.JLib(this.self).replace({
-                                        tag: "text",
-                                        to: '',
-                                        from: "Highcharts.com"
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-lc").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                subtitle: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    categories: [
+                                                        'Liquidez Geral'
+                                                    ],
+                                                    crosshair: true
+                                                },
+                                                yAxis: {
+                                                    min: 0,
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    column: {
+                                                        pointPadding: 0.2,
+                                                        borderWidth: 0
+                                                    }
+                                                },
+                                                series: model.ilc().results()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-ls").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                subtitle: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    categories: [
+                                                        'Liquidez Geral'
+                                                    ],
+                                                    crosshair: true
+                                                },
+                                                yAxis: {
+                                                    min: 0,
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    column: {
+                                                        pointPadding: 0.2,
+                                                        borderWidth: 0
+                                                    }
+                                                },
+                                                series: model.ils().results()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-ccl").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'column'
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                subtitle: {
+                                                    text: ''
+                                                },
+                                                xAxis: {
+                                                    categories: [
+                                                        'Liquidez Geral'
+                                                    ],
+                                                    crosshair: true
+                                                },
+                                                yAxis: {
+                                                    min: 0,
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br>',
+                                                    pointFormat: '<div style="color:{series.color};padding:0">{series.name}: <span style="padding:0"><b> {point.y:.2f} </b> </span></div>',
+                                                    footerFormat: ' ',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                plotOptions: {
+                                                    column: {
+                                                        pointPadding: 0.2,
+                                                        borderWidth: 0
+                                                    }
+                                                },
+                                                series: model.ccl().results()
+                                            }); /* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
                                     });
 
                                     this['inject-json']({
@@ -1143,136 +1236,188 @@ bovespa.object.extend(bovespa, {
                                 render: function (model) {
                                     bovespa.config.chart.themes().Profitability(); /* TEMA DO CHART */
 
-                                    bovespa._plugin_.JQuery('#card-graphic-ga').highcharts({
-                                        chart: {
-                                            type: 'bar'
-                                        },
-                                        xAxis: {
-                                            categories: model.ga().categories(),
-                                            title: {
-                                                text: null
-                                            }
-                                        },
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
-                                            pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
-                                                    '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
-                                            footerFormat: '</table>',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        series: model.ga().results()
-                                    });/* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-ml').highcharts({
-                                        chart: {
-                                            type: 'bar'
-                                        },
-                                        xAxis: {
-                                            categories: model.ml().categories(),
-                                            title: {
-                                                text: null
-                                            }
-                                        },
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
-                                            pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
-                                                    '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
-                                            footerFormat: '</table>',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        series: model.ml().results()
-                                    });/* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-ra').highcharts({
-                                        chart: {
-                                            type: 'bar'
-                                        },
-                                        xAxis: {
-                                            categories: model.ra().categories(),
-                                            title: {
-                                                text: null
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
-                                            pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
-                                                    '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
-                                            footerFormat: '</table>',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        series: model.ra().results()
-                                    });/* CONSTRUÇÃO DO HIGHCHARTS */
-                                    bovespa._plugin_.JQuery('#card-graphic-rpl').highcharts({
-                                        chart: {
-                                            type: 'bar'
-                                        },
-                                        xAxis: {
-                                            categories: model.rpl().categories(),
-                                            title: {
-                                                text: null
-                                            }
-                                        },
-                                        tooltip: {
-                                            headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
-                                            pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
-                                                    '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
-                                            footerFormat: '</table>',
-                                            shared: true,
-                                            useHTML: true
-                                        },
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            }
-                                        },
-                                        series: model.rpl().results()
-                                    });/* CONSTRUÇÃO DO HIGHCHARTS */
+                                    bovespa.JLib("card-graphic-ga").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'bar'
+                                                },
+                                                xAxis: {
+                                                    categories: model.ga().categories(),
+                                                    title: {
+                                                        text: null
+                                                    }
+                                                },
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
+                                                    pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
+                                                            '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
+                                                    footerFormat: '</table>',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                series: model.ga().results()
+                                            });/* CONSTRUÇÃO DO HIGHCHARTS */
 
-                                    bovespa.JLib(".highcharts-legend-item").remove();  /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                    bovespa.JLib(this.self).replace({
-                                        tag: "text",
-                                        to: '',
-                                        from: "Highcharts.com"
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-ml").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'bar'
+                                                },
+                                                xAxis: {
+                                                    categories: model.ga().categories(),
+                                                    title: {
+                                                        text: null
+                                                    }
+                                                },
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
+                                                    pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
+                                                            '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
+                                                    footerFormat: '</table>',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                series: model.ml().results()
+                                            });/* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-ra").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'bar'
+                                                },
+                                                xAxis: {
+                                                    categories: model.ga().categories(),
+                                                    title: {
+                                                        text: null
+                                                    }
+                                                },
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
+                                                    pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
+                                                            '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
+                                                    footerFormat: '</table>',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                series: model.ra().results()
+                                            });/* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+
+                                    bovespa.JLib("card-graphic-rpl").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                chart: {
+                                                    type: 'bar'
+                                                },
+                                                xAxis: {
+                                                    categories: model.ga().categories(),
+                                                    title: {
+                                                        text: null
+                                                    }
+                                                },
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                tooltip: {
+                                                    headerFormat: '<span style="font-size:10px">{point.key}</span><br><table>',
+                                                    pointFormat: '<tr> <td style="color:{series.color};padding:0">Resultados: </td>' +
+                                                            '          <td style="padding:0"><b> {point.y:.2f} </b> <br> </td></tr>',
+                                                    footerFormat: '</table>',
+                                                    shared: true,
+                                                    useHTML: true
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    }
+                                                },
+                                                series: model.rpl().results()
+                                            });/* CONSTRUÇÃO DO HIGHCHARTS */
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
                                     });
 
                                     this['inject-json']({
@@ -1489,83 +1634,155 @@ bovespa.object.extend(bovespa, {
 
                                     bovespa.config.chart.themes().Midterm();
 
-                                    bovespa._plugin_.JQuery('#card-graphic-pme').highcharts({
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            plotLines: model.pme().plotLines()
-                                        },
-                                        series: model.pme().results()
-                                    });
-                                    bovespa._plugin_.JQuery('#card-graphic-pmr').highcharts({
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            plotLines: model.pmr().plotLines()
-                                        },
-                                        series: model.pmr().results()
-                                    });
-                                    bovespa._plugin_.JQuery('#card-graphic-pmp').highcharts({
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            plotLines: model.pmp().plotLines()
-                                        },
-                                        series: model.pmp().results()
-                                    });
-                                    bovespa._plugin_.JQuery('#card-graphic-cf').highcharts({
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            plotLines: model.cf().plotLines()
-                                        },
-                                        series: model.cf().results()
-                                    });
-                                    bovespa._plugin_.JQuery('#card-graphic-co').highcharts({
-                                        rangeSelector: {
-                                            selected: 1
-                                        },
-                                        title: {
-                                            text: ''
-                                        },
-                                        yAxis: {
-                                            title: {
-                                                text: ''
-                                            },
-                                            plotLines: model.co().plotLines()
-                                        },
-                                        series: model.co().results()
-                                    });
+                                    bovespa.JLib("card-graphic-pme").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    plotLines: model.pme().plotLines()
+                                                },
+                                                series: model.pme().results()
+                                            });
 
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+                                    
+                                    bovespa.JLib("card-graphic-pmr").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    plotLines: model.pmr().plotLines()
+                                                },
+                                                series: model.pmr().results()
+                                            });
 
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+                                    
+                                    bovespa.JLib("card-graphic-pmp").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    plotLines: model.pmp().plotLines()
+                                                },
+                                                series: model.pmp().results()
+                                            });
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+                                    
+                                    bovespa.JLib("card-graphic-cf").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    plotLines: model.cf().plotLines()
+                                                },
+                                                series: model.cf().results()
+                                            });
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
+                                    
+                                    bovespa.JLib("card-graphic-co").frame({
+                                        src: 'app/views/charts.html',
+                                        width: '100%',
+                                        height: '500px',
+                                        onReady: function (e) {
+                                            bovespa._plugin_.JQuery(this.body).highcharts({
+                                                rangeSelector: {
+                                                    selected: 1
+                                                },
+                                                title: {
+                                                    text: ''
+                                                },
+                                                yAxis: {
+                                                    title: {
+                                                        text: ''
+                                                    },
+                                                    plotLines: model.co().plotLines()
+                                                },
+                                                series: model.co().results()
+                                            });
+
+                                            bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
+                                            bovespa.JLib(this.body).replace({
+                                                tag: "text",
+                                                to: '',
+                                                from: "Highcharts.com"
+                                            });
+                                        }
+                                    });
 
                                     bovespa.JLib(this.self).replace({
                                         tag: "text",

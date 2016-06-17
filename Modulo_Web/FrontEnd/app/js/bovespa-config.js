@@ -934,24 +934,3 @@ bovespa.object.extend(bovespa, {
         }
     }
 });
-
-bovespa.object.extend(bovespa.config, {
-    mnu: {
-        'bovespa-liquidity': {
-            items: 3,
-            'min-heigt': '3.590em'
-        },
-        'bovespa-indebtedness': {
-            items: 3,
-            'min-heigt': '3.590em'
-        },
-        'bovespa-profitability': {
-            items: 4,
-            'min-heigt': '3.590em'
-        },
-        'bovespa-midterm': {
-            items: 4,
-            'min-heigt': '3.590em'
-        }
-    }
-});
