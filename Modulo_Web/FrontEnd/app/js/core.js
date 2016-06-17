@@ -257,20 +257,22 @@
 
         /* ################### BIBLIOTECA DE MANIPULAÇÃO DE DOCUMENTOS E ESTILO HTML #################### */
         sys_core.object.extend(sys_core, {
-            JLib: function JLib(prototype) {
+            JLib: function JLib(prototype, doc) {
                 var _element;
+                var  doc  = doc || document;
+                
                 sys_core.object.extend(this, {
                     query: function (qr) {
-                        var nodeList = document.getElementsByTagName('*');
+                        var nodeList = doc.getElementsByTagName('*');
                         var nodeArray = [];
                         var iterator = 0;
                         var node = null;
-                        
-                        if(qr.trim() == ''){
+
+                        if (qr.trim() == '') {
                             return nodeArray;
                         }
-                        
-                        
+
+
                         var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
                         var queryValue = qr.substring(1);
                         while (node = nodeList[iterator++]) {
@@ -370,20 +372,20 @@
                         el: prototype
                     });
                 } else {
-                    if (document.getElementById(prototype) != undefined) {
+                    if (doc.getElementById(prototype) != undefined) {
                         sys_core.object.extend(_element, {
                             type: 'id',
-                            el: document.getElementById(prototype)
+                            el: doc.getElementById(prototype)
                         });
-                    } else if (document.getElementsByName(prototype) != undefined && document.getElementsByName(prototype).length != 0) {
+                    } else if (doc.getElementsByName(prototype) != undefined && doc.getElementsByName(prototype).length != 0) {
                         sys_core.object.extend(_element, {
                             type: 'name',
-                            el: document.getElementsByName(prototype)
+                            el: doc.getElementsByName(prototype)
                         });
-                    } else if (document.getElementsByTagName(prototype) != undefined && document.getElementsByTagName(prototype).length != 0) {
+                    } else if (doc.getElementsByTagName(prototype) != undefined && doc.getElementsByTagName(prototype).length != 0) {
                         sys_core.object.extend(_element, {
                             type: 'tag',
-                            el: document.getElementsByTagName(prototype)
+                            el: doc.getElementsByTagName(prototype)
                         });
                     } else {
                         sys_core.object.extend(_element, {
@@ -989,6 +991,27 @@
                             }
                         });
 
+                    },
+                    frame: function (settings) {
+                        var _Frame = {
+                            _self: null
+                        };
+
+                        _Frame._self = this;
+                        _Frame._render = _Frame._self.create_element('iframe');
+                        _Frame._render.attr('height', settings.height);
+                        _Frame._render.attr('width', settings.width);
+                        _Frame._render.attr('src', settings.src);
+                        _Frame._render.attr('frameborder', "0");
+                        _Frame._render.mark_component(['frame', sys_core.newID('frame')]);
+                        _Frame._render.attr('id', sys_core.newID('frame'));
+                        _Frame._render.event('load', function () {
+                            var y = (this.contentWindow || this.contentDocument);
+                            settings.onReady.apply({
+                                doc: y.document,
+                                body: y.document.body
+                            });
+                        });
                     }
                 };
             }
@@ -1939,7 +1962,7 @@
                             bovespa.component(_object);
                         }
                     };
-                    
+
                     window.removeEventListener('Event', _object['_chrome_event']);
                     window.addEventListener('Event', _object['_chrome_event']);
 
@@ -2500,6 +2523,9 @@
         sys_core.object.extend(sys_core.storage, {
             get: function (stName) {
                 return  sessionStorage[stName];
+            },
+            getJson: function (stName) {
+                return   JSON.parse(sessionStorage[stName]);
             },
             exists: function (stName) {
                 return !(!sessionStorage.getItem(stName));
