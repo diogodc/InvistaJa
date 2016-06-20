@@ -1,5 +1,6 @@
 package Controle;
 
+import static App.AppFinanceiro.conn;
 import static App.AppFinanceiro.converteObjetoParaJson;
 import static App.AppFinanceiro.gravarArquivo;
 import App.AppFinanceiro.tipoRelatorio;
@@ -13,6 +14,7 @@ import Visao.VisaoImpExp;
 import Visao.VisaoPesquisar;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -20,9 +22,11 @@ import javax.swing.JOptionPane;
 public class ControleImpExp {
 
     private final VisaoImpExp vImportar;
+    private final DadosImpExp dImpExp;
 
     public ControleImpExp(VisaoImpExp vImportar) {
         this.vImportar = vImportar;
+        this.dImpExp = new DadosImpExp();
     }
 
     private boolean lerArquivo() throws Exception {
@@ -276,27 +280,12 @@ public class ControleImpExp {
     
     public boolean exportar() throws Exception{
         try{
-            if (this.calcularIndicadores()){
-                return gravarArquivo("json_Bovespa.json",converteObjetoParaJson(this.gerarIndicadores()));
+            if (dImpExp.calcularIndicadores(Integer.parseInt(this.vImportar.txtCodEmpresa.getText().trim()),
+                    "2013", "2014", "2015")){
+                return gravarArquivo("json_Bovespa.json",
+                        converteObjetoParaJson(dImpExp.gerarIndicadores()));
             }
             return false;
-        }catch (Exception ex) {
-            throw ex;
-        }
-    }
-    
-    private boolean calcularIndicadores(){
-        try{
-            
-            return false;
-        }catch (Exception ex) {
-            throw ex;
-        }
-    }
-    
-    private ArrayList<ModeloIndicadores> gerarIndicadores(){
-        try{
-            return new ArrayList<ModeloIndicadores>();
         }catch (Exception ex) {
             throw ex;
         }

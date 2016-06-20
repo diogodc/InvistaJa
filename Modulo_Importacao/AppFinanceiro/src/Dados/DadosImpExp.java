@@ -3,6 +3,8 @@ package Dados;
 import static App.AppFinanceiro.conn;
 import App.AppFinanceiro.tipoRelatorio;
 import Modelo.ModeloImpExp;
+import Modelo.ModeloIndicadores;
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -122,10 +124,25 @@ public class DadosImpExp {
         }
     }
     
-    public void calcularPCT(){
+    public boolean calcularIndicadores(int iEmpresa_ID, String sAno1, 
+            String sAno2, String sAno3) throws Exception{
         try{
-            
-        }catch(Exception ex){
+            CallableStatement  cs = conn.getConnection().prepareCall("{call BVSP_SP_INDICADORES(?,?,?,?)}");
+            cs.setInt(1,iEmpresa_ID);
+            cs.setString(2, sAno1);
+            cs.setString(3, sAno2);
+            cs.setString(4, sAno3);
+            cs.execute();         
+            return false;
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    public ArrayList<ModeloIndicadores> gerarIndicadores(){
+        try{
+            return new ArrayList<ModeloIndicadores>();
+        }catch (Exception ex) {
             throw ex;
         }
     }

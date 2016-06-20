@@ -118,4 +118,13 @@ public class DadosConexao {
         }
     }
     
+    public boolean procedure(String sProcedure)throws Exception{
+        try{
+            getStatement().setQueryTimeout(0);
+            getStatement().getConnection().prepareCall(sProcedure);
+            return true;
+        }catch(Exception ex){
+           throw ex; 
+        }
+    }
 }
