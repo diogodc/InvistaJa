@@ -127,15 +127,22 @@ public class DadosImpExp {
     public boolean calcularIndicadores(int iEmpresa_ID, String sAno1, 
             String sAno2, String sAno3) throws Exception{
         try{
-            CallableStatement  cs = conn.getConnection().prepareCall("{call BVSP_SP_INDICADORES(?,?,?,?)}");
-            cs.setInt(1,iEmpresa_ID);
-            cs.setString(2, sAno1);
-            cs.setString(3, sAno2);
-            cs.setString(4, sAno3);
-            cs.execute();         
-            return false;
+            if (iEmpresa_ID == 0){return false;}
+            
+            conn.abrirConexao();
+            
+            CallableStatement  cs = conn.getConnection().prepareCall("{call BVSP_SP_INDICADORES("+ iEmpresa_ID + "," + sAno1 + "," + sAno2 + ","+ sAno3 +")}");
+            //cs.setInt(1,iEmpresa_ID);
+            //cs.setString(2, sAno1);
+            //cs.setString(3, sAno2);
+            //cs.setString(4, sAno3);
+            cs.execute(); 
+            
+            return true;
         }catch (Exception ex) {
             throw ex;
+        }finally{
+            conn.fecharConexao();
         }
     }
     
