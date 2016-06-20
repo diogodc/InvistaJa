@@ -61,7 +61,7 @@ public class DadosImpExp {
             
             if (lImportar.size() == 0){return false;}
             
-            for (int i = 1; i < lImportar.size(); i++){
+            for (int i = 0; i < lImportar.size(); i++){
                 conn.abrirConexao();
 
                 ModeloImpExp mImportar = lImportar.get(i); 

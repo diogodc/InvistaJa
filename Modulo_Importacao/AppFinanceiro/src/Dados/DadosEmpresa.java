@@ -186,13 +186,9 @@ public class DadosEmpresa {
             
             String sRetorno = "";
             
-            if (conn.Excluir("DELETE FROM BVSP_ISF WHERE ID_EMPRESA = " 
+            if (conn.Excluir("DELETE FROM BVSP_INDICADORES WHERE ID_EMPRESA = " 
                     + mEmpresa.getEmpresa_ID())){//Deleta o Indices de situação financeira
-                sRetorno += "-Indices de situação financeira\n";
-            }
-            if (conn.Excluir("DELETE FROM BVSP_IDRENTA WHERE ID_EMPRESA = " 
-                    + mEmpresa.getEmpresa_ID())){//Deleta o Indices de rentabilidade
-                sRetorno += "-Indices de rentabilidade\n";
+                sRetorno += "-Indicadores\n";
             }
             if (conn.Excluir("DELETE FROM BVSP_DRE WHERE ID_EMPRESA = " 
                     + mEmpresa.getEmpresa_ID())){//Deleta o DRE

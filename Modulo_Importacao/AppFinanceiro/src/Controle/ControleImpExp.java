@@ -103,8 +103,7 @@ public class ControleImpExp {
             int iCont = 0;
 
             while ((sLinha = brLeitor.readLine()) != null) {
-                iCont++;
-                if (iCont == 1) {
+                if (iCont == 0) {
                     String[] sVetCelula = sLinha.split(";");
                     lPeriodo.add(sVetCelula[2]);
                     lPeriodo.add(sVetCelula[3]);
@@ -135,6 +134,7 @@ public class ControleImpExp {
                     }
                     lMImportar.add(mImportar);
                 }
+                iCont++;
             }
 
             return lMImportar;
@@ -199,9 +199,20 @@ public class ControleImpExp {
             this.vImportar.txtCodEmpresa.setText(alDados.get(0));
             this.vImportar.txtDscEmpresa.setText(alDados.get(2));
             
-            this.vImportar.chkBPA.setSelected(false);
+            this.vImportar.chkDRE.setSelected(false);
             if (alDados.get(5) != null) {
                 if (alDados.get(5).equals("S")) {
+                    this.vImportar.chkDRE.setSelected(true);
+                } else {
+                    this.vImportar.chkDRE.setSelected(false);
+                }
+            }else{
+                this.vImportar.chkDRE.setSelected(false);
+            }
+            
+            this.vImportar.chkBPA.setSelected(false);
+            if (alDados.get(6) != null) {
+                if (alDados.get(6).equals("S")) {
                     this.vImportar.chkBPA.setSelected(true);
                 } else {
                     this.vImportar.chkBPA.setSelected(false);
@@ -211,25 +222,14 @@ public class ControleImpExp {
             }
             
             this.vImportar.chkBPP.setSelected(false);
-            if (alDados.get(6) != null) {
-                if (alDados.get(6).equals("S")) {
+            if (alDados.get(7) != null) {
+                if (alDados.get(7).equals("S")) {
                     this.vImportar.chkBPP.setSelected(true);
                 } else {
                     this.vImportar.chkBPP.setSelected(false);
                 }
             }else{
                 this.vImportar.chkBPP.setSelected(false);
-            }
-            
-            this.vImportar.chkDRE.setSelected(false);
-            if (alDados.get(7) != null) {
-                if (alDados.get(7).equals("S")) {
-                    this.vImportar.chkDRE.setSelected(true);
-                } else {
-                    this.vImportar.chkDRE.setSelected(false);
-                }
-            }else{
-                this.vImportar.chkDRE.setSelected(false);
             }
         }
     }
