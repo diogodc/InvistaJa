@@ -46,7 +46,7 @@ public class DadosManipulacao extends DadosConexao {
     
     public boolean Procedure(String sQuery) throws Exception{
         try{
-            return alterar(sQuery);
+            return procedure(sQuery);
         }catch(Exception ex){
             throw ex;
         }

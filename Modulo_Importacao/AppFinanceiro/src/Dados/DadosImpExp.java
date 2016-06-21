@@ -2,9 +2,12 @@ package Dados;
 
 import static App.AppFinanceiro.conn;
 import App.AppFinanceiro.tipoRelatorio;
+import Modelo.ModeloEmpresa;
+import Modelo.ModeloGrupo;
 import Modelo.ModeloImpExp;
-import Modelo.ModeloIndicadores;
-import java.sql.CallableStatement;
+import Modelo.ModeloIndicador;
+import Modelo.ModeloResultado;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -124,20 +127,17 @@ public class DadosImpExp {
         }
     }
     
-    public boolean calcularIndicadores(int iEmpresa_ID, String sAno1, 
-            String sAno2, String sAno3) throws Exception{
+    public boolean calcularIndicadores(String sAno1, String sAno2, String sAno3) throws Exception{
         try{
-            if (iEmpresa_ID == 0){return false;}
-            
             conn.abrirConexao();
             
-            CallableStatement  cs = conn.getConnection().prepareCall("{call BVSP_SP_INDICADORES("+ iEmpresa_ID + "," + sAno1 + "," + sAno2 + ","+ sAno3 +")}");
-            //cs.setInt(1,iEmpresa_ID);
-            //cs.setString(2, sAno1);
-            //cs.setString(3, sAno2);
-            //cs.setString(4, sAno3);
-            cs.execute(); 
+            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresa();
             
+            for (int i = 0; i < lmEmpresas.size();i++){
+                ModeloEmpresa mEmpresa = lmEmpresas.get(i);
+                conn.Procedure("{call BVSP_SP_INDICADORES("+ mEmpresa.getEmpresa_ID() + "," + sAno1 + "," + sAno2 + ","+ sAno3 +")}");
+            }
+             
             return true;
         }catch (Exception ex) {
             throw ex;
@@ -146,9 +146,76 @@ public class DadosImpExp {
         }
     }
     
-    public ArrayList<ModeloIndicadores> gerarIndicadores(){
+    public ArrayList<ModeloIndicador> gerarIndicadores() throws Exception{
         try{
-            return new ArrayList<ModeloIndicadores>();
+            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresa();
+            ArrayList<ModeloIndicador> lmIndicadores = new ArrayList<ModeloIndicador>();
+            
+            for (int i = 0; i < lmEmpresas.size();i++){
+                ModeloEmpresa mEmpresa = lmEmpresas.get(i);
+                ModeloIndicador mIndicadores = new ModeloIndicador();
+                
+                mIndicadores.setEmpresa_ID(mEmpresa.getEmpresa_ID());
+                mIndicadores.setEstrutura(this.gerarIndicadoresEstrutura(mEmpresa.getEmpresa_ID()));
+                mIndicadores.setLiquidez(this.gerarIndicadoresLiquidez(mEmpresa.getEmpresa_ID()));
+                mIndicadores.setRentabilidade(this.gerarIndicadoresRentabilidade(mEmpresa.getEmpresa_ID()));
+                mIndicadores.setAtividades(this.gerarIndicadoresAtividade(mEmpresa.getEmpresa_ID()));
+                
+                lmIndicadores.add(mIndicadores);
+            }
+                      
+            return lmIndicadores;
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    
+    private void gerarGrupo(int iEmpresa_ID){
+        try{
+            ModeloGrupo mGrupo = new ModeloGrupo();
+            mGrupo.setGrupo("endividamento");
+            mGrupo.setmIndicador(gerarIndicador(iEmpresa_ID,""));
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    
+    private ModeloIndicador gerarIndicador(int iEmpresa_ID,String sIndice,String sIndicador) throws Exception{
+        try{
+            ModeloIndicador mIndicador = new ModeloIndicador();
+            mIndicador.setIndicador(sIndicador);
+            mIndicador.setLmResultado(this.gerarResultados(iEmpresa_ID,sIndice));
+            return mIndicador;
+        }catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    
+    private ArrayList<ModeloResultado> gerarResultados(int iEmpresa_ID,String sIndice) throws Exception{
+         try{
+            ArrayList<ModeloResultado> lmResultado = new ArrayList<ModeloResultado>();
+            
+            String sSql;
+            
+            sSql =  "SELECT ";
+            sSql += "	BVSP_INDICADORES.ANO, ";
+            sSql += "	BVSP_INDICADORES." + sIndice + " AS INDICADOR ";
+            sSql += "FROM BVSP_INDICADORES ";
+            sSql += "WHERE BVSP_INDICADORES.ID_EMPRESA =" + iEmpresa_ID;  
+            
+            ResultSet rs = conn.Selecionar(sSql);
+            
+            while(rs.next()){
+                ModeloResultado mResultado = new ModeloResultado();
+                mResultado.setAno(rs.getInt("ANO"));
+                mResultado.setValor(rs.getInt("INDICADOR"));
+                lmResultado.add(mResultado);    
+            }
+            
+            return lmResultado;
         }catch (Exception ex) {
             throw ex;
         }

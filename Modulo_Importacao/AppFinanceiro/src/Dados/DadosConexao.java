@@ -5,6 +5,7 @@
  */
 package Dados;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -97,7 +98,7 @@ public class DadosConexao {
         }
     }
     
-    public ResultSet consultar(String sConsulta) throws Exception{
+    protected ResultSet consultar(String sConsulta) throws Exception{
         try{
             getStatement().setQueryTimeout(0);
             setResultSet(getStatement().executeQuery(sConsulta.trim()));
@@ -108,7 +109,7 @@ public class DadosConexao {
         }
     }
     
-    public boolean alterar(String sAlteracao) throws Exception{
+    protected boolean alterar(String sAlteracao) throws Exception{
         try{
             getStatement().setQueryTimeout(0);
             getStatement().execute(sAlteracao.trim());
@@ -118,13 +119,13 @@ public class DadosConexao {
         }
     }
     
-    public boolean procedure(String sProcedure)throws Exception{
+    protected boolean procedure(String sProcedure)throws Exception{
         try{
-            getStatement().setQueryTimeout(0);
-            getStatement().getConnection().prepareCall(sProcedure);
+            CallableStatement  cs = this.getConnection().prepareCall(sProcedure);
+            cs.execute(); 
             return true;
         }catch(Exception ex){
            throw ex; 
         }
-    }
+    }    
 }

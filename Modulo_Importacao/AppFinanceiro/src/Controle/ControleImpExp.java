@@ -7,16 +7,14 @@ import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosEmpresa;
 import Dados.DadosImpExp;
 import Modelo.CreateModel;
-import Modelo.ModeloIndicadores;
+import Modelo.ModeloIndicador;
 import Modelo.ModeloEmpresa;
 import Modelo.ModeloImpExp;
 import Visao.VisaoImpExp;
 import Visao.VisaoPesquisar;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.CallableStatement;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class ControleImpExp {
@@ -38,51 +36,24 @@ public class ControleImpExp {
                 return false;
             }
 
-            DadosImpExp dImportar = new DadosImpExp();
             BufferedReader brLeitor = new BufferedReader(new FileReader(this.vImportar.txtCaminhoArquivo.getText()));
 
             switch (this.vImportar.cboTipoRelatorio.getSelectedIndex()) {
                 case 0:
-                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                    return this.dImpExp.importarDados(manipularArquivo(brLeitor,
                             this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.DRE);
                 case 1:
-                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                    return this.dImpExp.importarDados(manipularArquivo(brLeitor,
                             this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.BPA);
                 default:
-                    return dImportar.importarDados(manipularArquivo(brLeitor,
+                    return this.dImpExp.importarDados(manipularArquivo(brLeitor,
                             this.vImportar.txtCodEmpresa.getText().trim()), tipoRelatorio.BPP);
             }
         } catch (Exception ex) {
             throw ex;
         }
     }
-
-    /*
-    ----Desuso devido a mudança de filtro-----
-    private int getEmpresaSelecionada(JComboBox cboEmpresa) throws Exception{
-        try{
-            String sEmpresa = cboEmpresa.getSelectedItem().toString();
-            String sStringAtual = cboEmpresa.getSelectedItem().toString();
-            String sEmpresa_ID;
-            int iContador = 0;
-            
-            if (sEmpresa.equals("Empresa")){return 0;}
-            
-            while(!sStringAtual.equals("-")){
-                sStringAtual = sEmpresa.substring(iContador,iContador+1);
-                iContador ++;
-                if (sStringAtual.isEmpty()){
-                    return 0;
-                }
-            }
-            
-            sEmpresa_ID = sEmpresa.substring(0, iContador-1);
-            
-            return Integer.valueOf(sEmpresa_ID);
-        }catch(Exception ex){
-            throw ex;
-        }
-    }*/
+    
     private boolean validarArquivo() {
         try {
             if (this.vImportar.txtCaminhoArquivo.getText().trim().isEmpty()) {
@@ -142,24 +113,6 @@ public class ControleImpExp {
             }
 
             return lMImportar;
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
-
-    public void carregarEmpresas(JComboBox cboEmpresa) throws Exception {
-        try {
-            DadosEmpresa dEmpresa = new DadosEmpresa();
-            ArrayList<ModeloEmpresa> lmEmpresa = dEmpresa.carregarEmpresa();
-
-            if (lmEmpresa.isEmpty()) {
-                return;
-            }
-
-            for (int i = 0; i < lmEmpresa.size(); i++) {
-                ModeloEmpresa mEmpresa = lmEmpresa.get(i);
-                cboEmpresa.addItem(mEmpresa.getEmpresa_ID() + "-" + mEmpresa.getRazao_Social());
-            }
         } catch (Exception ex) {
             throw ex;
         }
@@ -240,7 +193,7 @@ public class ControleImpExp {
 
     public void Importar() throws Exception {
         try {
-            if (validaImportar()) {
+            if (this.validaImportar()) {
                 if (this.lerArquivo()) {
                     if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0) {
                         this.vImportar.chkDRE.setSelected(true);
@@ -280,8 +233,11 @@ public class ControleImpExp {
     
     public boolean exportar() throws Exception{
         try{
-            if (dImpExp.calcularIndicadores(Integer.parseInt(this.vImportar.txtCodEmpresa.getText().trim()),
-                    "2013", "2014", "2015")){
+            if (this.vImportar.txtCodEmpresa.getText().isEmpty()){return false;}
+            
+            int iEmpresa_ID = Integer.parseInt(this.vImportar.txtCodEmpresa.getText().trim());
+            
+            if (dImpExp.calcularIndicadores("2013", "2014", "2015")){
                 return gravarArquivo("json_Bovespa.json",
                         converteObjetoParaJson(dImpExp.gerarIndicadores()));
             }
