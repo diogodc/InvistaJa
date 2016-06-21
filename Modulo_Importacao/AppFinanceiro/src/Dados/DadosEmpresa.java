@@ -6,6 +6,7 @@
 package Dados;
 
 import static App.AppFinanceiro.conn;
+import App.AppFinanceiro.tipoEmpresas;
 import Modelo.ModeloEmpresa;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class DadosEmpresa {
         this.mEmpresa = null;
     }
     
-    public ArrayList<ModeloEmpresa> carregarEmpresa() throws Exception{
+    public ArrayList<ModeloEmpresa> carregarEmpresas(tipoEmpresas tEmpresas) throws Exception{
         try{
             conn.abrirConexao();
             
@@ -40,6 +41,21 @@ public class DadosEmpresa {
             sSql +="    BVSP_EMPRESA.CNPJ," ;
             sSql +="    BVSP_EMPRESA.ATIVIDADE " ;
             sSql +=" FROM BVSP_EMPRESA " ;
+            if (tEmpresas == tipoEmpresas.IMPORTADAS){
+                sSql +=" INNER JOIN BVSP_DRE ON BVSP_DRE.ID_EMPRESA = BVSP_EMPRESA.ID_EMPRESA" ;
+                sSql +=" INNER JOIN BVSP_BPA ON BVSP_BPA.ID_EMPRESA = BVSP_EMPRESA.ID_EMPRESA" ;
+                sSql +=" INNER JOIN BVSP_BPP ON BVSP_BPP.ID_EMPRESA = BVSP_EMPRESA.ID_EMPRESA" ; 
+            }
+            if (tEmpresas == tipoEmpresas.CALCULADAS){
+                sSql +=" INNER JOIN BVSP_INDICADORES ON BVSP_INDICADORES.ID_EMPRESA = BVSP_EMPRESA.ID_EMPRESA" ;
+            }
+            if (tEmpresas == tipoEmpresas.CALCULADAS || tEmpresas == tipoEmpresas.IMPORTADAS){
+                sSql +=" GROUP BY BVSP_EMPRESA.ID_EMPRESA," ;
+                sSql +=" BVSP_EMPRESA.RAZAO_SOCIAL,";
+                sSql +=" BVSP_EMPRESA.NOME_FANTASIA,";
+                sSql +=" BVSP_EMPRESA.CNPJ,";
+                sSql +=" BVSP_EMPRESA.ATIVIDADE";
+            }
             
             ResultSet rs = conn.Selecionar(sSql);
             

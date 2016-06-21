@@ -1,372 +1,491 @@
 [
-    {
-        "iEmpresa_ID": "3",
-        "endividamento": {
-            "pct": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 19.8
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 35.6
-                    }
-                ]
-            },
-            "ce": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 79.8
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 85.6
-                    }
-                ]
-            },
-            "ipl": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 79.8
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 35.6
-                    }
-                ]
-            }
-        },
-        "liquidez": {
-            "lg": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": 2.24
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": 0.35
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 1.0
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 0.95
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 0.24
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 0.45
-                    }
-                ]
-            },
-            "ilc": {
-                "resultados": [
-                   {
-                        "ano": 2010,
-                        "indicador": 2.24
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": 0.35
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 1.0
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 0.95
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 0.24
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 0.45
-                    }
-                ]
-            },
-            "ils": {
-                "resultados": [
-                   {
-                        "ano": 2010,
-                        "indicador": 2.24
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": 0.35
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 1.0
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 0.95
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 0.24
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 0.45
-                    }
-                ]
-            },
-            "ccl": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 19.8
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 35.6
-                    }
-                ]
-            }
-        },
-        "rentabilidade": {
-            "ga": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": 2.24
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": 0.35
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 1.0
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 0.95
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 0.24
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 0.45
-                    }
-                ]
-            },
-            "ml": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 9.84
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 1.85
-                    }
-                ]
-            },
-            "ra": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 4.47
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 9.0898
-                    }
-                ]
-            },
-            "rpl": {
-                "resultados": [
-                    {
-                        "ano": 2014,
-                        "indicador": 8.54
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 12.15
-                    }
-                ]
-            }
-        },
-        "prazosmedios": {
-            "pme": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 9.44
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 10.44
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 9
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 3
-                    }
-                ]
-            },
-            "pmr": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 10.44
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 1
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": -90
-                    }
-                ]
-            },
-            "pmp": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 20.44
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 10.44
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 15.44
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 10.45
-                    }
-                ]
-            },
-            "co": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 9.44
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 10.44
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 15.44
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 17.45
-                    }
-                ]
-            },
-            "cf": {
-                "resultados": [
-                    {
-                        "ano": 2010,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2011,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2012,
-                        "indicador": 9.44
-                    },
-                    {
-                        "ano": 2013,
-                        "indicador": 10.44
-                    },
-                    {
-                        "ano": 2014,
-                        "indicador": 15.44
-                    },
-                    {
-                        "ano": 2015,
-                        "indicador": 17.45
-                    }, {
-                        "ano": 2016,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2017,
-                        "indicador": -10.44
-                    },
-                    {
-                        "ano": 2018,
-                        "indicador": -9.44
-                    },
-                    {
-                        "ano": 2019,
-                        "indicador": -11.44
-                    },
-                    {
-                        "ano": 2020,
-                        "indicador": 25.44
-                    },
-                    {
-                        "ano": 2021,
-                        "indicador": 18.45
-                    }
-                ]
-            }
-        }
-    }
+   {
+      "iEmpresa_ID":65,
+      "lmGrupo":[
+         {
+            "sGrupo":"endividamento",
+            "lmIndicador":[
+               {
+                  "sIndicador":"pct",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":56.21
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":65.29
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":56.21
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":65.29
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ce",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":69.8
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":76.58
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":69.8
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":76.58
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ipl",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":100.1
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":107.77
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":100.1
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":107.77
+                     }
+                  ]
+               }
+            ]
+         },
+         {
+            "sGrupo":"liquidez",
+            "lmIndicador":[
+               {
+                  "sIndicador":"lg",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":0.16
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.15
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":0.16
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.15
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ilc",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":1.19
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.94
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":1.19
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.94
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ils",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":0.85
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.61
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":0.85
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.61
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ccl",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":3456420.0
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":-1096360.0
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":3456420.0
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":-1096360.0
+                     }
+                  ]
+               }
+            ]
+         },
+         {
+            "sGrupo":"rentabilidade",
+            "lmIndicador":[
+               {
+                  "sIndicador":"ga",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":0.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.55
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":0.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":0.55
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ml",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":32.49
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":32.46
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":32.49
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":32.46
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"ra",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":16.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":17.13
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":16.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":17.13
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"rpl",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":25.77
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":28.32
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":25.77
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":28.32
+                     }
+                  ]
+               }
+            ]
+         },
+         {
+            "sGrupo":"prazosmedios",
+            "lmIndicador":[
+               {
+                  "sIndicador":"pme",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":88.21
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":95.83
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":88.21
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":95.83
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"pmr",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":30.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":28.63
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":30.5
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":28.63
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"pmp",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":1.0208317291E9
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":2.0723100465E8
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":1.0208317291E9
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":2.0723100465E8
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"co",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":118.71
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":124.46
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":118.71
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":0.0
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":124.46
+                     }
+                  ]
+               },
+               {
+                  "sIndicador":"cf",
+                  "lmResultado":[
+                     {
+                        "iAno":2014,
+                        "dValor":1.02083161039E9
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":1.02083148E9
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":2.0723088019E8
+                     },
+                     {
+                        "iAno":2014,
+                        "dValor":1.02083161039E9
+                     },
+                     {
+                        "iAno":2015,
+                        "dValor":1.02083148E9
+                     },
+                     {
+                        "iAno":2013,
+                        "dValor":2.0723088019E8
+                     }
+                  ]
+               }
+            ]
+         }
+      ]
+   }
 ]

@@ -11,11 +11,11 @@ import java.util.ArrayList;
  *
  * @author Everaldo Cardoso
  */
-public class ModeloGeral {
+public class ModeloIndEmpresa {
     private int iEmpresa_ID;
     private ArrayList<ModeloGrupo> lmGrupo;
     
-    public ModeloGeral(){
+    public ModeloIndEmpresa(){
         this.iEmpresa_ID = 0;
         this.lmGrupo = null;
     }

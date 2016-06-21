@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ModeloGrupo {
     private String sGrupo;
-    private ModeloIndicador mIndicador;
+    private ArrayList<ModeloIndicador> lmIndicador;
     
     public ModeloGrupo(){
         this.sGrupo = "";
-        this.mIndicador = null;
+        this.lmIndicador = null;
     }
 
     public String getGrupo() {
@@ -30,11 +30,11 @@ public class ModeloGrupo {
         this.sGrupo = sGrupo;
     }
 
-    public ModeloIndicador getmIndicador() {
-        return mIndicador;
+    public ArrayList<ModeloIndicador> getlmIndicador() {
+        return lmIndicador;
     }
 
-    public void setmIndicador(ModeloIndicador lmIndicador) {
-        this.mIndicador = mIndicador;
+    public void setlmIndicador(ArrayList<ModeloIndicador> lmIndicador) {
+        this.lmIndicador = lmIndicador;
     }
 }

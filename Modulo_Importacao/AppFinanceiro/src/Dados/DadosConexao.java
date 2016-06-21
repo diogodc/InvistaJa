@@ -5,6 +5,7 @@
  */
 package Dados;
 
+import static App.AppFinanceiro.conn;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -121,7 +122,7 @@ public class DadosConexao {
     
     protected boolean procedure(String sProcedure)throws Exception{
         try{
-            CallableStatement  cs = this.getConnection().prepareCall(sProcedure);
+            CallableStatement  cs = conn.getConnection().prepareCall(sProcedure);
             cs.execute(); 
             return true;
         }catch(Exception ex){

@@ -1,13 +1,10 @@
 package Controle;
 
-import static App.AppFinanceiro.conn;
 import static App.AppFinanceiro.converteObjetoParaJson;
 import static App.AppFinanceiro.gravarArquivo;
 import App.AppFinanceiro.tipoRelatorio;
-import Dados.DadosEmpresa;
 import Dados.DadosImpExp;
 import Modelo.CreateModel;
-import Modelo.ModeloIndicador;
 import Modelo.ModeloEmpresa;
 import Modelo.ModeloImpExp;
 import Visao.VisaoImpExp;
@@ -233,13 +230,9 @@ public class ControleImpExp {
     
     public boolean exportar() throws Exception{
         try{
-            if (this.vImportar.txtCodEmpresa.getText().isEmpty()){return false;}
-            
-            int iEmpresa_ID = Integer.parseInt(this.vImportar.txtCodEmpresa.getText().trim());
-            
             if (dImpExp.calcularIndicadores("2013", "2014", "2015")){
                 return gravarArquivo("json_Bovespa.json",
-                        converteObjetoParaJson(dImpExp.gerarIndicadores()));
+                        converteObjetoParaJson(dImpExp.gerarIndicadoresEmpresa()));
             }
             return false;
         }catch (Exception ex) {

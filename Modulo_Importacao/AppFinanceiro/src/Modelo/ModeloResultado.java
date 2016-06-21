@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.text.DecimalFormat;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,6 +31,8 @@ public class ModeloResultado {
     }
 
     public double getValor() {
+        DecimalFormat df = new DecimalFormat("#.##");      
+        dValor = Double.valueOf(df.format(dValor));
         return dValor;
     }
 

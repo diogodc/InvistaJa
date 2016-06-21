@@ -2,6 +2,7 @@ package Controle;
 
 import static App.AppFinanceiro.converteObjetoParaJson;
 import static App.AppFinanceiro.gravarArquivo;
+import App.AppFinanceiro.tipoEmpresas;
 import Dados.DadosEmpresa;
 import Modelo.CreateModel;
 import Modelo.ModeloEmpresa;
@@ -80,7 +81,7 @@ public class ControleEmpresa {
     public boolean exportar() throws Exception{
         try{
             return gravarArquivo("json_Empresa.json",
-                    converteObjetoParaJson(this.dEmpresa.carregarEmpresa()));
+                    converteObjetoParaJson(this.dEmpresa.carregarEmpresas(tipoEmpresas.TODAS)));
         }catch(Exception ex){
             throw ex;
         }
