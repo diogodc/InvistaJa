@@ -3,12 +3,10 @@
  */
 (function (_object) {
     var _core = _object.core = {};
-
     _core['instance'] = function (_set) {
         var sys_core;
         var sys = function object() {
         };
-
         String.prototype.contains = function (text) {
             return this.toString().indexOf(text) > -1;
         };
@@ -16,7 +14,6 @@
             var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
             return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "JLib 1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         };
-
         sys_core = {};
         sys_core = {
             object: {
@@ -24,10 +21,7 @@
                     function object() {
                     }
                     ;
-
-
                     object.prototype['component-name'] = 'object';
-
                     var self = new object();
                     sys_core.object.extend(self, prototypes);
                     return self;
@@ -70,7 +64,6 @@
                 }
             }
         };
-
         sys_core.object.extend(sys_core, {
             onReady: function (callback) {
                 window.addEventListener('load', callback, false);
@@ -91,11 +84,8 @@
                         sys_core.onResize(callback, _width);
                     }
                 }, 1);
-
-
 //                document.getElementsByTagName("body")[0].onresize = callback;
                 window.addEventListener('resize', callback);
-
 //                var observer = new MutationObserver(callback);
 //                observer.observe(document.body, {
 //                    attributes: true,
@@ -121,7 +111,6 @@
                             _parentKey = parentKey + '.' + key;
                         else
                             _parentKey = key;
-
                         if (ary[key]) {
                             if (sys_core.type.isObject(ary[key])) {
                                 if (sys_core.eachProtoRecursive(ary[key], callback, _parentKey)) {
@@ -193,9 +182,36 @@
             },
             newID: function (previous) {
                 return (previous == undefined ? '' : previous + '-') + sys_core.generateUUID();
+            },
+            formart: function (value, Mascara) {
+                var boleanoMascara;
+                var Digitato = 9;
+                exp = /\-|\.|\/|\(|\)| /g
+                campoSoNumeros = value.toString().replace(exp, "");
+                var posicaoCampo = 0;
+                var NovoValorCampo = "";
+                var TamanhoMascara = campoSoNumeros.length;
+                ;
+                if (Digitato != 8) { // backspace 
+                    for (i = 0; i <= TamanhoMascara; i++) {
+                        boleanoMascara = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+                                || (Mascara.charAt(i) == "/"))
+                        boleanoMascara = boleanoMascara || ((Mascara.charAt(i) == "(")
+                                || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " "))
+                        if (boleanoMascara) {
+                            NovoValorCampo += Mascara.charAt(i);
+                            TamanhoMascara++;
+                        } else {
+                            NovoValorCampo += campoSoNumeros.charAt(posicaoCampo);
+                            posicaoCampo++;
+                        }
+                    }
+                    return NovoValorCampo;                   
+                } else {
+                    return true;
+                }
             }
         });
-
         sys_core.object.extend(sys_core, {
             type: {},
             router: {},
@@ -203,7 +219,6 @@
             template: {},
             JLib: {}
         });
-
         sys_core.object.extend(sys_core.type, {
             _toString: sys.prototype.toString,
             NULL_TYPE: 'Null',
@@ -254,26 +269,23 @@
                 }
             }
         });
-
         /* ################### BIBLIOTECA DE MANIPULAÇÃO DE DOCUMENTOS E ESTILO HTML #################### */
         sys_core.object.extend(sys_core, {
             JLib: function JLib(prototype, doc) {
                 var _element;
                 var doc = doc || document;
-
                 sys_core.object.extend(this, {
                     query: function (qr) {
                         var nodeList = doc.getElementsByTagName('*');
                         var nodeArray = [];
                         var iterator = 0;
                         var node = null;
-
                         try {
                             if (qr.trim() == '') {
                                 return nodeArray;
                             }
                         } catch (err) {
-                            
+
                         }
 
 
@@ -285,7 +297,6 @@
                             if (sys_core.isDefined(_node)) {
                                 if (_node.contains(queryValue)) {
                                     nodeArray.push(node);
-
                                     if (query === "id")
                                         return nodeArray;
                                 }
@@ -295,7 +306,6 @@
                         return nodeArray;
                     }
                 });
-
                 sys_core.object.extend(this, {
                     dom: function dom() {
                         var mlh = sys_core.JLib.mlh(_element);
@@ -303,12 +313,10 @@
                             'component-name': 'dom-element',
                             'component-date': new Date()
                         });
-
                         sys_core.object.extend(instance, mlh);
                         return instance;
                     }
                 });
-
                 _element = this.dom();
                 sys_core.object.extend(_element, {
                     event: function event(_name, _function, _remove) {
@@ -329,7 +337,6 @@
                         });
                     }
                 });
-
                 sys_core.object.extend(_element, {
                     each: function each(fn) {
                         var x;
@@ -350,7 +357,6 @@
                         }
                     }
                 });
-
                 sys_core.object.extend(_element, {
                     getElement: function getElement() {
                         return this.el;
@@ -362,15 +368,12 @@
                     },
                     up: function () {
                         var parentNode;
-
                         this.each(function (e) {
                             parentNode = sys_core.JLib(e.parentNode);
                         });
-
                         return parentNode;
                     }
                 });
-
                 if (prototype instanceof Element) {
                     sys_core.object.extend(_element, {
                         type: 'id',
@@ -403,19 +406,16 @@
                 return _element;
             }
         });
-
         sys_core.object.extend(sys_core.JLib, {
             mlh: function () {
                 return  {
                     class: function () {
                         var _class,
                                 _self;
-
                         _class = sys_core.object.create({
                             component: 'class-element'
                         });
                         _self = this;
-
                         sys_core.object.extend(_class, {
                             remove: function (name_class) {
                                 if (_self.el.classList) {
@@ -436,13 +436,10 @@
                             contains: function (name_class) {
                                 if (_self.el.classList)
                                     return  _self.el.classList.contains(name_class);
-
-
                                 var _class = _self.get('class').trim();
                                 return _class.contains(name_class);
                             }
                         });
-
                         return _class;
                     },
                     create_id: function create_id(previous) {
@@ -574,10 +571,8 @@
                     },
                     height: function height() {
                         var _height = 0;
-
                         this.each(function (elementPassed) {
                             var DoOffset = true;
-
                             if (!elementPassed) {
                                 return 0;
                             }
@@ -608,17 +603,13 @@
 
                             _height = thisHeight;
                         });
-
-
                         return _height;
                     },
                     width: function width() {
                         var _width = 0;
-
                         if (sys_core.isChrome()) {
                             this.each(function (elementPassed) {
                                 var DoOffset = true;
-
                                 if (!elementPassed) {
                                     return 0;
                                 }
@@ -662,7 +653,6 @@
                     position: function position() {
                         var xPos = 0;
                         var yPos = 0;
-
                         this.each(function (e) {
                             var el = e;
                             while (el) {
@@ -671,7 +661,6 @@
                                     // deal with browser quirks with body/window/document and page scroll
                                     var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
                                     var yScroll = el.scrollTop || document.documentElement.scrollTop;
-
                                     xPos += (el.offsetLeft - xScroll + el.clientLeft);
                                     yPos += (el.offsetTop - yScroll + el.clientTop);
                                 } else {
@@ -683,7 +672,6 @@
                                 el = el.offsetParent;
                             }
                         });
-
                         return {
                             x: xPos,
                             y: yPos
@@ -707,7 +695,6 @@
                                 return _mask._child_;
                             }
                         };
-
                         this.unmask();
                         _mask._self = this;
                         _mask._render = _mask._self.create_element('div');
@@ -720,14 +707,10 @@
                         _mask._child_.css("width", "100%");
                         _mask._child_.css('opacity', "1");
                         _mask._child_.css('background', "white");
-
-
                         sys_core.onResize(function () {
                             _mask._resize_mask.call(_mask);
                         });
-
                         this['_mask_'] = _mask;
-
                         return this['_mask_'];
                     },
                     unmask: function () {
@@ -759,9 +742,7 @@
 
                             }
                         };
-
                         sys_core.object.extend(_FileFrame, _set);
-
                         _FileFrame.init.call(_FileFrame);
                         _FileFrame._self = this;
                         _FileFrame._render = _FileFrame._self.create_element('div');
@@ -771,7 +752,6 @@
                         _FileFrame._render.css("min-height", '200px')
                                 .css("border", "dashed 4px White")
                                 .css("transition", "background-color 0.3s");
-
                         sys_core.object.extend(_FileFrame, {
                             _dragHover: function (e) {
                                 e.stopPropagation();
@@ -799,12 +779,10 @@
                             },
                             _click: function () {
                                 var _input = null;
-
                                 _FileFrame.init.call(_FileFrame);
                                 _input = _FileFrame._self.create_element("input");
                                 _input.css("opacity", "0");
                                 _input.attr("type", "file");
-
                                 _input.event("change", function (e) {
 
                                     if (sys_core.isDefined(this.files[0])) {
@@ -812,23 +790,17 @@
                                         _FileFrame._read(_FileFrame._File);
                                     }
                                 });
-
                                 _input.each(function (e) {
                                     e.click();
                                     return false;
                                 });
-
                                 _input.remove();
                             }
                         });
-
                         _FileFrame._render.event("dragleave", _FileFrame._dragHover);
                         _FileFrame._render.event("dragover", _FileFrame._dragHover);
                         _FileFrame._render.event("drop", _FileFrame._drop);
                         _FileFrame._render.event("click", _FileFrame._click);
-
-
-
                         return {
                         };
                     },
@@ -838,41 +810,31 @@
                         },
                         _position_top = 0,
                                 _position_right = 0;
-
-
                         sys_core.object.extend(_tost, settings);
                         _tost._self = this;
                         _tost._render = sys_core.JLib("body").create_element('div');
                         _tost._body = _tost._render.create_element('div');
-
                         sys_core.Rendering.settings(_tost._render, settings.attr);
                         sys_core.Rendering.settings(_tost._body, settings.attr);
-
                         _tost._render.class().add("tost");
                         _tost._render.class().add("s-md-col-3");
                         _tost._render.class().add("shadow");
                         _tost._render.class().add("s-md-back-White");
-
                         _tost._render.css("min-height", '50px')
                                 .css("min-width", '190px')
                                 .css("transition", "background-color 0.3s");
-
                         _position_top = _tost._self.position().y;
                         _position_right = _tost._self.position().x - _tost._self.width();
                         _position_right = _position_right <= 0 ? _tost._self.position().x : _position_right;
-
                         _tost._render.css('position', 'absolute')
                                 .css("z-index", '1')
                                 .css('top', _position_top + 'px')
                                 .css('right', _position_right + 'px');
-
                         _tost._body.class().add("s-center");
                         _tost._body.css("min-height", '50px')
                                 .css("min-width", '190px');
-
                         _tost._body.create_element("span")
                                 .content(settings.text || "");
-
                         setTimeout(function () {
                             _tost._render.remove();
                         }, 4000);
@@ -886,8 +848,6 @@
                         var _table = {
                             _self: null
                         };
-
-
                         if (!sys_core.isDefined(settings.id)) {
                             sys_core.object.extend(settings, {
                                 id: sys_core.newID('table')
@@ -905,30 +865,23 @@
                         _table._thead_ = _table._table_.create_element('thead');
                         _table._tbody_ = _table._table_.create_element('tbody');
                         _table._columns_ = _table._thead_.create_element('tr');
-
                         _table._render.class().add('s-table');
                         _table._div_.class().add('s-table-body');
                         _table._table_.css('min-height', '50%');
-
                         _table._render.mark_component(['data-table', settings.id]);
                         _table._div_.mark_component(['data-table-div', settings.id]);
                         _table._table_.mark_component(['data-table-main', settings.id]);
-
                         _table._thead_.mark_component(['data-table-head', settings.id]);
                         _table._tbody_.mark_component(['data-table-body', settings.id]);
                         _table._columns_.mark_component(['data-table-columns', settings.id]);
-
-
                         /* RENDER COLUMNS*/
 
                         sys_core.each(settings.columns, function (col) {
                             var _column = _table._columns_.create_element('th');
-
                             _column.mark_component(['data-row-columns', settings.id]);
                             sys_core.Rendering.settings(_column, {
                                 'data-column': col['data-name']
                             });
-
                             sys_core.eachProto(col, function (proto_value, protoName) {
                                 var _title;
                                 if (protoName === "title") {
@@ -939,7 +892,6 @@
                                 }
                             });
                         });
-
                         /* RENDER COLUMNS*/
 
 
@@ -948,22 +900,18 @@
                             var _rows = _table._tbody_
                                     .create_element('tr'),
                                     data = this;
-
                             _rows.mark_component(['data-row', settings.id]);
                             sys_core.Rendering.settings(_rows, {
                                 'data-row': data.getIndex() + 1,
                                 data: data.raw()
                             });
-
                             sys_core.each(settings.columns, function (col) {
                                 var _cell = _rows.create_element('td');
                                 var dtValue = data.get(col['data-name']);
-
                                 _rows.mark_component(['data-row-cell', settings.id]);
                                 sys_core.Rendering.settings(_cell, {
                                     'data-column': col['data-name']
                                 });
-
                                 if (sys_core.type.isFunction(col.render)) {
                                     dtValue = col.render(dtValue);
                                 }
@@ -974,7 +922,6 @@
                                         .content(dtValue);
                             });
                         });
-
                         /* RENDER ROWS*/
 
                         return _table;
@@ -983,7 +930,6 @@
                         var _regx = {
                             _self: null
                         };
-
                         _regx._self = this;
                         _regx._self.each(function (e) {
                             _regx._child = _regx._self.query(settings.tag, e);
@@ -995,13 +941,11 @@
                                 });
                             }
                         });
-
                     },
                     frame: function (settings) {
                         var _Frame = {
                             _self: null
                         };
-
                         _Frame._self = this;
                         _Frame._render = _Frame._self.create_element('iframe');
                         _Frame._render.attr('height', settings.height);
@@ -1029,13 +973,9 @@
                 var _rendered,
                         _rendered_ele,
                         structure = sys_core.structure;
-
-
                 if (sys_core.type.isObject(_structure)) {
                     _rendered = structure.create_element(_structure);
                     _rendered_ele = _rendered.me();
-
-
                     if (sys_core.isDefined(_structure.sclass)) {
                         _rendered_ele.attr('class', _rendered_ele.get('class') ? _rendered_ele.get('class') + ' ' + _structure.sclass : _structure.sclass);
                     }
@@ -1092,7 +1032,6 @@
             construct_element: function (e, config) {
                 var structure = sys_core.structure;
                 var stElement = sys_core.object.create({});
-
                 sys_core.object.extend(stElement, {
                     stype: config.stype,
                     me: function () {
@@ -1107,7 +1046,6 @@
                         return sys_core.isDefined(this.stype) ? true : false;
                     }
                 });
-
                 switch (config.stype) {
                     case structure.type.altTitle:
                         e.attr('class', 's-title-text');
@@ -1121,9 +1059,7 @@
                         break;
                     case structure.type.minCardTop:
                         var body, head;
-
                         e.attr('class', 's-md-card s-md-card-r s-md-min-card');
-
                         sys_core.object.extend(stElement, {
                             head: structure({
                                 stype: structure.type.cardHeadTop
@@ -1132,17 +1068,13 @@
                                 stype: structure.type.cardBodyTop
                             })
                         });
-
                         e.include(stElement.head.me());
                         e.include(stElement.body.me());
-
-
                         break;
                 }
 
                 if (sys_core.isDefined(config.items)) {
                     var items = structure(config.items);
-
                     switch (config.stype) {
                         case structure.type.minCardTop:
                             structure.implode_element(stElement, stElement.body.me(), items);
@@ -1156,7 +1088,6 @@
 
                 if (sys_core.isDefined(config.head)) {
                     var items = structure(config.head);
-
                     switch (config.stype) {
                         case structure.type.minCardTop:
                             structure.implode_element(stElement, stElement.head.me(), items);
@@ -1178,7 +1109,6 @@
             create_element: function (config) {
                 var comp_structure = sys_core.structure;
                 var ele, eType, eClass;
-
                 switch (config.stype) {
                     case 'section':
                         eType = 'section';
@@ -1205,7 +1135,6 @@
 
                 ele = sys_core.JLib(document.createElement(eType));
                 ele.attr('class', eClass);
-
                 return comp_structure.construct_element(ele, config);
             }
         });
@@ -1283,7 +1212,6 @@
         sys_core.object.extend(sys_core, {
             require: function (requires, callback) {
                 var _require = sys_core.require;
-
                 if (!sys_core.isDefined(_require.EventRequireComplete)) {
                     _require.EventRequireComplete = new Event('EventRequireComplete');
                     _require.RequireComplete = function () {
@@ -1297,7 +1225,6 @@
                     };
                 };
                 window.addEventListener('EventRequireComplete', _require.RequireComplete);
-
                 sys_core.each(requires, function (modulo, x, modulos, last) {
                     var module = _require.get(modulo);
                     if (last) {
@@ -1328,23 +1255,18 @@
             get: function (modName) {
                 var _require = this,
                         module = null;
-
                 module = _require.modulos[modName];
                 if (!sys_core.isDefined(module))
                     return false;
                 else if (sys_core.isDefined(module.complete))
                     return false;
-
                 module.load = 'complete';
                 module.id = 'require-' + sys_core.generateUUID();
                 new Function('', _require.readModule(module.path + '?' + module.id))();
-
                 sys_core.JLib('head').include(sys_core.structure({
                     stype: 'script',
                     libs: module
                 }).me());
-
-
                 return module;
             }
         });
@@ -1362,9 +1284,7 @@
                     root: '/',
                     auto: false
                 });
-
                 sys_core.object.extend(router, config[0]);
-
                 router['route'] = router['route'].replace(/#(.*)JLib /, '');
                 if (typeof config[1] == 'function') { //callback
                     router['callback'] = config[1];
@@ -1377,8 +1297,6 @@
                     navigate: function (callback) {
                         var location = window.location.href.replace(/#(.*)$/, '');
                         var route = this['route'].replace(/#(.*)$/, '');
-
-
                         window.location.href = location + '#' + route + "?" + sys_core.generateUUID().substring(1, 8).toUpperCase();
                         (callback ? callback : this.callback).call(this, true);
                         return this;
@@ -1440,7 +1358,6 @@
         sys_core.object.extend(sys_core, {template: function template(config) {
                 var _template = sys_core.object.create({}),
                         main = sys_core;
-
                 _template = main.object.extend({
                     name: '',
                     load: function (callback) {
@@ -1471,7 +1388,6 @@
                             this['view-text'] = text;
                             main.JLib(this.self).mark_component(['view-template', '000']);
                             main.JLib(this.self).attr('template-name', _template.name);
-
                             if (sys_core.isDefined(this.html)) {
                                 main.JLib(this.self).content('');
                                 main.Rendering(main.JLib(this.self), this.html);
@@ -1523,7 +1439,6 @@
                     model: sys_core.memory({
                     })
                 });
-
                 _template.name = config[0].name;
                 main.object.extend(_template.view, config[0].view);
                 main.object.extend(_template.control, config[0].control);
@@ -1569,8 +1484,6 @@
                 var render_to = null,
                         chart_theme = null,
                         settings = config.configs;
-
-
                 if (config.tType === "line") {
                     chart_theme = sys_core.config.chart.theme[config.theme][config.tType];
                     render_to = sys_core.JLib(config.renderTo);
@@ -1579,13 +1492,11 @@
                                 data_values = null,
                                 data_labels = config.model[0].toArray().get(config.label),
                                 data = null;
-
                         data = {
                             labels: data_labels,
                             datasets: [],
                             series: []
                         };
-
                         if (sys_core.type.isArray(config.model)) {
                             sys_core.each(config.model, function (model, x) {
                                 var data_values = model.toArray().get(config.values);
@@ -1613,7 +1524,6 @@
                     if (sys_core.type.isArray(config.model)) {
                         sys_core.each(config.model, function (model, x) {
                             var data_values = model.toArray().get(config.values);
-
                             data.series.push(data_values);
                         });
                     }
@@ -1629,7 +1539,6 @@
             table: function (_object) {
                 var _self = null,
                         JLib = null;
-
                 JLib = sys_core.JLib;
                 _self = JLib(_object.renderTo);
                 if (!sys_core.isDefined(_object.id)) {
@@ -1639,25 +1548,19 @@
                 }
 
                 _object.id = sys_core.name + '-' + _object.id;
-
                 var dtb = _self.create_element('div'),
                         dtbc = dtb.create_element('div'),
                         dtbcTable = dtbc.create_element('table'),
                         dtbcColumns = dtbcTable.create_element('thead'),
                         dtbcRows = dtbcTable.create_element('tbody');
-
                 dtb.class().add('s-table');
                 dtbc.class().add('s-table-body');
                 dtbcTable.css('min-height', '50%');
-
                 dtb.mark_component(['dtb', _object.id]);
                 dtbc.mark_component(['dtbc', _object.id]);
                 dtbcTable.mark_component(['dtbcTable', _object.id]);
                 dtbcColumns.mark_component(['dtbcColumns', _object.id]);
                 dtbcRows.mark_component(['dtbcRows', _object.id]);
-
-
-
                 /* RENDER COLUMNS*/
                 var dtRow = dtbcColumns.create_element('tr');
                 sys_core.each(_object.columns, function (col) {
@@ -1665,7 +1568,6 @@
                     sys_core.Rendering.settings(dtRowCol, {
                         'data-column': col['data-name']
                     });
-
                     sys_core.eachProto(col, function (proto_value, protoName) {
                         var _title;
                         if (protoName === "title") {
@@ -1676,7 +1578,6 @@
                         }
                     });
                 });
-
                 /* RENDER COLUMNS*/
 
 
@@ -1685,20 +1586,16 @@
                     var dtRow = dtbcRows
                             .create_element('tr'),
                             data = this;
-
                     sys_core.Rendering.settings(dtRow, {
                         'data-row': data.getIndex() + 1,
                         data: data.raw()
                     });
-
                     sys_core.each(_object.columns, function (col) {
                         var dtRowCol = dtRow.create_element('td');
                         var dtValue = data.get(col['data-name']);
                         sys_core.Rendering.settings(dtRowCol, {
                             'data-column': col['data-name']
                         });
-
-
                         if (sys_core.type.isFunction(col.render)) {
                             dtValue = col.render(dtValue);
                         }
@@ -1709,7 +1606,6 @@
                                 .content(dtValue);
                     });
                 });
-
                 /* RENDER ROWS*/
 
 
@@ -1719,12 +1615,8 @@
                         JLib = null,
                         mask = null,
                         _select = this;
-
-
-
                 JLib = sys_core.JLib;
                 _self = JLib(_object.renderTo);
-
                 if (!sys_core.isDefined(_object.id)) {
                     sys_core.object.extend(_object, {
                         id: sys_core.newID('select')
@@ -1733,10 +1625,6 @@
 
                 _object.id = _object.id.replace(sys_core.name + '-', '');
                 _object.id = sys_core.name + '-' + _object.id;
-
-
-
-
                 var cs_comp,
                         cs_input,
                         cs_selectBox,
@@ -1745,19 +1633,15 @@
                         event_reset,
                         event_search,
                         event_option;
-
                 cs_comp = _self.create_element('div');
                 cs_comp.class().add('select-default');
                 cs_comp.mark_component(['select', _object.id]);
                 cs_comp.attr('id', _object.id);
-
                 sys_core.component.components.select[_object.id] = {
                     selectedItem: function () {
                         var _selectedItem = cs_input.get('data');
-
                         if (sys_core.isDefined(_selectedItem)) {
                             var data = _selectedItem;
-
                             _selectedItem = JSON.parse(data);
                         } else {
                             _selectedItem = null;
@@ -1766,8 +1650,6 @@
                         return     _selectedItem;
                     }
                 };
-
-
                 if (sys_core.isDefined(_object.class)) {
                     sys_core.each(_object.class, function (c) {
                         cs_comp.class().add(c);
@@ -1776,20 +1658,16 @@
 
                 if (sys_core.isChrome()) {
                     cs_input = cs_comp.create_element('input');
-
                     cs_input.attr('value', 'Selecione uma empresa ...');
                     cs_input.css('text-align', 'center');
                     cs_comp.css('padding-top', '5px');
                     cs_comp.css('padding-bottom', '10px');
                     cs_comp.class().add('s-size-15');
-
                     _self.mask();
-
                     _object.data.load(function () {
                         cs_input.event('focus', event_rendering);
                         _self.unmask();
                     });
-
                     /* RENDER OPTIONS*/
                     event_rendering = function () {
                         if (cs_selectBox) {
@@ -1801,77 +1679,57 @@
                         cs_selectBox = _self.create_element('div');
                         cs_searchText = cs_selectBox.create_element('div').create_element('input');
                         cs_selectOptions = cs_selectBox.create_element('div');
-
                         cs_selectBox.class().add('select-default');
                         cs_selectBox.mark_component(['select-selection', _object.id]);
                         cs_selectBox.attr('style', "height:200px;z-index: 1;");
                         cs_selectBox.css('position', 'fixed');
                         cs_selectBox.css('height', '200px');
-
                         cs_selectOptions.attr('style', "height:125px;overflow-y:scroll;");
                         cs_searchText.attr('type', 'text');
-
-
                         /* EVENTOS DE PERDA DE FOCUS
                          * AO PEDER O FOCO - REMOVE TUDO                     *
                          * */
                         sys_core.component.components.select[_object.id]['_focus_txt'] = false;
                         sys_core.component.components.select[_object.id]['_focus_body'] = false;
-
                         cs_searchText.event('blur', function () {
                             sys_core.component.components.select[_object.id]._focus_txt = false;
-
                             var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
                                     _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
                             if (!_focus_body && !_focus_txt)
                                 event_lostFocus();
                         });
-
                         cs_selectOptions.event('blur', function () {
                             sys_core.component.components.select[_object.id]._focus_body = false;
-
                             var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
                                     _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
                             if (!_focus_body && !_focus_txt)
                                 event_lostFocus();
                         });
-
                         cs_selectBox.event('blur', function () {
                             sys_core.component.components.select[_object.id]._focus_body = false;
-
                             var _focus_txt = sys_core.component.components.select[_object.id]._focus_txt,
                                     _focus_body = sys_core.component.components.select[_object.id]._focus_body;
-
                             if (!_focus_body && !_focus_txt)
                                 event_lostFocus();
                         });
-
                         cs_searchText.event('focusin', function () {
                             sys_core.component.components.select[_object.id]._focus_txt = true;
                         });
-
                         cs_selectOptions.event('focusin', function () {
                             sys_core.component.components.select[_object.id]._focus_body = true;
                         });
-
                         cs_searchText.event('mouseover', function () {
                             sys_core.component.components.select[_object.id]._focus_txt = true;
                         });
-
                         cs_selectOptions.event('mouseover', function () {
                             sys_core.component.components.select[_object.id]._focus_body = true;
                         });
-
                         cs_searchText.event('mouseout', function () {
                             sys_core.component.components.select[_object.id]._focus_txt = false;
                         });
-
                         cs_selectOptions.event('mouseout', function () {
                             sys_core.component.components.select[_object.id]._focus_body = false;
                         });
-
                         /* EVENTOS DE PERDA DE FOCUS */
 
                         /* EVENTOS PARA TRATAR DINAMICAMENTE O CSS
@@ -1897,7 +1755,6 @@
                         cs_searchText.event('keyup', function () {
                             var _value = this.value;
                             var _data;
-
                             if (_value === "") {
                                 event_reset.call(_object.data);
                             } else {
@@ -1914,21 +1771,18 @@
 
                         event_reset.call(_object.data);
                     };
-
                     event_reset = function () {
                         cs_selectOptions.content('');
                         this.each(function () {
                             event_option.call(this);
                         });
                     };
-
                     event_search = function () {
                         cs_selectOptions.content('');
                         sys_core.each(this, function (data) {
                             event_option.call(data);
                         });
                     };
-
                     event_option = function () {
                         var dtOption = cs_selectOptions.create_element('div'),
                                 data = this;
@@ -1936,7 +1790,6 @@
                             'data-option': data.getIndex() + 1,
                             data: data.raw()
                         });
-
                         if (sys_core.isDefined(_object.classMember)) {
                             sys_core.each(_object.classMember, function (c) {
                                 dtOption.class().add(c);
@@ -1954,23 +1807,19 @@
                             cs_selectBox.remove();
                         });
                     };
-
                     event_lostFocus = function () {
                         cs_searchText.remove();
                         cs_selectOptions.remove();
                         cs_selectBox.remove();
                     };
-
                     _object['_chrome_event'] = function () {
                         if (!sys_core.isChrome()) {
                             cs_comp.remove();
                             bovespa.component(_object);
                         }
                     };
-
                     window.removeEventListener('Event', _object['_chrome_event']);
                     window.addEventListener('Event', _object['_chrome_event']);
-
                     _object['_chrome_'] = true;
                     sys_core.onResize(function () {
                         if (!sys_core.isChrome() && _object['_chrome_']) {
@@ -1979,30 +1828,24 @@
                             return true;
                         }
                     });
-
                     /* RENDER OPTIONS*/
                 } else {
                     cs_comp.css('padding-top', '5px');
                     cs_comp.css('padding-bottom', '10px');
                     cs_comp.class().add('s-size-15');
-
                     cs_input = cs_comp.create_element('div');
                     cs_selectBox = cs_input.create_element('select');
                     cs_selectBox.class().add('select-default');
                     cs_selectBox.mark_component(['select-selection', _object.id]);
-
-
                     _object.data.load(function () {
                         var _primary = true;
                         this.each(function () {
                             var dtOption = cs_selectBox.create_element('option'),
                                     data = this;
-
                             sys_core.Rendering.settings(dtOption, {
                                 'data-option': data.getIndex() + 1,
                                 data: data.raw()
                             });
-
                             if (sys_core.isDefined(_object.classMember)) {
                                 sys_core.each(_object.classMember, function (c) {
                                     dtOption.class().add(c);
@@ -2018,7 +1861,6 @@
                                     'data': JLib(_option).get('data')
                                 });
                             });
-
                             if (_primary) {
                                 dtOption.each(function (e) {
                                     e.click.call(e);
@@ -2035,20 +1877,15 @@
                 var comp_id = sys_core.name + '-' + _id,
                         comp_obj = sys_core.JLib(comp_id),
                         comp_name = comp_obj.get('component-name').replace(sys_core.name + '-', '');
-
                 var comp = {};
-
-
                 sys_core.object.extend(comp, {
                     type: comp_name
                 });
-
                 if (comp_name === 'select') {
                     sys_core.object.extend(comp, sys_core.component.components.select[comp_id]);
                 }
 
                 return comp;
-
             }
         });
         /* ################### COMPONENT #####################*/
@@ -2057,8 +1894,6 @@
         sys_core.object.extend(sys_core, {
             Rendering: function (_self, _object) {
                 var _render = null;
-
-
                 sys_core.eachProto(_object, function (proto_value, protoName) {
 
                     if (protoName === "view") {
@@ -2092,7 +1927,6 @@
                         });
                     }
                 });
-
                 _render.mark_component(["rendering", 'rendering']);
                 return _render;
             }
@@ -2117,7 +1951,6 @@
 
                     sys_core.eachProto(it, function (proto_value, protoName) {
                         var _title;
-
                         if (protoName === "col-title") {
                             _title = column
                                     .create_element('span');
@@ -2143,7 +1976,6 @@
 
                     sys_core.eachProto(it, function (proto_value, protoName) {
                         var _title;
-
                         if (protoName === "col-title") {
                             _title = column
                                     .create_element('span');
@@ -2161,7 +1993,6 @@
             },
             'table': function (s_table) {
                 var _table = sys_core.JLib(document.createElement('table'));
-
                 if (sys_core.isDefined(s_table.columns)) {
                     if (sys_core.type.isArray(s_table.columns)) {
                         var _columns = _table.create_element('thead').create_element('tr');
@@ -2176,7 +2007,6 @@
             },
             'title': function (s_title) {
                 var _title = sys_core.JLib(document.createElement('div'));
-
                 _title.create_element('span')
                         .create_element('text')
                         .content(s_title.text ? s_title.text : '');
@@ -2189,7 +2019,6 @@
                         sys_core.Rendering.settings(_literal, proto_value);
                     } else {
                         var child_literal = sys_core.JLib(document.createElement(protoName));
-
                         if (sys_core.type.isObject(proto_value)) {
                             child_literal.include(sys_core.Rendering.literal(proto_value));
                         } else {
@@ -2200,7 +2029,6 @@
                     }
 
                 });
-
                 return _literal;
             }
         });
@@ -2212,7 +2040,6 @@
                 var JLib = sys_core.JLib,
                         self = config[0],
                         event = config[1];
-
                 sys_core.JLib(self).event(event, function (e) {
                     e.preventDefault();
                     var self = JLib(this),
@@ -2220,7 +2047,6 @@
                             .create_element('div'),
                             ripple_name = JLib(this).get('ripple-name'),
                             ripple = {};
-
                     if (!self.class().contains('ripple')) {
                         self.class().add('ripple');
                     }
@@ -2228,7 +2054,6 @@
                     _affect.create_id('ripple');
                     _affect.mark_component(["ripple", _affect.get_id()]);
                     _affect.class().add('ripple-effect');
-
                     if (ripple_name) {
                         ripple = sys_core.ripple.get(ripple_name);
                     }
@@ -2239,7 +2064,6 @@
                             .css("width", JLib(this).width() + 'px')
                             .css('top', JLib(this).position().y + 'px')
                             .css('left', JLib(this).position().x + 'px');
-
                     window.setTimeout(function () {
 //                         self.class().remove('ripple');
                         _affect.css("height", '0px')
@@ -2250,7 +2074,6 @@
                         _affect.remove();
                     }, 700);
                 });
-
                 return sys_core.ripple;
             }
         });
@@ -2272,7 +2095,6 @@
         sys_core.object.extend(sys_core, {
             cookie: function (_dataCookie) {
                 var strCookie = "";
-
                 sys_core.eachProto(_dataCookie, function (cookValue, cookName) {
                     strCookie = strCookie + " " + cookName + "=" + cookValue + ";";
                     document.cookie = strCookie + sys_core.cookie.expires(2) + ";";
@@ -2285,7 +2107,6 @@
                 var d = new Date();
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
                 return "expires=" + d.toUTCString();
-
             },
             get: function (cname) {
                 var name = cname + "=";
@@ -2315,11 +2136,9 @@
                 var memory;
                 memory = sys_core.object.create({
                 });
-
                 sys_core.object.extend(memory, {'type': 'json'}, 'proxy');
                 sys_core.object.extend(memory, [], 'data');
                 sys_core.object.extend(memory, {}, 'model');
-
                 if (_parameter_settings['model']) {
                     sys_core.object.extend(memory['model'], _parameter_settings['model']);
                 }
@@ -2337,7 +2156,6 @@
                         }
                     }
                 });
-
                 if (_parameter_settings['proxy']) {
                     sys_core.object.extend(memory['proxy'], _parameter_settings['proxy']);
                 }
@@ -2347,7 +2165,6 @@
                         var s_scope = this;
                         s_scope['progress-in'] = true;
                         s_scope['progress-complete'] = false;
-
                         if (sys_core.isDefined(s_scope['url'])) {
                             if (s_scope['url'] === "") {
                                 fn.call(memory, memory['data']);
@@ -2372,12 +2189,11 @@
                         this['progress-complete'] = true;
                         this['progress-in'] = false;
                         if (this['type'] === 'json') {
-                            if (sys_core.type.isJson(response)) {                              
+                            if (sys_core.type.isJson(response)) {
                                 memory['data'] = JSON.parse(response);
                                 if (this['root']) {
                                     var parts = this['root'].split('.');
                                     var dt = memory['data'];
-
                                     for (var i in parts) {
                                         dt = dt[parts[i]];
                                     }
@@ -2390,7 +2206,6 @@
                         fn.call(memory, memory['data']);
                     }
                 });
-
                 if (_parameter_settings['data']) {
                     sys_core.object.extend(memory['data'], _parameter_settings['data']);
                 }
@@ -2399,7 +2214,6 @@
                     return  sys_core.object.create({
                         get: function (node_name) {
                             var _r, dt = data[x] || data;
-
                             if (dt[node_name]) {
                                 _r = dt[node_name];
                             } else {
@@ -2416,7 +2230,6 @@
                         }
                     });
                 };
-
                 sys_core.object.extend(memory, {
                     load: function (self_fn) {
                         if (Array.isArray(this['data'])) {
@@ -2432,7 +2245,6 @@
                     },
                     each: function (self_fn) {
                         var data;
-
                         data = this['data'];
                         if (sys_core.type.isArray(data)) {
                             for (var x in data) {
@@ -2444,7 +2256,6 @@
                     },
                     toArray: function () {
                         var dataFields = {};
-
                         memory['model'].each(function () {
                             var field = this.name;
                             dataFields[field] = [];
@@ -2452,7 +2263,6 @@
                                 dataFields[field].push(this.get(field));
                             });
                         });
-
                         return sys_core.object.create({
                             get: function (node_name) {
                                 var _r;
@@ -2471,7 +2281,6 @@
                         memory.each(function () {
                             sum += Number(this.get(field));
                         });
-
                         return sum;
                     },
                     count: function () {
@@ -2482,13 +2291,11 @@
                             }
                         else
                             y = memory['data'] ? 1 : 0;
-
                         return y;
                     },
                     query: function (fn) {
                         var data = this['data'],
                                 _query = [];
-
                         if (sys_core.type.isArray(data)) {
                             for (var x in data) {
                                 if (fn.call(_data_store_object(data, x))) {
@@ -2511,7 +2318,6 @@
                         };
                     }
                 });
-
                 return memory;
             }
         });
@@ -2595,7 +2401,6 @@
             },
             isFirefox: function () {
                 var nav = navigator.userAgent.toLowerCase();
-
                 if (nav.indexOf("mozilla") != -1) {
                     if (nav.indexOf("firefox") != -1) {
                         return   true;
@@ -2609,12 +2414,10 @@
             isChrome: function () {
                 var ua = navigator.userAgent.toLowerCase();
                 var is_chrome = /chrome/.test(ua);
-
                 return is_chrome && !sys_core.isEdeg();
             },
             isSafari: function () {
                 var nav = navigator.userAgent.toLowerCase();
-
                 if (nav.indexOf("Safari") != -1) {
                     return   true;
                 }
@@ -2622,9 +2425,7 @@
                 return true;
             }
         });
-
         sys_core.Event = new Event('Event');
-
         sys_core.object.extend(sys_core, _set);
         return sys_core;
     };

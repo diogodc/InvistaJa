@@ -58,7 +58,17 @@ bovespa.object.extend(bovespa, {
                     return bovespa.template([{
                             'name': 'bovespa-home',
                             view: {
-                                self: '.bovespa'
+                                self: '.bovespa',
+                                render: function () {
+                                    this['inject-json']({
+                                        bovespa: {
+                                            'company': {
+                                                name: bovespa.storage.get('sRazao_Social'),
+                                                cnpj: bovespa.formart(bovespa.storage.get('sCNPJ'), '00.000.000/0000-00', this)
+                                            }
+                                        }
+                                    });
+                                }
                             },
                             control: {
                                 url: 'app/views/main.html',
