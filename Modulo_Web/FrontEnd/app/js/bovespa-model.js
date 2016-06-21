@@ -10,7 +10,7 @@ bovespa.object.extend(bovespa, {
     model: {
         load: function (callback, scope) {
             this._init(function () {
-                callback.call(scope, bovespa.model._data_._load ,  bovespa.model._data_._success);
+                callback.call(scope, bovespa.model._data_._load, bovespa.model._data_._success);
             });
         },
         _init: function (callback) {
@@ -19,32 +19,31 @@ bovespa.object.extend(bovespa, {
                 _base_: null
             });
 
-            this._data_._company_ = bovespa.memory({  /* DATA-MODEL DA LISTA DE EMPRESAS  */
+            this._data_._company_ = bovespa.memory({/* DATA-MODEL DA LISTA DE EMPRESAS  */
                 proxy: {
                     url: 'app/json/json_Empresa.json',
                     root: ''
                 }
             });
 
-            this._data_._base_ = bovespa.memory({ /* DATA-MODEL DO JSON  PRINCIPAL */ 
+            this._data_._base_ = bovespa.memory({/* DATA-MODEL DO JSON  PRINCIPAL */
                 proxy: {
                     url: 'app/json/json_Bovespa.json',
                     root: ''
                 }
             });
-            
+
             if (bovespa.storage.exists('iEmpresa_ID')) {/* VERIFICANDO SE A EMPRESA JÁ FOI SELECIONADA */
                 this._data_._load = true;
                 this._data_._success = false;
                 var _scope = this;
                 this._init_data(function (data) {
-                    var _dtCompany;
 
                     _scope._data_._base_.loadData(data);
-                    _dtCompany = _scope._data_._base_.query(function () {
+                    _scope._data_._base_.query(function () {
                         return this.get('company-id') == bovespa.storage.get('iEmpresa_ID');
-                    });
-                    _dtCompany.each(function () { /* INSTANCIANDO O MODEL DE CADA INDICADOR */
+                    }).each(function () { /* INSTANCIANDO O MODEL DE CADA INDICADOR */
+
                         _scope._data_._success = true;
 
                         _scope._data_._indebtedness_ = bovespa.memory({
@@ -112,128 +111,74 @@ bovespa.object.extend(bovespa, {
                 var _dt = [];
 
                 this.each(function () {
-                    var _dtCompany = {};
+                    var _dtCompany = {},
+                            _change_model = function (_data, _fields) {
+                                return  (function (_data_, _fields_) {
+                                    var _alter = function (name) {
+                                        return {
+                                            'results': (function (_data) {
+                                                var _results = [];
+                                                _data.query(function () {
+                                                    return this.get('sIndicador') === name;
+                                                }).each(function () {
+                                                    bovespa.each(this.get('lmResultado'), function (val) {
+                                                        var _year = Number(val.iAno),
+                                                                _indicator = val.dValor; 
+                                                                
+                                                        _results.push({
+                                                            year: Number(_year),
+                                                            indicator: _indicator == '' || _indicator == 0 ? Number(0.0000001) : Number(_indicator)
+                                                        });
+                                                    });
+                                                });
+                                                return _results;
+                                            })(_data_)
+                                        };
+                                    };
 
+                                    return (function () {
+                                        var _dF = {};
+                                        bovespa.each(_fields_, function (val) {
+                                            _dF[val] = _alter(val);
+                                        });
+
+                                        return _dF;
+                                    })();
+
+                                })(_data, _fields);
+                            },
+                            _tData = bovespa.memory({
+                                data: null
+                            });
+
+
+                    _tData.data = [];
+                    _tData.data = this.get('lmGrupo');
                     _dtCompany['company-id'] = this.get('iEmpresa_ID');
-                    _dtCompany['indebtedness'] = (function (_indebtedness_, _fields) {
-                        var _alter = function (name) {
-                            return {
-                                'results': (function (_data) {
-                                    var _results = [];
 
-                                    bovespa.each(_data[name]['resultados'], function (val) {
-                                        _results.push({
-                                            year: val.ano,
-                                            indicator: val.indicador,
-                                        });
-                                    });
+                    _tData.each(function () {
+                        var _grupo = this.get('sGrupo'),
+                                _data = bovespa.memory({
+                                    data: null
+                                });
 
-                                    return _results;
-                                })(_indebtedness_)
-                            };
-                        };
+                        _data.data = [];
+                        _data.data = this.get('lmIndicador');
+                        if (_grupo === "endividamento") {
+                            _dtCompany['indebtedness'] = _change_model(_data, ['ce', 'ipl', 'pct']);
+                        } else if (_grupo === "liquidez") {
+                            _dtCompany['liquidity'] = _change_model(_data, ['lg', 'ilc', 'ils', 'ccl']);
+                        } else if (_grupo === "rentabilidade") {
+                            _dtCompany['profitability'] = _change_model(_data, ['ga', 'ml', 'ra', 'rpl']);
+                        } else if (_grupo === "prazosmedios") {
+                            _dtCompany['midterm'] = _change_model(_data, ['pme', 'pmr', 'pmp', 'co', 'cf']);
+                        }
 
-                        return (function () {
-                            var _dF = {};
-
-                            bovespa.each(_fields, function (val) {
-                                _dF[val] = _alter(val);
-                            });
-
-                            return _dF;
-                        })();
-
-                    })(this.get('endividamento'), ['ce', 'ipl', 'pct']);
-                    _dtCompany['liquidity'] = (function (_indebtedness_, _fields) {
-                        var _alter = function (name) {
-                            return {
-                                'results': (function (_data) {
-                                    var _results = [];
-                                    bovespa.each(_data[name]['resultados'], function (val) {
-                                        _results.push({
-                                            year: val.ano,
-                                            indicator: val.indicador
-                                        });
-                                    });
-
-                                    return _results;
-                                })(_indebtedness_)
-                            };
-                        };
-
-                        return (function () {
-                            var _dF = {};
-
-                            bovespa.each(_fields, function (val) {
-                                _dF[val] = _alter(val);
-                            });
-
-                            return _dF;
-                        })();
-
-                    })(this.get('liquidez'), ['lg', 'ilc', 'ils', 'ccl']);
-                    _dtCompany['profitability'] = (function (_indebtedness_, _fields) {
-                        var _alter = function (name) {
-                            return {
-                                'results': (function (_data) {
-                                    var _results = [];
-
-                                    bovespa.each(_data[name]['resultados'], function (val) {
-                                        _results.push({
-                                            year: val.ano,
-                                            indicator: val.indicador,
-                                        });
-                                    });
-
-                                    return _results;
-                                })(_indebtedness_)
-                            };
-                        };
-
-                        return (function () {
-                            var _dF = {};
-
-                            bovespa.each(_fields, function (val) {
-                                _dF[val] = _alter(val);
-                            });
-
-                            return _dF;
-                        })();
-
-                    })(this.get('rentabilidade'), ['ga', 'ml', 'ra', 'rpl']);
-                    _dtCompany['midterm'] = (function (_indebtedness_, _fields) {
-                        var _alter = function (name) {
-                            return {
-                                'results': (function (_data) {
-                                    var _results = [];
-
-                                    bovespa.each(_data[name]['resultados'], function (val) {
-                                        _results.push({
-                                            year: val.ano,
-                                            indicator: val.indicador,
-                                        });
-                                    });
-
-                                    return _results;
-                                })(_indebtedness_)
-                            };
-                        };
-
-                        return (function () {
-                            var _dF = {};
-
-                            bovespa.each(_fields, function (val) {
-                                _dF[val] = _alter(val);
-                            });
-
-                            return _dF;
-                        })();
-
-                    })(this.get('prazosmedios'), ['pme', 'pmr', 'pmp', 'co', 'cf']);
+                    });
 
                     _dt.push(_dtCompany);
                 });
-
+                console.log(_dt);
                 callback.call(scope, _dt);
             });
         },

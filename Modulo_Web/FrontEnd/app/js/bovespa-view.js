@@ -245,7 +245,7 @@ bovespa.object.extend(bovespa, {
                                                 series: model.pct().results_data()
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('body', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -309,7 +309,7 @@ bovespa.object.extend(bovespa, {
                                                 series: model.ce().results_data()
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -402,7 +402,7 @@ bovespa.object.extend(bovespa, {
                                                 series: model.ipl().results_data()
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -782,7 +782,7 @@ bovespa.object.extend(bovespa, {
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -834,7 +834,7 @@ bovespa.object.extend(bovespa, {
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -886,7 +886,7 @@ bovespa.object.extend(bovespa, {
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -938,7 +938,7 @@ bovespa.object.extend(bovespa, {
                                             }); /* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -1274,7 +1274,7 @@ bovespa.object.extend(bovespa, {
                                             });/* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -1320,7 +1320,7 @@ bovespa.object.extend(bovespa, {
                                             });/* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -1366,7 +1366,7 @@ bovespa.object.extend(bovespa, {
                                             });/* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -1412,7 +1412,7 @@ bovespa.object.extend(bovespa, {
                                             });/* CONSTRUÇÃO DO HIGHCHARTS */
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
@@ -1650,20 +1650,25 @@ bovespa.object.extend(bovespa, {
                                                     title: {
                                                         text: ''
                                                     },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + 'd';
+                                                        }
+                                                    },
                                                     plotLines: model.pme().plotLines()
                                                 },
                                                 series: model.pme().results()
                                             });
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
                                             });
                                         }
                                     });
-                                    
+
                                     bovespa.JLib("card-graphic-pmr").frame({
                                         src: 'app/views/charts.html',
                                         width: '100%',
@@ -1680,20 +1685,25 @@ bovespa.object.extend(bovespa, {
                                                     title: {
                                                         text: ''
                                                     },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + 'd';
+                                                        }
+                                                    },
                                                     plotLines: model.pmr().plotLines()
                                                 },
                                                 series: model.pmr().results()
                                             });
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
                                             });
                                         }
                                     });
-                                    
+
                                     bovespa.JLib("card-graphic-pmp").frame({
                                         src: 'app/views/charts.html',
                                         width: '100%',
@@ -1710,20 +1720,25 @@ bovespa.object.extend(bovespa, {
                                                     title: {
                                                         text: ''
                                                     },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + 'd';
+                                                        }
+                                                    },
                                                     plotLines: model.pmp().plotLines()
                                                 },
                                                 series: model.pmp().results()
                                             });
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
                                             });
                                         }
                                     });
-                                    
+
                                     bovespa.JLib("card-graphic-cf").frame({
                                         src: 'app/views/charts.html',
                                         width: '100%',
@@ -1740,20 +1755,25 @@ bovespa.object.extend(bovespa, {
                                                     title: {
                                                         text: ''
                                                     },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + 'd';
+                                                        }
+                                                    },
                                                     plotLines: model.cf().plotLines()
                                                 },
                                                 series: model.cf().results()
                                             });
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"
                                             });
                                         }
                                     });
-                                    
+
                                     bovespa.JLib("card-graphic-co").frame({
                                         src: 'app/views/charts.html',
                                         width: '100%',
@@ -1770,13 +1790,18 @@ bovespa.object.extend(bovespa, {
                                                     title: {
                                                         text: ''
                                                     },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value.formatMoney(2, ',', '.') + 'd';
+                                                        }
+                                                    },
                                                     plotLines: model.co().plotLines()
                                                 },
                                                 series: model.co().results()
                                             });
 
                                             bovespa.JLib(".highcharts-legend-item", this.doc).remove(); /* PEGA A CLASSE LEGENDA DO CHART E REMOVE */
-                                            bovespa.JLib(this.body).replace({
+                                            bovespa.JLib('html', this.doc).replace({
                                                 tag: "text",
                                                 to: '',
                                                 from: "Highcharts.com"

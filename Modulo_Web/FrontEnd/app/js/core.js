@@ -259,8 +259,8 @@
         sys_core.object.extend(sys_core, {
             JLib: function JLib(prototype, doc) {
                 var _element;
-                var  doc  = doc || document;
-                
+                var doc = doc || document;
+
                 sys_core.object.extend(this, {
                     query: function (qr) {
                         var nodeList = doc.getElementsByTagName('*');
@@ -268,9 +268,14 @@
                         var iterator = 0;
                         var node = null;
 
-                        if (qr.trim() == '') {
-                            return nodeArray;
+                        try {
+                            if (qr.trim() == '') {
+                                return nodeArray;
+                            }
+                        } catch (err) {
+                            
                         }
+
 
 
                         var query = qr.substring(0, 1) == "." ? 'class' : qr.substring(0, 1) == "#" ? 'id' : '';
@@ -1009,7 +1014,7 @@
                             var y = (this.contentWindow || this.contentDocument);
                             settings.onReady.apply({
                                 doc: y.document,
-                                body: y.document.body
+                                body: y.document.getElementsByTagName('body')[0]
                             });
                         });
                     }
@@ -2367,7 +2372,7 @@
                         this['progress-complete'] = true;
                         this['progress-in'] = false;
                         if (this['type'] === 'json') {
-                            if (sys_core.type.isJson(response)) {
+                            if (sys_core.type.isJson(response)) {                              
                                 memory['data'] = JSON.parse(response);
                                 if (this['root']) {
                                     var parts = this['root'].split('.');
@@ -2464,7 +2469,7 @@
                     sum: function (field) {
                         var sum = 0;
                         memory.each(function () {
-                            sum += this.get(field);
+                            sum += Number(this.get(field));
                         });
 
                         return sum;
