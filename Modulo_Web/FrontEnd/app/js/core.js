@@ -183,7 +183,7 @@
             newID: function (previous) {
                 return (previous == undefined ? '' : previous + '-') + sys_core.generateUUID();
             },
-            formart: function (value, Mascara) {
+            format: function (value, Mascara) {
                 var boleanoMascara;
                 var Digitato = 9;
                 exp = /\-|\.|\/|\(|\)| /g

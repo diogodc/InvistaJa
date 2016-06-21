@@ -64,7 +64,7 @@ bovespa.object.extend(bovespa, {
                                         bovespa: {
                                             'company': {
                                                 name: bovespa.storage.get('sRazao_Social'),
-                                                cnpj: bovespa.formart(bovespa.storage.get('sCNPJ'), '00.000.000/0000-00', this)
+                                                cnpj: bovespa.format(bovespa.storage.get('sCNPJ'), '00.000.000/0000-00', this)
                                             }
                                         }
                                     });
