@@ -1,140 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Dados;
 
+import App.AppFinanceiro;
 import static App.AppFinanceiro.conn;
-import App.AppFinanceiro.tipoEmpresas;
-import App.AppFinanceiro.tipoRelatorio;
 import Modelo.ModeloEmpresa;
 import Modelo.ModeloGrupo;
-import Modelo.ModeloImpExp;
 import Modelo.ModeloIndEmpresa;
 import Modelo.ModeloIndicador;
 import Modelo.ModeloResultado;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
- * @author E. Cardoso de Araújo
+ * @author Everaldo Cardoso
  */
-public class DadosImpExp {
-        
-    public boolean importarDados(ArrayList<ModeloImpExp> lImportar, 
-            tipoRelatorio tRelatorio) throws Exception{
-        try{
-            if (lImportar.size()> 0){
-                return this.inserirDados(
-                        selecionarTipoRelatorio(tRelatorio),lImportar);
-            }else{
-                return false;
-            }
-        }catch(Exception ex){
-            throw ex;
-        }
-    } 
-    
-    private HashMap selecionarTipoRelatorio(tipoRelatorio tRelatorio){
-        try{
-            String sTabela,sIndice;
-            HashMap hDadosTabela = new HashMap();
-            
-            if (tRelatorio == tipoRelatorio.DRE){
-                sTabela = "BVSP_DRE";
-                sIndice = "DRE";
-            }else if (tRelatorio == tipoRelatorio.BPA){
-                sTabela = "BVSP_BPA";
-                sIndice = "BPA";
-            }else{
-                sTabela = "BVSP_BPP";
-                sIndice = "BPP";
-            }
-            
-            hDadosTabela.put("sTabela", sTabela);
-            hDadosTabela.put("sIndice", sIndice);
-            
-            return hDadosTabela;
-        }catch(Exception ex){
-            throw ex;
-        }
-    }
-    
-    private boolean inserirDados(HashMap hDadosTabela,  
-            ArrayList<ModeloImpExp> lImportar) throws Exception{
-        try{
-            String sSql;
-            int iEmpresa_ID = 0;
-            String sTabela = hDadosTabela.get("sTabela").toString();
-            String sIndice = hDadosTabela.get("sIndice").toString();
-            
-            if (lImportar.size() == 0){return false;}
-            
-            for (int i = 0; i < lImportar.size(); i++){
-                conn.abrirConexao();
-
-                ModeloImpExp mImportar = lImportar.get(i); 
-
-                sSql  = "";
-                sSql += "INSERT INTO " + sTabela;
-                sSql += "        (ID_EMPRESA,";    
-                sSql += "        " + sIndice + "_PERIODO1,";
-                sSql += "        " + sIndice + "_PERIODO2,";
-                sSql += "        " + sIndice + "_PERIODO3,";
-                sSql += "        " + sIndice + "_VALOR1,";
-                sSql += "        " + sIndice + "_VALOR2,";
-                sSql += "        " + sIndice + "_VALOR3,";
-                sSql += "        " + sIndice + "_CONTA_CONTABIL,";
-                sSql += "        " + sIndice + "_DESCRICAO";
-                sSql += "        )";
-                sSql += "      VALUES";
-                sSql += "        (" + mImportar.getEmpresa_ID()+ ",";
-                sSql += "         '" + mImportar.getPeriodo_1()+ "',";
-                sSql += "         '" + mImportar.getPeriodo_2()+ "',";
-                sSql += "         '" + mImportar.getPeriodo_3()+ "',";
-                sSql += "          " + mImportar.getValor_1()   + ",";
-                sSql += "          " + mImportar.getValor_2()   + ",";
-                sSql += "          " + mImportar.getValor_3()   + ",";
-                sSql += "         '" + mImportar.getConta()    + "',";
-                sSql += "         '" + mImportar.getDescricao()+ "'";
-                sSql += "        )";
-                
-                iEmpresa_ID = mImportar.getEmpresa_ID();
-                
-                if (!sSql.trim().isEmpty()){
-                    conn.Inserir(sSql);                        
-                }  
-                conn.fecharConexao();
-            }
-             this.atualizarIndiceImportado(sIndice,iEmpresa_ID);
-            return true;
-        }catch(Exception ex){
-            throw ex;
-        }
-    }
-    
-    private void atualizarIndiceImportado(String sIndice,
-            int iEmpresa_ID) throws Exception{
-        try{
-            conn.abrirConexao();
-            String sSql;
-            
-            sSql  = "UPDATE BVSP_EMPRESA SET ";
-            sSql += "   BVSP_EMPRESA." + sIndice + " = 'S' ";
-            sSql += "WHERE BVSP_EMPRESA.ID_EMPRESA = " + iEmpresa_ID;
-            
-            conn.Alterar(sSql);
-            
-            conn.fecharConexao();
-        }catch(Exception ex){
-            throw ex;
-        }
-    }
-    
+public class DadosExportar {
     public boolean calcularIndicadores(String sAno1, String sAno2, String sAno3) throws Exception{
-        try{
-            
-            
-            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresas(tipoEmpresas.IMPORTADAS);
+        try{         
+            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresas(AppFinanceiro.tipoEmpresas.IMPORTADAS);
             
             for (int i = 0; i < lmEmpresas.size();i++){
                 ModeloEmpresa mEmpresa = lmEmpresas.get(i);
@@ -162,7 +51,7 @@ public class DadosImpExp {
     public ArrayList<ModeloIndEmpresa> gerarIndicadoresEmpresa() throws Exception{
         try{
             ArrayList<ModeloIndEmpresa> lmIndEmpresa = new ArrayList<ModeloIndEmpresa>();
-            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresas(tipoEmpresas.CALCULADAS);
+            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().carregarEmpresas(AppFinanceiro.tipoEmpresas.CALCULADAS);
 
             for (int i = 0; i<lmEmpresas.size();i++){
                 ModeloIndEmpresa mIndEmpresa = new ModeloIndEmpresa();

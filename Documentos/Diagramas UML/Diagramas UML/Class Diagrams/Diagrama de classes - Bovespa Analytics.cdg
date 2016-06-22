@@ -31,7 +31,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ControleAutenticacao" package="Controle" visibility="public" xPosition="456.0" yPosition="20.0">
+    <Class name="ControleAutenticacao" package="Controle" visibility="public" xPosition="320.0" yPosition="20.0">
       <Fields>
         <Field name="vAutenticacao" type="VisaoAutenticacao" visibility="private"/>
         <Field name="dAutenticacao" type="DadosAutenticacao" visibility="private"/>
@@ -75,24 +75,37 @@
         <Method name="carregaBusca" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="ControleImpExp" package="Controle" visibility="public" xPosition="920.0" yPosition="20.0">
+    <Class name="ControleExportar" package="Controle" visibility="public" xPosition="920.0" yPosition="20.0">
       <Fields>
-        <Field name="vImportar" type="VisaoImpExp" visibility="private" isFinal="true"/>
+        <Field name="vExportar" type="VisaoExportar" visibility="package"/>
+        <Field name="dEmpresa" type="DadosEmpresa" visibility="package"/>
+        <Field name="dExportar" type="DadosExportar" visibility="package"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public">
-          <Argument type="VisaoImpExp" name="vImportar"/>
+          <Argument type="VisaoExportar" name="vExportar"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Exportar" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ControleImportar" package="Controle" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="vImportar" type="VisaoImportar" visibility="private" isFinal="true"/>
+        <Field name="dImpExp" type="DadosImportar" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="VisaoImportar" name="vImportar"/>
         </Constructor>
       </Constructors>
       <Methods>
         <Method name="lerArquivo" returnType="boolean" visibility="private"/>
         <Method name="validarArquivo" returnType="boolean" visibility="private"/>
-        <Method name="manipularArquivo" returnType="ArrayList&lt;ModeloImpExp&gt;" visibility="private">
+        <Method name="manipularArquivo" returnType="ArrayList&lt;ModeloImportar&gt;" visibility="private">
           <Argument type="BufferedReader" name="brLeitor"/>
           <Argument type="String" name="sEmpresa_ID"/>
-        </Method>
-        <Method name="carregarEmpresas" returnType="void" visibility="public">
-          <Argument type="JComboBox" name="cboEmpresa"/>
         </Method>
         <Method name="carregaBusca" returnType="void" visibility="public"/>
         <Method name="carregaCampos" returnType="void" visibility="private">
@@ -100,12 +113,9 @@
         </Method>
         <Method name="Importar" returnType="void" visibility="public"/>
         <Method name="validaImportar" returnType="boolean" visibility="private"/>
-        <Method name="exportar" returnType="boolean" visibility="public"/>
-        <Method name="calcularIndicadores" returnType="boolean" visibility="private"/>
-        <Method name="gerarIndicadores" returnType="ArrayList&lt;ModeloIndicadores&gt;" visibility="private"/>
       </Methods>
     </Class>
-    <Class name="ControlePesquisar" package="Controle" visibility="public" xPosition="1220.0" yPosition="20.0">
+    <Class name="ControlePesquisar" package="Controle" visibility="public" xPosition="1520.0" yPosition="20.0">
       <Fields>
         <Field name="sTabela" type="String" visibility="private" isFinal="true"/>
         <Field name="sParametros" type="String" visibility="private" isFinal="true"/>
@@ -136,7 +146,7 @@
         <Method name="selecionar" returnType="ArrayList&lt;String&gt;" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="DadosAutenticacao" package="Dados" visibility="public" xPosition="1520.0" yPosition="20.0">
+    <Class name="DadosAutenticacao" package="Dados" visibility="public" xPosition="1820.0" yPosition="20.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -145,7 +155,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DadosConexao" package="Dados" visibility="public" xPosition="1820.0" yPosition="20.0">
+    <Class name="DadosConexao" package="Dados" visibility="public" xPosition="2120.0" yPosition="20.0">
       <Fields>
         <Field name="sIpServidor" type="String" visibility="public" isStatic="true"/>
         <Field name="sDriver" type="String" visibility="private" isFinal="true"/>
@@ -181,15 +191,18 @@
         </Method>
         <Method name="abrirConexao" returnType="boolean" visibility="public"/>
         <Method name="fecharConexao" returnType="boolean" visibility="public"/>
-        <Method name="consultar" returnType="ResultSet" visibility="public">
+        <Method name="consultar" returnType="ResultSet" visibility="protected">
           <Argument type="String" name="sConsulta"/>
         </Method>
-        <Method name="alterar" returnType="boolean" visibility="public">
+        <Method name="alterar" returnType="boolean" visibility="protected">
           <Argument type="String" name="sAlteracao"/>
+        </Method>
+        <Method name="procedure" returnType="boolean" visibility="protected">
+          <Argument type="String" name="sProcedure"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="DadosEmpresa" package="Dados" visibility="public" xPosition="2120.0" yPosition="20.0">
+    <Class name="DadosEmpresa" package="Dados" visibility="public" xPosition="20.0" yPosition="420.0">
       <Fields>
         <Field name="mEmpresa" type="ModeloEmpresa" visibility="private"/>
       </Fields>
@@ -200,7 +213,9 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="carregarEmpresa" returnType="ArrayList&lt;ModeloEmpresa&gt;" visibility="public"/>
+        <Method name="carregarEmpresas" returnType="ArrayList&lt;ModeloEmpresa&gt;" visibility="public">
+          <Argument type="tipoEmpresas" name="tEmpresas"/>
+        </Method>
         <Method name="salvar" returnType="String" visibility="public">
           <Argument type="ModeloEmpresa" name="mEmpresa"/>
         </Method>
@@ -219,12 +234,35 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DadosImpExp" package="Dados" visibility="public" xPosition="20.0" yPosition="293.0">
+    <Class name="DadosExportar" package="Dados" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="calcularIndicadores" returnType="boolean" visibility="public">
+          <Argument type="String" name="sAno1"/>
+          <Argument type="String" name="sAno2"/>
+          <Argument type="String" name="sAno3"/>
+        </Method>
+        <Method name="gerarIndicadoresEmpresa" returnType="ArrayList&lt;ModeloIndEmpresa&gt;" visibility="public"/>
+        <Method name="gerarGrupo" returnType="ArrayList&lt;ModeloGrupo&gt;" visibility="private">
+          <Argument type="int" name="iEmpresa_ID"/>
+        </Method>
+        <Method name="gerarIndicadores" returnType="ArrayList&lt;ModeloIndicador&gt;" visibility="private">
+          <Argument type="int" name="iEmpresa_ID"/>
+          <Argument type="tipoGrupo" name="tGrupo"/>
+        </Method>
+        <Method name="gerarResultados" returnType="ArrayList&lt;ModeloResultado&gt;" visibility="private">
+          <Argument type="int" name="iEmpresa_ID"/>
+          <Argument type="String" name="sCampo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DadosImportar" package="Dados" visibility="public" xPosition="620.0" yPosition="420.0">
       <Fields/>
       <Constructors/>
       <Methods>
         <Method name="importarDados" returnType="boolean" visibility="public">
-          <Argument type="ArrayList&lt;ModeloImpExp&gt;" name="lImportar"/>
+          <Argument type="ArrayList&lt;ModeloImportar&gt;" name="lImportar"/>
           <Argument type="tipoRelatorio" name="tRelatorio"/>
         </Method>
         <Method name="selecionarTipoRelatorio" returnType="HashMap" visibility="private">
@@ -232,16 +270,15 @@
         </Method>
         <Method name="inserirDados" returnType="boolean" visibility="private">
           <Argument type="HashMap" name="hDadosTabela"/>
-          <Argument type="ArrayList&lt;ModeloImpExp&gt;" name="lImportar"/>
+          <Argument type="ArrayList&lt;ModeloImportar&gt;" name="lImportar"/>
         </Method>
         <Method name="atualizarIndiceImportado" returnType="void" visibility="private">
           <Argument type="String" name="sIndice"/>
           <Argument type="int" name="iEmpresa_ID"/>
         </Method>
-        <Method name="calcularPCT" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="DadosManipulacao" package="Dados" visibility="public" xPosition="116.0" yPosition="499.0">
+    <Class name="DadosManipulacao" package="Dados" visibility="public" xPosition="920.0" yPosition="420.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -257,9 +294,12 @@
         <Method name="Inserir" returnType="boolean" visibility="public">
           <Argument type="String" name="sQuery"/>
         </Method>
+        <Method name="Procedure" returnType="boolean" visibility="public">
+          <Argument type="String" name="sQuery"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="DadosPesquisar" package="Dados" visibility="public" xPosition="620.0" yPosition="420.0">
+    <Class name="DadosPesquisar" package="Dados" visibility="public" xPosition="1220.0" yPosition="420.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -280,7 +320,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="CreateModel" package="Modelo" visibility="public" xPosition="920.0" yPosition="420.0">
+    <Class name="CreateModel" package="Modelo" visibility="public" xPosition="1520.0" yPosition="420.0">
       <Fields>
         <Field name="_model" type="T" visibility="private" isFinal="true"/>
         <Field name="_searchOption" type="String" visibility="private"/>
@@ -310,7 +350,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ModeloEmpresa" package="Modelo" visibility="public" xPosition="1220.0" yPosition="420.0">
+    <Class name="ModeloEmpresa" package="Modelo" visibility="public" xPosition="1820.0" yPosition="420.0">
       <Fields>
         <Field name="iEmpresa_ID" type="int" visibility="private"/>
         <Field name="sRazao_Social" type="String" visibility="private"/>
@@ -380,7 +420,26 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ModeloImpExp" package="Modelo" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="ModeloGrupo" package="Modelo" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields>
+        <Field name="sGrupo" type="String" visibility="private"/>
+        <Field name="lmIndicador" type="ArrayList&lt;ModeloIndicador&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getGrupo" returnType="String" visibility="public"/>
+        <Method name="setGrupo" returnType="void" visibility="public">
+          <Argument type="String" name="sGrupo"/>
+        </Method>
+        <Method name="getlmIndicador" returnType="ArrayList&lt;ModeloIndicador&gt;" visibility="public"/>
+        <Method name="setlmIndicador" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloIndicador&gt;" name="lmIndicador"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloImportar" package="Modelo" visibility="public" xPosition="20.0" yPosition="820.0">
       <Fields>
         <Field name="iEmpresa_ID" type="int" visibility="private"/>
         <Field name="sConta" type="String" visibility="private"/>
@@ -445,48 +504,45 @@
         <Method name="getValor_3" returnType="String" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="ModeloIndicadores" package="Modelo" visibility="public" xPosition="1820.0" yPosition="420.0">
+    <Class name="ModeloIndEmpresa" package="Modelo" visibility="public" xPosition="320.0" yPosition="820.0">
       <Fields>
         <Field name="iEmpresa_ID" type="int" visibility="private"/>
-        <Field name="mrEndividamento" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
-        <Field name="mrLiquidez" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
-        <Field name="mrRentabilidade" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
-        <Field name="mrPrazosMedios" type="ArrayList&lt;ModeloResultados&gt;" visibility="private"/>
+        <Field name="lmGrupo" type="ArrayList&lt;ModeloGrupo&gt;" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="int" name="iEmpresa_ID"/>
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrEndividamento"/>
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrLiquidez"/>
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrRentabilidade"/>
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrPrazosMedios"/>
-        </Constructor>
       </Constructors>
       <Methods>
         <Method name="getEmpresa_ID" returnType="int" visibility="public"/>
         <Method name="setEmpresa_ID" returnType="void" visibility="public">
           <Argument type="int" name="iEmpresa_ID"/>
         </Method>
-        <Method name="getEndividamento" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
-        <Method name="setEndividamento" returnType="void" visibility="public">
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrEndividamento"/>
-        </Method>
-        <Method name="getLiquidez" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
-        <Method name="setLiquidez" returnType="void" visibility="public">
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrLiquidez"/>
-        </Method>
-        <Method name="getRentabilidade" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
-        <Method name="setRentabilidade" returnType="void" visibility="public">
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrRentabilidade"/>
-        </Method>
-        <Method name="getMrPrazosMedios" returnType="ArrayList&lt;ModeloResultados&gt;" visibility="public"/>
-        <Method name="setMrPrazosMedios" returnType="void" visibility="public">
-          <Argument type="ArrayList&lt;ModeloResultados&gt;" name="mrPrazosMedios"/>
+        <Method name="getLmGrupo" returnType="ArrayList&lt;ModeloGrupo&gt;" visibility="public"/>
+        <Method name="setLmGrupo" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloGrupo&gt;" name="lmGrupo"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="ModeloPesquisar" package="Modelo" visibility="public" xPosition="2120.0" yPosition="420.0">
+    <Class name="ModeloIndicador" package="Modelo" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="sIndicador" type="String" visibility="private"/>
+        <Field name="lmResultado" type="ArrayList&lt;ModeloResultado&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIndicador" returnType="String" visibility="public"/>
+        <Method name="setIndicador" returnType="void" visibility="public">
+          <Argument type="String" name="sIndicador"/>
+        </Method>
+        <Method name="getLmResultado" returnType="ArrayList&lt;ModeloResultado&gt;" visibility="public"/>
+        <Method name="setLmResultado" returnType="void" visibility="public">
+          <Argument type="ArrayList&lt;ModeloResultado&gt;" name="lmResultado"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModeloPesquisar" package="Modelo" visibility="public" xPosition="920.0" yPosition="820.0">
       <Fields>
         <Field name="sParamentros" type="String" visibility="private"/>
         <Field name="sTabela" type="String" visibility="private"/>
@@ -534,36 +590,26 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="ModeloResultados" package="Modelo" visibility="public" xPosition="20.0" yPosition="820.0">
+    <Class name="ModeloResultado" package="Modelo" visibility="public" xPosition="1220.0" yPosition="820.0">
       <Fields>
-        <Field name="sNomeIndicador" type="String" visibility="private"/>
         <Field name="iAno" type="int" visibility="private"/>
-        <Field name="dIndicador" type="double" visibility="private"/>
+        <Field name="dValor" type="double" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
-        <Constructor visibility="public">
-          <Argument type="String" name="sNomeIndicador"/>
-          <Argument type="int" name="iAno"/>
-          <Argument type="double" name="dIndicador"/>
-        </Constructor>
       </Constructors>
       <Methods>
         <Method name="getAno" returnType="int" visibility="public"/>
         <Method name="setAno" returnType="void" visibility="public">
           <Argument type="int" name="iAno"/>
         </Method>
-        <Method name="getIndicador" returnType="double" visibility="public"/>
-        <Method name="setIndicador" returnType="void" visibility="public">
-          <Argument type="double" name="dIndicador"/>
-        </Method>
-        <Method name="getNomeIndicador" returnType="String" visibility="public"/>
-        <Method name="setNomeIndicador" returnType="void" visibility="public">
-          <Argument type="String" name="sNomeIndicador"/>
+        <Method name="getValor" returnType="double" visibility="public"/>
+        <Method name="setValor" returnType="void" visibility="public">
+          <Argument type="double" name="dValor"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="ModeloUsuario" package="Modelo" visibility="public" xPosition="320.0" yPosition="820.0">
+    <Class name="ModeloUsuario" package="Modelo" visibility="public" xPosition="1520.0" yPosition="820.0">
       <Fields>
         <Field name="sUsuario" type="String" visibility="private"/>
         <Field name="sSenha" type="String" visibility="private"/>
@@ -598,7 +644,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Branch" package="Modelo.Tree.Branch" visibility="public" xPosition="620.0" yPosition="820.0">
+    <Class name="Branch" package="Modelo.Tree.Branch" visibility="public" xPosition="1820.0" yPosition="820.0">
       <Fields>
         <Field name="_left" type="Branch" visibility="private"/>
         <Field name="_right" type="Branch" visibility="private"/>
@@ -639,7 +685,34 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="SLeaf" package="Modelo.Tree.Branch.Leaf.String" visibility="public" xPosition="1220.0" yPosition="820.0">
+    <Interface name="Leaf" package="Modelo.Tree.Branch.Leaf" visibility="public" xPosition="2120.0" yPosition="820.0">
+      <Methods>
+        <Method name="getKey" returnType="Object" visibility="public"/>
+        <Method name="setKey" returnType="void" visibility="public">
+          <Argument type="Object" name="_Key"/>
+        </Method>
+        <Method name="compare" returnType="int" visibility="public">
+          <Argument type="T" name="o2"/>
+        </Method>
+        <Method name="inPosition" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="onLeft" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="onRight" returnType="boolean" visibility="public">
+          <Argument type="T" name="sap"/>
+        </Method>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="Vector" name="model"/>
+        </Method>
+        <Method name="Get" returnType="T" visibility="public">
+          <Argument type="List" name="model"/>
+        </Method>
+        <Method name="parseVector" returnType="Vector" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Class name="SLeaf" package="Modelo.Tree.Branch.Leaf.String" visibility="public" xPosition="20.0" yPosition="1220.0">
       <Fields>
         <Field name="_key" type="String" visibility="private"/>
       </Fields>
@@ -670,7 +743,7 @@
         <Method name="parseVector" returnType="Vector" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Tree" package="Modelo.Tree" visibility="public" xPosition="1520.0" yPosition="820.0">
+    <Class name="Tree" package="Modelo.Tree" visibility="public" xPosition="320.0" yPosition="1220.0">
       <Fields>
         <Field name="_trunk" type="Branch&lt;T&gt;" visibility="private"/>
       </Fields>
@@ -719,7 +792,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="VisaoAutenticacao" package="Visao" visibility="public" xPosition="1820.0" yPosition="820.0">
+    <Class name="VisaoAutenticacao" package="Visao" visibility="public" xPosition="620.0" yPosition="1220.0">
       <Fields>
         <Field name="cAutenticacao" type="ControleAutenticacao" visibility="private"/>
         <Field name="btnCancelar" type="javax.swing.JButton" visibility="public"/>
@@ -739,7 +812,8 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
         <Method name="cboServidorActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
@@ -757,11 +831,10 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="VisaoEmpresa" package="Visao" visibility="public" xPosition="2120.0" yPosition="820.0">
+    <Class name="VisaoEmpresa" package="Visao" visibility="public" xPosition="920.0" yPosition="1220.0">
       <Fields>
         <Field name="cEmpresa" type="ControleEmpresa" visibility="private"/>
         <Field name="btnExcluir" type="javax.swing.JButton" visibility="public"/>
-        <Field name="btnExportar" type="javax.swing.JButton" visibility="public"/>
         <Field name="btnNovo" type="javax.swing.JButton" visibility="public"/>
         <Field name="btnPesquisar" type="javax.swing.JButton" visibility="public"/>
         <Field name="btnSalvar" type="javax.swing.JButton" visibility="public"/>
@@ -782,7 +855,8 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
         <Method name="txtCodEmpresaActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
@@ -810,9 +884,6 @@
         <Method name="btnPesquisarActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
-        <Method name="btnExportarActionPerformed" returnType="void" visibility="private">
-          <Argument type="java.awt.event.ActionEvent" name="evt"/>
-        </Method>
         <Method name="formKeyPressed" returnType="void" visibility="private">
           <Argument type="java.awt.event.KeyEvent" name="evt"/>
         </Method>
@@ -827,10 +898,30 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="VisaoImpExp" package="Visao" visibility="public" xPosition="20.0" yPosition="1220.0">
+    <Class name="VisaoExportar" package="Visao" visibility="public" xPosition="1220.0" yPosition="1220.0">
       <Fields>
-        <Field name="cManipulacao" type="ControleImpExp" visibility="private"/>
+        <Field name="cExportar" type="ControleExportar" visibility="private"/>
         <Field name="btnExportar" type="javax.swing.JButton" visibility="public"/>
+        <Field name="cboTipoExportacao" type="javax.swing.JComboBox&lt;String&gt;" visibility="public"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="btnExportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formInternalFrameOpened" returnType="void" visibility="private">
+          <Argument type="javax.swing.event.InternalFrameEvent" name="evt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="VisaoImportar" package="Visao" visibility="public" xPosition="1520.0" yPosition="1220.0">
+      <Fields>
+        <Field name="cManipulacao" type="ControleImportar" visibility="private"/>
         <Field name="btnImportar" type="javax.swing.JButton" visibility="public"/>
         <Field name="btnProcurarEmpresa" type="javax.swing.JButton" visibility="public"/>
         <Field name="btnSelecionar" type="javax.swing.JButton" visibility="public"/>
@@ -848,7 +939,8 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
         <Method name="btnSelecionarActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
@@ -861,15 +953,12 @@
         <Method name="txtDscEmpresaActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
-        <Method name="btnExportarActionPerformed" returnType="void" visibility="private">
-          <Argument type="java.awt.event.ActionEvent" name="evt"/>
-        </Method>
         <Method name="btnProcurarEmpresaActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="VisaoInicio" package="Visao" visibility="public" xPosition="320.0" yPosition="1220.0">
+    <Class name="VisaoInicio" package="Visao" visibility="public" xPosition="1820.0" yPosition="1220.0">
       <Fields>
         <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
         <Field name="jMenu1" type="javax.swing.JMenu" visibility="private"/>
@@ -883,6 +972,7 @@
         <Field name="mnuAcoes" type="javax.swing.JMenu" visibility="private"/>
         <Field name="mnuCadEmpresas" type="javax.swing.JMenuItem" visibility="private"/>
         <Field name="mnuDados" type="javax.swing.JMenu" visibility="private"/>
+        <Field name="mnuExportar" type="javax.swing.JMenuItem" visibility="private"/>
         <Field name="mnuImportar" type="javax.swing.JMenuItem" visibility="private"/>
         <Field name="mnuSair" type="javax.swing.JMenuItem" visibility="private"/>
         <Field name="mnuTrocarUsuario" type="javax.swing.JMenuItem" visibility="private"/>
@@ -893,7 +983,8 @@
         <Constructor visibility="public"/>
       </Constructors>
       <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
         <Method name="mnuAcoesActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
@@ -909,13 +1000,16 @@
         <Method name="mnuTrocarUsuarioActionPerformed" returnType="void" visibility="private">
           <Argument type="java.awt.event.ActionEvent" name="evt"/>
         </Method>
+        <Method name="mnuExportarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
         <Method name="trocarUsuario" returnType="void" visibility="private"/>
         <Method name="main" returnType="void" visibility="public" isStatic="true">
           <Argument type="String" name="args"/>
         </Method>
       </Methods>
     </Class>
-    <Class name="VisaoPesquisar" package="Visao" visibility="public" xPosition="620.0" yPosition="1220.0">
+    <Class name="VisaoPesquisar" package="Visao" visibility="public" xPosition="2120.0" yPosition="1220.0">
       <Fields>
         <Field name="alDados" type="ArrayList&lt;String&gt;" visibility="private"/>
         <Field name="cPesquisar" type="ControlePesquisar" visibility="private" isFinal="true"/>
@@ -942,7 +1036,8 @@
         </Constructor>
       </Constructors>
       <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
         <Method name="tabResultadoMouseClicked" returnType="void" visibility="private">
           <Argument type="java.awt.event.MouseEvent" name="evt"/>
         </Method>
@@ -962,73 +1057,55 @@
         </Method>
       </Methods>
     </Class>
-    <Interface name="Leaf" package="Modelo.Tree.Branch.Leaf" visibility="public" xPosition="920.0" yPosition="820.0">
-      <Methods>
-        <Method name="getKey" returnType="Object" visibility="public"/>
-        <Method name="setKey" returnType="void" visibility="public">
-          <Argument type="Object" name="_Key"/>
-        </Method>
-        <Method name="compare" returnType="int" visibility="public">
-          <Argument type="T" name="o2"/>
-        </Method>
-        <Method name="inPosition" returnType="boolean" visibility="public">
-          <Argument type="T" name="sap"/>
-        </Method>
-        <Method name="onLeft" returnType="boolean" visibility="public">
-          <Argument type="T" name="sap"/>
-        </Method>
-        <Method name="onRight" returnType="boolean" visibility="public">
-          <Argument type="T" name="sap"/>
-        </Method>
-        <Method name="Get" returnType="T" visibility="public">
-          <Argument type="Vector" name="model"/>
-        </Method>
-        <Method name="Get" returnType="T" visibility="public">
-          <Argument type="List" name="model"/>
-        </Method>
-        <Method name="parseVector" returnType="Vector" visibility="public"/>
-      </Methods>
-    </Interface>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation source="Controle.ControleEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosImportar" target="Modelo.ModeloImportar" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloIndicador" target="Modelo.ModeloResultado" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="mArvore" source="Visao.VisaoPesquisar" target="Modelo.CreateModel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="cPesquisar" source="Visao.VisaoPesquisar" target="Controle.ControlePesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="_right" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="dAutenticacao" source="Controle.ControleAutenticacao" target="Dados.DadosAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mrEndividamento" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
-    <HasRelation name="dEmpresa" source="Controle.ControleEmpresa" target="Dados.DadosEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Dados.DadosAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mArvore" source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mrLiquidez" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
-    <IsRelation name="is" source="Modelo.ModeloEmpresa" target="Modelo.Tree.Branch.Leaf.String.SLeaf"/>
-    <UseRelation source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.String.SLeaf" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="Modelo.Tree.Tree" target="Modelo.Tree.Branch.Branch" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mrPrazosMedios" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
-    <UseRelation source="Controle.ControleAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Modelo.ModeloEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="vEmpresa" source="Controle.ControleEmpresa" target="Visao.VisaoEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="_left" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="cEmpresa" source="Visao.VisaoEmpresa" target="Controle.ControleEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="Dados.DadosManipulacao" target="Dados.DadosConexao"/>
-    <HasRelation name="_father" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mEmpresa" source="Dados.DadosEmpresa" target="Modelo.ModeloEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="cAutenticacao" source="Visao.VisaoAutenticacao" target="Controle.ControleAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="cManipulacao" source="Visao.VisaoImpExp" target="Controle.ControleImpExp" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="conn" source="App.AppFinanceiro" target="Dados.DadosManipulacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Visao.VisaoPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="vAutenticacao" source="Controle.ControleAutenticacao" target="Visao.VisaoAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="vImportar" source="Controle.ControleImpExp" target="Visao.VisaoImpExp" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="vPesquisar" source="Controle.ControlePesquisar" target="Visao.VisaoPesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Controle.ControleImportar" target="Modelo.ModeloImportar" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosExportar" target="Modelo.ModeloGrupo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Controle.ControleEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vImportar" source="Controle.ControleImportar" target="Visao.VisaoImportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="Dados.DadosPesquisar" target="Modelo.ModeloPesquisar" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.Leaf"/>
+    <HasRelation name="vPesquisar" source="Controle.ControlePesquisar" target="Visao.VisaoPesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="Dados.DadosEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Controle.ControleImpExp" target="Modelo.ModeloIndicadores" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="mrRentabilidade" source="Modelo.ModeloIndicadores" target="Modelo.ModeloResultados" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultados&gt;"/>
-    <UseRelation source="Dados.DadosImpExp" target="Modelo.ModeloImpExp" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dEmpresa" source="Controle.ControleEmpresa" target="Dados.DadosEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dAutenticacao" source="Controle.ControleAutenticacao" target="Dados.DadosAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Modelo.ModeloEmpresa" target="Modelo.Tree.Branch.Leaf.String.SLeaf"/>
+    <HasRelation name="_father" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="lmIndicador" source="Modelo.ModeloGrupo" target="Modelo.ModeloIndicador" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloIndicador&gt;"/>
+    <HasRelation name="vAutenticacao" source="Controle.ControleAutenticacao" target="Visao.VisaoAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloGrupo" target="Modelo.ModeloIndicador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cPesquisar" source="Visao.VisaoPesquisar" target="Controle.ControlePesquisar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosExportar" target="Modelo.ModeloIndEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosExportar" target="Modelo.ModeloResultado" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloIndEmpresa" target="Modelo.ModeloGrupo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.String.SLeaf" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="conn" source="App.AppFinanceiro" target="Dados.DadosManipulacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.ModeloEmpresa" target="Modelo.ModeloEmpresa" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_left" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cAutenticacao" source="Visao.VisaoAutenticacao" target="Controle.ControleAutenticacao" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mArvore" source="Modelo.ModeloPesquisar" target="Modelo.CreateModel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_right" source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Visao.VisaoPesquisar" target="Modelo.CreateModel" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Dados.DadosExportar" target="Modelo.ModeloIndicador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="lmGrupo" source="Modelo.ModeloIndEmpresa" target="Modelo.ModeloGrupo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloGrupo&gt;"/>
+    <HasRelation name="dEmpresa" source="Controle.ControleExportar" target="Dados.DadosEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dExportar" source="Controle.ControleExportar" target="Dados.DadosExportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Dados.DadosManipulacao" target="Dados.DadosConexao"/>
+    <HasRelation name="mEmpresa" source="Dados.DadosEmpresa" target="Modelo.ModeloEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Controle.ControleAutenticacao" target="Modelo.ModeloUsuario" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cExportar" source="Visao.VisaoExportar" target="Controle.ControleExportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="Modelo.Tree.Branch.Leaf.String.SLeaf" target="Modelo.Tree.Branch.Leaf.Leaf"/>
+    <HasRelation name="dImpExp" source="Controle.ControleImportar" target="Dados.DadosImportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="Modelo.Tree.Branch.Branch" target="Modelo.Tree.Branch.Branch" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="Controle.ControleImpExp" target="Modelo.ModeloImpExp" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cManipulacao" source="Visao.VisaoImportar" target="Controle.ControleImportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vEmpresa" source="Controle.ControleEmpresa" target="Visao.VisaoEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="cEmpresa" source="Visao.VisaoEmpresa" target="Controle.ControleEmpresa" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vExportar" source="Controle.ControleExportar" target="Visao.VisaoExportar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="lmResultado" source="Modelo.ModeloIndicador" target="Modelo.ModeloResultado" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ArrayList&lt;ModeloResultado&gt;"/>
   </ClassDiagramRelations>
 </ClassDiagram>

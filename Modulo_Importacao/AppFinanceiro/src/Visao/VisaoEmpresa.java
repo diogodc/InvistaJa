@@ -34,7 +34,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
-        btnExportar = new javax.swing.JButton();
         btnZerarHistorico = new javax.swing.JButton();
 
         setClosable(true);
@@ -143,13 +142,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
             }
         });
 
-        btnExportar.setText("Exportar");
-        btnExportar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportarActionPerformed(evt);
-            }
-        });
-
         btnZerarHistorico.setText("Zerar Histórico");
         btnZerarHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,8 +164,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                 .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnZerarHistorico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,7 +175,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnNovo)
                     .addComponent(btnPesquisar)
-                    .addComponent(btnExportar)
                     .addComponent(btnZerarHistorico))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -313,18 +302,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-        try{
-            if (cEmpresa.exportar()){
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
-            }else{
-                JOptionPane.showMessageDialog(null, "Não foi possivel gerar o arquivo!", this.getTitle(), 0);
-            }
-        }catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
-        }
-    }//GEN-LAST:event_btnExportarActionPerformed
-
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
 
     }//GEN-LAST:event_formKeyPressed
@@ -348,7 +325,6 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnExcluir;
-    public javax.swing.JButton btnExportar;
     public javax.swing.JButton btnNovo;
     public javax.swing.JButton btnPesquisar;
     public javax.swing.JButton btnSalvar;

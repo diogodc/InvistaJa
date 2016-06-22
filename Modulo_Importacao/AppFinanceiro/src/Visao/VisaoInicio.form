@@ -55,10 +55,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuImportar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Importar dados"/>
+                <Property name="text" type="java.lang.String" value="Importar informa&#xe7;&#xf5;es"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportarActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuExportar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exportar informa&#xe7;&#xf5;es"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuExportarActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

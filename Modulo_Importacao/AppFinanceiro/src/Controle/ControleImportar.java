@@ -1,27 +1,29 @@
 package Controle;
 
+import App.AppFinanceiro;
 import static App.AppFinanceiro.converteObjetoParaJson;
 import static App.AppFinanceiro.gravarArquivo;
+import static App.AppFinanceiro.sCaminhoArquivos;
 import App.AppFinanceiro.tipoRelatorio;
-import Dados.DadosImpExp;
+import Dados.DadosImportar;
 import Modelo.CreateModel;
 import Modelo.ModeloEmpresa;
-import Modelo.ModeloImpExp;
-import Visao.VisaoImpExp;
+import Modelo.ModeloImportar;
+import Visao.VisaoImportar;
 import Visao.VisaoPesquisar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class ControleImpExp {
+public class ControleImportar {
 
-    private final VisaoImpExp vImportar;
-    private final DadosImpExp dImpExp;
+    private final VisaoImportar vImportar;
+    private final DadosImportar dImpExp;
 
-    public ControleImpExp(VisaoImpExp vImportar) {
+    public ControleImportar(VisaoImportar vImportar) {
         this.vImportar = vImportar;
-        this.dImpExp = new DadosImpExp();
+        this.dImpExp = new DadosImportar();
     }
 
     private boolean lerArquivo() throws Exception {
@@ -66,11 +68,11 @@ public class ControleImpExp {
         }
     }
 
-    private ArrayList<ModeloImpExp> manipularArquivo(BufferedReader brLeitor, String sEmpresa_ID) throws Exception {
+    private ArrayList<ModeloImportar> manipularArquivo(BufferedReader brLeitor, String sEmpresa_ID) throws Exception {
         try {
             int iEmpresa_ID = Integer.parseInt(sEmpresa_ID);
             String sLinha;
-            ArrayList<ModeloImpExp> lMImportar = new ArrayList<ModeloImpExp>();
+            ArrayList<ModeloImportar> lMImportar = new ArrayList<ModeloImportar>();
             ArrayList<String> lPeriodo = new ArrayList<String>();
             int iCont = 0;
 
@@ -81,7 +83,7 @@ public class ControleImpExp {
                     lPeriodo.add(sVetCelula[3]);
                     lPeriodo.add(sVetCelula[4]);
                 } else {
-                    ModeloImpExp mImportar = new ModeloImpExp();
+                    ModeloImportar mImportar = new ModeloImportar();
                     String[] sVetCelula = sLinha.split(";");
                     int iQuantReg = sVetCelula.length;
                     mImportar.setEmpresa_ID(iEmpresa_ID);
@@ -211,31 +213,19 @@ public class ControleImpExp {
         try {
             if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 0
                     && this.vImportar.chkDRE.isSelected() == true) {
-                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!", 1);
+                JOptionPane.showMessageDialog(null, "DRE já importada!", "Ação cancelada!", 0);
                 return false;
             } else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 1
                     && this.vImportar.chkBPA.isSelected() == true) {
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!", 1);
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial ativo já importado!", "Ação cancelada!", 0);
                 return false;
             } else if (this.vImportar.cboTipoRelatorio.getSelectedIndex() == 2
                     && this.vImportar.chkBPP.isSelected() == true) {
-                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!", 1);
+                JOptionPane.showMessageDialog(null, "Balanço patrimonial passivo já importado!", "Ação cancelada!", 0);
                 return false;
             }
             return true;
         } catch (Exception ex) {
-            throw ex;
-        }
-    }
-    
-    public boolean exportar() throws Exception{
-        try{
-            if (dImpExp.calcularIndicadores("2013", "2014", "2015")){
-                return gravarArquivo("json_Bovespa.json",
-                        converteObjetoParaJson(dImpExp.gerarIndicadoresEmpresa()));
-            }
-            return false;
-        }catch (Exception ex) {
             throw ex;
         }
     }

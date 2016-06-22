@@ -1,9 +1,8 @@
 package Visao;
 
 import static App.AppFinanceiro.abrirVisao;
-import static App.AppFinanceiro.conn;
-import Dados.DadosManipulacao;
-import javax.swing.JInternalFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +41,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         mnuDados = new javax.swing.JMenu();
         mnuCadEmpresas = new javax.swing.JMenuItem();
         mnuImportar = new javax.swing.JMenuItem();
+        mnuExportar = new javax.swing.JMenuItem();
         mnuAcoes = new javax.swing.JMenu();
         mnuTrocarUsuario = new javax.swing.JMenuItem();
         mnuSair = new javax.swing.JMenuItem();
@@ -105,13 +105,21 @@ public class VisaoInicio extends javax.swing.JFrame {
         });
         mnuDados.add(mnuCadEmpresas);
 
-        mnuImportar.setText("Importar dados");
+        mnuImportar.setText("Importar informações");
         mnuImportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuImportarActionPerformed(evt);
             }
         });
         mnuDados.add(mnuImportar);
+
+        mnuExportar.setText("Exportar informações");
+        mnuExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExportarActionPerformed(evt);
+            }
+        });
+        mnuDados.add(mnuExportar);
 
         jMenuBar1.add(mnuDados);
 
@@ -172,7 +180,7 @@ public class VisaoInicio extends javax.swing.JFrame {
 
     private void mnuImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportarActionPerformed
         try{
-            abrirVisao(pnlInicio,new VisaoImpExp());
+            abrirVisao(pnlInicio,new VisaoImportar());
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
@@ -193,6 +201,14 @@ public class VisaoInicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
         }
     }//GEN-LAST:event_mnuTrocarUsuarioActionPerformed
+
+    private void mnuExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportarActionPerformed
+        try {
+            abrirVisao(pnlInicio,new VisaoExportar());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getStackTrace(), this.getTitle(),0);
+        }
+    }//GEN-LAST:event_mnuExportarActionPerformed
 
     private void trocarUsuario(){
         try{
@@ -253,6 +269,7 @@ public class VisaoInicio extends javax.swing.JFrame {
     private javax.swing.JMenu mnuAcoes;
     private javax.swing.JMenuItem mnuCadEmpresas;
     private javax.swing.JMenu mnuDados;
+    private javax.swing.JMenuItem mnuExportar;
     private javax.swing.JMenuItem mnuImportar;
     private javax.swing.JMenuItem mnuSair;
     private javax.swing.JMenuItem mnuTrocarUsuario;
