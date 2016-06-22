@@ -1,6 +1,5 @@
 package Dados;
 
-import App.AppFinanceiro;
 import static App.AppFinanceiro.conn;
 import App.AppFinanceiro.tipoEmpresas;
 import App.AppFinanceiro.tipoRelatorio;
@@ -318,7 +317,7 @@ public class DadosImpExp {
             
             sSql  = " SELECT";
             sSql += "	 BVSP_INDICADORES.ANO,";
-            sSql += "	 BVSP_INDICADORES." + sCampo + " AS INDICADOR";
+            sSql += "	 TRUNC(BVSP_INDICADORES." + sCampo + ",2) AS INDICADOR";
             sSql += " FROM BVSP_INDICADORES";
             sSql += " WHERE BVSP_INDICADORES.ID_EMPRESA = " + iEmpresa_ID;
             

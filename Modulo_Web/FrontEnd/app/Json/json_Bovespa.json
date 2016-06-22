@@ -9,14 +9,6 @@
                   "sIndicador":"pct",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":56.21
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":65.29
                      },
@@ -27,10 +19,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":65.29
                      }
                   ]
                },
@@ -38,14 +26,6 @@
                   "sIndicador":"ce",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":69.8
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":76.58
                      },
@@ -56,10 +36,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":76.58
                      }
                   ]
                },
@@ -67,14 +43,6 @@
                   "sIndicador":"ipl",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":100.1
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":107.77
                      },
@@ -85,10 +53,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":107.77
                      }
                   ]
                }
@@ -101,14 +65,6 @@
                   "sIndicador":"lg",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":0.16
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":0.15
                      },
@@ -119,10 +75,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":0.15
                      }
                   ]
                },
@@ -130,14 +82,6 @@
                   "sIndicador":"ilc",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":1.19
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":0.94
                      },
@@ -148,10 +92,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":0.94
                      }
                   ]
                },
@@ -159,14 +99,6 @@
                   "sIndicador":"ils",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":0.85
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":0.61
                      },
@@ -177,10 +109,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":0.61
                      }
                   ]
                },
@@ -188,14 +116,6 @@
                   "sIndicador":"ccl",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":3456420.0
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":-1096360.0
                      },
@@ -206,10 +126,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":-1096360.0
                      }
                   ]
                }
@@ -222,14 +138,6 @@
                   "sIndicador":"ga",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":0.5
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":0.55
                      },
@@ -240,10 +148,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":0.55
                      }
                   ]
                },
@@ -251,14 +155,6 @@
                   "sIndicador":"ml",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":32.49
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":32.46
                      },
@@ -269,10 +165,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":32.46
                      }
                   ]
                },
@@ -280,14 +172,6 @@
                   "sIndicador":"ra",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":16.5
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":17.13
                      },
@@ -298,10 +182,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":17.13
                      }
                   ]
                },
@@ -309,14 +189,6 @@
                   "sIndicador":"rpl",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":25.77
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":28.32
                      },
@@ -327,10 +199,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":28.32
                      }
                   ]
                }
@@ -343,14 +211,6 @@
                   "sIndicador":"pme",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":88.21
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":95.83
                      },
@@ -361,10 +221,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":95.83
                      }
                   ]
                },
@@ -372,14 +228,6 @@
                   "sIndicador":"pmr",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":30.5
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":28.63
                      },
@@ -390,10 +238,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":28.63
                      }
                   ]
                },
@@ -401,28 +245,16 @@
                   "sIndicador":"pmp",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":1.02083172919
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
-                        "dValor":2.07231004658
+                        "dValor":-1.22806199534E9
                      },
                      {
                         "iAno":2014,
-                        "dValor":1.02083172919
+                        "dValor":2.072310091E8
                      },
                      {
                         "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":2.07231004658
+                        "dValor":1.02083148E9
                      }
                   ]
                },
@@ -430,14 +262,6 @@
                   "sIndicador":"co",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":118.71
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":0.0
-                     },
-                     {
                         "iAno":2013,
                         "dValor":124.46
                      },
@@ -448,10 +272,6 @@
                      {
                         "iAno":2015,
                         "dValor":0.0
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":124.46
                      }
                   ]
                },
@@ -459,28 +279,16 @@
                   "sIndicador":"cf",
                   "lmResultado":[
                      {
-                        "iAno":2014,
-                        "dValor":1.020831610399
-                     },
-                     {
-                        "iAno":2015,
-                        "dValor":1.02083148
-                     },
-                     {
                         "iAno":2013,
-                        "dValor":2.07230880198
+                        "dValor":-1.2280621198E9
                      },
                      {
                         "iAno":2014,
-                        "dValor":1.020831610399
+                        "dValor":2.0723089039E8
                      },
                      {
                         "iAno":2015,
-                        "dValor":1.020831489
-                     },
-                     {
-                        "iAno":2013,
-                        "dValor":2.07230880198
+                        "dValor":1.02083148E9
                      }
                   ]
                }
