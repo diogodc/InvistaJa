@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Z:/app/views/main.html</file>
+            <file>file:/Z:/app/Json/json_Bovespa.json</file>
+            <file>file:/Z:/app/Json/json_Empresa.json</file>
+            <file>file:/Z:/app/views/indebtedness.html</file>
+            <file>file:/Z:/app/js/bovespa-view.js</file>
+            <file>file:/Z:/app/js/bovespa-model.js</file>
+            <file>file:/Z:/app/js/core.js</file>
+            <file>file:/Z:/app/js/bovespa-config.js</file>
+            <file>file:/Z:/index.html</file>
+        </group>
     </open-files>
 </project-private>

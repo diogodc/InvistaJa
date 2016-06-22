@@ -2146,12 +2146,12 @@ bovespa.object.extend(bovespa, {
                                         preAnalysis: function (_analysis) {
                                             var _situation;
                                             if (_analysis.min.value < _analysis.max.value) {
-                                                _situation = " <p >A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". <br> Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes em até " + (_analysis.min.value < 0 ? (_analysis.min.value * -1) + " dias antes" : _analysis.min.value + " dias depois") + " que as dividas com fornecedores vencessem. </p> ";
+                                                _situation = " <p >A situação piorou " + _analysis.min.year + "/" + _analysis.max.year + ". <br> Pois em " + _analysis.min.year + " a empresa conseguia receber as vendas a prazo de clientes em até " + (_analysis.min.value < 0 ? (_analysis.min.value * -1).formatMoney(2, ',', '.') + " dias antes" : _analysis.min.value.formatMoney(2, ',', '.') + " dias depois") + " que as dividas com fornecedores vencessem. </p> ";
                                             } else {
                                                 _situation = "<p>";
                                                 _situation += " A situação melhorou " + _analysis.max.year + "/" + _analysis.min.year + ".";
-                                                _situation += " <br>No ano de " + _analysis.min.year + " a empresa conseguiu receber as vendas a prazo de clientes " + (_analysis.min.value < 0 ? (_analysis.min.value * -1) + " dias antes" : _analysis.min.value + " dias depois") + " que as dividas com fornecedores vencessem.";
-                                                _situation += " <br>No ano de " + _analysis.max.year + " recebia " + (_analysis.max.value - _analysis.min.value) + " dias depois se comparado a " + _analysis.min.year + ". </p> ";
+                                                _situation += " <br>No ano de " + _analysis.min.year + " a empresa conseguiu receber as vendas a prazo de clientes " + (_analysis.min.value < 0 ? (_analysis.min.value * -1).formatMoney(2, ',', '.') + " dias antes" : Number(_analysis.min.value).formatMoney(2, ',', '.') + " dias depois") + " que as dividas com fornecedores vencessem.";
+                                                _situation += " <br>No ano de " + _analysis.max.year + " recebia " + (_analysis.max.value - _analysis.min.value).formatMoney(2, ',', '.') + " dias depois se comparado a " + _analysis.min.year + ". </p> ";
                                             }
 
 
