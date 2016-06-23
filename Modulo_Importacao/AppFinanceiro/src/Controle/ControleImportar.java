@@ -79,9 +79,9 @@ public class ControleImportar {
             while ((sLinha = brLeitor.readLine()) != null) {
                 if (iCont == 0) {
                     String[] sVetCelula = sLinha.split(";");
-                    lPeriodo.add(sVetCelula[2]);
-                    lPeriodo.add(sVetCelula[3]);
-                    lPeriodo.add(sVetCelula[4]);
+                    for (int i = 2; i<sVetCelula.length;i++){
+                        lPeriodo.add(sVetCelula[i]);
+                    }
                 } else {
                     ModeloImportar mImportar = new ModeloImportar();
                     String[] sVetCelula = sLinha.split(";");
