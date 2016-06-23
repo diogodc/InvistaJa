@@ -69,8 +69,9 @@ public class DadosImportar {
             
             if (lImportar.size() == 0){return false;}
             
+            conn.abrirConexao();
             for (int i = 0; i < lImportar.size(); i++){
-                conn.abrirConexao();
+                
 
                 ModeloImportar mImportar = lImportar.get(i); 
 
@@ -103,8 +104,9 @@ public class DadosImportar {
                 if (!sSql.trim().isEmpty()){
                     conn.Inserir(sSql);                        
                 }  
-                conn.fecharConexao();
+                
             }
+            conn.fecharConexao();
              this.atualizarIndiceImportado(sIndice,iEmpresa_ID);
             return true;
         }catch(Exception ex){

@@ -25,7 +25,7 @@ public class AppFinanceiro {
         vServidor.setVisible(true);
     }  
     
-    public static String sCaminhoArquivos = "D:\\EVERALDO\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
+    public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
     
     public enum tipoRelatorio{
         DRE,BPA,BPP;
