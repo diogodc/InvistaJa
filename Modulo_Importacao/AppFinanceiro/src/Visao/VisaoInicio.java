@@ -71,7 +71,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         txtDados.setEditable(false);
         jToolBar1.add(txtDados);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/App/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logo.png"))); // NOI18N
 
         pnlInicio.setLayer(jToolBar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlInicio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -80,8 +80,8 @@ public class VisaoInicio extends javax.swing.JFrame {
         pnlInicio.setLayout(pnlInicioLayout);
         pnlInicioLayout.setHorizontalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+            .addGroup(pnlInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
