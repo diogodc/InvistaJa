@@ -61,7 +61,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bovespa Analytics");
 
-        pnlInicio.setBackground(new java.awt.Color(51, 51, 51));
+        pnlInicio.setBackground(new java.awt.Color(255, 255, 255));
         pnlInicio.setForeground(new java.awt.Color(102, 102, 102));
         pnlInicio.setToolTipText("");
         pnlInicio.setAutoscrolls(true);
@@ -71,7 +71,7 @@ public class VisaoInicio extends javax.swing.JFrame {
         txtDados.setEditable(false);
         jToolBar1.add(txtDados);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/logo2.jpg"))); // NOI18N
 
         pnlInicio.setLayer(jToolBar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pnlInicio.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -81,16 +81,12 @@ public class VisaoInicio extends javax.swing.JFrame {
         pnlInicioLayout.setHorizontalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
-            .addGroup(pnlInicioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         pnlInicioLayout.setVerticalGroup(
             pnlInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
