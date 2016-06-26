@@ -90,7 +90,8 @@ body .s-body-menu {
     box-shadow: 0 0 0.625em rgba(51, 51, 51, 0.38);
 }
 body .s-body-menu .s-menu-bar,
-body .s-body-menu .s-menu-nav {
+body .s-body-menu .s-menu-nav,
+body .s-body-menu .s-menu-name{
     width: 100%;
 }
 body .s-body-menu .s-menu-bar {
@@ -1615,7 +1616,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 8.150em;
+        top: 12.450em;
         right: 0.1em;
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
