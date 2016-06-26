@@ -92,7 +92,10 @@ body .s-body-menu {
 body .s-body-menu .s-menu-bar,
 body .s-body-menu .s-menu-nav,
 body .s-body-menu .s-menu-name{
-    width: 100%;
+    width: 100%;    
+}
+body .s-body-menu .s-menu-name{
+    min-width: 15.75em;
 }
 body .s-body-menu .s-menu-bar {
     min-height: 6.250em;
@@ -1638,7 +1641,7 @@ input {
         max-height: 0px;
         visibility: hidden;
         top: -2%;
-        
+
     }
     .s-menu-nav > .s-menu-nav-mnu {
         -webkit-border-radius: 2.5px;
