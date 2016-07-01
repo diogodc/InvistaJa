@@ -1619,7 +1619,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 5.450em;
+       top: 4.150em;
         right: 0.1em;
     }  
 
@@ -1766,7 +1766,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 5.450em;
+       top: 4.150em;
         right: 0.1em;
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
@@ -1990,7 +1990,7 @@ input {
         font-size: 1.2em;
     }
     body .s-body-content {
-        margin-top: calc(1.988em);
+        margin-top: calc(1.288em);
         position: static;
         margin-left: 0;
         min-width: 100%;
