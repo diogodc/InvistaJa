@@ -2190,7 +2190,7 @@ bovespa.onResize(function () {
                 .css('position', 'fixed')
                 .css('top', '-2000px');
         bovespa.JLib('.s-menu-name')
-                .css('height', '3.588em');
+                .css('height', '2.588em');
         bovespa.JLib('menu').each(function (e) {
             if (bovespa.scrollTop() > 50)
                 bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
