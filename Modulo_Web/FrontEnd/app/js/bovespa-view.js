@@ -2232,7 +2232,6 @@ bovespa.onScroll(function () {
                 bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
 
             bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(e).height() / 2.0) + bovespa.JLib(e).position().y + 'px');
-            console.log(bovespa.JLib(e).position().y);
         });
     } else {
         bovespa.JLib('menu').each(function (e) {

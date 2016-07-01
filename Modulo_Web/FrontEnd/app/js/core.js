@@ -2285,7 +2285,6 @@
                     sum: function (field) {
                         var sum = 0;
                         memory.each(function () {
-                            console.log(this.raw());
                             sum += Number(this.get(field));
                         });
                         return sum;
