@@ -206,10 +206,16 @@
                             posicaoCampo++;
                         }
                     }
-                    return NovoValorCampo;                   
+                    return NovoValorCampo;
                 } else {
                     return true;
                 }
+            },
+            onScroll: function (callback) {
+                window.onscroll = callback;
+            },
+            scrollTop: function () {
+                return document.body.scrollTop || document.documentElement.scrollTop;
             }
         });
         sys_core.object.extend(sys_core, {
@@ -2279,6 +2285,7 @@
                     sum: function (field) {
                         var sum = 0;
                         memory.each(function () {
+                            console.log(this.raw());
                             sum += Number(this.get(field));
                         });
                         return sum;

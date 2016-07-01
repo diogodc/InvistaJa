@@ -1619,9 +1619,10 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 0.5em;
+        top: 5.450em;
         right: 0.1em;
-    }
+    }  
+
     .s-menu-nav > .s-menu-nav-hidden-option {
         z-index: 2;
         position: fixed;
@@ -1765,7 +1766,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 8.150em;
+        top: 5.450em;
         right: 0.1em;
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
@@ -1826,7 +1827,7 @@ input {
         max-width: calc(100%);
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
-        max-width: 11.875em;
+        /*max-width: 11.875em;*/
     }
     .s-menu-nav .s-menu-nav-mnu-item {
         vertical-align: top;
@@ -1989,7 +1990,7 @@ input {
         font-size: 1.2em;
     }
     body .s-body-content {
-        margin-top: calc(11.988em);
+        margin-top: calc(1.988em);
         position: static;
         margin-left: 0;
         min-width: 100%;
@@ -2103,7 +2104,18 @@ input {
     .s-card-seek > div:last-child {
         border-bottom: 0px;
     }
+
+    .s-menu-nav > .s-menu-nav-hidden-option div {
+        font-size: 0.6em;
+    }
+    .s-menu-nav ul li div {
+        padding: 1.100em;
+    }
 }
 /*
 #######################RESPONSIVIDADE#######################
 */
+
+.s-menu-nav-scroll-top {
+    top: 0.5em !important;
+}

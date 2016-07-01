@@ -79,14 +79,14 @@ bovespa.object.extend(bovespa, {
         _init_mnu: function () {
             this._mnu_ = bovespa.object.create({});
             bovespa.object.extend(this._mnu_, {/* CONTROLE DO MENU LATERAL */
-                'bovespa-mun-hidden': function (e) {
+                'bovespa-mun-hidden': function (mh) {
                     var sclass = 's-menu-nav-hidden-none';
-                    this.attach.each(function (e) {
+                    this.attach.each(function (e) {                      
                         var mnu = this.query_selector_Attribute_value('mnu-hidden', 'mnu-main', e);
                         for (var x in mnu) {
-                            if (mnu[x].class().contains(sclass)) {
+                            if (mnu[x].class().contains(sclass)) {                                
                                 mnu[x].class().remove(sclass);
-                            } else {
+                            } else {                                
                                 mnu[x].class().add(sclass);
                             }
                         }

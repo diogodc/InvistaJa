@@ -186,15 +186,6 @@ bovespa.object.extend(bovespa, {
                                                 render: function (val) {
                                                     return Number(val).formatMoney(3, ',', '.') + '%';
                                                 }
-                                            },
-                                            {
-                                                'data-name': 'indicator',
-                                                title: {
-                                                    text: 'Indice Médio'
-                                                },
-                                                render: function (val) {
-                                                    return Number(val).formatMoney(3, ',', '.') + '%';
-                                                }
                                             }
                                         ],
                                         model: model.pct().results()
@@ -342,15 +333,6 @@ bovespa.object.extend(bovespa, {
                                                 render: function (val) {
                                                     return Number(val).formatMoney(3, ',', '.') + '%';
                                                 }
-                                            },
-                                            {
-                                                'data-name': 'indicator',
-                                                title: {
-                                                    text: 'Indice Médio'
-                                                },
-                                                render: function (val) {
-                                                    return Number(val).formatMoney(3, ',', '.') + '%';
-                                                }
                                             }
                                         ],
                                         model: model.ce().results()
@@ -431,15 +413,6 @@ bovespa.object.extend(bovespa, {
                                                 'data-name': 'indicator',
                                                 title: {
                                                     text: 'Indice'
-                                                },
-                                                render: function (val) {
-                                                    return Number(val).formatMoney(3, ',', '.') + '%';
-                                                }
-                                            },
-                                            {
-                                                'data-name': 'indicator',
-                                                title: {
-                                                    text: 'Indice Médio'
                                                 },
                                                 render: function (val) {
                                                     return Number(val).formatMoney(3, ',', '.') + '%';
@@ -1003,10 +976,10 @@ bovespa.object.extend(bovespa, {
 
                                         bovespa.object.extend(_dt, {
                                             average: function () {
-                                                return  _dt._results_.sum("indicator") / _dt._results_.count();
+                                                return  _dt._results_.sum("indicator").toFixed(2) / _dt._results_.count();
                                             },
                                             total: function () {
-                                                return  _dt._results_.sum("indicator");
+                                                return  _dt._results_.sum("indicator").toFixed(2);
                                             },
                                             analysis: function () {
                                                 var _analysis = {
@@ -2187,6 +2160,7 @@ bovespa.object.extend(bovespa, {
 
 bovespa.onResize(function () {
     if (bovespa.width() >= bovespa.config.responsive['med-width']) {
+        bovespa.JLib('.s-menu-bar').attr('style', '');
         bovespa.JLib('svg').each(function (e) {
             var div_up = bovespa.JLib(e).up(),
                     node_up = div_up.up();
@@ -2201,8 +2175,29 @@ bovespa.onResize(function () {
             bovespa.JLib(e).css('min-width', '100%');
             bovespa.JLib(e).attr('width', '100%');
         });
+        bovespa.JLib('menu').each(function (e) {
+            bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
+
+            bovespa.JLib('.s-menu-nav-hidden-option').attr('style', '');
+            bovespa.JLib('.s-menu-name').attr('style', '');
+
+        });
     }
     if (bovespa.width() < bovespa.config.responsive['med-width']) {
+        bovespa.JLib('.s-body-menu-top')
+                .css('position', 'fixed')
+                .css('top', '-2000px');
+        bovespa.JLib('.s-menu-name')
+                .css('height', '3.588em');
+        bovespa.JLib('menu').each(function (e) {
+            if (bovespa.scrollTop() > 50)
+                bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
+            else
+                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
+
+            bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(e).height() / 2.0) + bovespa.JLib(e).position().y + 'px');
+
+        });
         bovespa.JLib('svg').each(function (e) {
             var div_up = bovespa.JLib(e).up(),
                     node_up = div_up.up();
@@ -2224,6 +2219,25 @@ bovespa.onResize(function () {
             }
 
 
+        });
+    }
+});
+
+bovespa.onScroll(function () {
+    if (bovespa.width() <= bovespa.config.responsive['med-width']) {
+        bovespa.JLib('menu').each(function (e) {
+            if (bovespa.scrollTop() > 50)
+                bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
+            else
+                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
+
+            bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(e).height() / 2.0) + bovespa.JLib(e).position().y + 'px');
+            console.log(bovespa.JLib(e).position().y);
+        });
+    } else {
+        bovespa.JLib('menu').each(function (e) {
+            bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
+            bovespa.JLib('.s-menu-nav-hidden-option').attr('style', '');
         });
     }
 });

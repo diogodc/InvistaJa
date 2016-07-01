@@ -2,7 +2,7 @@ bovespa.object.extend(bovespa, {
     config: {
         responsive: {
             'min-width': 367,
-            'med-width': 689
+            'med-width': 800
         },
         chart: {
             theme: {
