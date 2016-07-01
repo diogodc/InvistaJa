@@ -81,18 +81,19 @@ bovespa.object.extend(bovespa, {
             bovespa.object.extend(this._mnu_, {/* CONTROLE DO MENU LATERAL */
                 'bovespa-mun-hidden': function (mh) {
                     var sclass = 's-menu-nav-hidden-none';
-                    this.attach.each(function (e) {                      
+                    this.attach.each(function (e) {
                         var mnu = this.query_selector_Attribute_value('mnu-hidden', 'mnu-main', e);
                         for (var x in mnu) {
-                            if (mnu[x].class().contains(sclass)) {                                
+                            if (mnu[x].class().contains(sclass)) {
                                 mnu[x].class().remove(sclass);
-                            } else {                                
+                            } else {
                                 mnu[x].class().add(sclass);
                             }
                         }
                     });
                 },
                 'bovespa-navigation': function (e) { /* CONTROLE DO MENU NAVEGAÇÃO */
+//                    bovespa.control._mnu_['bovespa-mun-hidden'].call(this, e);
                     bovespa.control._navigation_[this.navigation].call(this, e);
                 }
             });
