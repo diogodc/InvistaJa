@@ -1605,7 +1605,7 @@ input {
     }
     .s-menu-nav > .s-menu-nav-hidden {
         visibility: visible;
-        position: fixed;
+        position: relative;
         right: 0.1em;
         min-height: 5.250em;
         width: 46px  !important;
@@ -1619,7 +1619,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-        top: 12.450em;
+        top: 0.5em;
         right: 0.1em;
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
@@ -1751,7 +1751,7 @@ input {
     }
     .s-menu-nav > .s-menu-nav-hidden {
         visibility: visible;
-        position: fixed;
+        position: relative;
         right: 0.1em;
         min-height: 5.250em;
         width: 46px  !important;
@@ -1967,7 +1967,7 @@ input {
         vertical-align: top;
     }
     body .s-body-menu {
-        position: fixed;
+        position: relative;
         min-width: 100%;
         max-width: 100%;
         vertical-align: top;
