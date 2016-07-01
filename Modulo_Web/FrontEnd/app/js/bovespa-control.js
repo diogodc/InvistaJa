@@ -108,9 +108,24 @@ bovespa.object.extend(bovespa, {
                     }
                 });
             });
-
-
             e.class().add('s-menu-nav-mnu-select');
+        },
+        _function_scroll_:function(mnu){
+             var _scroll = 74.8 - bovespa.scrollTop();
+          
+            if (_scroll > 0) {
+                bovespa.JLib(mnu).css('top', _scroll + 'px');
+            } else {
+                bovespa.JLib(mnu).css('top', '-1000000' + 'px'); //1.7999999999999972
+            }
+
+
+//            if (bovespa.scrollTop() > 150)
+//                bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
+//            else
+//                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
+
+            bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(mnu).height() / 2.0) + bovespa.JLib(mnu).position().y + 'px');
         }
     }
 });

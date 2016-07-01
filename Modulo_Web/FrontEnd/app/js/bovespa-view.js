@@ -2160,15 +2160,13 @@ bovespa.object.extend(bovespa, {
 
 bovespa.onResize(function () {
     if (bovespa.width() >= bovespa.config.responsive['med-width']) {
-
         bovespa.JLib('.s-menu-bar').attr('style', '');
         bovespa.JLib('.s-menu-name').attr('style', '');
         bovespa.JLib('.s-body-menu-top').attr('style', '');
         bovespa.JLib('.s-menu-nav-hidden-option').attr('style', '');
-        bovespa.JLib('.s-menu-nav-hidden-option').each(function(e){
-                    bovespa.JLib(e).class().add('s-menu-nav-hidden-none');
+        bovespa.JLib('.s-menu-nav-hidden-option').each(function (e) {
+            bovespa.JLib(e).class().add('s-menu-nav-hidden-none');
         });
-
         bovespa.JLib('svg').each(function (e) {
             var div_up = bovespa.JLib(e).up(),
                     node_up = div_up.up();
@@ -2186,6 +2184,7 @@ bovespa.onResize(function () {
         bovespa.JLib('menu').each(function (e) {
             bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
         });
+        bovespa.JLib('menu').attr('style', '');
     }
     if (bovespa.width() < bovespa.config.responsive['med-width']) {
         bovespa.JLib('.s-body-menu-top')
@@ -2193,15 +2192,7 @@ bovespa.onResize(function () {
                 .css('top', '-2000px');
         bovespa.JLib('.s-menu-name')
                 .css('height', '2.588em');
-        bovespa.JLib('menu').each(function (e) {
-            if (bovespa.scrollTop() > 50)
-                bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
-            else
-                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
-
-            bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(e).height() / 2.0) + bovespa.JLib(e).position().y + 'px');
-
-        });
+        bovespa.JLib('menu').each(bovespa.control._function_scroll_);
         bovespa.JLib('svg').each(function (e) {
             var div_up = bovespa.JLib(e).up(),
                     node_up = div_up.up();
@@ -2229,15 +2220,9 @@ bovespa.onResize(function () {
 
 bovespa.onScroll(function () {
     if (bovespa.width() <= bovespa.config.responsive['med-width']) {
-        bovespa.JLib('menu').each(function (e) {
-            if (bovespa.scrollTop() > 50)
-                bovespa.JLib(e).class().add('s-menu-nav-scroll-top');
-            else
-                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
-
-            bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(e).height() / 2.0) + bovespa.JLib(e).position().y + 'px');
-        });
+        bovespa.JLib('menu').each(bovespa.control._function_scroll_);
     } else {
+        bovespa.JLib('menu').attr('style', '');
         bovespa.JLib('menu').each(function (e) {
             bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
             bovespa.JLib('.s-menu-nav-hidden-option').attr('style', '');
