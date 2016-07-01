@@ -10,6 +10,9 @@
         String.prototype.contains = function (text) {
             return this.toString().indexOf(text) > -1;
         };
+        String.prototype.replaceAll = String.prototype.replaceAll || function (needle, replacement) {
+            return this.split(needle).join(replacement);
+        };
         Number.prototype.formatMoney = function (c, d, t) {
             var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
             return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "JLib 1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
@@ -2167,7 +2170,7 @@
                 }
 
                 sys_core.object.extend(memory['proxy'], {
-                    load_data: function (fn) {
+                    load_data: function (fn, exp) {
                         var s_scope = this;
                         s_scope['progress-in'] = true;
                         s_scope['progress-complete'] = false;
@@ -2184,7 +2187,11 @@
                         sys_core.request({
                             url: s_scope['url'] + '?get-data-model*' + sys_core.newID('data-model'),
                             success: function () {
-                                s_scope.load_complete.call(s_scope, this.responseText, fn);
+                                var responseText = this.responseText;
+                                if (exp) {
+                                    responseText = exp(responseText);
+                                }
+                                s_scope.load_complete.call(s_scope, responseText, fn);
                             },
                             failure: function () {
 
@@ -2203,7 +2210,6 @@
                                     for (var i in parts) {
                                         dt = dt[parts[i]];
                                     }
-
                                     memory['data'] = dt;
                                 }
                             }
@@ -2225,7 +2231,6 @@
                             } else {
                                 _r = '';
                             }
-
                             return _r;
                         },
                         getIndex: function () {
@@ -2237,14 +2242,14 @@
                     });
                 };
                 sys_core.object.extend(memory, {
-                    load: function (self_fn) {
+                    load: function (self_fn, exp) {
                         if (Array.isArray(this['data'])) {
                             if (this['data'].length > 0) {
                                 self_fn.call(memory, this['data']);
                                 return true;
                             }
                         }
-                        this['proxy'].load_data(self_fn);
+                        this['proxy'].load_data(self_fn, exp);
                     },
                     loadData: function (data) {
                         this['data'] = data;
@@ -2298,8 +2303,7 @@
                         else
                             y = memory['data'] ? 1 : 0;
                         return y;
-                    },
-                    query: function (fn) {
+                    }, query: function (fn) {
                         var data = this['data'],
                                 _query = [];
                         if (sys_core.type.isArray(data)) {
@@ -2314,9 +2318,7 @@
                             }
                         }
 
-
-                        return {
-                            each: function (fn) {
+                        return {each: function (fn) {
                                 sys_core.each(_query, function (_data) {
                                     fn.call(_data);
                                 });
@@ -2337,8 +2339,7 @@
                 });
             }
         });
-        sys_core.object.extend(sys_core.storage, {
-            get: function (stName) {
+        sys_core.object.extend(sys_core.storage, {get: function (stName) {
                 return  sessionStorage[stName];
             },
             getJson: function (stName) {

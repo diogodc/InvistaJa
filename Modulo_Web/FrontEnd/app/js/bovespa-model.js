@@ -123,8 +123,8 @@ bovespa.object.extend(bovespa, {
                                                 }).each(function () {
                                                     bovespa.each(this.get('lmResultado'), function (val) {
                                                         var _year = Number(val.iAno),
-                                                                _indicator = val.dValor; 
-                                                                
+                                                                _indicator = val.dValor;
+
                                                         _results.push({
                                                             year: Number(_year),
                                                             indicator: _indicator == '' || _indicator == 0 ? Number(0.0000001) : Number(_indicator)
@@ -180,6 +180,10 @@ bovespa.object.extend(bovespa, {
                 });
                 console.log(_dt);
                 callback.call(scope, _dt);
+            }, function (responseText) {
+                responseText = responseText.replaceAll("E", "");
+                responseText = responseText.replaceAll("impresa_ID", "iEmpresa_ID");
+                return responseText;
             });
         },
         Company: function () {

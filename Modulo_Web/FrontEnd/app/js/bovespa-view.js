@@ -2161,6 +2161,9 @@ bovespa.object.extend(bovespa, {
 bovespa.onResize(function () {
     if (bovespa.width() >= bovespa.config.responsive['med-width']) {
         bovespa.JLib('.s-menu-bar').attr('style', '');
+        bovespa.JLib('.s-menu-name').attr('style', '');
+        bovespa.JLib('.s-body-menu-top').attr('style', '');
+        
         bovespa.JLib('svg').each(function (e) {
             var div_up = bovespa.JLib(e).up(),
                     node_up = div_up.up();
@@ -2179,7 +2182,6 @@ bovespa.onResize(function () {
             bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
 
             bovespa.JLib('.s-menu-nav-hidden-option').attr('style', '');
-            bovespa.JLib('.s-menu-name').attr('style', '');
 
         });
     }
