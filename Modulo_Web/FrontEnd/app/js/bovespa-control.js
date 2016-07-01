@@ -93,7 +93,7 @@ bovespa.object.extend(bovespa, {
                     });
                 },
                 'bovespa-navigation': function (e) { /* CONTROLE DO MENU NAVEGAÇÃO */
-//                    bovespa.control._mnu_['bovespa-mun-hidden'].call(this, e);
+                    bovespa.control._mnu_['bovespa-mun-hidden'].call(this, e);
                     bovespa.control._navigation_[this.navigation].call(this, e);
                 }
             });
