@@ -2117,6 +2117,5 @@ input {
 */
 
 .s-menu-nav-scroll-top {
-    top: -100000.5em !important;
+    top: 0.5em !important;
 }
-
