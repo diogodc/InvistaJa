@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("App Loaded")
+        print("App Loaded Sucess")
 
         let url = NSURL(string: "http://localhost/#bovespa:EMPRESAS?5B504F5")
         
