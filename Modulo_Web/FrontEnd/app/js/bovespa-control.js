@@ -6,6 +6,9 @@ bovespa.object.extend(bovespa, {
     control: {
         render: function (view, model) {
             this._init(view, model);
+            view.render();
+            this._navigation_.Construction();
+            return;
 
             model.load(function (load, sucess) {
                 view.render();
@@ -35,6 +38,11 @@ bovespa.object.extend(bovespa, {
         _init_navigation: function (view) {
             this._navigation_ = bovespa.object.create({});
             bovespa.object.extend(this._navigation_, {/* CONTROLES DE NAVEGAÇÃO PARA CADA PAGINA DO SITE */
+                'Construction': function () {
+                    view._view_.Construction().load(function () {
+
+                    });
+                },
                 'Home': function () {
                     view._view_.Home().load(function () {
                         view._view_.Indebtedness().load();
@@ -110,9 +118,9 @@ bovespa.object.extend(bovespa, {
             });
             e.class().add('s-menu-nav-mnu-select');
         },
-        _function_scroll_:function(mnu){
-             var _scroll = 74.8 - bovespa.scrollTop();
-          
+        _function_scroll_: function (mnu) {
+            var _scroll = 74.8 - bovespa.scrollTop();
+
             if (_scroll > 0) {
                 bovespa.JLib(mnu).css('top', _scroll + 'px');
             } else {

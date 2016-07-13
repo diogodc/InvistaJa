@@ -1274,7 +1274,7 @@
                 new Function('', _require.readModule(module.path + '?' + module.id))();
                 sys_core.JLib('head').include(sys_core.structure({
                     stype: 'script',
-                    libs: module
+                    name: module.name
                 }).me());
                 return module;
             }

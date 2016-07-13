@@ -14,6 +14,19 @@ bovespa.object.extend(bovespa, {
         _init_views: function () {
             this._view_ = bovespa.object.create({});
             bovespa.object.extend(this._view_, {
+                 Construction: function () {
+                    return bovespa.template([
+                        {
+                            'name': 'bovespa-construction', /* NOME DO TEMPLATE */
+                            view: {
+                                self: '.bovespa' /* FOCO DA RENDERIZAÇÃO */                             
+                            },
+                            control: {
+                                url: 'app/views/construction.html' /* VIEW HTML DA RENDERIZAÇÃO */
+                            }
+                        }
+                    ]);
+                }, /* VIEW DE SELEÇÃO DE EMPRESAS */
                 Company: function () {
                     return bovespa.template([
                         {
