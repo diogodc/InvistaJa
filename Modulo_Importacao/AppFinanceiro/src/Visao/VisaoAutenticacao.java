@@ -92,7 +92,7 @@ public class VisaoAutenticacao extends javax.swing.JFrame {
         jLabel4.setText("Informe abaixo os dados para autênticação:");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Bovespa Analytics");
+        jLabel5.setText("Invista Já!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
