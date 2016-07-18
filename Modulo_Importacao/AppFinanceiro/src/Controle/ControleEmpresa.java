@@ -21,19 +21,17 @@ public class ControleEmpresa {
     
     public ControleEmpresa(VisaoEmpresa vEmpresa){
         this.vEmpresa = vEmpresa;
-        this.dEmpresa = new DadosEmpresa(this.getModelo());
+        this.dEmpresa = new DadosEmpresa();
     }
     
-    public boolean salvar() throws Exception{
+    public void salvar() throws Exception{
         try{
-            if (!this.validarCampos()){return false;}
+            if (!this.validarCampos()){return;}
                         
             vEmpresa.txtCodEmpresa.setText(this.dEmpresa.salvar(this.getModelo()));
             
             if (!vEmpresa.txtCodEmpresa.getText().isEmpty()){
-                return true;
-            }else{
-                return false;
+                JOptionPane.showMessageDialog(null, "Sucesso!", "Atenção!", 1);
             }
         }catch(Exception ex){
             throw ex;

@@ -275,9 +275,7 @@ public class VisaoEmpresa extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            if (cEmpresa.salvar()) {
-                JOptionPane.showMessageDialog(null, "Sucesso!", this.getTitle(), 1);
-            }
+            cEmpresa.salvar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), this.getTitle(), 0);
         }
