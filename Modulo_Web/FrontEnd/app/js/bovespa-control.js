@@ -7,8 +7,8 @@ bovespa.object.extend(bovespa, {
         render: function (view, model) {
             this._init(view, model);
             view.render();
-            this._navigation_.Construction();
-            return;
+//            this._navigation_.Construction();
+//            return;
 
             model.load(function (load, sucess) {
                 view.render();
