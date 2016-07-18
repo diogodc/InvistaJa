@@ -26,7 +26,7 @@ public class DadosAutenticacao {
             sSql += " FROM BVSP_USUARIO ";
             sSql += " WHERE BVSP_USUARIO.USUARIO = '" + mUsuario.getUsuario() + "' ";
             sSql += " AND BVSP_USUARIO.SENHA = '" + mUsuario.getSenha() + "'";
-            sSql += " AND ROWNUM < 2";
+            sSql += " LIMIT 1";
             
             ResultSet rs = conn.Selecionar(sSql);
             

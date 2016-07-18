@@ -31,7 +31,7 @@ public class ControleAutenticacao {
     public void autenticar() throws Exception{
         try{
             if(this.validaCampos()){
-                this.setIpServidor();
+                this.setConexao();
                 ModeloUsuario mUsuario = this.dAutenticacao.autenticar(this.getModelo());
                 if (!mUsuario.getUsuario_ID().isEmpty()){
                     this.abrirView(mUsuario); 
@@ -44,16 +44,20 @@ public class ControleAutenticacao {
         }
     }
     
-    private void setIpServidor(){
+    private void setConexao(){
         try{
-         if (this.vAutenticacao.cboServidor.getSelectedIndex() == 0){
-            sIpServidor = "localhost";
-        }else{
-            sIpServidor = "187.85.160.51";
-        }
-         conn = new DadosManipulacao();
+            this.setIpServidor();
+            conn = new DadosManipulacao();
         }catch(Exception ex){
             throw ex;
+        }
+    }
+    
+    private void setIpServidor(){
+        if (this.vAutenticacao.cboServidor.getSelectedIndex() == 0){
+            sIpServidor = "186.202.152.190";
+        }else if (this.vAutenticacao.cboServidor.getSelectedIndex() == 1){
+            sIpServidor = "localhost";
         }
     }
     
