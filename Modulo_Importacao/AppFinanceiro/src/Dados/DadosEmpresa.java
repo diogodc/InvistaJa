@@ -16,17 +16,7 @@ import java.util.ArrayList;
  * @author E. Cardoso de Araújo
  */
 public class DadosEmpresa {
-    
-    private ModeloEmpresa mEmpresa;
-    
-    public DadosEmpresa(ModeloEmpresa mEmpresa){
-        this.mEmpresa = mEmpresa;
-    }
-    
-    public DadosEmpresa(){
-        this.mEmpresa = null;
-    }
-    
+      
     public ArrayList<ModeloEmpresa> carregarEmpresas(tipoEmpresas tEmpresas) throws Exception{
         try{
             conn.abrirConexao();
@@ -79,9 +69,9 @@ public class DadosEmpresa {
     
     public String salvar(ModeloEmpresa mEmpresa) throws Exception{
         try{
-            if(this.mEmpresa == null){return "";}
+            if(mEmpresa == null){return "";}
             
-            if (this.mEmpresa.getEmpresa_ID() == 0) {
+            if (mEmpresa.getEmpresa_ID() == 0) {
                 return this.inserir(mEmpresa);               
             }else{
                 return this.atualizar(mEmpresa);
@@ -99,14 +89,12 @@ public class DadosEmpresa {
             String sSql;
             
             sSql =  " INSERT INTO BVSP_EMPRESA ";
-            sSql += "     (ID_EMPRESA, ";
-            sSql += "     RAZAO_SOCIAL, ";
+            sSql += "    (RAZAO_SOCIAL, ";
             sSql += "     NOME_FANTASIA, ";
             sSql += "     CNPJ, ";
             sSql += "     ATIVIDADE) ";
             sSql += " VALUES ";
-            sSql += "     (BVSP_EMPRESA_SEQ.NEXTVAL";
-            sSql += "     ,'" + mEmpresa.getRazao_Social().replace("'", "''") + "'";
+            sSql += "     ('" + mEmpresa.getRazao_Social().replace("'", "''") + "'";
             sSql += "     ,'" + mEmpresa.getNome_Fantasia().replace("'", "''") + "'";
             sSql += "     ,'" + mEmpresa.getCNPJ().replace("'", "''") + "'";
             sSql += "     ,'" + mEmpresa.getAtividade().replace("'", "''") + "'";
@@ -136,13 +124,13 @@ public class DadosEmpresa {
             String sSql;
             
             sSql =  "UPDATE BVSP_EMPRESA SET";
-            sSql += "    RAZAO_SOCIAL = " + mEmpresa.getRazao_Social().replace("'", "''");
-            sSql += "    NOME_FANTASIA = " + mEmpresa.getNome_Fantasia().replace("'", "''");
-            sSql += "    CNPJ = " + mEmpresa.getCNPJ().replace("'", "''");
-            sSql += "    ATIVIDADE = " + mEmpresa.getAtividade().replace("'", "''");
+            sSql += "    RAZAO_SOCIAL = '" + mEmpresa.getRazao_Social() + "',";
+            sSql += "    NOME_FANTASIA = '" + mEmpresa.getNome_Fantasia() + "',";
+            sSql += "    CNPJ = '" + mEmpresa.getCNPJ() + "',";
+            sSql += "    ATIVIDADE = '" + mEmpresa.getAtividade() + "'";
             sSql += " WHERE ID_EMPRESA = " + mEmpresa.getEmpresa_ID();
             
-            if (sSql.trim().isEmpty()){
+            if (!sSql.trim().isEmpty()){
                 if (conn.Alterar(sSql)){
                    ResultSet rs = conn.Selecionar(getUltimoID());
                    if (rs.next()){
@@ -164,9 +152,9 @@ public class DadosEmpresa {
             String sSql;
             
             sSql =  " SELECT  ";
-            sSql += "   BVSP_EMPRESA_SEQ.CURRVAL";
+            sSql += "   IFNULL(MAX(BVSP_EMPRESA.ID_EMPRESA),1) AS CURRVAL";
             sSql += " FROM BVSP_EMPRESA ";
-            sSql += " WHERE ROWNUM < 2 ";
+            sSql += " LIMIT 1 ";
             
             return sSql;
         }catch(Exception ex){

@@ -1,16 +1,8 @@
 package Dados;
 
 import static App.AppFinanceiro.conn;
-import App.AppFinanceiro.tipoEmpresas;
 import App.AppFinanceiro.tipoRelatorio;
-import Modelo.ModeloEmpresa;
-import Modelo.ModeloGrupo;
 import Modelo.ModeloImportar;
-import Modelo.ModeloIndEmpresa;
-import Modelo.ModeloIndicador;
-import Modelo.ModeloResultado;
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 

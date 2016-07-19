@@ -76,7 +76,7 @@ public class ModeloPesquisar {
      * @desordenando a consulta
      */
     public String getOrderBy() {   
-        return "order by sys_guid() desc ";
+        return "order by REPLACE(UUID(), '-', '') desc ";
     }
     
     /**

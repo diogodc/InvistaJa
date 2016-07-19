@@ -20,14 +20,21 @@ import java.sql.Statement;
  */
 public class DadosConexao {
     public static String sIpServidor;
-    private final String sDriver="oracle.jdbc.driver.OracleDriver";
-    private final String sBanco="jdbc:oracle:thin:@" + sIpServidor + ":1521:xe";
-    private final String sUsuario="BOVESPA";
-    private final String sSenha="BOVESPA123";
+    private String sDriver;
+    private String sBanco;
+    private String sUsuario;
+    private String sSenha;
     private Connection cConnection = null;
     private Statement sStatement=null;
     private ResultSet rResultSet = null;
     private ResultSetMetaData rResultSetMetaData = null;
+   
+    public DadosConexao(){
+            this.sDriver = "com.mysql.jdbc.Driver";
+            this.sBanco = "jdbc:mysql://" + sIpServidor + ":3306/dbinvistaja"; 
+            this.sUsuario = "dbinvistaja";
+            this.sSenha = "Kalunga@01";
+    }
     
     public String getDriver(){
         return this.sDriver;
@@ -78,14 +85,13 @@ public class DadosConexao {
                                          InstantiationException, 
                                          IllegalAccessException{
         try{
-            Class.forName(getDriver()).newInstance();
+            Class.forName(getDriver());
             setConnection(DriverManager.getConnection(getBanco(),getUsuario(),getSenha()));
 	    setStatement(getConnection().createStatement());
             return true;
         }catch(ClassNotFoundException 
               | SQLException
-              | InstantiationException 
-              | IllegalAccessException ex){
+              ex){
             throw ex;
         }
     }

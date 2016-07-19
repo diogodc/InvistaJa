@@ -75,19 +75,19 @@ public class ModeloEmpresa extends SLeaf {
     }
 
     public String getRazao_Social() {
-        return this.sRazao_Social;
+        return this.sRazao_Social.replace("'", "''");
     }
 
     public String getNome_Fantasia() {
-        return this.sNome_Fantasia;
+        return this.sNome_Fantasia.replace("'", "''");
     }
 
     public String getCNPJ() {
-        return this.sCNPJ.replace(".", "").replace("-", "").replace("/", "");
+        return this.sCNPJ.replace(".", "").replace("-", "").replace("/", "").replace("'", "''");
     }
 
     public String getAtividade() {
-        return this.sAtividade;
+        return this.sAtividade.replace("'", "''");
     }
 
     @Override
