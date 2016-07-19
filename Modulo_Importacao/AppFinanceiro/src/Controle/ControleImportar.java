@@ -1,9 +1,5 @@
 package Controle;
 
-import App.AppFinanceiro;
-import static App.AppFinanceiro.converteObjetoParaJson;
-import static App.AppFinanceiro.gravarArquivo;
-import static App.AppFinanceiro.sCaminhoArquivos;
 import App.AppFinanceiro.tipoRelatorio;
 import Dados.DadosImportar;
 import Modelo.CreateModel;

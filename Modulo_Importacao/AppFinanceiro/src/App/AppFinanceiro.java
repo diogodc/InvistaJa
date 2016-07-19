@@ -4,11 +4,11 @@ import Dados.DadosManipulacao;
 import Visao.VisaoAutenticacao;
 import com.google.gson.Gson;
 import java.awt.Component;
-import java.io.File;
-import java.util.Formatter;
+import java.io.OutputStream;
 import javax.swing.JDesktopPane;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import org.apache.commons.net.ftp.FTPClient;
 
 /**
  *
@@ -25,7 +25,10 @@ public class AppFinanceiro {
         vServidor.setVisible(true);
     }  
     
-    public static String sCaminhoArquivos = "C:\\Projetos\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
+    public static String sFTP_Servidor = "invistaja.com";
+    public static String sFTP_Usuario = "invistaja1";
+    public static String sFTP_Senha = "t1oph1ll";
+    public static String sFTP_Diretorio = "/public_html/app/json";
     
     public enum tipoRelatorio{
         DRE,BPA,BPP;
@@ -60,15 +63,35 @@ public class AppFinanceiro {
     public static boolean gravarArquivo(String sNomeArquivo, 
             String sConteudo) throws Exception{
         try{
-            (new File(sCaminhoArquivos)).mkdir();
-            Formatter fArquivo = new Formatter(sCaminhoArquivos + sNomeArquivo);
-            fArquivo.format(sConteudo);
-            fArquivo.close();
+            if (gravarArquivoFTP(sFTP_Servidor,sFTP_Usuario,sFTP_Senha,sFTP_Diretorio,sNomeArquivo,sConteudo)){
+                return true;
+            }
+            return false;
+        }catch(Exception ex){
+            throw ex;
+        }
+    }
+    
+    public static boolean gravarArquivoFTP(String sHostname, 
+            String sUsername, String sPassword,
+            String sDiretorio, String sNomeArquivo, String sConteudo) throws Exception{
+        try{
+            FTPClient ftp = new FTPClient();
+            ftp.connect(sHostname);
+            ftp.login(sUsername, sPassword);
+            ftp.changeWorkingDirectory(sDiretorio);
+            OutputStream os = ftp.storeFileStream(sNomeArquivo);
+            os.write(sConteudo.getBytes());
+            os.flush();
+            os.close();
+            ftp.logout();
+            ftp.disconnect();
             return true;
         }catch(Exception ex){
             throw ex;
         }
     }
+    
     
     public static void abrirVisao(JDesktopPane pnl,JInternalFrame form) throws Exception{
         try{

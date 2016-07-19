@@ -8,7 +8,8 @@ package Controle;
 import App.AppFinanceiro;
 import static App.AppFinanceiro.converteObjetoParaJson;
 import static App.AppFinanceiro.gravarArquivo;
-import static App.AppFinanceiro.sCaminhoArquivos;
+import static App.AppFinanceiro.sFTP_Diretorio;
+import static App.AppFinanceiro.sFTP_Servidor;
 import Dados.DadosEmpresa;
 import Dados.DadosExportar;
 import Visao.VisaoExportar;
@@ -35,7 +36,7 @@ public class ControleExportar {
             if (vExportar.cboTipoExportacao.getSelectedIndex() == 0){
                 if (gravarArquivo("json_Empresa.json",
                         converteObjetoParaJson(this.dEmpresa.carregarEmpresas(AppFinanceiro.tipoEmpresas.TODAS)))){
-                    JOptionPane.showMessageDialog(null, "Sucesso!\nArquivo gerado em: " + sCaminhoArquivos, "Atenção!", 1);
+                    JOptionPane.showMessageDialog(null, "Sucesso!\nArquivo gerado em: ftp://" + sFTP_Servidor + sFTP_Diretorio + "/json_Empresa.json", "Atenção!", 1);
                 }else{
                     JOptionPane.showMessageDialog(null, "Houve(ram) problema(s) na geração do(s) arquivo(s)!", "Atenção!", 0);
                 }
@@ -43,7 +44,7 @@ public class ControleExportar {
                 if (dExportar.calcularIndicadores("2013", "2014", "2015")){
                 if (gravarArquivo("json_Bovespa.json",
                         converteObjetoParaJson(dExportar.gerarIndicadoresEmpresa()))){
-                    JOptionPane.showMessageDialog(null, "Sucesso!\nArquivo gerado em: " + sCaminhoArquivos, "Atenção!", 1);
+                    JOptionPane.showMessageDialog(null, "Sucesso!\nArquivo gerado em: ftp://" + sFTP_Servidor + sFTP_Diretorio + "/json_Bovespa.json", "Atenção!", 1);
                 }else{
                     JOptionPane.showMessageDialog(null, "Houve(ram) problema(s) na geração do(s) arquivo(s)!", "Atenção!", 0);
                 }

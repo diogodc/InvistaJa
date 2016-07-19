@@ -206,7 +206,7 @@ public class DadosExportar {
             
             sSql  = " SELECT";
             sSql += "	 BVSP_INDICADORES.ANO,";
-            sSql += "	 TRUNC(BVSP_INDICADORES." + sCampo + ",2) AS INDICADOR";
+            sSql += "	 ROUND(BVSP_INDICADORES." + sCampo + ",2) AS INDICADOR";
             sSql += " FROM BVSP_INDICADORES";
             sSql += " WHERE BVSP_INDICADORES.ID_EMPRESA = " + iEmpresa_ID;
             
