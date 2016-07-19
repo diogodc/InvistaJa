@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <?php
-session_start();
-
 class User {
 
     private $_user;
@@ -30,8 +28,7 @@ class User {
     }
 
     public static function RestrictedArea() {
-        $_SESSION['restricted'] = \User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
-        return $_SESSION['restricted'];
+        return \User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
     }
 
     public function user() {
