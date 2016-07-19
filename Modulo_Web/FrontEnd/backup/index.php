@@ -24,11 +24,11 @@ class User {
             $password = $_POST['password'];
         }
 
-        return \User::getMember($user, $password);
+        return User::getMember($user, $password);
     }
 
     public static function RestrictedArea() {
-        return \User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
+        return User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
     }
 
     public function user() {
@@ -131,7 +131,7 @@ class User {
     </body> 
     <script src="app/js/core.js"></script>
     <?php
-    if (\User::RestrictedArea()->equals(\User::getPosted())) {
+    if (User::RestrictedArea()->equals(User::getPosted())) {
         ?>
         <script src="app/js/bovespa.js"></script>
         <?php
