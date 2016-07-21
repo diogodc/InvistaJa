@@ -28,7 +28,7 @@ class User {
     }
 
     public static function RestrictedArea() {
-        return User::getMember("restricted", "9g37p 3g%>HI?D9[:d");
+        return User::getMember("restricted", "9xkl45%");
     }
 
     public function user() {
