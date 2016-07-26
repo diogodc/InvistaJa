@@ -1205,6 +1205,9 @@ input {
 .s-md-back-Green-A700 {
     background-color: #00C853;
 }
+.s-md-back-Green-A800 {
+    background-color: #5ca47a;
+}
 .s-md-back-Yellow-50 {
     background-color: #FFFDE7;
 }
@@ -1619,7 +1622,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-       top: 4.150em;
+        top: 4.150em;
         right: 0.1em;
     }  
 
@@ -1766,7 +1769,7 @@ input {
         width: 46px  !important;
         height: 46px  !important;
         position: fixed;
-       top: 4.150em;
+        top: 4.150em;
         right: 0.1em;
     }
     .s-menu-nav > .s-menu-nav-hidden-option {
@@ -2118,4 +2121,24 @@ input {
 
 .s-menu-nav-scroll-top {
     top: 0.5em !important;
+}
+.s-logo-image {
+  width: 200px;
+  height: 200px;
+  display: block;
+  position: relative;
+}
+
+.s-logo-image::after  {
+    background-image: url('/app/resources/images/invistaja3.1.png');
+    background-repeat:no-repeat;background-size:35%;
+    background-position: 200px 70px;
+    opacity: 0.5; 
+    content: " ";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
 }

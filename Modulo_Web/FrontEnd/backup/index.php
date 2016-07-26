@@ -66,9 +66,14 @@ class User {
     </head>     
     <body  class="bovespa">
         <div class="s-row s-center" >
-            <div  class="s-card s-md-col-4 s-md-back-Green-600 margin-left-1">
-                <div  class="s-card-head s-md-back-Green-500">
-                    <div class="s-md-back-Green-600 s-card-content" style="height: calc(90% - 0.9em); ">
+            <div  class="s-card s-md-col-4 s-md-back-Green-A800 margin-left-1">
+                <div  class="s-card-head s-md-back-Green-A800">
+                    <div class="s-card-content s-md-back-Green-A800">
+                        <div class="s-center s-size-12">
+                            <img src="app/resources/images/gear.gif" height="100">
+                        </div>
+                    </div> 
+                    <div class="s-md-back-Green-A800 s-card-content" style="height: calc(90% - 0.9em); ">
                         <div class="s-center s-uppercase s-size-18 s-md-font-White">
                             <span>                                
                                 <div class="s-uppercase">
@@ -77,23 +82,19 @@ class User {
                             </span>
                         </div>
                     </div>
-                    <div class="s-card-content s-md-back-Green-500">
-                        <div class="s-center s-size-12">
-                            <img src="app/resources/images/gear.gif" height="100">
-                        </div>
-                    </div>                   
-                    <div class="s-card-content s-md-back-Green-500">
+                                      
+                    <div class="s-card-content s-md-back-Green-A800">
                         <div class="s-center s-uppercase s-size-14 s-md-font-White">
                             Pagina Em construção, aguarde!
                         </div>                       
                     </div>  
                     <div  class="s-card-head s-card-action">                                    
-                        <div class="s-card-content s-md-back-Green-600"  style="height: calc(90% - 0.9em); ">                      
+                        <div class="s-card-content s-md-back-Green-A800"  style="height: calc(90% - 0.9em); ">                      
                             <div class="s-center s-uppercase s-size-15 s-md-font-White">
                                 Área Restrita
                             </div>
                         </div>
-                        <div class="s-card-content s-md-back-Green-600">
+                        <div class="s-card-content s-md-back-Green-A800">
                             <form  class="s-md-col-12" method="POST">
                                 <div class="s-row s-center" >
                                     <div class="s-md-col-5">
