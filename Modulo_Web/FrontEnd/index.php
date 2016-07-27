@@ -82,14 +82,8 @@ class User {
                     <div  class="s-card-head">
                         <div class="s-card-content s-md-back-Green-A800">             
                             <div class="s-center" style="padding-bottom: 5px;">
-                                <img src="./app/resources/images/logo_main_1111.png" height="73.5px">
-                            </div>
-                            <div class="s-center s-uppercase s-md-font-White">
-                                <span class="s-size">
-                                    <div class="s-size-17">invi$ta já!</div>
-                                    análise financeira simples
-                                </span> 
-                            </div> 
+                                <img src="./app/resources/images/logo_main_1112.png" height="93.5px">
+                            </div>                           
                         </div> 
                         <div class="s-card-content s-md-back-Green-A800"  style="height: calc(90% - 0.9em); ">                      
                             <div class="s-center s-uppercase s-size-15 s-md-font-White">
