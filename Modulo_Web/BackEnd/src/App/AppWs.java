@@ -8,7 +8,7 @@ import Dados.DadosManipulacao;
 public class AppWs {
 	public static DadosManipulacao conn = new DadosManipulacao();
 	
-	private static String sCaminhoArquivo = "D:\\EVERALDO\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
+	private static String sCaminhoArquivo = "D:\\EVERALDO\\InvistaJa\\Modulo_Web\\FrontEnd\\app\\Json";
 	
 	public static void gravarLog(String sClasse, String sMetodo,String sNomeArquivo, String sMenssagem){
 		try{
