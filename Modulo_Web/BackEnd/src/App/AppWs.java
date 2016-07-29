@@ -3,7 +3,11 @@ package App;
 import java.io.File;
 import java.util.Formatter;
 
+import Dados.DadosManipulacao;
+
 public class AppWs {
+	public static DadosManipulacao conn = new DadosManipulacao();
+	
 	private static String sCaminhoArquivo = "D:\\EVERALDO\\BOVESPA_ANALYTICS\\Modulo_Web\\FrontEnd\\app\\Json\\";
 	
 	public static void gravarLog(String sClasse, String sMetodo,String sNomeArquivo, String sMenssagem){
