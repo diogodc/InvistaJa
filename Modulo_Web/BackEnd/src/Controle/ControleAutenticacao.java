@@ -15,8 +15,10 @@ public class ControleAutenticacao {
 	@GET
 	@Path("/autenticar/{usuario}/{senha}")
 	@Produces("application/json")
-	public ModeloUsuario autenticar(@PathParam("usuario") String sUsuario, @PathParam("senha") String sSenha){
+	public ModeloUsuario autenticar(@PathParam("usuario") String sUsuario, 
+			@PathParam("senha") String sSenha){
 		try{
+			AppWs.conn.abrirConexao();
 			return dAutenticacao.autenticar(getModeloUsuario(sUsuario,sSenha));
 		}catch(Exception ex){
 			AppWs.gravarLog("ControleAutenticacao", "autenticar","", ex.getMessage());
