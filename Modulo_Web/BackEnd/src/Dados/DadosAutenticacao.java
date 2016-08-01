@@ -6,13 +6,15 @@ import App.AppWs;
 import Modelo.ModeloUsuario;
 
 public class DadosAutenticacao {
-	public ModeloUsuario autenticar (ModeloUsuario mUsuario){
+	public ModeloUsuario consultarUsuario (ModeloUsuario mUsuario){
 		try{
+			AppWs.conn.abrirConexao();
+			
 			String sSql;
 			
 			sSql  = " SELECT"; 
 			sSql += "	BVSP_USUARIO.ID_USUARIO,";
-			sSql += "	BVSP_USUARIO.NOME_COMPLETO,";
+			sSql += "	BVSP_USUARIO.NOME_COMPLETO";
 			sSql += " FROM BVSP_USUARIO"; 
 			sSql += " WHERE BVSP_USUARIO.USUARIO = '" + mUsuario.getUsuario() + "' ";
             sSql += " AND BVSP_USUARIO.SENHA = '" + mUsuario.getSenha() + "'";
@@ -27,7 +29,8 @@ public class DadosAutenticacao {
             
 			return mUsuario;
 		}catch(Exception ex){
-			AppWs.gravarLog("DadosAutenticacao", "autenticar","", ex.getMessage());
+			AppWs.gravarLog("ControleAutenticacao", "autenticar","",
+					ex.getMessage(),ex.getStackTrace().toString());
 			return null;
 		}
 	}

@@ -1,28 +1,50 @@
 package App;
 
 import java.io.File;
-import java.util.Formatter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Date;
+
+import com.google.gson.Gson;
 
 import Dados.DadosManipulacao;
 
 public class AppWs {
 	public static DadosManipulacao conn = new DadosManipulacao();
 	
-	private static String sCaminhoArquivo = "D:\\EVERALDO\\InvistaJa\\Modulo_Web\\FrontEnd\\app\\Json";
+	public static Gson gJson = new Gson();
 	
-	public static void gravarLog(String sClasse, String sMetodo,String sNomeArquivo, String sMenssagem){
+	private static String sCaminhoArquivo = "C:\\LOGS\\";
+	
+	public static void gravarLog(String sClasse, 
+			String sMetodo,String sNomeArquivo, 
+			String sMenssagem_1,String sMenssagem_2){
 		try{
-			(new File(sCaminhoArquivo)).mkdir();
-			Formatter fArquivo;
-			if (!sNomeArquivo.trim().isEmpty()){
-				fArquivo = new Formatter(sCaminhoArquivo + sNomeArquivo);
+			File fDiretorio = new File(sCaminhoArquivo);
+			File fArquivo;
+			
+			if (!sNomeArquivo.isEmpty()) {
+				fArquivo = new File(fDiretorio,sNomeArquivo);
 			}else{
-				fArquivo = new Formatter(sCaminhoArquivo + "LogWSInvistaJa.txt");
+				fArquivo = new File(fDiretorio,"LogWS_InvistaJa_Erros.txt");
 			}
-			fArquivo.format("Classe: " + sClasse + "\nMetodo: " + sMetodo + "\nMensagem: " + sMenssagem);
-	        fArquivo.close();
+			
+			fArquivo.createNewFile();
+			FileWriter fwArquivoEscrever = new FileWriter(fArquivo, true);
+			PrintWriter pwEscrever = new PrintWriter(fwArquivoEscrever);
+
+			pwEscrever.println("|--------------------Log WS Invista Já!--------------------|");
+			pwEscrever.println("Data/Hora: " + new Date().toString());
+			if (!sClasse.isEmpty()){pwEscrever.println("Classe: " + sClasse);}
+			if (!sMetodo.isEmpty()){pwEscrever.println("Método: " + sMetodo);}
+			if (!sMenssagem_1.isEmpty()){pwEscrever.println("Mensagem principal: " + sMenssagem_1);}
+			if (!sMenssagem_2.isEmpty()){pwEscrever.println("Mensagem secundária: " + sMenssagem_2);}
+			pwEscrever.println("");
+			
+			pwEscrever.flush();
+			pwEscrever.close();
 		}catch(Exception ex){
-			AppWs.gravarLog("AppWs","gravarLog","",ex.getMessage());
+			
 		}
 	}
 }
