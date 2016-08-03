@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.gson.Gson;
 
 import Dados.DadosManipulacao;
@@ -43,6 +45,19 @@ public class AppWs {
 			
 			pwEscrever.flush();
 			pwEscrever.close();
+		}catch(Exception ex){
+			
+		}
+	}
+	
+	public static void logAcesso(HttpServletRequest hsr,String sClasse,String sMetodo){
+		try{
+			AppWs.gravarLog(sClasse, sMetodo,
+					"LogWS_InvistaJa_Autenticacao.txt",
+					"Dados remotos --> IP: " + hsr.getRemoteAddr() +
+					" Porta: " + hsr.getRemotePort(),
+					"Dados locais --> IP: " + hsr.getServerName() +
+					" Porta: " + hsr.getServerPort());
 		}catch(Exception ex){
 			
 		}

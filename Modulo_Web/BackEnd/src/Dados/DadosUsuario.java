@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import App.AppWs;
 import Modelo.ModeloUsuario;
 
-public class DadosAutenticacao {
+public class DadosUsuario {
 	public ModeloUsuario consultarUsuario (ModeloUsuario mUsuario){
 		try{
 			AppWs.conn.abrirConexao();
