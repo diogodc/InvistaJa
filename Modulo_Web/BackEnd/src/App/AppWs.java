@@ -18,6 +18,10 @@ public class AppWs {
 	
 	private static String sCaminhoArquivo = "C:\\LOGS\\";
 	
+	public enum tipoEmpresas{
+        TODAS,IMPORTADAS,CALCULADAS;
+    }
+	
 	public static void gravarLog(String sClasse, 
 			String sMetodo,String sNomeArquivo, 
 			String sMenssagem_1,String sMenssagem_2){

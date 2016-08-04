@@ -12,8 +12,7 @@ import Dados.DadosEmpresa;
 import Modelo.ModeloEmpresa;
 
 @Path("/empresas")
-public class ControleEmpresas {
-	DadosEmpresa dEmpresa = new DadosEmpresa();
+public class ControleEmpresas extends DadosEmpresa {
 	
 	@Context private javax.servlet.http.HttpServletRequest hsr;
 	
@@ -23,7 +22,7 @@ public class ControleEmpresas {
 	public ArrayList<ModeloEmpresa> listar(){
 		try{
 			AppWs.logAcesso(hsr,"ControleEmpresas","empresas");
-			return dEmpresa.consultarEmpresas();
+			return consultarEmpresas();
 		}catch(Exception ex){
 			AppWs.gravarLog("ControleEmpresas", "empresas","",
 					ex.getMessage(),ex.getStackTrace().toString());
@@ -37,7 +36,7 @@ public class ControleEmpresas {
 	public ArrayList<ModeloEmpresa> consultar(@PathParam("sEmpresa_Id") String sEmpresa_Id){
 		try{
 			AppWs.logAcesso(hsr,"ControleEmpresas","empresa");
-			return dEmpresa.consultarEmpresas(Integer.parseInt(sEmpresa_Id));
+			return consultarEmpresas(Integer.parseInt(sEmpresa_Id));
 		}catch(Exception ex){
 			AppWs.gravarLog("ControleEmpresas", "empresa","",
 					ex.getMessage(),ex.getStackTrace().toString());
