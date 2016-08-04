@@ -8,20 +8,23 @@ public class ModeloUsuario {
     private String sSenha;
     private String sUsuario_ID;
     private String sUsuario_Nome;
+    private boolean bRetorno;
 
     public ModeloUsuario(){
         this.sUsuario = "";
         this.sSenha = "";
         this.sUsuario_ID = "";
         this.sUsuario_Nome = "";
+        this.bRetorno = false;
     }
     
-    public ModeloUsuario(String sUsuario,String sSenha,
-            String sUsuario_ID,String sUsuario_Nome){
+	public ModeloUsuario(String sUsuario,String sSenha,
+            String sUsuario_ID,String sUsuario_Nome, Boolean bRetorno){
         this.sUsuario = sUsuario;
         this.sSenha = sSenha;
         this.sUsuario_ID = sUsuario_ID;
         this.sUsuario_Nome = sUsuario_Nome;
+        this.bRetorno = bRetorno;
     }
         
     public String getUsuario() {
@@ -55,4 +58,11 @@ public class ModeloUsuario {
     public void setUsuario_Nome(String sUsuario_Nome) {
         this.sUsuario_Nome = sUsuario_Nome;
     }
+    public boolean getRetorno() {
+		return bRetorno;
+	}
+    
+	public void setRetorno(boolean bRetorno) {
+		this.bRetorno = bRetorno;
+	}
 }
