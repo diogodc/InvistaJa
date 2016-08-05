@@ -22,6 +22,10 @@ public class AppWs {
         TODAS,IMPORTADAS,CALCULADAS;
     }
 	
+    public enum tipoGrupo{
+        Endividamento,Liquidez,Rentabilidade,PrazosMedios;
+    }
+	
 	public static void gravarLog(String sClasse, 
 			String sMetodo,String sNomeArquivo, 
 			String sMenssagem_1,String sMenssagem_2){

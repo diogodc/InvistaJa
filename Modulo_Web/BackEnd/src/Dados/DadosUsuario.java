@@ -45,11 +45,11 @@ public class DadosUsuario {
 		}
 	}
 	
-	protected ArrayList<ModeloUsuario> consultarUsuarios(){
+	public ArrayList<ModeloUsuario> consultarUsuarios(){
 		return consultar(0);
 	}
 	
-	protected ArrayList<ModeloUsuario> consultarUsuarios(int iUsuario_Id){
+	public ArrayList<ModeloUsuario> consultarUsuarios(int iUsuario_Id){
 		return consultar(iUsuario_Id);
 	}
 	
