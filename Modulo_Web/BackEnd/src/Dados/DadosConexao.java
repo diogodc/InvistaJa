@@ -20,58 +20,58 @@ public class DadosConexao {
     private ResultSet rResultSet = null;
     private ResultSetMetaData rResultSetMetaData = null;
    
-    public DadosConexao(){
+    protected DadosConexao(){
             this.sDriver = "com.mysql.jdbc.Driver";
             this.sBanco = "jdbc:mysql://186.202.152.190:3306/dbinvistaja"; 
             this.sUsuario = "dbinvistaja";
             this.sSenha = "Kalunga@01";
     }
     
-    public String getDriver(){
+    protected String getDriver(){
         return this.sDriver;
     }
     
-    public String getBanco(){
+    protected String getBanco(){
         return this.sBanco;
     }
     
-    public String getUsuario(){
+    protected String getUsuario(){
         return this.sUsuario;
     }
     
-    public String getSenha(){
+    protected String getSenha(){
         return this.sSenha;
     }
     
-    public Connection getConnection(){
+    protected Connection getConnection(){
         return this.cConnection;
     }
-    public void setConnection(Connection cConnection){
+    protected void setConnection(Connection cConnection){
         this.cConnection = cConnection;
     }
     
-    public Statement getStatement(){
+    protected Statement getStatement(){
         return this.sStatement;
     }
-    public void setStatement(Statement sStatement){
+    protected void setStatement(Statement sStatement){
         this.sStatement = sStatement;
     }
     
-    public ResultSet getResultSet(){
+    protected ResultSet getResultSet(){
         return this.rResultSet;
     }
-    public void setResultSet(ResultSet rResultSet){
+    protected void setResultSet(ResultSet rResultSet){
         this.rResultSet = rResultSet;
     }
     
-    public ResultSetMetaData getResultSetMetaData(){
+    protected ResultSetMetaData getResultSetMetaData(){
         return this.rResultSetMetaData;
     }
-    public void setResultSetMetaData(ResultSetMetaData rResultSetMetaData){
+    protected void setResultSetMetaData(ResultSetMetaData rResultSetMetaData){
         this.rResultSetMetaData = rResultSetMetaData;
     }
             
-    public boolean abrirConexao() throws ClassNotFoundException, 
+    protected boolean abrirConexao() throws ClassNotFoundException, 
                                          SQLException, 
                                          InstantiationException, 
                                          IllegalAccessException{
@@ -87,7 +87,7 @@ public class DadosConexao {
         }
     }
     
-    public boolean fecharConexao() throws Exception{
+    protected boolean fecharConexao() throws Exception{
         try{
             getConnection().close();
             return true;

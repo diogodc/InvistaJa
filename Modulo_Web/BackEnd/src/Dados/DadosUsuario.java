@@ -7,7 +7,7 @@ import App.AppWs;
 import Modelo.ModeloUsuario;
 
 public class DadosUsuario {
-	public ModeloUsuario autenticarUsuario (ModeloUsuario mUsuario){
+	protected ModeloUsuario autenticarUsuario (ModeloUsuario mUsuario){
 		try{
 			AppWs.conn.abrirConexao();
 			
@@ -36,6 +36,7 @@ public class DadosUsuario {
             }
             
             AppWs.conn.fecharConexao();
+            
 			return mUsuario;
 		}catch(Exception ex){
 			AppWs.gravarLog("DadosUsuario", "autenticarUsuario","",
@@ -44,15 +45,15 @@ public class DadosUsuario {
 		}
 	}
 	
-	public ArrayList<ModeloUsuario> consultarUsuarios(){
+	protected ArrayList<ModeloUsuario> consultarUsuarios(){
 		return consultar(0);
 	}
 	
-	public ArrayList<ModeloUsuario> consultarUsuarios(int iUsuario_Id){
+	protected ArrayList<ModeloUsuario> consultarUsuarios(int iUsuario_Id){
 		return consultar(iUsuario_Id);
 	}
 	
-	public ArrayList<ModeloUsuario> consultar(int iUsuario_Id){
+	private ArrayList<ModeloUsuario> consultar(int iUsuario_Id){
 		try{
 			AppWs.conn.abrirConexao();
 			
@@ -80,6 +81,7 @@ public class DadosUsuario {
             }
             
             AppWs.conn.fecharConexao();
+            
 			return lmUsuario;
 		}catch(Exception ex){
 			AppWs.gravarLog("DadosUsuario", "consultarUsuarios","",

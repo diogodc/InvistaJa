@@ -7,11 +7,11 @@ import App.AppWs;
 import Modelo.ModeloEmpresa;
 
 public class DadosEmpresa {
-	public ArrayList<ModeloEmpresa> consultarEmpresas(){
+	protected ArrayList<ModeloEmpresa> consultarEmpresas(){
 		return consultar(0);
 	}
 	
-	public ArrayList<ModeloEmpresa> consultarEmpresas(int iEmpresa_Id){
+	protected ArrayList<ModeloEmpresa> consultarEmpresas(int iEmpresa_Id){
 		return consultar(iEmpresa_Id);
 	}
 	
