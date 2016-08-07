@@ -94,17 +94,18 @@ public class ControleIndicadores extends DadosIndicadores {
 			return null;
         }
 	}
+	
     private ArrayList<ModeloIndEmpresa> gerarIndicadoresEmpresa(String sEmpresa_Id){
         try{
             ArrayList<ModeloIndEmpresa> lmIndEmpresa = new ArrayList<ModeloIndEmpresa>();
             ArrayList<ModeloEmpresa> lmEmpresas;
+            
             if (!sEmpresa_Id.isEmpty()){
             	lmEmpresas = new DadosEmpresa().consultarEmpresas(Integer.parseInt(sEmpresa_Id));
             }else{
             	lmEmpresas = new DadosEmpresa().consultarEmpresas();
             }
             
-
             for (int i = 0; i<lmEmpresas.size();i++){
                 ModeloIndEmpresa mIndEmpresa = new ModeloIndEmpresa();
                 ModeloEmpresa mEmpresa = lmEmpresas.get(i);

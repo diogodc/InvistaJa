@@ -1,16 +1,40 @@
 package Dados;
 
 import static App.AppWs.conn;
-import Modelo.ModeloEmpresa;
 import Modelo.ModeloResultado;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import App.AppWs;
 
 
 public class DadosIndicadores {
+        
+    protected boolean calcularIndicadores(int iEmpresa_Id, String sAno1, 
+    		String sAno2, String sAno3){
+        try{                     
+            conn.abrirConexao();
+            
+            String sSql  = "{call BVSP_SP_INDICADORES(?,?,?,?)}";
+            CallableStatement  cs = conn.getConnection().prepareCall(sSql);
+            cs.setInt(1, iEmpresa_Id);
+            cs.setString(2, sAno1);
+            cs.setString(3, sAno2);
+            cs.setString(4, sAno3);
+            cs.execute();    
+            
+            conn.fecharConexao();
+            
+            return true;
+        }catch (Exception ex) {
+        	AppWs.gravarLog("DadosIndicadores", "calcularIndicadores","",
+					ex.getMessage(),ex.getStackTrace().toString());
+        	return false;
+        }
+    }
     
-    protected ArrayList<ModeloResultado> gerarResultados(int iEmpresa_ID,String sCampo) throws Exception{
+    protected ArrayList<ModeloResultado> gerarResultados(int iEmpresa_ID,
+    		String sCampo){
         try{
             conn.abrirConexao();
             
@@ -32,39 +56,13 @@ public class DadosIndicadores {
                 lmResultados.add(mResultado);
             }
             
+            conn.fecharConexao();
+            
             return lmResultados;
         }catch (Exception ex) {
-            throw ex;
-        }finally{
-            conn.fecharConexao();
+        	AppWs.gravarLog("DadosIndicadores", "gerarResultados","",
+					ex.getMessage(),ex.getStackTrace().toString());
+        	return null;
         }
     } 
-    
-    protected boolean calcularIndicadores(int iEmpresa_Id, String sAno1, String sAno2, String sAno3) throws Exception{
-        try{         
-            ArrayList<ModeloEmpresa> lmEmpresas;
-            if (iEmpresa_Id != 0){
-            	lmEmpresas = new DadosEmpresa().consultarEmpresas(iEmpresa_Id);
-            }else{
-            	lmEmpresas = new DadosEmpresa().consultarEmpresas();
-            }
-            
-            for (int i = 0; i < lmEmpresas.size();i++){
-                ModeloEmpresa mEmpresa = lmEmpresas.get(i);
-                conn.abrirConexao();
-                String sSql  = "{call BVSP_SP_INDICADORES(?,?,?,?)}";
-                CallableStatement  cs = conn.getConnection().prepareCall(sSql);
-                cs.setInt(1, mEmpresa.getEmpresa_ID());
-                cs.setString(2, sAno1);
-                cs.setString(3, sAno2);
-                cs.setString(4, sAno3);
-                cs.execute();    
-                conn.fecharConexao();
-            }
-             
-            return true;
-        }catch (Exception ex) {
-            throw ex;
-        }
-    }
 }

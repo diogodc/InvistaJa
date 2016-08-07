@@ -1,0 +1,18 @@
+//Atenção é necessário passar o ID do usuário autenticado todas as vezes que requisitar algo:
+
+Url Login Usuário: http://localhost:8080/ws_invistaja/usuarios/autenticar/{"sSenha":"12345","sUsuario":"ecardoso","sUsuario_ID":"","sUsuario_Nome":""}
+
+Url Listar Todos Usuários: http://localhost:8080/ws_invistaja/usuarios/listar/1
+
+Url Consultar Usuário: http://localhost:8080/ws_invistaja/usuarios/consultar/1/4
+
+Url Listar Todas Empresas: http://localhost:8080/ws_invistaja/empresas/listar/1
+
+Url Consultar Empresa: http://localhost:8080/ws_invistaja/empresas/consultar/1/16
+
+Url Consultar Indicadores: http://localhost:8080/ws_invistaja/indicadores/consultar/1/15
+
+Url Listar Indicadores: http://localhost:8080/ws_invistaja/indicadores/listar/1
+
+
+
