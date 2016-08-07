@@ -1,8 +1,5 @@
 package Controle;
 
-import static App.AppWs.conn;
-
-import java.sql.CallableStatement;
 import java.util.ArrayList;
 
 import javax.ws.rs.POST;
@@ -28,9 +25,11 @@ public class ControleIndicadores extends DadosIndicadores {
 	@POST
 	@Path("/listar/{sUsuarioLogado_Id}")
 	@Produces("application/json")
-	protected ArrayList<ModeloIndEmpresa> listar(
+	public ArrayList<ModeloIndEmpresa> listar(
 			@PathParam("sUsuarioLogado_Id") String sUsuarioLogado_Id){
 		try{
+			AppWs.logAcesso(hsr,"ControleIndicadores","listar");
+			
 			if (sUsuarioLogado_Id.isEmpty() || 
 					Integer.parseInt(sUsuarioLogado_Id) == 0){
 				return null;
@@ -52,10 +51,11 @@ public class ControleIndicadores extends DadosIndicadores {
 	@POST
 	@Path("/consultar/{sUsuarioLogado_Id}/{sEmpresa_Id}")
 	@Produces("application/json")
-	protected ArrayList<ModeloIndEmpresa> consultar(
+	public ArrayList<ModeloIndEmpresa> consultar(
 			@PathParam("sUsuarioLogado_Id") String sUsuarioLogado_Id,
 			@PathParam("sEmpresa_Id") String sEmpresa_Id){
 		try{
+			AppWs.logAcesso(hsr,"ControleIndicadores","consultar");
 			
 			if (sUsuarioLogado_Id.isEmpty() || 
 					Integer.parseInt(sUsuarioLogado_Id) == 0){
@@ -97,11 +97,18 @@ public class ControleIndicadores extends DadosIndicadores {
     private ArrayList<ModeloIndEmpresa> gerarIndicadoresEmpresa(String sEmpresa_Id){
         try{
             ArrayList<ModeloIndEmpresa> lmIndEmpresa = new ArrayList<ModeloIndEmpresa>();
-            ArrayList<ModeloEmpresa> lmEmpresas = new DadosEmpresa().consultarEmpresas();
+            ArrayList<ModeloEmpresa> lmEmpresas;
+            if (!sEmpresa_Id.isEmpty()){
+            	lmEmpresas = new DadosEmpresa().consultarEmpresas(Integer.parseInt(sEmpresa_Id));
+            }else{
+            	lmEmpresas = new DadosEmpresa().consultarEmpresas();
+            }
+            
 
             for (int i = 0; i<lmEmpresas.size();i++){
                 ModeloIndEmpresa mIndEmpresa = new ModeloIndEmpresa();
                 ModeloEmpresa mEmpresa = lmEmpresas.get(i);
+                calcularIndicadores(mEmpresa.getEmpresa_ID(),"2013","2014","2015");
                 mIndEmpresa.setEmpresa_ID(mEmpresa.getEmpresa_ID());
                 mIndEmpresa.setLmGrupo(this.gerarGrupo(mEmpresa.getEmpresa_ID()));
                 lmIndEmpresa.add(mIndEmpresa);
