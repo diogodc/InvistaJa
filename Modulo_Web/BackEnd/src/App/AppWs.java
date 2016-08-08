@@ -16,7 +16,7 @@ public class AppWs {
 	
 	public static Gson gJson = new Gson();
 	
-	private static String sCaminhoArquivo = "C:\\LOGS\\";
+	private static String sCaminhoArquivo = "C:\\LOGS";
 	
 	public enum tipoEmpresas{
         TODAS,IMPORTADAS,CALCULADAS;
@@ -28,7 +28,7 @@ public class AppWs {
 	
 	public static void gravarLog(String sClasse, 
 			String sMetodo,String sNomeArquivo, 
-			String sMenssagem_1,String sMenssagem_2){
+			String sMenssagem_1,String sMenssagem_2){	
 		try{
 			File fDiretorio = new File(sCaminhoArquivo);
 			File fArquivo;
