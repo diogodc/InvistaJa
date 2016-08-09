@@ -29,7 +29,7 @@ class User {
     }
 
     public static function RestrictedArea() {
-        return User::getMember("restricted", "9xkl45%");
+        return User::getMember("restricted", "password12345");
     }
 
     public function user() {
