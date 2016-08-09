@@ -2,132 +2,159 @@
 <div class="s-md-row shadow s-md-back-Red-A100  s-columns-4 s-card-seek" style="min-height:8.7em;">
     <div class="s-card  shadow-none">
         <div class="s-card-body s-md-back-Red-A100">
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-17 s-md-font-White title">    
-                    <span><json bind-value='bovespa.liquidity.lg.results_average'>0</json>%</span>                           
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-17 s-md-font-White title">
+                    <span><json bind-value='bovespa.liquidity.lg.results_average'>0</json>%</span>
                 </div>
             </div>
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-White title">   
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">
                     <span>Liquidez Geral</span>
                 </div>
-            </div>                    
-        </div>               
+            </div>
+        </div>
     </div>
     <div class="s-card  shadow-none">
         <div class="s-card-body s-md-back-Red-A100">
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-17 s-md-font-White title">    
-                    <span><json bind-value='bovespa.liquidity.lc.results_average'>0</json>%</span>                                       
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-17 s-md-font-White title">
+                    <span><json bind-value='bovespa.liquidity.lc.results_average'>0</json>%</span>
                 </div>
             </div>
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-White title">   
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">
                     <span>Índice de Liquidez Corrente</span>
                 </div>
-            </div>                    
-        </div>               
+            </div>
+        </div>
     </div>
     <div class="s-card shadow-none">
         <div class="s-card-body s-md-back-Red-A100">
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-17 s-md-font-White title">    
-                    <span><json bind-value='bovespa.liquidity.ls.results_average'>0</json>%</span>                    
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-17 s-md-font-White title">
+                    <span><json bind-value='bovespa.liquidity.ls.results_average'>0</json>%</span>
                 </div>
             </div>
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-White title">   
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">
                     <span>Índice de Liquidez Seca </span>
                 </div>
-            </div>                    
-        </div>               
+            </div>
+        </div>
     </div>
     <div class="s-card shadow-none">
         <div class="s-card-body s-md-back-Red-A100">
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-17 s-md-font-White title">    
-                    <span><json bind-value='bovespa.liquidity.ccl.results_average'>0</json>%</span>                        
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-17 s-md-font-White title">
+                    <span><json bind-value='bovespa.liquidity.ccl.results_average'>0</json>%</span>
                 </div>
             </div>
-            <div class="s-card-content">                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-White title">   
+            <div class="s-card-content">
+                <div class="s-center s-uppercase s-size-12 s-md-font-White title">
                     <span>Capital Circulante Líquido</span>
                 </div>
-            </div>                    
-        </div>               
+            </div>
+        </div>
     </div>
-</div>  
+</div>
+<div class="s-md-row">
+
+</div>
 <div class="s-md-row margin-left-1 s-columns-4">
-    <div class="s-card s-md-back-White">
-        <div class="s-card-body"> 
-            <div class="s-card-content" >                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">                           
-                    <span>Liquidez Geral</span>
+    <div class="s-md-back-transparent s-columns-1">
+        <div class="s-card s-md-back-White">
+            <div class="s-card-action">
+                <div class="btn-quad btn-large btn-card-center s-md-back-Red-400 right s-md-font-Black s-uppercase" mnu-name="bovespa-expand-lg">
+                    <span>Expandir</span>
                 </div>
             </div>
-            <div class="s-card-content"  id="card-graphic-lg">                        
+            <div class="s-card-body">
+                <div class="s-card-content" >
+                    <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">
+                        <span>Liquidez Geral</span>
+                    </div>
+                </div>
+                <div class="s-card-content"  id="card-graphic-lg">
 
-            </div>              
-        </div>       
-        <div class="s-card-action">
-            <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-                <json bind-value='bovespa.liquidity.lg.analysis' style="min-height: 190px;"></json>           
-            </div>          
-        </div> 
+                </div>
+            </div>
+            <div class="s-card-action">
+                <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+                    <json bind-value='bovespa.liquidity.lg.analysis' style="min-height: 190px;"></json>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="s-card s-md-back-White">
-        <div class="s-card-body"> 
-            <div class="s-card-content" >                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">                           
-                    <span>Índice de Liquidez Corrente</span>
+    <div class="s-md-back-transparent s-columns-1">
+        <div class="s-card s-md-back-White">
+            <div class="s-card-action">
+                <div class="btn-quad btn-large btn-card-center s-md-back-Red-400 right s-md-font-Black s-uppercase" mnu-name="bovespa-expand-lc">
+                    <span>Expandir</span>
                 </div>
             </div>
-            <div class="s-card-content"  id="card-graphic-lc">                        
+            <div class="s-card-body">
+                <div class="s-card-content" >
+                    <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">
+                        <span>Índice de Liquidez Corrente</span>
+                    </div>
+                </div>
+                <div class="s-card-content"  id="card-graphic-lc">
 
-            </div>              
-        </div>       
-        <div class="s-card-action">
-            <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-                <json bind-value='bovespa.liquidity.lc.analysis' style="min-height: 190px;"></json>             
-            </div>  
-        </div>     
-    </div> 
-
-    <div class="s-card s-md-back-White">
-        <div class="s-card-body"> 
-            <div class="s-card-content" >                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">                           
-                    <span>Índice de Liquidez Seca</span>
                 </div>
             </div>
-            <div class="s-card-content"  id="card-graphic-ls">                        
-
-            </div>              
-        </div>       
-        <div class="s-card-action">
-            <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-                <json bind-value='bovespa.liquidity.ls.analysis' style="min-height: 190px;"></json>             
-            </div>  
-        </div>     
-    </div>  
-
-    <div class="s-card s-md-back-White">
-        <div class="s-card-body"> 
-            <div class="s-card-content" >                        
-                <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">                           
-                    <span>CAPITAL CIRCULANTE LÍQUIDO</span>
+            <div class="s-card-action">
+                <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+                    <json bind-value='bovespa.liquidity.lc.analysis' style="min-height: 190px;"></json>
                 </div>
             </div>
-            <div class="s-card-content"  id="card-graphic-ccl">                        
-
-            </div>              
-        </div>       
-        <div class="s-card-action">
-            <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">          
-                <json bind-value='bovespa.liquidity.ccl.analysis' style="min-height: 190px;"></json>             
-            </div>  
-        </div>     
+        </div>
     </div>
+    <div class="s-md-back-transparent s-columns-1">
+        <div class="s-card s-md-back-White">
+            <div class="s-card-action">
+                <div class="btn-quad btn-large btn-card-center s-md-back-Red-400 right s-md-font-Black s-uppercase" mnu-name="bovespa-expand-ls">
+                    <span>Expandir</span>
+                </div>
+            </div>
+            <div class="s-card-body">
+                <div class="s-card-content" >
+                    <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">
+                        <span>Índice de Liquidez Seca</span>
+                    </div>
+                </div>
+                <div class="s-card-content"  id="card-graphic-ls">
 
+                </div>
+            </div>
+            <div class="s-card-action">
+                <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+                    <json bind-value='bovespa.liquidity.ls.analysis' style="min-height: 190px;"></json>
+                </div>
+            </div>
+        </div>
+    </div>        
+    <div class="s-md-back-transparent s-columns-1">
+        <div class="s-card s-md-back-White">
+            <div class="s-card-action">
+                <div class="btn-quad btn-large btn-card-center s-md-back-Red-400 right s-md-font-Black s-uppercase" mnu-name="bovespa-expand-ccl">
+                    <span>Expandir</span>
+                </div>
+            </div>
+            <div class="s-card-body">
+                <div class="s-card-content" >
+                    <div class="s-center s-uppercase s-size-12 s-md-font-GrayCyan-200 title">
+                        <span>CAPITAL CIRCULANTE LÍQUIDO</span>
+                    </div>
+                </div>
+                <div class="s-card-content"  id="card-graphic-ccl">
+
+                </div>
+            </div>
+            <div class="s-card-action">
+                <div class="s-uppercase s-size-12 s-md-font-GrayCyan-200">
+                    <json bind-value='bovespa.liquidity.ccl.analysis' style="min-height: 190px;"></json>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

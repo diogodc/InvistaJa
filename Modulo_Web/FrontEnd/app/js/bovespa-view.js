@@ -14,12 +14,12 @@ bovespa.object.extend(bovespa, {
         _init_views: function () {
             this._view_ = bovespa.object.create({});
             bovespa.object.extend(this._view_, {
-                 Construction: function () {
+                Construction: function () {
                     return bovespa.template([
                         {
                             'name': 'bovespa-construction', /* NOME DO TEMPLATE */
                             view: {
-                                self: '.bovespa' /* FOCO DA RENDERIZAÇÃO */                             
+                                self: '.bovespa' /* FOCO DA RENDERIZAÇÃO */
                             },
                             control: {
                                 url: 'app/views/construction.html' /* VIEW HTML DA RENDERIZAÇÃO */
@@ -500,6 +500,24 @@ bovespa.object.extend(bovespa, {
 
                                     bovespa.JLib(this.self).unmask(); /* DESABILITA A MASK */
                                     bovespa.JLib(this.self).tost({text: 'Endividamento calculado!'}); /* MOSTRA POP-UP */
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ce',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-pct',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ipl',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
                                 }
                             },
                             control: {
@@ -964,6 +982,30 @@ bovespa.object.extend(bovespa, {
                                             }
                                         }
                                     }); /* LER OBJETO E O SUBSTITUI NO HTML, COM NAMESPACE CORREPONDENTE DO OBJETO NO HTML */
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-lg',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-lc',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ls',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ccl',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
 
                                     bovespa.JLib(this.self).tost({text: 'Liquidez calculada!'}); /* MOSTRA MENSAGEM POP-UP */
                                 }
@@ -1436,6 +1478,29 @@ bovespa.object.extend(bovespa, {
                                     }); /* LER OBJETO E O SUBSTITUI NO HTML, COM NAMESPACE CORREPONDENTE DO OBJETO NO HTML */
 
                                     bovespa.JLib(this.self).tost({text: 'Rentabilidade calculada!'}); /* MOSTRA MENSAGEM POP-UP */
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ga',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ml',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-ra',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-rpl',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
                                 }
                             },
                             control: {
@@ -1832,6 +1897,32 @@ bovespa.object.extend(bovespa, {
                                             }
                                         }
                                     });
+
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-pme',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-pmr',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-pmp',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-cf',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
+                                    bovespa.menu.register([{
+                                            name: 'bovespa-expand-co',
+                                            attach: bovespa.JLib('.bovespa'),
+                                            action: bovespa.control._function_expand_
+                                        }]);
 
                                     bovespa.JLib(this.self).tost({text: 'Prazos médios calculados!'}); /* MOSTRA MENSAGEM POP-UP */
                                 }

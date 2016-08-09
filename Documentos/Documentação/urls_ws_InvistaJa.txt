@@ -5,7 +5,7 @@
 //Usuário: ecardoso	
 //Senha: C@rdoso26031994
 
-Url Login Usuário: http://invistaja.cloudapp.net:8080//ws_invistaja/usuarios/autenticar/{"sSenha":"12345","sUsuario":"ecardoso","sUsuario_ID":"","sUsuario_Nome":""}
+Url Login Usuário: http://invistaja.cloudapp.net:8080/ws_invistaja/usuarios/autenticar/{"sSenha":"12345","sUsuario":"ecardoso","sUsuario_ID":"","sUsuario_Nome":""}
 
 Url Listar Todos Usuários: http://invistaja.cloudapp.net:8080/ws_invistaja/usuarios/listar/1
 

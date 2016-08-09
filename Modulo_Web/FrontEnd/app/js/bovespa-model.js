@@ -178,7 +178,7 @@ bovespa.object.extend(bovespa, {
 
                     _dt.push(_dtCompany);
                 });
-                console.log(_dt);
+               
                 callback.call(scope, _dt);
             }, function (responseText) {
                 responseText = responseText.replaceAll("E", "");

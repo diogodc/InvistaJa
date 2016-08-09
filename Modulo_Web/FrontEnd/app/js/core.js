@@ -381,6 +381,13 @@
                             parentNode = sys_core.JLib(e.parentNode);
                         });
                         return parentNode;
+                    },
+                    copy: function () {
+                        var _copy;
+                        this.each(function (e) {
+                            _copy = sys_core.JLib(e.cloneNode(true));
+                        });
+                        return _copy;
                     }
                 });
                 if (prototype instanceof Element) {
@@ -418,6 +425,12 @@
         sys_core.object.extend(sys_core.JLib, {
             mlh: function () {
                 return  {
+                    getFocus: function () {
+                        this.each(function (e) {
+                            e.focus();     
+                            e.scrollIntoView();
+                        });
+                    },
                     class: function () {
                         var _class,
                                 _self;
@@ -686,7 +699,7 @@
                             y: yPos
                         };
                     },
-                    mask: function () {
+                    mask: function (conf) {
                         var _mask = {
                             _self: null,
                             _render: null,
@@ -698,12 +711,14 @@
                                         .css("background", 'black')
                                         .css('top', this._self.position().y + 'px')
                                         .css('left', this._self.position().x + 'px')
-                                        .css('opacity', "0.4");
+                                        .css('opacity', conf.opacity || "0.4");
                             },
                             get: function () {
                                 return _mask._child_;
                             }
                         };
+                        conf = conf || {};
+
                         this.unmask();
                         _mask._self = this;
                         _mask._render = _mask._self.create_element('div');
@@ -714,7 +729,7 @@
                         _mask._child_.css("z-index", "1");
                         _mask._child_.css("height", "100%");
                         _mask._child_.css("width", "100%");
-                        _mask._child_.css('opacity', "1");
+                        _mask._child_.css('opacity', conf.opacity || "1");
                         _mask._child_.css('background', "white");
                         sys_core.onResize(function () {
                             _mask._resize_mask.call(_mask);
@@ -734,6 +749,51 @@
                                 }
                             });
                         }
+                    },
+                    modal: function (_set) {
+                        var _modal = {},
+                                _self = this,
+                                _render = _self.create_element('div'),
+                                _child_ = _render.create_element('div');
+
+                        sys_core.object.extend(_modal, _set);
+                        _set = _set || {};
+                        _set.style = _set.style || {};
+
+                        _render.class().add('s-modal');
+                        _render.mark_component(['modal', sys_core.newID('modal')]);
+                        _child_.class().add('s-modal-content');
+                        _child_.css("z-index", "1");
+                        _child_.css("height", "100%");
+                        _child_.css("width", "100%");
+
+                        sys_core.onResize(function () {
+                            _render.css("min-height", _self.height() + 'px')
+                                    .css("min-width", _self.width() + 'px')
+                                    .css('top', _self.position().y + 'px')
+                                    .css('left', _self.position().x + 'px');
+
+                            if (_set.style.background) {
+                                _child_.css('background', _set.style.background);
+                            }
+
+
+                        });
+
+                        return (
+                                {
+                                    get: function () {
+                                        return _child_;
+                                    },
+                                    on: function () {
+                                        _render.css('display', 'inline-block');
+                                    },
+                                    off: function () {
+                                        _render.css('display', 'none');
+                                        _render.remove();
+                                    }
+                                }
+                        );
                     },
                     fileFrame: function (_set) {
                         var _FileFrame = {

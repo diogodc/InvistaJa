@@ -134,6 +134,59 @@ bovespa.object.extend(bovespa, {
 //                bovespa.JLib(e).class().remove('s-menu-nav-scroll-top');
 
             bovespa.JLib('.s-menu-nav-hidden-option').css('top', (bovespa.JLib(mnu).height() / 2.0) + bovespa.JLib(mnu).position().y + 'px');
+        },
+        _function_expand_: function (e) {
+            var btn = e,
+                    panel = e.up().up(),
+                    row = this.row || panel.up(),
+                    contanier = row.up().up(),
+                    modal = this.modal || contanier.modal({
+                        style: {
+                            'opacity': '0.5',
+                            'background': 'transparent'
+                        }
+                    }),
+                    frame = (function () {
+                        var _iframe;
+                        panel.each(function (e) {
+                            _iframe = this.query('iframe', e);
+                        });
+
+                        return _iframe[0] || null;
+                    })();
+
+            this.expand = !this.expand;
+            this.modal = this.modal || modal;
+            this.row = this.row || row;
+
+            if (this.expand) {
+                this.width_old = panel.width();
+                panel.attr('style', '');
+                panel.css('width', row.up().width() + 'px');
+                modal.get().include(panel.getElement());
+                modal.on();
+            } else {
+                panel.attr('style', '');
+                modal.off();
+                row.include(panel.getElement());
+                this.row = null;
+                this.modal = null;
+            }
+
+            (function (expand) {
+                btn.each(function (e) {
+                    if (e)
+                        e.innerText = expand ? "FECHAR" : 'EXPANDIR';
+                });
+            })(this.expand);
+
+            if (frame)
+                if (frame.getElement())
+                    frame.getElement().src = frame.getElement().src;
+
+
+            panel.getFocus();
+            window.scrollTo(0, 0);
         }
     }
 });
