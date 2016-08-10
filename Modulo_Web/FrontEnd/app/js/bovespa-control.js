@@ -174,10 +174,7 @@ bovespa.object.extend(bovespa, {
             }
 
             (function (expand) {
-                btn.each(function (e) {
-                    if (e)
-                        e.innerText = expand ? "FECHAR" : 'EXPANDIR';
-                });
+                btn.content(expand ? "FECHAR" : 'EXPANDIR'); 
             })(this.expand);
 
             if (frame)

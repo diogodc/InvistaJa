@@ -72,19 +72,22 @@
                 window.addEventListener('load', callback, false);
             },
             onResize: function (callback, _width) {
+                var me = this;
                 if (sys_core.isDefined(_width)) {
                     _width = 0;
                 }
 
                 setTimeout(function () {
                     var _onResize = false;
+
                     if (_width !== sys_core.width()) {
                         _width = sys_core.width();
+
                         _onResize = callback();
                     }
 
                     if (!_onResize) {
-                        sys_core.onResize(callback, _width);
+                        me.onResize(callback, _width);
                     }
                 }, 1);
 //                document.getElementsByTagName("body")[0].onresize = callback;
@@ -427,7 +430,7 @@
                 return  {
                     getFocus: function () {
                         this.each(function (e) {
-                            e.focus();     
+                            e.focus();
                             e.scrollIntoView();
                         });
                     },
@@ -629,40 +632,54 @@
                     },
                     width: function width() {
                         var _width = 0;
-                        if (sys_core.isChrome()) {
-                            this.each(function (elementPassed) {
-                                var DoOffset = true;
-                                if (!elementPassed) {
-                                    return 0;
+
+                        this.each(function (elementPassed) {
+                            var DoOffset = true;
+
+                            if (!elementPassed) {
+                                return 0;
+                            }
+
+                            var thisWidth = 0;
+                            var widthBase = 0;
+                            var widthOffset = 0;
+                            var widthScroll = 0;
+                            var widthClient = 0;
+                            var widthNode = 0;
+                            var widthRects = 0;
+
+                            if (elementPassed.style) {
+                                if (elementPassed.style.width) {
+                                    widthBase = parseInt(elementPassed.style.width);
                                 }
-                                if (!elementPassed.style) {
-                                    return 0;
+                            }
+
+                            if (elementPassed.offsetWidth) {
+                                widthOffset = parseInt(elementPassed.offsetWidth);
+                            }
+
+                            if (elementPassed.scrollWidth) {
+                                widthScroll = parseInt(elementPassed.scrollWidth);
+                            }
+
+                            if (elementPassed.clientWidth) {
+                                widthClient = parseInt(elementPassed.clientWidth);
+                            }
+
+                            if (DoOffset) {
+                                if (widthOffset > thisWidth) {
+                                    thisWidth = widthOffset;
                                 }
+                            }
+
+                            if (thisWidth == 0) {
+                                thisWidth = widthClient;
+                            }
+
+                            _width = thisWidth;
+                        });
 
 
-                                var thisWidth = 0;
-                                var widthBase = parseInt(elementPassed.style.width);
-                                var widthOffset = parseInt(elementPassed.offsetWidth);
-                                var widthScroll = parseInt(elementPassed.scrollWidth);
-                                var widthClient = parseInt(elementPassed.clientWidth);
-                                var widthNode = 0;
-                                var widthRects = 0;
-                                //
-
-                                if (DoOffset) {
-                                    if (widthOffset > thisWidth) {
-                                        thisWidth = widthOffset;
-                                    }
-                                }
-
-                                if (thisWidth == 0) {
-                                    thisWidth = widthClient;
-                                }
-
-
-                                _width = thisWidth;
-                            });
-                        }
                         return _width;
                     },
                     remove: function remove() {
@@ -767,7 +784,7 @@
                         _child_.css("height", "100%");
                         _child_.css("width", "100%");
 
-                        sys_core.onResize(function () {
+                        sys_core.onResize(function () {                         
                             _render.css("min-height", _self.height() + 'px')
                                     .css("min-width", _self.width() + 'px')
                                     .css('top', _self.position().y + 'px')
@@ -776,9 +793,9 @@
                             if (_set.style.background) {
                                 _child_.css('background', _set.style.background);
                             }
-
-
                         });
+
+
 
                         return (
                                 {
