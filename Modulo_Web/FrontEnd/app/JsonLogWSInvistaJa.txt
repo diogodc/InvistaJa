@@ -1,5 +1,0 @@
-Classe: DadosAutenticacao
-Metodo: autenticar
-Mensagem: Communications link failure
-
-The last packet successfully received from the server was 42.858 milliseconds ago.  The last packet sent successfully to the server was 1 milliseconds ago.
