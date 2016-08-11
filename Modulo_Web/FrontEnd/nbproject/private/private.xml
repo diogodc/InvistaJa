@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>app/views/liquidity.html</url>
+            <bookmark id="1">
+                <name/>
+                <line>63</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Z:/FrontEnd/backup/index.php</file>
-            <file>file:/Z:/FrontEnd/index.php</file>
+            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/js/core.js</file>
         </group>
     </open-files>
 </project-private>
