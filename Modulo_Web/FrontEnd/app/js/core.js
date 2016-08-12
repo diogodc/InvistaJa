@@ -7,6 +7,7 @@
         var sys_core;
         var sys = function object() {
         };
+
         String.prototype.contains = function (text) {
             return this.toString().indexOf(text) > -1;
         };
@@ -79,10 +80,8 @@
 
                 setTimeout(function () {
                     var _onResize = false;
-
                     if (_width !== sys_core.width()) {
                         _width = sys_core.width();
-
                         _onResize = callback();
                     }
 
@@ -329,98 +328,250 @@
                         return instance;
                     }
                 });
-                _element = this.dom();
-                sys_core.object.extend(_element, {
-                    event: function event(_name, _function, _remove) {
-                        this.each(function (e) {
-                            if (_name === 'observer') {
-                                var observer = new MutationObserver(_function);
-                                observer.observe(e, {
-                                    attributes: true,
-                                    childList: true,
-                                    characterData: true,
-                                    subtree: true
-                                });
-                            } else {
-                                if (_remove)
-                                    e.removeEventListener(_name, _function, false);
-                                e.addEventListener(_name, _function, false);
-                            }
-                        });
+
+                if (prototype['component-name'])
+                    if (prototype['component-name'] === 'dom-element') {
+                        _element = prototype;
                     }
-                });
-                sys_core.object.extend(_element, {
-                    each: function each(fn) {
-                        var x;
-                        if (this.type == 'id') {
-                            fn.call(this, this.el);
-                        } else if (this.type == 'name') {
-                            for (x in this.el) {
-                                if (this.el[x] instanceof Element) {
-                                    fn.call(this, this.el[x]);
+
+                if (!_element) {
+                    _element = this.dom();
+                    sys_core.object.extend(_element, {
+                        event: function event(_name, _function, _remove) {
+                            this.each(function (e) {
+                                if (_name === 'observer') {
+                                    var observer = new MutationObserver(_function);
+                                    observer.observe(e, {
+                                        attributes: true,
+                                        childList: true,
+                                        characterData: true,
+                                        subtree: true
+                                    });
+                                } else {
+                                    if (_remove)
+                                        e.removeEventListener(_name, _function, false);
+                                    e.addEventListener(_name, _function, false);
                                 }
-                            }
-                        } else {
-                            for (x in this.el) {
-                                if (this.el [x] instanceof Element) {
-                                    fn.call(this, this.el[x]);
+                            });
+                        }
+                    });
+                    sys_core.object.extend(_element, {
+                        each: function each(fn) {
+                            var x;
+                            if (this.type == 'id') {
+                                fn.call(this, this.el);
+                            } else if (this.type == 'name') {
+                                for (x in this.el) {
+                                    if (this.el[x] instanceof Element) {
+                                        fn.call(this, this.el[x]);
+                                    }
+                                }
+                            } else {
+                                for (x in this.el) {
+                                    if (this.el [x] instanceof Element) {
+                                        fn.call(this, this.el[x]);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
-                sys_core.object.extend(_element, {
-                    getElement: function getElement() {
-                        return this.el;
-                    },
-                    include: function include(el) {
-                        this.each(function (e) {
-                            e.appendChild(el instanceof Element ? el : el.getElement());
-                        });
-                    },
-                    up: function () {
-                        var parentNode;
-                        this.each(function (e) {
-                            parentNode = sys_core.JLib(e.parentNode);
-                        });
-                        return parentNode;
-                    },
-                    copy: function () {
-                        var _copy;
-                        this.each(function (e) {
-                            _copy = sys_core.JLib(e.cloneNode(true));
-                        });
-                        return _copy;
-                    }
-                });
-                if (prototype instanceof Element) {
-                    sys_core.object.extend(_element, {
-                        type: 'id',
-                        el: prototype
                     });
-                } else {
-                    if (doc.getElementById(prototype) != undefined) {
+                    sys_core.object.extend(_element, {
+                        getElement: function getElement() {
+                            return this.el;
+                        },
+                        include: function include(el) {
+                            this.each(function (e) {
+                                e.appendChild(el instanceof Element ? el : el.getElement());
+                            });
+                        },
+                        up: function () {
+                            var parentNode;
+                            this.each(function (e) {
+                                parentNode = sys_core.JLib(e.parentNode);
+                            });
+                            return parentNode;
+                        },
+                        down: function (name) {
+                            var parentNode,
+                                    me = this;
+                            me.each(function (e) {
+                                for (var x in e.children) {
+                                    var child = e.children[x];
+                                    if (child instanceof Element) {
+                                        if (!name) {
+                                            parentNode = sys_core.JLib(child);
+                                        } else {
+                                            if (child.nodeName.toUpperCase() === name.toUpperCase()) {
+                                                parentNode = sys_core.JLib(child);
+                                            } else {
+                                                parentNode = sys_core.JLib(child).down(name);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            });
+                            return parentNode;
+                        },
+                        copy: function () {
+                            var _copy;
+                            this.each(function (e) {
+                                _copy = sys_core.JLib(e.cloneNode(true));
+                            });
+                            return _copy;
+                        }
+                    });
+                    if (prototype instanceof Element) {
                         sys_core.object.extend(_element, {
                             type: 'id',
-                            el: doc.getElementById(prototype)
-                        });
-                    } else if (doc.getElementsByName(prototype) != undefined && doc.getElementsByName(prototype).length != 0) {
-                        sys_core.object.extend(_element, {
-                            type: 'name',
-                            el: doc.getElementsByName(prototype)
-                        });
-                    } else if (doc.getElementsByTagName(prototype) != undefined && doc.getElementsByTagName(prototype).length != 0) {
-                        sys_core.object.extend(_element, {
-                            type: 'tag',
-                            el: doc.getElementsByTagName(prototype)
+                            el: prototype
                         });
                     } else {
-                        sys_core.object.extend(_element, {
-                            type: 'query',
-                            el: this.query(prototype)
-                        });
+                        if (doc.getElementById(prototype) != undefined) {
+                            sys_core.object.extend(_element, {
+                                type: 'id',
+                                el: doc.getElementById(prototype)
+                            });
+                        } else if (doc.getElementsByName(prototype) != undefined && doc.getElementsByName(prototype).length != 0) {
+                            sys_core.object.extend(_element, {
+                                type: 'name',
+                                el: doc.getElementsByName(prototype)
+                            });
+                        } else if (doc.getElementsByTagName(prototype) != undefined && doc.getElementsByTagName(prototype).length != 0) {
+                            sys_core.object.extend(_element, {
+                                type: 'tag',
+                                el: doc.getElementsByTagName(prototype)
+                            });
+                        } else {
+                            sys_core.object.extend(_element, {
+                                type: 'query',
+                                el: this.query(prototype)
+                            });
+                        }
                     }
                 }
+
+                (function () {
+                    var me = this;
+
+                    !function () {
+                        if (this.tagName() === 'FORM') {
+                            this.mark_component(['form', sys_core.newID('form')]);
+                        }
+                    }.call(me);
+
+                    if (me.get('component-name') === 'bovespa-modal') {
+                        sys_core.object.extend(me, {
+                            body: function () {
+                                return me.down();
+                            },
+                            on: function () {
+                                me.css('display', 'inline-block');
+                            },
+                            off: function () {
+                                me.css('display', 'none');
+                                me.remove();
+                            }
+                        });
+                    } else if (me.get('component-name') === 'bovespa-form-field') {
+                        sys_core.object.extend(me, {
+                            getVal: function () {
+                                var val;
+                                me.each(function (e) {
+                                    val = e.value;
+                                });
+
+                                return val;
+                            },
+                            getName: function () {
+                                var me = this,
+                                        val;
+
+                                me.each(function (e) {
+                                    val = e.name;
+                                });
+
+                                return val;
+                            }
+                        });
+
+                    } else if (me.get('component-name') === 'bovespa-form') {
+                        sys_core.object.extend(me, {
+                            getFields: function () {
+                                var _fields = [];
+
+                                me.each(function (e) {
+                                    sys_core.each(e.elements, function (ele) {
+                                        var field = sys_core.JLib(ele);
+
+                                        field.mark_component(['form-field', sys_core.newID('form-field')]);
+
+                                        _fields.push(sys_core.JLib(field));
+                                    });
+                                });
+
+                                return _fields;
+                            },
+                            getFieldsJson: function () {
+                                var me = this,
+                                        _fields = me.getFields(),
+                                        _fJson = {};
+
+                                sys_core.each(_fields, function (field) {
+
+                                    _fJson[field.getName()] = field.getVal();
+                                });
+
+                                return  JSON.stringify(_fJson);
+                            },
+                            method: function () {
+                                return me.get('method');
+                            },
+                            submit: function (_config) {
+                                var me = this,
+                                        submit = {};
+
+                                sys_core.object.extend(submit, {
+                                    success: function (form, action) {
+
+                                    },
+                                    failure: function (form, action) {
+
+                                    }
+                                });
+
+                                sys_core.object.extend(submit, _config);
+                                console.log(submit.url);
+
+                                sys_core.request({
+                                    method: me.method(),
+                                    url: submit.url || '',
+                                    success: function () {
+                                        submit.success(me, this);
+                                    },
+                                    failure: function () {
+                                        submit.failure(me, this);
+                                    }
+                                });
+                            },
+                            isValid: function () {
+                                var me = this,
+                                        _fields = me.getFields(),
+                                        _isValid = true;
+
+                                sys_core.each(_fields, function (field) {
+
+                                    if (field.getVal() == '') {
+                                        _isValid = false;
+                                    }
+                                });
+
+                                return _isValid;
+                            }
+                        });
+                    }
+
+                }).call(_element);
 
                 return _element;
             }
@@ -449,6 +600,8 @@
                                     var _class = _self.get('class').trim();
                                     this.attr('class', _class.replace(name_class, ""));
                                 }
+
+                                return _self;
                             },
                             add: function (name_class) {
                                 if (_self.el.classList) {
@@ -457,11 +610,14 @@
                                     var _class = _self.get('class').trim();
                                     this.attr('class', _class + " " + name_class);
                                 }
+
+                                return _self;
                             },
                             contains: function (name_class) {
                                 if (_self.el.classList)
                                     return  _self.el.classList.contains(name_class);
                                 var _class = _self.get('class').trim();
+
                                 return _class.contains(name_class);
                             }
                         });
@@ -478,10 +634,31 @@
                         return this;
                     },
                     get_id: function get_id() {
-                        return this.el.getAttribute('id') ? this.el.getAttribute('id') : '';
+                        var _get = null;
+
+                        this.each(function (e) {
+                            _get = e.getAttribute('id') ? e.getAttribute('id') : '';
+                        });
+
+                        return _get;
                     },
                     get: function get(get) {
-                        return this.el.getAttribute(get);
+                        var _get = null;
+
+                        this.each(function (e) {
+                            _get = e.getAttribute(get);
+                        });
+
+                        return _get;
+                    },
+                    tagName: function get(get) {
+                        var _get = null;
+
+                        this.each(function (e) {
+                            _get = e.nodeName;
+                        });
+
+                        return _get;
                     },
                     create_element: function create_element(element_type, element_html5) {
                         var _element;
@@ -632,10 +809,8 @@
                     },
                     width: function width() {
                         var _width = 0;
-
                         this.each(function (elementPassed) {
                             var DoOffset = true;
-
                             if (!elementPassed) {
                                 return 0;
                             }
@@ -647,7 +822,6 @@
                             var widthClient = 0;
                             var widthNode = 0;
                             var widthRects = 0;
-
                             if (elementPassed.style) {
                                 if (elementPassed.style.width) {
                                     widthBase = parseInt(elementPassed.style.width);
@@ -678,8 +852,6 @@
 
                             _width = thisWidth;
                         });
-
-
                         return _width;
                     },
                     remove: function remove() {
@@ -735,7 +907,6 @@
                             }
                         };
                         conf = conf || {};
-
                         this.unmask();
                         _mask._self = this;
                         _mask._render = _mask._self.create_element('div');
@@ -772,45 +943,61 @@
                                 _self = this,
                                 _render = _self.create_element('div'),
                                 _child_ = _render.create_element('div');
-
                         sys_core.object.extend(_modal, _set);
+
                         _set = _set || {};
                         _set.style = _set.style || {};
+                        _set.reference = _set.reference || _child_;
+                        _set.affect = _set.affect || {};
 
                         _render.class().add('s-modal');
+                        _render.class().add('s-center');
                         _render.mark_component(['modal', sys_core.newID('modal')]);
+
                         _child_.class().add('s-modal-content');
+
                         _child_.css("z-index", "1");
                         _child_.css("height", "100%");
                         _child_.css("width", "100%");
 
-                        sys_core.onResize(function () {                         
+                        sys_core.onResize(function () {
                             _render.css("min-height", _self.height() + 'px')
                                     .css("min-width", _self.width() + 'px')
                                     .css('top', _self.position().y + 'px')
                                     .css('left', _self.position().x + 'px');
-
                             if (_set.style.background) {
                                 _child_.css('background', _set.style.background);
                             }
+
+                            if (_set.affect.down) {
+                                var child = _child_.down();
+
+                                if (_set.affect.down.level) {
+                                    var level = 1;
+                                    while (_set.affect.down.level > level) {
+
+                                        if (child) {
+                                            child = child.down();
+                                        }
+
+                                        level = level + 1;
+                                    }
+                                }
+
+                                if (child) {
+                                    child.css('top', _set.reference.position().y + 'px')
+                                            .css('position', 'fixed');
+                                }
+                            }
+
+
                         });
 
 
-
-                        return (
-                                {
-                                    get: function () {
-                                        return _child_;
-                                    },
-                                    on: function () {
-                                        _render.css('display', 'inline-block');
-                                    },
-                                    off: function () {
-                                        _render.css('display', 'none');
-                                        _render.remove();
-                                    }
-                                }
-                        );
+                        return sys_core.JLib(_render);
+                    },
+                    msgBox: function (_set) {
+                        sys_core.msgBox(_set);
                     },
                     fileFrame: function (_set) {
                         var _FileFrame = {
@@ -1047,6 +1234,9 @@
                                 body: y.document.getElementsByTagName('body')[0]
                             });
                         });
+                    },
+                    visible: function (_visible) {
+                        this.css('display', _visible ? 'inline-block' : 'none');
                     }
                 };
             }
@@ -1289,6 +1479,8 @@
                 ajax.request.open(ajax['method'] == "" ? 'GET' : ajax['method'], ajax['getUrl'](), ajax.asynchronous);
                 ajax.request.setRequestHeader("Content-Type", "multipart/form-data");
                 ajax.request.setRequestHeader("component-name", "s-request");
+
+
                 ajax.request.send();
                 return ajax.asynchronous ? '' : ajax.request.responseText;
             }});
@@ -1459,6 +1651,9 @@
                         self: '',
                         pattern: /\@\{(\w*)\}/g,
                         'view-text': '',
+                        body: function () {
+                            return   main.JLib(this.self);
+                        },
                         'inject-json': function (dataBind) {
                             var view = main.JLib(this.self);
                             sys_core.eachProtoRecursive(dataBind, function (v, n, s) {
@@ -1471,14 +1666,15 @@
                             });
                         },
                         'render-html': function (text) {
-                            this['view-text'] = text;
-                            main.JLib(this.self).mark_component(['view-template', '000']);
-                            main.JLib(this.self).attr('template-name', _template.name);
-                            if (sys_core.isDefined(this.html)) {
-                                main.JLib(this.self).content('');
-                                main.Rendering(main.JLib(this.self), this.html);
+                            var me = this;
+                            me['view-text'] = text;
+                            me['body']().mark_component(['view-template', '000']);
+                            me['body']().attr('template-name', _template.name);
+                            if (sys_core.isDefined(me.html)) {
+                                me['body']().content('');
+                                main.Rendering(me['body'](), me.html);
                             } else {
-                                main.JLib(this.self).content(this['view-text']);
+                                me['body']().content(me['view-text']);
                             }
                         },
                         'render': function (model) {
@@ -1901,7 +2097,7 @@
                     _object['_chrome_event'] = function () {
                         if (!sys_core.isChrome()) {
                             cs_comp.remove();
-                            bovespa.component(_object);
+                            sys_core.component(_object);
                         }
                     };
                     window.removeEventListener('Event', _object['_chrome_event']);
@@ -2511,6 +2707,144 @@
         });
         sys_core.Event = new Event('Event');
         sys_core.object.extend(sys_core, _set);
+
+        sys_core.object.extend(sys_core, {
+            msgBox: function (_set) {
+                var _self = sys_core.JLib('html'),
+                        _render = _self.create_element('div'),
+                        _child_ = _render.create_element('div'),
+                        _box = _child_.create_element('div');
+
+                _set = _set || {};
+                _set.style = _set.style || {};
+                _set.reference = _set.reference || _child_;
+                _set.affect = _set.affect || {};
+
+                _render.class().add('s-msg-box');
+                _render.class().add('s-center');
+                _render.mark_component(['modal', sys_core.newID('modal')]);
+
+                _child_.class().add('s-msg-box-content');
+                _child_.class().add('s-columns-3');
+                _child_.class().add('s-center');
+                _child_.css("z-index", "2");
+                _child_.css("height", "100%");
+                _child_.css("width", "100%");
+
+                _box.class().add('s-card');
+                _box.class().add('shadow-none');
+
+                var _boxTitlte = _box.create_element('div'),
+                        _boxBody = _box.create_element('div');
+
+                _boxBody.class().add('s-card-body');
+
+                _boxTitlte.class().add('s-card-head').class().add('s-center');
+
+                if (!_set.icon) {
+                    _boxTitlte.create_element('div')
+                            .content(_set.title || '')
+                            .class().add('s-card-content')
+                            .class().add('s-center')
+                            .class().add('s-uppercase')
+                            .class().add('s-size-15');
+                } else {
+                    var img = _boxTitlte.create_element('div');
+                    img.class().add('s-card-content')
+                            .class().add('s-center')
+                            .class().add('s-uppercase')
+                            .class().add('s-size-15');
+                    img.create_element('img')
+                            .attr('src', _set.icon)
+                            .attr('height', '50px');
+                }
+
+
+
+                var _boxClose = _boxTitlte.create_element('span');
+                _boxClose.class().add('close').class().add('right').content('<div class="s-md-back-Green-A800 btn-quad shadow-none btn-card-center s-md-font-White right s-uppercase" mnu-name="bovespa-restricted-submit">' +
+                                                                                '<span>×</span>' +
+                                                                             '</div>');
+                _boxClose.down().css('font-size', '0.625em');
+                _boxClose.down().css('font-weight', '800');
+                _boxClose.down().css('padding', '0 !important');
+                _boxClose.down().css('right', '0');
+                _boxClose.down().css('width', '10px');
+
+                _boxClose.event('click', function () {
+                    _render.remove();
+                });
+
+                _child_.event('click', function (e) {
+                    var target = e.target;
+                    if (target == this) {
+                        _render.remove();
+                    }
+                });
+
+                _render.event('click', function (e) {
+                    var target = e.target;
+                    if (target == this) {
+                        _render.remove();
+                    }
+                });
+
+
+
+                var _boxBCard = _boxBody.create_element('div'),
+                        _boxBMsg = _boxBCard.create_element('div');
+
+                _boxBCard.css('padding-top', '3px');
+                _boxBCard.css('padding-left', '3px');
+                _boxBCard.css('padding-right', '3px');
+
+                _boxBCard.css('background', 'transparent');
+                _boxBCard.class().add('shadow-none').class().add('s-card');
+
+                _boxBMsg.class().add('s-md-back-White');
+                _boxBMsg.css('background', 'White');
+
+                _boxBMsg.class().add('s-card-action');
+                _boxBMsg.create_element('div')
+                        .content(_set.msg || '')
+                        .class().add('s-center')
+                        .class().add('s-uppercase')
+                        .class().add('s-size-12');
+
+                sys_core.onResize(function () {
+                    _render.css("min-height", _self.height() + 'px')
+                            .css("min-width", _self.width() + 'px')
+                            .css('top', _self.position().y + 'px')
+                            .css('left', _self.position().x + 'px');
+                    if (_set.style.background) {
+                        _child_.css('background', _set.style.background);
+                    }
+
+                    if (_set.affect.down) {
+                        var child = _child_.down();
+
+                        if (_set.affect.down.level) {
+                            var level = 1;
+                            while (_set.affect.down.level > level) {
+
+                                if (child) {
+                                    child = child.down();
+                                }
+
+                                level = level + 1;
+                            }
+                        }
+
+                        if (child) {
+                            child.css('top', _set.reference.position().y + 'px')
+                                    .css('position', 'fixed');
+                        }
+                    }
+                });
+                _render.visible(true);
+            }
+        });
+
         return sys_core;
     };
     return _core;

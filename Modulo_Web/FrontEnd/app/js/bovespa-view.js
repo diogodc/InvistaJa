@@ -34,6 +34,16 @@ bovespa.object.extend(bovespa, {
                             view: {
                                 self: '.bovespa', /* FOCO DA RENDERIZAÇÃO */
                                 render: function () {
+
+                                }
+                            },
+                            control: {
+                                url: 'app/views/company.html', /* VIEW HTML DA RENDERIZAÇÃO */
+                                "render-after": function (view) {
+                                    var me = this,
+                                            logged = !bovespa.storage.exists('user_id');
+
+
                                     if (bovespa.storage.exists('tost')) {
                                         bovespa.JLib(this.self).tost({text: 'Empresa sem detalhamento!'});
                                         bovespa.storage.removeAll();
@@ -59,10 +69,60 @@ bovespa.object.extend(bovespa, {
                                                 }
                                             }
                                         }]);
+
+
+                                    if (logged) {
+                                        me.restricted(view.body()).load();
+                                    }
+                                },
+                                restricted: function (vrender) {
+                                    return   bovespa.template([
+                                        {
+                                            'name': 'bovespa-restricted', /* NOME DO TEMPLATE */
+                                            view: {
+                                                self: bovespa.JLib('html').modal({
+                                                    style: {
+                                                        'opacity': '0.5',
+                                                        'background': 'transparent'                                                        
+                                                    }                                                   
+                                                }).body(),
+                                                render: function () {
+                                                    var me = this,
+                                                            modal = me.body().up(),
+                                                            form = me.body().down('form');
+
+
+                                                    bovespa.menu([{
+                                                            name: 'bovespa-restricted-submit',
+                                                            attach: form,
+                                                            action: function (e) {
+                                                                if (form.isValid()) {
+                                                                    form.submit({
+                                                                        url: 'http://invistaja.cloudapp.net:8080/ws_invistaja/usuarios/autenticar/' + form.getFieldsJson(),
+                                                                        success: function (form, action) {
+                                                                           
+                                                                        },
+                                                                        failure: function (form, action) {
+                                                                            console.log(action);
+                                                                            bovespa.msgBox({
+                                                                                icon:'./app/resources/images/logo_main_1113.png',
+                                                                                title:'Invista Já',
+                                                                                msg:'Falha no Login!'
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+                                                        }]); 
+                                                    modal.on();
+                                                }
+                                            },
+                                            control: {
+                                                url: 'app/views/restricted.html' /* VIEW HTML DA RENDERIZAÇÃO */
+                                            }
+                                        }
+                                    ]);
                                 }
-                            },
-                            control: {
-                                url: 'app/views/company.html' /* VIEW HTML DA RENDERIZAÇÃO */
                             }
                         }
                     ]);

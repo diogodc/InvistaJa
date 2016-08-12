@@ -5,25 +5,25 @@
 bovespa.object.extend(bovespa, {
     control: {
         render: function (view, model) {
-            this._init(view, model);
+            var me = this;
+
+            me._init(view, model);
             view.render();
-//            this._navigation_.Construction();
-//            return;
+
 
             model.load(function (load, sucess) {
                 view.render();
-
                 if (load && !sucess) { /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
                     bovespa.storage.removeAll();
                     bovespa.storage({tost: 'Empresa sem detalhamento!'});
                 }
 
                 if (load && sucess) {
-                    this._navigation_.Home();
+                    me._navigation_.Home();
                 } else {  /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
-                    this._navigation_.Company();
+                    me._navigation_.Company();
                 }
-            }, this);
+            }, me);
         },
         _init: function (view, model) {
             this._init_plugins();
@@ -51,7 +51,9 @@ bovespa.object.extend(bovespa, {
                 'Company': function () {
                     var _route = bovespa.router([{route: 'bovespa:EMPRESAS'}]); /* ALTERANDO A URL */
                     _route.navigate(function () { /* INSTANCIANDO A VIEW HTML NO CORPO DA PAGINA  */
-                        view._view_.Company().load();
+                        view._view_.Company().load(function () {
+                           
+                        });
                     });
                 },
                 'Indebtedness': function (e) {
@@ -163,7 +165,7 @@ bovespa.object.extend(bovespa, {
                 this.width_old = panel.width();
                 panel.attr('style', '');
                 panel.css('width', row.up().width() + 'px');
-                modal.get().include(panel.getElement());
+                modal.body().include(panel.getElement());
                 modal.on();
             } else {
                 panel.attr('style', '');
@@ -174,7 +176,7 @@ bovespa.object.extend(bovespa, {
             }
 
             (function (expand) {
-                btn.content(expand ? "FECHAR" : 'EXPANDIR'); 
+                btn.content(expand ? "FECHAR" : 'EXPANDIR');
             })(this.expand);
 
             if (frame)
