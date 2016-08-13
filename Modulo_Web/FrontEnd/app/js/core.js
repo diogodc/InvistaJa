@@ -1,5 +1,5 @@
-/*
- 
+﻿/*
+ bb
  */
 (function (_object) {
     var _core = _object.core = {};
