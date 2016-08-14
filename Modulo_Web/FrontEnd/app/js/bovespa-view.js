@@ -26,6 +26,72 @@ bovespa.object.extend(bovespa, {
                             }
                         }
                     ]);
+                },
+                Restricted: function () {
+                    return   bovespa.template([
+                        {
+                            'name': 'bovespa-restricted', /* NOME DO TEMPLATE */
+                            view: {
+                                self: '.bovespa',
+                                render: function () {
+                                    var me = this,
+                                            form = me.body().down('form');
+
+
+                                    bovespa.menu([{
+                                            name: 'bovespa-restricted-submit',
+                                            attach: form,
+                                            action: function (e) {
+                                                if (form.isValid()) {
+                                                    var modal = me.body().modal({
+                                                        style: {
+                                                            background: 'transparent'
+                                                        }
+                                                    });
+
+                                                    modal.body().class().add('s-center');
+
+                                                    modal.body().include(bovespa.icon({
+                                                        path: './app/resources/images/loading.gif'
+                                                    }));
+
+                                                    form.submit({
+                                                        url: bovespa.config.stores.login + form.getFieldsJson(),
+                                                        success: function (form, action) {
+                                                            modal.off();
+
+                                                            if (action.response) {
+                                                                if (bovespa.type.isJson(action.response)) {
+                                                                    var resp = JSON.parse(action.response);
+                                                                    if (resp.success) {
+                                                                        window.location = './';
+                                                                        return;
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            bovespa.msgBox({
+                                                                msg: 'Dados incorretos!'
+                                                            });
+                                                        },
+                                                        failure: function (form, action) {
+                                                            modal.off();
+                                                            bovespa.msgBox({
+                                                                msg: 'Falha no Login!<br> Tente mais tarde!'
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }]);
+
+                                }
+                            },
+                            control: {
+                                url: 'app/views/restricted.html' /* VIEW HTML DA RENDERIZAÇÃO */
+                            }
+                        }
+                    ]);
                 }, /* VIEW DE SELEÇÃO DE EMPRESAS */
                 Company: function () {
                     return bovespa.template([
@@ -40,22 +106,23 @@ bovespa.object.extend(bovespa, {
                             control: {
                                 url: 'app/views/company.html', /* VIEW HTML DA RENDERIZAÇÃO */
                                 "render-after": function (view) {
-                                    var me = this,
-                                            logged = !bovespa.storage.exists('user_id');
-
+                                    var me = this;
 
                                     if (bovespa.storage.exists('tost')) {
-                                        bovespa.JLib(this.self).tost({text: 'Empresa sem detalhamento!'});
+                                        bovespa.JLib(view.body()).tost({text: 'Empresa sem detalhamento!'});
                                         bovespa.storage.removeAll();
                                     }
+                                    
                                     bovespa.component({
                                         type: 'select',
+                                        textDefault : 'Selecione uma empresa...',
+                                        textEmpty : 'Sem empresas cadastradas...',
                                         renderTo: '#select-company',
                                         id: 'select-company',
                                         class: ['', 's-size'],
                                         data: bovespa.model.Company(),
                                         searchSensitive: false,
-                                        displayMember: 'sRazao_Social',
+                                        displayMember: 'razaoSocial',
                                         classMember: ['', 's-size-15']
                                     });
                                     bovespa.menu([{
@@ -69,59 +136,6 @@ bovespa.object.extend(bovespa, {
                                                 }
                                             }
                                         }]);
-
-
-                                    if (logged) {
-                                        me.restricted(view.body()).load();
-                                    }
-                                },
-                                restricted: function (vrender) {
-                                    return   bovespa.template([
-                                        {
-                                            'name': 'bovespa-restricted', /* NOME DO TEMPLATE */
-                                            view: {
-                                                self: bovespa.JLib('html').modal({
-                                                    style: {
-                                                        'opacity': '0.5',
-                                                        'background': 'transparent'                                                        
-                                                    }                                                   
-                                                }).body(),
-                                                render: function () {
-                                                    var me = this,
-                                                            modal = me.body().up(),
-                                                            form = me.body().down('form');
-
-
-                                                    bovespa.menu([{
-                                                            name: 'bovespa-restricted-submit',
-                                                            attach: form,
-                                                            action: function (e) {
-                                                                if (form.isValid()) {
-                                                                    form.submit({
-                                                                        url: 'http://invistaja.cloudapp.net:8080/ws_invistaja/usuarios/autenticar/' + form.getFieldsJson(),
-                                                                        success: function (form, action) {
-                                                                           
-                                                                        },
-                                                                        failure: function (form, action) {
-                                                                            console.log(action);
-                                                                            bovespa.msgBox({
-                                                                                icon:'./app/resources/images/logo_main_1113.png',
-                                                                                title:'Invista Já',
-                                                                                msg:'Falha no Login!'
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        }]); 
-                                                    modal.on();
-                                                }
-                                            },
-                                            control: {
-                                                url: 'app/views/restricted.html' /* VIEW HTML DA RENDERIZAÇÃO */
-                                            }
-                                        }
-                                    ]);
                                 }
                             }
                         }
@@ -136,8 +150,8 @@ bovespa.object.extend(bovespa, {
                                     this['inject-json']({
                                         bovespa: {
                                             'company': {
-                                                name: bovespa.storage.get('sRazao_Social'),
-                                                cnpj: bovespa.format(bovespa.storage.get('sCNPJ'), '00.000.000/0000-00', this)
+                                                name: bovespa.storage.get('razaoSocial') || '',
+                                                cnpj: bovespa.format(bovespa.storage.get('CNPJ') || '', '00.000.000/0000-00', this)
                                             }
                                         }
                                     });
@@ -215,7 +229,7 @@ bovespa.object.extend(bovespa, {
                             view: {
                                 self: '.s-body-content',
                                 render: function (model) {
-                                    bovespa.JLib(this.self).mask(); /* HABILITA A MASK */
+                                    this.body().mask(); /* HABILITA A MASK */
 
                                     this['inject-json']({
                                         bovespa: {

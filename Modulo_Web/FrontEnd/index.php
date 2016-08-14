@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php 
+    session_start();
+?>
 <html>
     <head>
         <title>INVI$TA JÁ</title>
@@ -22,6 +25,11 @@
          
     </body> 
     <script src="app/js/core.js"></script>
-    <script src="app/js/bovespa.js"></script>  
+    <script src="app/js/bovespa.js"></script>
+    <?php       
+        if(isset($_SESSION['user_token'])){
+           echo "<token val='{$_SESSION['user_token']}'/>";
+        }
+    ?>
 </html>
 

@@ -1,5 +1,10 @@
 bovespa.object.extend(bovespa, {
     config: {
+        stores  :{
+            login : './app/App.php/Login/',
+            company : './app/App.php/Company/GetAll/',
+            indicators : './app/App.php/Indicators/GetAll/'
+        },
         responsive: {
             'min-width': 367,
             'med-width': 770

@@ -12,12 +12,18 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa.js</file>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-control.js</file>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/views/restricted.html</file>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/views/construction.html</file>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/index.php</file>
-            <file>file:/C:/xampp/htdocs/BOVESPA/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-view.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/App.php</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-model.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/core.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-config.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/php/View.php</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-view.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/php/Library/Router.php</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/index.php</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/php/Model.php</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/js/bovespa-control.js</file>
+            <file>file:/C:/Users/Rafael/Documents/GitHub/InvistaJa/Modulo_Web/FrontEnd/app/php/Control.php</file>
         </group>
     </open-files>
 </project-private>

@@ -6,31 +6,54 @@ bovespa.object.extend(bovespa, {
     control: {
         render: function (view, model) {
             var me = this;
-
             me._init(view, model);
-            view.render();
-
-
-            model.load(function (load, sucess) {
+            if (!me._logged()) {
                 view.render();
-                if (load && !sucess) { /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
-                    bovespa.storage.removeAll();
-                    bovespa.storage({tost: 'Empresa sem detalhamento!'});
-                }
+                me._navigation_.Restricted();
+            } else {
 
-                if (load && sucess) {
-                    me._navigation_.Home();
-                } else {  /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
-                    me._navigation_.Company();
-                }
-            }, me);
+                bovespa.object.extend(me, {
+                    on: function () {
+                        var modal = bovespa.JLib('html').modal({
+                            style: {
+                                background: 'transparent'
+                            }
+                        });
+
+                        modal.body().class().add('s-center');
+                        modal.body().include(bovespa.icon({
+                            path: './app/resources/images/loading.gif'
+                        }));
+
+                        this['_modal_'] = modal;
+                        return modal;
+                    },
+                    off: function () {
+                        this['_modal_'].off();
+                    }
+                });
+
+                model.load(function (load, sucess) {
+                    view.render();
+                    if (load && !sucess) { /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
+                        bovespa.storage.removeAll();
+                        bovespa.storage({tost: 'Empresa sem detalhamento!'});
+                    }
+
+                    if (load && sucess) {
+                        me._navigation_.Home();
+                    } else {  /* SE A EMPRESA SELECIONADA NÃO TEM INDICADORES */
+                        me._navigation_.Company();
+                    }
+                }, me, me.token);
+            }
         },
         _init: function (view, model) {
             this._init_plugins();
             this._init_navigation(view);
             this._init_mnu();
         },
-        _init_plugins: function () {  /* INSTANCIANDO PLUGINS DOS GRAFICOS */
+        _init_plugins: function () {
             bovespa._plugin_ = bovespa.object.create({});
             bovespa._plugin_['JQuery'] = $;
             bovespa._plugin_['Highcharts'] = Highcharts;
@@ -43,6 +66,14 @@ bovespa.object.extend(bovespa, {
 
                     });
                 },
+                'Restricted': function () {
+                    var _route = bovespa.router([{route: 'bovespa:RESTRICTED'}]); /* ALTERANDO A URL */
+                    _route.navigate(function () { /* INSTANCIANDO A VIEW HTML NO CORPO DA PAGINA  */
+                        view._view_.Restricted().load(function () {
+
+                        });
+                    });
+                },
                 'Home': function () {
                     view._view_.Home().load(function () {
                         view._view_.Indebtedness().load();
@@ -52,7 +83,7 @@ bovespa.object.extend(bovespa, {
                     var _route = bovespa.router([{route: 'bovespa:EMPRESAS'}]); /* ALTERANDO A URL */
                     _route.navigate(function () { /* INSTANCIANDO A VIEW HTML NO CORPO DA PAGINA  */
                         view._view_.Company().load(function () {
-                           
+
                         });
                     });
                 },
@@ -186,7 +217,19 @@ bovespa.object.extend(bovespa, {
 
             panel.getFocus();
             window.scrollTo(0, 0);
+        },
+        _logged: function () {
+            var me = this;
+
+            me['token'] = me['token'] || bovespa.JLib('token').get('val');
+
+            if (me.token) {
+                bovespa.JLib('token').remove();
+            }
+
+            return me.token;
         }
+
     }
 });
 
