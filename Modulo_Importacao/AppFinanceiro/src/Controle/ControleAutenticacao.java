@@ -57,7 +57,7 @@ public class ControleAutenticacao {
         if (this.vAutenticacao.cboServidor.getSelectedIndex() == 0){
             sIpServidor = "186.202.152.190";
         }else if (this.vAutenticacao.cboServidor.getSelectedIndex() == 1){
-            sIpServidor = "localhost";
+            sIpServidor = "invistaja.cloudapp.net";
         }
     }
     

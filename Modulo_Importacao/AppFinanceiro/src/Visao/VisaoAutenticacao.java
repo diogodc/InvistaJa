@@ -64,7 +64,7 @@ public class VisaoAutenticacao extends javax.swing.JFrame {
 
         jLabel1.setText("Servidor:");
 
-        cboServidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Externo - invistaja.com", "Interno - Localhost" }));
+        cboServidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Produção - invistaja.com" }));
         cboServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboServidorActionPerformed(evt);

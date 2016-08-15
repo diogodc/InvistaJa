@@ -113,9 +113,8 @@
     <Component class="javax.swing.JComboBox" name="cboServidor">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="Externo - invistaja.com"/>
-            <StringItem index="1" value="Interno - Localhost"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Produ&#xe7;&#xe3;o - invistaja.com"/>
           </StringArray>
         </Property>
       </Properties>
