@@ -16,7 +16,7 @@ function Home() {
 
 namespace App\Control\Login;
 
-function doLogin($dt_user) {
+function doLogin($dt_user) {    
     $return = false;
     $doLogin = \App\Model\Login\doLogin($dt_user);
 

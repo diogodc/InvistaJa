@@ -192,7 +192,7 @@
                         var boleanoMascara;
                         var Digitato = 9;
                         var exp = /\-|\.|\/|\(|\)| /g;
-                        
+
                         var campoSoNumeros = value.toString().replace(exp, "");
                         var posicaoCampo = 0;
                         var NovoValorCampo = "";
@@ -525,6 +525,19 @@
                                         });
 
                                         return  JSON.stringify(_fJson);
+                                    },
+                                    getField: function (name) {
+                                        var me = this,
+                                                _fields = me.getFields(),
+                                                _field = null;
+
+
+                                        sys_core.each(_fields, function (field) {
+                                            if (field.getName() === name)
+                                                _field = field;
+                                        });
+                                        
+                                        return _field;
                                     },
                                     method: function () {
                                         return me.get('method');
@@ -2492,8 +2505,8 @@
 
                                 me['progress-complete'] = true;
                                 me['progress-in'] = false;
-                                
-                                 scope.loadData([]);
+
+                                scope.loadData([]);
                                 if (me['type'] === 'json') {
                                     if (sys_core.type.isJson(response)) {
                                         scope['data'] = JSON.parse(response);
@@ -2511,7 +2524,7 @@
                                     }
                                 }
 
-                             
+
                                 fn.call(scope, scope['data']);
                             }
                         });

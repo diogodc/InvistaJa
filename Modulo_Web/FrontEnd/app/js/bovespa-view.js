@@ -56,7 +56,7 @@ bovespa.object.extend(bovespa, {
                                                     }));
 
                                                     form.submit({
-                                                        url: bovespa.config.stores.login + form.getFieldsJson(),
+                                                        url: bovespa.config.stores.login + form.getField('sUsuario').getVal() + '/' + form.getField('sSenha').getVal(),
                                                         success: function (form, action) {
                                                             modal.off();
 
