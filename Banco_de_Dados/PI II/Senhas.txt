@@ -1,0 +1,9 @@
+-->DNS: invistaja.ddns.net
+
+--Oracle:
+-->Usuário: invistaja
+-->Senha: invistaja12345
+
+--FTP:
+-->Usuário: invistaja
+-->Senha: invistaja12345
