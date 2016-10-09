@@ -10,11 +10,6 @@ class Features {
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 
-    static function CopySession() {
-        $_SESSION["domain"] = $_SESSION["loja"];
-        $_SESSION["user_id"] = $_SESSION["usuID"];
-    }
-
     static function SanitizeName($string = '', $is_filename = FALSE) {
         // Replace all weird characters with dashes
         $string = preg_replace('/[^\w\-' . ($is_filename ? '~_\.' : '') . ']+/u', '-', $string);
@@ -26,10 +21,10 @@ class Features {
     private $routing = null;
 
     public function Routing() {
-        require_once './Library/Router.php';
+        require_once 'Library/Router.php';
 
         if (!$this->routing) {
-            $this->routing = new \Library\Routing\Router(array(definer_parameter  => "::"));
+            $this->routing = new \Library\Routing\Router(array('definer_parameter'  => "::"));
         }
 
         return $this->routing;

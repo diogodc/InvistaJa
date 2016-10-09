@@ -3,7 +3,7 @@
 namespace Library\Routing;
 
 function Server_Root() {   
-    return $_SERVER['PATH_INFO'];
+    return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : "/";
 }
 
 function Server_Method() {
