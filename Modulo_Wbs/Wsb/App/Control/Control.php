@@ -1,3 +1,3 @@
 <?php
 
-namespace \Control;
+namespace Control;

@@ -1,6 +1,6 @@
 <?php
 
-namespace \Library\Routing;
+namespace Library\Routing;
 
 function Server_Root() {   
     return $_SERVER['PATH_INFO'];
@@ -46,18 +46,18 @@ class Router {
             }
 
             if (!$error) {
-                call_user_func_array($callable, array(parameters => array(root => \AnalisarConta\Library\Routing\Server_Root())));
+                call_user_func_array($callable, array(parameters => array(root => \Library\Routing\Server_Root())));
             }
         }
     }
 
     private function map($root, $callable, $method) {
-        array_push($this->routes_list, new \AnalisarConta\Library\Routing\Router\Route($method, $root, $callable , $this->settings['definer_parameter']));
+        array_push($this->routes_list, new \Library\Routing\Router\Route($method, $root, $callable , $this->settings['definer_parameter']));
     }
 
 }
 
-namespace AnalisarConta\Library\Routing\Router;
+namespace Library\Routing\Router;
 
 Class Route {
 
@@ -121,13 +121,13 @@ Class Route {
             $this->setError(true);
         }
 
-        if (\AnalisarConta\Library\Routing\Server_Method() !== $this->getMethod()) {
+        if (\Library\Routing\Server_Method() !== $this->getMethod()) {
             $this->setError(true);
         }
 
         if (!$this->getError()) {
             $route_rules = $this->root_to_array($this->getRoot());
-            $route_request = $this->root_to_array(\AnalisarConta\Library\Routing\Server_Root());
+            $route_request = $this->root_to_array(\Library\Routing\Server_Root());
 
             if (count($route_rules) === count($route_request)) {
                 $this->on($route_rules, $route_request);

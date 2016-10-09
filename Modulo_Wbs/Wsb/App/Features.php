@@ -1,6 +1,6 @@
 <?php
 
-class App {
+class Features {
 
     static function Guid() {
         if (function_exists('com_create_guid') === true) {
@@ -29,7 +29,7 @@ class App {
         require_once './Library/Router.php';
 
         if (!$this->routing) {
-            $this->routing = new \AnalisarConta\Library\Routing\Router(array(definer_parameter  => "::"));
+            $this->routing = new \Library\Routing\Router(array(definer_parameter  => "::"));
         }
 
         return $this->routing;

@@ -3,7 +3,7 @@ session_start();
 
 require_once './App/App.php';
 
-$App = new \App();
+$App = new \Features();
 
 $App::CopySession();
 
