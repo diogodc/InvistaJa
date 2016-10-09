@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        
-        ?>
-    </body>
-</html>
+<?php
+session_start();
+
+require_once './App/App.php';
+
+$App = new \App();
+
+$App::CopySession();
+
+$App->Routing()->Error(function() {
+    echo json_encode(array(success => false, error => func_get_args()));
+});
