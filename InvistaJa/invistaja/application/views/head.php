@@ -31,9 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
-
 <body id="page-top" class="index">
 
  <!-- Navigation -->
@@ -67,10 +65,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     <li class="page-scroll">
                         <a href="<?php echo base_url('contato')?>">Contato</a>
                     </li>
+                    <li class="page-scroll">
+                    <?php if($this->session->userdata("logado")){?>
+                            <a href="<?= base_url('login/logout') ?>">Sair<img src="<?php echo base_url('assets/img/logout.png')?>"></a>
+                        <?php } else {?>
+                            <a href="<?= base_url('login') ?>">Login</a>
+                        <?php }?>
+                    </li>    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
+        
         <!-- /.container-fluid -->
     </nav>
 

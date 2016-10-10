@@ -7,6 +7,10 @@ body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow-x: hidden;
 }
+#login{
+    height: 200px;
+    width: 40%;
+}
 p {
   font-size: 20px;
 }

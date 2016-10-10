@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         </div>
     </header>
 <!-- Contact Section -->
-    <section id="contact">
+    <section id="#">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -36,3 +36,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
     </section>
 
 <?php  $this->load->view('footer');?>
+ <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+        <a class="btn btn-primary" href="#page-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>

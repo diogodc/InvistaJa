@@ -15,10 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
             </div>
         </div>
     </header>
-
-
     <!-- Portfolio Grid Section -->
-    <section id="portfolio">
+    <section id="#">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">

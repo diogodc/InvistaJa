@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @version 1.0
  */
 
-$config['smtp_host'] = 'ssl://smtp.gmail.com';
+$config['smtp_host'] = 'ssl://smtp.googlemail.com';
 $config['smtp_port'] = 465;
 $config['smtp_user'] = 'bruno.ed00@gmail.com';
 $config['smtp_pass'] = 'bruno924';

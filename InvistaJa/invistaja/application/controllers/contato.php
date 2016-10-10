@@ -12,29 +12,29 @@ class Contato extends CI_Controller {
      */
     public function __construct() {
         parent::__construct();
+        $this->load->helper('form');
         
-        $this->load->library('email');
     }
 
     /*
      * Método Index, página inicial do formulário de contato
      */
     public function index() {
-        $data['action'] = site_url('contato/enviaEmail');
-        $this->load->view('contato', $data);
+        $this->load->view('contato');
     }
 
     /*
      * Método enviaEmail, onde será realmente enviado nosso formulário.
      */
     public function enviaEmail() {
+        $this->load->library('email');
 
         $email = $this->input->post('email', TRUE);
         $nome = $this->input->post('nome', TRUE);
         $telefone = $this->input->post('telefone', TRUE);
         $mensagem = $this->input->post('mensagem', TRUE);
 
-        $this->email->from($email);
+        $this->email->from($email, $nome);
         $this->email->to('bruno.ed00@gmail.com');
         
         $this->email->subject("Email Invista Já");
@@ -52,7 +52,6 @@ class Contato extends CI_Controller {
         } else {
             $data['email_enviado'] = 'Erro ao enviar o email. Favor enviar um e-mail para bruno.ed00@gmail.com';
         }
-         $data['action'] = site_url('contato/enviaEmail');
         $this->load->view('contato',$data);
     }
 
