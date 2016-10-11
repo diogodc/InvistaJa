@@ -1,20 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Usuarios_model extends CI_Model {
     public $USER_LEVEL_ADMIN = 1;
-    public $USER_LEVEL_PM = 2;
-    public $USER_LEVEL_DEV = 3;
+    public $USER_LEVEL_USER = 2;
     private $salt = 'r4nd0m';
     
-    public function get($id = false)
-    {
-        if ($id) $this->db->where('id', $id);
-        $this->db->order_by('email', 'asc');
-        $get = $this->db->get('user');
-        if($id) return $get->row_array();
-        if($get->num_rows > 0) return $get->result_array();
-        return array();
+    public function buscaPorEmailSenha($email, $senha){
+        $this->db->where("email", $email);
+        $this->db->where("senha", $senha);
+        $usuario = $this->db->get("usuario")->row_array();
+        return $usuario;
     }
     
     public function create($data)

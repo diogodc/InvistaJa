@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');?>
 <?php
 // Load Menu
-$this->template->menu('users');
+$this->load->view('head');
 ?>
  
 <div id="container">

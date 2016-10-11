@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');?>
-<?php  $this->load->view('head');?>
+<?php $this->load->view('head');?>
 <header>
         <div class="container">
             <div class="row">
@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         </div>
     </header>
 <!-- Contact Section -->
-    <section id="#">
+    <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -93,7 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                                 <?php $dados = array(
                                   'rows'        => '5',
                                   'id'          => 'mensagem',
-                                  'name'          => 'mensagems',
+                                  'name'          => 'mensagem',
                                   'required data-validation-required-message'       => 'Digite sua mensagem',
                                   'class'   => 'form-control',
                                   'placeholder'        => 'Mensagem',

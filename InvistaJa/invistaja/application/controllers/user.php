@@ -3,13 +3,10 @@ class User extends CI_Controller {
     private $LEVEL;
     function User() {
         parent::__construct();
-        if(!$this->session->userdata('logged'))
-            redirect('login');
  
         $this->LEVEL = array(
             1 => 'Full Access',
-            2 => 'Project Manager',
-            3 => 'Developer'
+            2 => 'user'
         );
     }
     
@@ -23,7 +20,7 @@ class User extends CI_Controller {
         $data['page_title']  = "Users";
 
         // Load View
-        $this->template->show('users', $data);
+        $this->load->view('users', $data);
     }
     
     public function add()

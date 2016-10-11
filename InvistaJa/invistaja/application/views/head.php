@@ -67,9 +67,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     </li>
                     <li class="page-scroll">
                     <?php if($this->session->userdata("logado")){?>
-                            <a href="<?= base_url('login/logout') ?>">Sair<img src="<?php echo base_url('assets/img/logout.png')?>"></a>
+                            <a href="<?= base_url('login/logout') ?>" class="btn btn-success btn-md">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair
+                            </a>
                         <?php } else {?>
-                            <a href="<?= base_url('login') ?>">Login</a>
+                            <a href="<?= base_url('login') ?>" class="btn btn-success btn-md">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login
+                            </a>
                         <?php }?>
                     </li>    
                 </ul>
@@ -79,6 +83,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         
         <!-- /.container-fluid -->
     </nav>
-
     <!-- Header -->
     

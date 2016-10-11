@@ -23,7 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     <hr class="star-primary">
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                   <form class="form-signin " role="form" method="post" action="<?= base_url('login/logar') ?>">
@@ -45,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                             </div>
                         </div>
                     <!--<input type="email" class="form-control" placeholder="Email address" required autofocus name="usuario">-->
-                      <div class="row control-group">
+                    <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Email</label>
                             <?php $dados = array(
@@ -55,9 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                               'required data-validation-required-message'       => 'Digite sua senha',
                               'class'   => 'form-control',
                               'placeholder'        => 'Senha',
-                            );
-
-                            echo form_input($dados);?>
+                            );echo form_input($dados);?>
                             <!--<input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Digite seu Email.">-->
                             <p class="help-block text-danger"></p>
                         </div>
@@ -67,16 +64,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <?php $dados = array(
-                                'class'        => 'btn btn-success btn-lg',
-                            );
+                            <?php $dados = array('class'=>'btn btn-success btn-lg');
                             echo form_submit($dados, 'Fazer Login');?>
                             <!--<button type="submit" class="btn btn-success btn-lg">Enviar</button>-->
                         </div>
                     </div> 
                     <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Fazer login</button>-->
                   </form>
-                    </div>
+                  <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h4>Não possui cadastro?</h4>
+                    <a href="<?php base_url('user');?>"><h4>Crie uma conta</h4></a>
+                </div>
+            </div>  
+                </div>
             </div>
         </div>
     </section>
