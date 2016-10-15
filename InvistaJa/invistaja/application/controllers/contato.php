@@ -35,7 +35,7 @@ class Contato extends CI_Controller {
         $mensagem = $this->input->post('mensagem', TRUE);
 
         $this->email->from($email, $nome);
-        $this->email->to('everaldocardosodearaujo@gmail.com');
+        $this->email->to('bruno.ed00@gmail.com');
         
         $this->email->subject("Email Invista Já");
 

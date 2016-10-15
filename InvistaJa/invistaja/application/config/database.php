@@ -75,7 +75,8 @@ $query_builder = TRUE;
 
 $tnsname = '(DESCRIPTION =
 				(ADDRESS_LIST =
-				  (ADDRESS = (PROTOCOL = TCP)(HOST = invistaJa.ddns.net)(PORT = 1521))
+				  (ADDRESS = (PROTOCOL = TCP)(HOST = LOCALHOST)(PORT = 1521))
+                  (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = XE))
 				)
 			  )';
 
@@ -84,8 +85,8 @@ $tnsname = '(DESCRIPTION =
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => $tnsname,
-	'username' => 'invistaja_dba',
-	'password' => 'Blastoise010',
+	'username' => 'system',
+	'password' => '123456',
 	'database' => '',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',

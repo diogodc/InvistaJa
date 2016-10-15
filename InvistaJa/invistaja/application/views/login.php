@@ -5,11 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="<?php echo base_url("assets/img/simulacao.png") ?>" alt="">
+                    <img class="img-responsive" src="<?php echo base_url("assets/img/login.png") ?>" alt="">
                     <div class="intro-text">
-                        <span class="name">Faça uma simulação</span>
+                        <span class="name">Área Restrita</span>
                         <hr class="star-light">
-                        <span class="skills">com algumas opções compatíveis com seu perfil</span>
+                        <span class="skills"></span>
                     </div>
                 </div>
             </div>
