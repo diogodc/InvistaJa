@@ -13,10 +13,10 @@ class Usuarios_model extends CI_Model {
         return $usuario;
     }
     
-    public function create($data)
+    public function novo($data)
     {
-    $data['password'] = sha1($data['password'].$this->salt);
-    return $this->db->insert('user', $data);
+    $data['senha'] = sha1($data['senha'].$this->salt);
+    return $this->db->insert('BREW_USER', $data);
     }
     
     public function validate($email, $password)

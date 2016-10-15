@@ -85,8 +85,13 @@ $tnsname = '(DESCRIPTION =
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => $tnsname,
+<<<<<<< HEAD:InvistaJa/invistaja/application/config/database.php
 	'username' => 'system',
 	'password' => '123456',
+=======
+	'username' => 'invistaja_dba',
+	'password' => 'blastoise010',
+>>>>>>> 093fb5a2fef3a61bde7eb2876966c0fe9d77b404:invistaja/application/config/database.php
 	'database' => '',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',
