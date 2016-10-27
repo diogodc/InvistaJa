@@ -1,0 +1,46 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php $this->load->view('head'); ?>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <img class="img-responsive" src="<?php echo base_url("assets/img/simulacao.png") ?>" alt="">
+                <div class="intro-text">
+                    <span class="name">Faça uma simulação</span>
+                    <hr class="star-light">
+                    <span class="skills">com algumas opções compatíveis com seu perfil</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Contact Section -->
+<section id="#">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Veja algumas opções</h2>
+                <hr class="star-primary">
+                <p>Ações</p>
+                <p>Fundos Imobiliários</p>
+                <p>Fundos Multi Mercado</p>
+                <p>Renda Fixa</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php $this->load->view('footer'); ?>
+<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+    <a class="btn btn-primary" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
