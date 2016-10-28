@@ -1,63 +1,6 @@
 <?php
 
-namespace Library\Routing;
-
-function Server_Root() {   
-    return isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : "/";
-}
-
-function Server_Method() {
-   
-    return $_SERVER['REQUEST_METHOD'];
-}
-
-class Router {
-
-    private $method_get = "GET";
-    private $method_post = "POST";
-    private $method_put = "PUT";
-    private $routes_list;
-    private $settings;
-    public function __construct($settings = array(definer_parameter  => ":")) {
-        $this->routes_list = array();
-        $this->settings = $settings;
-    }
-
-    public function Get($root, $callable) {
-        $this->map($root, $callable, $this->method_get);
-    }
-
-    public function Post($root, $callable) {
-        $this->map($root, $callable, $this->method_post);
-    }
-
-    public function Put($root, $callable) {
-        $this->map($root, $callable, $this->method_put);
-    }
-
-    public function Error($callable) {
-        if (is_callable($callable)) {
-            $error = false;
-            foreach ($this->routes_list as $route) {
-                if (!$route->getError()) {
-                    $error = true;
-                    break;
-                }
-            }
-
-            if (!$error) {
-                call_user_func_array($callable, array(parameters => array(root => \Library\Routing\Server_Root())));
-            }
-        }
-    }
-
-    private function map($root, $callable, $method) {
-        array_push($this->routes_list, new \Library\Routing\Router\Route($method, $root, $callable , $this->settings['definer_parameter']));
-    }
-
-}
-
-namespace Library\Routing\Router;
+namespace Common\Dependency\Routing\Router;
 
 Class Route {
 
@@ -121,13 +64,13 @@ Class Route {
             $this->setError(true);
         }
 
-        if (\Library\Routing\Server_Method() !== $this->getMethod()) {
+        if (\Common\Dependency\Routing\Server_Method() !== $this->getMethod()) {
             $this->setError(true);
         }
 
         if (!$this->getError()) {
             $route_rules = $this->root_to_array($this->getRoot());
-            $route_request = $this->root_to_array(\Library\Routing\Server_Root());
+            $route_request = $this->root_to_array(\Common\Dependency\Routing\Server_Root());
 
             if (count($route_rules) === count($route_request)) {
                 $this->on($route_rules, $route_request);
