@@ -11,7 +11,7 @@ class simulacao extends CI_Controller {
         $this->load->model('perfilModel');
         $logado = $this->session->userdata("logado");
 
-        if (!$logado){
+        if (!$logado) {
             redirect(base_url('login'));
         }
 
@@ -22,15 +22,16 @@ class simulacao extends CI_Controller {
     }
 
     public function index() {
-        
+
         $perfil = $this->perfilModel->existePerfil();
-                
-        if($perfil['TYPE'] == 1){
+
+        if ($perfil['TYPE'] == 1) {
             $this->load->view('conservador');
-        }elseif($perfil['TYPE'] == 2){
+        } elseif ($perfil['TYPE'] == 2) {
             $this->load->view('moderado');
-        }elseif ($perfil['TYPE'] == 3) {
+        } elseif ($perfil['TYPE'] == 3) {
             $this->load->view('arrojado');
         }
     }
+
 }

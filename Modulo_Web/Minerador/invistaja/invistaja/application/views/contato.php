@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                <?php if (isset($email_enviado)) { ?>
+                    <div style="background: white; color: black; margin: 10px; padding: 10px;border: #D0D0D0 " id="mensagem_enviada"><?php echo $email_enviado ?></div>
+                <?php } ?>    
                 <img class="img-responsive" src="<?php echo base_url("assets/img/profilecontato.png") ?>" alt="">
                 <div class="intro-text">
                     <span class="name">Tem uma dúvida?</span>
@@ -15,11 +18,11 @@
     </div>
 </header>
 <!-- Contact Section -->
-<section id="contact">
-    <div class="container">
+<section id="">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>Entre em contato conosco</h2>
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Entre em contato conosco</h2>
                 <hr class="star-primary">
             </div>
         </div>
@@ -28,9 +31,8 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                 <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                <?php if (isset($email_enviado)) { ?>
-                    <div id="mensagem_enviada"><?php echo $email_enviado ?></div>
-                <?php } $attributes = array('class' => 'email', 'id' => 'contactForm'); ?>
+
+                <?php $attributes = array('class' => 'email', 'id' => 'contactForm'); ?>
                 <?php echo form_open('contato/enviaEmail', $attributes); ?>
                 <!--<form action="" method="post" name="sentMessage" id="contactForm" novalidate>-->
                 <div novalidate>
@@ -126,11 +128,4 @@
         </div>
     </div>
 </section>
-
 <?php $this->load->view('footer'); ?>
-
-<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-    <a class="btn btn-primary" href="#page-top">
-        <i class="fa fa-chevron-up"></i>
-    </a>
-</div>

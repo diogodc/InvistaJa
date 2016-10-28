@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <?php $this->load->view('head'); ?>
-<script type="text/javascript" src="<?php echo site_url("http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js") ?>"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     window.onload = function () {
         location.hash = "#pergunta";

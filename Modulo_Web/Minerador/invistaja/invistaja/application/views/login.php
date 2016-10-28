@@ -49,7 +49,7 @@
                 <!--<input type="email" class="form-control" placeholder="Email address" required autofocus name="usuario">-->
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Email</label>
+                            <label>Senha</label>
                             <?php
                             $dados = array(
                                 'type' => 'password',

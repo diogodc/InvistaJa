@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /*
- * Formulário de contato do website
+ * Formulário de contato do site
  */
 
 class Contato extends CI_Controller {
@@ -25,7 +25,7 @@ class Contato extends CI_Controller {
     }
 
     /*
-     * Método enviaEmail, onde será realmente enviado nosso formulário.
+     * Método enviaEmail, onde será realmente enviado.
      */
 
     public function enviaEmail() {
@@ -54,7 +54,7 @@ class Contato extends CI_Controller {
         } else {
             $data['email_enviado'] = 'Erro ao enviar o email. Favor enviar um e-mail para bruno.ed00@gmail.com';
         }
-        redirect('contato', $data);
+        $this->load->view('contato', $data);
     }
 
 }

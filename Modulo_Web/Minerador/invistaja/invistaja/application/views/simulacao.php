@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <img class="img-responsive" src="<?php echo base_url("assets/img/simulacao.png") ?>" alt="">
+                <img class="img-responsive" src="<?php echo base_url("assets/img/simula.png") ?>" alt="">
                 <div class="intro-text">
                     <span class="name">Conheça seu perfil</span>
                     <hr class="star-light">

@@ -9,7 +9,7 @@ class perfil extends CI_Controller {
         $this->load->model('perfilModel');
         $logado = $this->session->userdata("logado");
 
-        if (!$logado){
+        if (!$logado) {
             redirect(base_url('login'));
         }
         $existePerfil = $this->perfilModel->existePerfil();

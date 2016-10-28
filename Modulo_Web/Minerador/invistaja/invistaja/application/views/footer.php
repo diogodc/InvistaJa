@@ -13,10 +13,10 @@
                     <h3>Siga-nos</h3>
                     <ul class="list-inline">
                         <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/invistajaES/" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            <a href="https://plus.google.com/communities/108194795532444801973" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
                         </li>
 
                     </ul>
@@ -46,7 +46,7 @@
 <script src="<?php echo base_url("assets/vendor/bootstrap/js/bootstrap.min.js") ?>"></script>
 
 <!-- Plugin JavaScript -->
-<script src="<?php echo site_url("https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js") ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
 <!-- Contact Form JavaScript -->
 <script src="<?php echo base_url("assets/js/jqBootstrapValidation.js") ?>"></script>
