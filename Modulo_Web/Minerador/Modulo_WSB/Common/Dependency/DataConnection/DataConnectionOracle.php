@@ -1,7 +1,23 @@
 <?php
-require_once __DIR__ . '/DataConnection.php';
-Class DataConnectionOracle implements DataConnection {
+namespace Common\Dependency\DataConnection\Oracle;
+Class DataConnectionOracle implements \Common\Dependency\DataConnection {
+    private $_db_user;
+    private $_db_password; 
+    private $_db_server; 
+    
+    
+    public function SetUser($user){
+        $this->_db_user =  $user;  
+    }
 
+    public function SetPassword($password){
+         $this->_db_password =  $password;  
+    }
+    
+    public function SetServer($server) {
+         $this->_db_server =  $server;  
+    }
+    
     public function connect() {
         try {
             
