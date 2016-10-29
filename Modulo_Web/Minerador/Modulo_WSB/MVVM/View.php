@@ -40,4 +40,8 @@ class ViewUser extends View {
         return $this->_viewmodel->get_byCredentials($credentials);
     }
 
+    public function newUser($information) {
+        return $this->_viewmodel->newUser($information);
+    }
+
 }

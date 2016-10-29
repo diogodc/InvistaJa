@@ -33,7 +33,11 @@ class ViewModelSession extends ViewModel {
             $modeluser = $viewuser->get_byCredentials($credentials);
 
             if ($modeluser['sucess']) {
+                $return['sucess'] = true;
+                $return['message'] = "acesso permitido";
                 $return['token'] = $this->create_session($modeluser['data'][0]);
+            } else {
+                $return['message'] = $modeluser['message'];
             }
         }
 
@@ -47,7 +51,7 @@ class ViewModelSession extends ViewModel {
         $user['name'] = $user_data['NAME_USER'];
         $user['id'] = $user_data['ID_USER'];
         $user['dt'] = date('dmYhis');
-        
+
         return $this->_token_generator->newTokken(json_encode($user));
     }
 
@@ -63,9 +67,24 @@ class ViewModelUser extends ViewModel {
         $return = array();
         $return ['data'] = $this->_model->get_byCredentials($credentials);
         $return ['sucess'] = !(!$return ['data']);
-
+        $return['message'] = $return ['sucess'] ? '' : 'credencias incorretas';
 
         return $return;
+    }
+
+    public function newUser($information) {
+        $return = array();
+        $return['sucess'] = false;
+
+        if (!$information) {
+            $return['message'] = 'credencias inválidas';
+        } else if ($information == '') {
+            $return['message'] = 'credencias inválidas';
+        } else {
+            $information = json_decode(json_encode($information));
+            $modeluser = $this->_model->newUser($information);
+            $return['sucess'] = !(!$modeluser);
+        }
     }
 
 }

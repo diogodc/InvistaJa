@@ -49,7 +49,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
                 \oci_execute($stid);
 
                 $nrows = \oci_fetch_all($stid, $data ,  null, null, OCI_FETCHSTATEMENT_BY_ROW);
-                print_r($data, $nrows);
+                
                 if (!$nrows) {
                     return null;
                 } else if ($nrows == 0) {
