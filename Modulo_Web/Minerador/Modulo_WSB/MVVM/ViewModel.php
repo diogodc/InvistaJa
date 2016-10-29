@@ -12,6 +12,13 @@ class ViewModel {
 
 class ViewModelSession extends ViewModel {
 
+    private $_token_generator;
+
+    public function __construct() {
+        require_once __DIR__ . '/../Common/Dependency/Tokken/Tokken.php';
+        $this->_token_generator = New \Common\Dependency\Tokken\Tokken();
+    }
+
     public function create($credentials) {
         $return = array();
         $return['sucess'] = false;
@@ -23,13 +30,25 @@ class ViewModelSession extends ViewModel {
         } else {
             $credentials = json_decode(json_encode($credentials));
             $viewuser = new \View\ViewUser();
-            $user = $viewuser->get_byCredentials($credentials);
+            $modeluser = $viewuser->get_byCredentials($credentials);
 
-            $return['user'] = $user;
+            if ($modeluser['sucess']) {
+                $return['token'] = $this->create_session($modeluser['data'][0]);
+            }
         }
 
 
         return $return;
+    }
+
+    private function create_session($user_data) {
+
+        $user = array();
+        $user['name'] = $user_data['NAME_USER'];
+        $user['id'] = $user_data['ID_USER'];
+        $user['dt'] = date('dmYhis');
+        
+        return $this->_token_generator->newTokken(json_encode($user));
     }
 
 }

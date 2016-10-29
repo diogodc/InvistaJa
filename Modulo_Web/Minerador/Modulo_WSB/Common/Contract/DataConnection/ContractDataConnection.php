@@ -22,9 +22,9 @@ class ConnectionOracle extends \Common\Contract\DataConnection\Connection {
     public static function connection() {
         $connection = new \Common\Dependency\DataConnection\Oracle\DataConnectionOracle();
 
-        $connection->SetPassword("");
-        $connection->SetUser("");
-        $connection->SetServer("");
+        $connection->SetPassword("1234567");
+        $connection->SetUser("TioPhill");
+        $connection->SetServer("localhost:1521/XE");
 
         return $connection;
     }

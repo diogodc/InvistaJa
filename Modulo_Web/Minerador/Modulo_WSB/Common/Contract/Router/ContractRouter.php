@@ -9,7 +9,7 @@ class Contract {
     private $_router;
 
     public function __construct() {
-        $this->_router = new \Common\Dependency\Routing\Router(array(definer_parameter => "::"));
+        $this->_router = new \Common\Dependency\Routing\Router(array('definer_parameter' => "::"));
     }
 
     public function SetRoute($parametro_method, $parametro_1, $parametro_2) {

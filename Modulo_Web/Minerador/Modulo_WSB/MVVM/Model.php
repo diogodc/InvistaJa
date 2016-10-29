@@ -5,7 +5,9 @@ namespace Model;
 require_once __DIR__ . '/../Common/Contract/DataConnection/ContractDataConnection.php';
 
 class Model extends \Common\Contract\DataConnection\ConnectionOracle {
-    
+
+    protected $_table_name;
+
 }
 
 class ModelSession {
@@ -14,40 +16,46 @@ class ModelSession {
 
 class ModelUser extends Model {
 
+    private $_field_id;
+    private $_field_username;
+    private $_field_password;
+    private $_field_name;
+    private $_fiels;
+
+    public function __construct() {
+        $this->_table_name = 'BREW_USER';
+        $this->_field_id = "ID_USER";
+        $this->_field_username = "LOGIN";
+        $this->_field_password = "PASSWORD_USER";
+        $this->_field_name = "NAME_USER";
+        $this->_fiels = array('ID_USER',
+            'LOGIN',
+            'NAME_USER',
+            'LAST_NAME_USER',
+            'PASSWORD_USER',
+            'PHONE_NUMBER_USER',
+            'CPF_USER',
+            'CELL_PHONE_NUMBER_USER');
+    }
+
     public function get_byCredentials($credentials) {
-        $connection  = $this->connection();
-        
-        $query_string_exists_user = "If Exists(Select [user].id From [dbo].[USUARIO] [user] Where [user].usu = @user)"
-                . "                   Begin"
-                . "                         Set @cond = 1;"
-                . "                   End ";
+        $connection = $this->connection();
+                
+        $query_string = "Select {$this->_field_id},"
+                . "             {$this->_field_name}"
+                . "      From   {$this->_table_name} "
+                . "      Where  {$this->_field_username} = '{$credentials->username}'"
+                . "       And   {$this->_field_password} = '{$credentials->password}'";
 
-        $query_string_exists = "If Exists(Select [user].id From [dbo].[USUARIO] [user] Where [user].usu = @user And [user].senha = @password)"
-                . "              Begin"
-                . "                        Set @cond = 3;"
-                . "                        Select @user_id = [user].id,"
-                . "                               @user_name= [user].NOMEFUNC"
-                . "                        From [dbo].[USUARIO] [user] "
-                . "                        Where [user].usu = @user "
-                . "                        And [user].senha = @password"
-                . "              End ";
+        return $connection->executeQuery($query_string);
+    }
 
-        $query_string = "Declare @cond as Int,"
-                . "              @user_id as Int,"
-                . "              @user_name as Varchar(200)"
-                . "              "
-                . "      Declare @user as Varchar(20),"
-                . "              @password as Varchar(15)"
-                . "              "
-                . "      Set @cond = 2;"
-                . "      Set @user_id = 0;"
-                . "      Set @user_name = ''; "
-                . "      Set @user  = '{$credentials->username}';"
-                . "      Set @password  = '{$credentials->password}';"
-                . "      " . $query_string_exists_user . $query_string_exists
-                . "      Select @cond cond,"
-                . "             @user_id user_id,"
-                . "             @user_name user_name ";
+    public function newUser() {
+        $connection = $this->connection();
+
+        $query_string = "Insert Into {$this->_table_name}
+                                (".  implode(",", $this->_fiels).')'
+                      . 'Values()';
         return $connection->executeQuery($query_string);
     }
 

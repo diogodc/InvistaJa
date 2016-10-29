@@ -24,8 +24,7 @@ class ViewSession extends View {
         $this->_viewmodel = new \ViewModel\ViewModelSession();
     }
 
-    public function create() {
-        $credentials = array('username' => 'rafael', 'password' => '1'); //file_get_contents('php://input');
+    public function create($credentials) {
         return json_encode($this->_viewmodel->create($credentials));
     }
 
