@@ -1,3 +1,10 @@
 <resources>
-    <string name="Nome_App">Invista já</string>
+    <string name="str_nome_app">Invista já!</string>
+    <string name="str_atencao">Atenção!</string>
+    <string name="str_teste">Este é um teste!</string>
+    <string name="str_opcao_sim">Sim</string>
+    <string name="str_opcao_nao">Não</string>
+    <string name="str_opcao_ok">Ok!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
