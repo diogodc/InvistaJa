@@ -1,0 +1,243 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cor_branco"
+    android:orientation="vertical"
+    tools:context="br.com.invistaja.invistaja.view.fragments.ConteudoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/str_frg_conteudo_titulo"
+            android:textColor="@color/cor_azul_escuro"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_linha_azul_escuro" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_estrela_azul_escuro" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_linha_azul_escuro" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo1"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/imgCabin"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_cabin" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo2"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/imgCake"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_cake" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo3"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/imgCircus"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_circus" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo4"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/imgGame"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_game" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow>
+                    <LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/str_frg_conteudo_titulo5"
+                            android:textColor="@color/cor_azul_escuro"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/imgSafe"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:background="@mipmap/ic_safe" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/str_frg_conteudo_titulo6"
+                            android:textColor="@color/cor_azul_escuro"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/imgSubmarine"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:background="@mipmap/ic_submarine" />
+
+                    </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+
+            </TableLayout>
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_frg_conteudo_tracar_perfil_mensagem"
+            android:textColor="@color/cor_azul_escuro"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@color/cor_verde_claro"
+            android:text="@string/str_frg_conteudo_tracar_perfil"
+            android:textAllCaps="false"
+            android:textColor="@color/cor_branco" />
+    </LinearLayout>
+</LinearLayout>

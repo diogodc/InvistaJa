@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="br.com.invistaja.invistaja.PrincipalActivity"
-    android:background="@color/cor_branco">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,42 +12,66 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center|start">
+            android:gravity="center|start"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@mipmap/ic_invista_ja_simples"/>
+                android:src="@mipmap/ic_invista_ja_simples" />
 
             <TextView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/str_nome_app"
                 android:textColor="@color/cor_branco"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center|end">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:orientation="horizontal">
 
-               <ImageButton
+                <ImageButton
                     android:id="@+id/btLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/cor_azul_escuro"
-                    android:src="@mipmap/ic_identidade_claro"
-                    android:onClick="onClickBtLogin">
-                </ImageButton>
+                    android:onClick="onClickBtLogin"
+                    android:src="@mipmap/ic_identidade_claro"/>
             </LinearLayout>
-
         </LinearLayout>
-
     </android.support.design.widget.AppBarLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frlIntroducao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frlConteudo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/cor_azul_escuro"/>-->
 </LinearLayout>

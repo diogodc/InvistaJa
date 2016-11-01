@@ -1,10 +1,12 @@
-package br.com.invistaja.invistaja;
+package br.com.invistaja.invistaja.view.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.Window;
+
+import br.com.invistaja.invistaja.R;
 
 public class SplashActivity extends Activity {
 
