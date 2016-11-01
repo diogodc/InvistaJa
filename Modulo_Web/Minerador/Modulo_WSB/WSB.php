@@ -12,4 +12,13 @@ $Router->SetRoutes(['GET', 'POST', 'PUT'], "/user/login/::username/::password", 
     $View = new \View\ViewSession();
     echo $View->create(array('username' => $username, 'password' => $password));
 });
+$Router->SetRoutes(['GET', 'POST', 'PUT'], "/user/register/::username/::password/::name/::lastname/::cpf/::numberphone/::cellphone", function($username, $password, $name, $lastname ,$cpf,$numberphone, $cellphone) {
+    $View = new \View\ViewUser();
+    echo $View->newUser(array('username' => $username, 'password' => $password,'name' => $name,'lastname' => $lastname ,'cpf' => $cpf,'numberphone' => $numberphone,'cellphone' => $cellphone));
+});
+$Router->SetRoutes(['GET', 'POST', 'PUT'], "/user/register/", function() {
+    $View = new \View\ViewUser();
+    echo $View->newUser(file_get_contents('php://input'));
+});
+
 
