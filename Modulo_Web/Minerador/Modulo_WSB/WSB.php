@@ -21,4 +21,3 @@ $Router->SetRoutes(array('GET', 'POST','PUT'), "/user/register/", function() {
     echo $View->newUser(file_get_contents('php://input'));
 });
 
-
