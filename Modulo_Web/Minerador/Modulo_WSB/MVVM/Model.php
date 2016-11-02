@@ -28,14 +28,10 @@ class ModelUser extends Model {
         $this->_field_username = "LOGIN";
         $this->_field_password = "PASSWORD_USER";
         $this->_field_name = "NAME_USER";
-        $this->_fiels = array('ID_USER',
-            'LOGIN',
+        $this->_fiels = array('LOGIN',
             'PASSWORD_USER',
             'NAME_USER',
-            'LAST_NAME_USER',
-            'CPF_USER',
-            'PHONE_NUMBER_USER',
-            'CELL_PHONE_NUMBER_USER');
+            'PHONE_NUMBER_USER');
     }
 
     public function get_byCredentials($credentials) {
@@ -59,13 +55,9 @@ class ModelUser extends Model {
                 . "       '{$information->username}'"
                 . "      ,'{$information->password}'"
                 . "      ,'{$information->name}'"
-                . "      ,'{$information->lastname}'"
-                . "      ,'{$information->cpf}'"
-                . "      ,'{$information->numberphone}'"
-                . "      ,'{$information->cellphone}'"
-                . "      )"
-                . 'commit;';
-        return $connection->executeQuery($query_string);
+                . "      ,'{$information->cellphone}' "
+                . "       )";     
+        return $connection->executeInsert($query_string, null);
     }
 
 }

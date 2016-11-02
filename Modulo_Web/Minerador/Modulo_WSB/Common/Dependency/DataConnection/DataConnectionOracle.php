@@ -48,8 +48,8 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
                 \oci_execute($stid);
 
-                $nrows = \oci_fetch_all($stid, $data ,  null, null, OCI_FETCHSTATEMENT_BY_ROW);
-                
+                $nrows = \oci_fetch_all($stid, $data, null, null, OCI_FETCHSTATEMENT_BY_ROW);
+
                 if (!$nrows) {
                     return null;
                 } else if ($nrows == 0) {
@@ -57,13 +57,39 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
                 }
             }
 
+            $this->disconnect();
+
             if ($data) {
                 return $data;
             } else {
                 return false;
+            }            
+        } catch (Exception $e) {
+            
+        }
+    }
+
+    public function executeInsert($query, $bindnames) {
+        try {
+            $this->connect();
+            $data = null;
+
+            if ($this->getStatus()) {
+                $compiled = $this->prepare($query);
+
+                if ($bindnames) {
+                    foreach ($bindnames as $name => $bind) {
+                        echo $name."=>".$bind;
+                        \oci_bind_by_name($compiled, ":{$name}", $bind);
+                    }
+                }
+
+                $data = \oci_execute($compiled);
             }
 
             $this->disconnect();
+
+            return $data;
         } catch (Exception $e) {
             
         }

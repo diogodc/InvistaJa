@@ -41,7 +41,7 @@ class ViewUser extends View {
     }
 
     public function newUser($information) {
-        return $this->_viewmodel->newUser($information);
+        return json_encode($this->_viewmodel->newUser($information));
     }
 
 }

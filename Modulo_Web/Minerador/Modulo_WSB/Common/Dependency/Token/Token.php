@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\Dependency\Tokken;
+namespace Common\Dependency\Token;
 
-class Tokken {
+class Token {
 
     private $_secret;
 
@@ -35,11 +35,11 @@ class Tokken {
         );
     }
 
-    public function newTokken($string) {
+    public function newToken($string) {
         return $this->encrypt($string, $this->_secret);
     }
 
-    public function decTokken($string) {
+    public function decToken($string) {
         return $this->decrypt($string, $this->_secret);
     }
 
