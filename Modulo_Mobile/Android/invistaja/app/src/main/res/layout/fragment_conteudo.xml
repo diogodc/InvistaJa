@@ -81,7 +81,8 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="15dp"
-                                android:background="@mipmap/ic_cabin" />
+                                android:background="@mipmap/ic_cabin"
+                                android:onClick="onClickImageButtonsArtigos" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -104,7 +105,8 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="15dp"
-                                android:background="@mipmap/ic_cake" />
+                                android:background="@mipmap/ic_cake"
+                                android:onClick="onClickImageButtonsArtigos" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -138,7 +140,8 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="15dp"
-                                android:background="@mipmap/ic_circus" />
+                                android:background="@mipmap/ic_circus"
+                                android:onClick="onClickImageButtonsArtigos" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -161,83 +164,70 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="15dp"
-                                android:background="@mipmap/ic_game" />
+                                android:background="@mipmap/ic_game"
+                                android:onClick="onClickImageButtonsArtigos" />
                         </LinearLayout>
                     </LinearLayout>
                 </TableRow>
 
                 <TableRow>
+
                     <LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/str_frg_conteudo_titulo5"
-                            android:textColor="@color/cor_azul_escuro"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
 
-                        <ImageButton
-                            android:id="@+id/imgSafe"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="15dp"
-                            android:background="@mipmap/ic_safe" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo5"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/imgSafe"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_safe"
+                                android:onClick="onClickImageButtonsArtigos" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        </LinearLayout>
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/str_frg_conteudo_titulo6"
-                            android:textColor="@color/cor_azul_escuro"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
 
-                        <ImageButton
-                            android:id="@+id/imgSubmarine"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="15dp"
-                            android:background="@mipmap/ic_submarine" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo6"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
 
-                    </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/imgSubmarine"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_submarine"
+                                android:onClick="onClickImageButtonsArtigos" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </TableRow>
 
             </TableLayout>
         </ScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/str_frg_conteudo_tracar_perfil_mensagem"
-            android:textColor="@color/cor_azul_escuro"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="15dp"
-            android:background="@color/cor_verde_claro"
-            android:text="@string/str_frg_conteudo_tracar_perfil"
-            android:textAllCaps="false"
-            android:textColor="@color/cor_branco" />
     </LinearLayout>
 </LinearLayout>

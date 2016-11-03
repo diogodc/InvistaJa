@@ -1,4 +1,5 @@
 <resources>
+    <!--Strings de produção:-->
     <string name="str_nome_app">Invi$ta já!</string>
     <string name="str_opcao_sim">Sim</string>
     <string name="str_opcao_nao">Não</string>
@@ -10,11 +11,12 @@
     <string name="str_frg_conteudo_titulo2">O que devo estudar?</string>
     <string name="str_frg_conteudo_titulo3">Aonde aplicar?</string>
     <string name="str_frg_conteudo_titulo4">Colhendo os frutos...</string>
-    <string name="str_frg_conteudo_titulo5">Guardando o lucro...</string>
+    <string name="str_frg_conteudo_titulo5">Guardando o lucro!</string>
     <string name="str_frg_conteudo_titulo6">Investir é o caminho!</string>
     <string name="str_frg_conteudo_tracar_perfil_mensagem">Vamos começar?</string>
     <string name="str_frg_conteudo_tracar_perfil">Traçar meu perfil</string>
-
     <string name="str_atencao">Atenção!</string>
-    <string name="str_teste">Este é um teste!</string>
+
+    <!--Strings de teste:-->
+    <string name="str_teste">Função em construção!</string>
 </resources>

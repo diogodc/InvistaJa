@@ -2,20 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.invistaja.invistaja">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_invista_ja_simples"
         android:label="@string/str_nome_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activitys.SplashActivity">
+
+        <activity
+            android:name=".view.activitys.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activitys.PrincipalActivity" />
-    </application>
 
+        <activity
+            android:name=".view.activitys.PrincipalActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".view.activitys.ArtigosActivity"
+            android:screenOrientation="portrait"/>
+    </application>
 </manifest>
