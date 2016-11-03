@@ -6,7 +6,7 @@ require_once __DIR__ . '/Model.php';
 
 class ViewModel {
 
-    protected $_Model;
+    protected $_model;
 
 }
 
@@ -15,8 +15,8 @@ class ViewModelSession extends ViewModel {
     private $_token_generator;
 
     public function __construct() {
-        require_once __DIR__ . '/../Common/Dependency/Tokken/Tokken.php';
-        $this->_token_generator = New \Common\Dependency\Tokken\Tokken();
+        require_once __DIR__ . '/../Common/Dependency/Token/Token.php';
+        $this->_token_generator = New \Common\Dependency\Token\Token();
     }
 
     public function create($credentials) {
@@ -35,7 +35,7 @@ class ViewModelSession extends ViewModel {
             if ($modeluser['sucess']) {
                 $return['sucess'] = true;
                 $return['message'] = "acesso permitido";
-                $return['token'] = $this->create_session($modeluser['data'][0]);
+                $return['session'] = $this->create_session($modeluser['data'][0]);
             } else {
                 $return['message'] = $modeluser['message'];
             }
@@ -50,9 +50,9 @@ class ViewModelSession extends ViewModel {
         $user = array();
         $user['name'] = $user_data['NAME_USER'];
         $user['id'] = $user_data['ID_USER'];
-        $user['dt'] = date('dmYhis');
+        $user['token'] = $this->_token_generator->newToken(date('d-m-Y h:i:s'));
 
-        return $this->_token_generator->newTokken(json_encode($user));
+        return $user;
     }
 
 }
@@ -97,11 +97,13 @@ class ViewModelUser extends ViewModel {
             if ($isValid['sucess']) {
                 $modeluser = $this->_model->newUser($information);
                 $return['sucess'] = !(!$modeluser);
-                $return['message'] = $return['sucess'] ? 'não foi possivel cadastrar, tente mais tarde' : 'cadastrado com sucesso';
+                $return['message'] = !$return['sucess'] ? 'não foi possivel cadastrar, tente mais tarde' : 'cadastrado com sucesso';
             } else {
                 $return['message'] = $isValid['message'];
             }
         }
+        
+        return $return;
     }
 
     private function isValidInformation($information) {
@@ -113,13 +115,7 @@ class ViewModelUser extends ViewModel {
         } else if (!isset($information->password) || $information->password == '') {
             $return['message'] = 'senha inválida';
         } else if (!isset($information->name) || $information->name == '') {
-            $return['message'] = 'nome em branco';
-        } else if (!isset($information->lastname) || $information->lastname == '') {
-            $return['message'] = 'sobrenome em branco';
-        } else if (!isset($information->cpf) || $information->cpf == '') {
-            $return['message'] = 'cpf em branco';
-        } else if (!isset($information->numberphone) || $information->numberphone == '') {
-            $return['message'] = 'telefone em branco';
+            $return['message'] = 'nome em branco';  
         } else if (!isset($information->cellphone) || $information->cellphone == '') {
             $return['message'] = 'celular em branco';
         } else {
