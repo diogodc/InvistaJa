@@ -1,20 +1,27 @@
 package br.com.invistaja.invistaja.view.activitys;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.ScrollView;
+
 import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.view.fragments.ConteudoFragment;
+import br.com.invistaja.invistaja.view.fragments.InformacoesFragment;
 import br.com.invistaja.invistaja.view.fragments.IntroducaoFragment;
+import br.com.invistaja.invistaja.view.fragments.SobreFragment;
+
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarActivity;
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarFragment;
 
 public class PrincipalActivity extends FragmentActivity {
 
+    private ScrollView scrollPrincipal;
     private String str_titulo = "Mussum Ipsum cacilds";
-    private String str_corpo  = "Mussum Ipsum, cacilds vidis litro abertis." +
+    private String str_corpo = "Mussum Ipsum, cacilds vidis litro abertis." +
             "Manduma pindureta quium dia nois paga." +
             "Si u mundo tá muito paradis?" +
             "Toma um mé que o mundo vai girarzis!" +
@@ -35,56 +42,54 @@ public class PrincipalActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_principal);
-        iniciarFragment(new IntroducaoFragment(),R.id.frlIntroducao,getSupportFragmentManager());
-        iniciarFragment(new ConteudoFragment(),R.id.frlConteudo,getSupportFragmentManager());
+        this.inflarComponentes();
+        iniciarFragment(new IntroducaoFragment(), R.id.frlIntroducao, getSupportFragmentManager());
+        iniciarFragment(new ConteudoFragment(), R.id.frlConteudo, getSupportFragmentManager());
+        iniciarFragment(new SobreFragment(), R.id.frlSobre, getSupportFragmentManager());
+        iniciarFragment(new InformacoesFragment(), R.id.frlInformacoes, getSupportFragmentManager());
     }
 
-    public void onClickBtLogin(View view){
-        new AlertDialog.Builder(this)
-            .setTitle(R.string.str_atencao)
-            .setMessage(R.string.str_teste)
-            .setNeutralButton(R.string.str_opcao_ok,null).show();
+    private void inflarComponentes() {
+        this.scrollPrincipal = (ScrollView) this.findViewById(R.id.scrollPrincipal);
     }
 
-    public void onClickImageButtonsArtigos(View view){
+    public void onClickBtLogin(View view) {
+        iniciarActivity(this,LoginActivity.class,null);
+    }
+
+    public void onClickImageButtonsArtigos(View view) {
         Bundle paramentros = new Bundle();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.imgCabin:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             case R.id.imgCake:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             case R.id.imgCircus:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             case R.id.imgGame:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             case R.id.imgSafe:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             case R.id.imgSubmarine:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
             default:
-                paramentros.putString("Titulo",this.str_titulo);
-                paramentros.putString("Corpo",this.str_corpo);
+                paramentros.putString("Titulo", this.str_titulo);
+                paramentros.putString("Corpo", this.str_corpo);
                 break;
         }
-        iniciarActivity(this,ArtigosActivity.class,paramentros);
-    }
-
-    public void onClickBtTracarPerfil(View view){
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.str_atencao)
-                .setMessage(R.string.str_teste)
-                .setNeutralButton(R.string.str_opcao_ok,null).show();
+        iniciarActivity(this, ArtigosActivity.class, paramentros);
     }
 }
+

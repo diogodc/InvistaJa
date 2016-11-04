@@ -16,6 +16,24 @@
     <string name="str_frg_conteudo_tracar_perfil_mensagem">Vamos começar?</string>
     <string name="str_frg_conteudo_tracar_perfil">Traçar meu perfil</string>
     <string name="str_atencao">Atenção!</string>
+    <string name="str_frg_sobre_titulo">DE ONDE VIEMOS</string>
+    <string name="str_frg_informacoes_localizacao">LOCALIZAÇÃO</string>
+    <string name="str_frg_informacoes_endereco">Serra, Brasil</string>
+    <string name="str_frg_informacoes_redes_sociais">SIGA-NOS</string>
+    <string name="str_frg_informacoes_desenvolvedor">DESENVOLVIDO POR</string>
+    <string name="str_frg_informacoes_equipe">Grupo BREW</string>
+    <string name="str_frg_informacoes_copyright">Copyright © Invista Já! 2016</string>
+    <string name="str_acty_login_instrucao">POR FAVOR, LOGUE-SE</string>
+    <string name="str_acty_login_email">Email</string>
+    <string name="str_acty_login_senha">Senha</string>
+    <string name="str_frg_sobre_corpo_paragrafo1">Somos uma equipe de estudantes e
+        desenvolvemos esse projeto para atender a
+        necessidade de uma parte da população com
+        pouco acesso a informações sobre finanças.</string>
+    <string name="str_frg_sobre_corpo_paragrafo2">Estamos buscando levar a sustentabilidade
+        social a um sistema que não favorece a todos,
+        e tentando gerar informação confiável e que
+        gere conhecimento.</string>
 
     <!--Strings de teste:-->
     <string name="str_teste">Função em construção!</string>

@@ -50,7 +50,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:id="@+id/scrollPrincipal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,6 +66,18 @@
 
             <FrameLayout
                 android:id="@+id/frlConteudo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frlSobre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frlInformacoes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></FrameLayout>
@@ -90,7 +103,8 @@
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/cor_branco"
-            android:onClick="onClickBtTracarPerfil"/>
+            android:onClick="onClickBtLogin"
+            />
 
     </LinearLayout>
 </LinearLayout>

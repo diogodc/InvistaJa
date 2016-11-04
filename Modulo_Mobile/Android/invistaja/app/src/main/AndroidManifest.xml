@@ -11,7 +11,6 @@
         android:label="@string/str_nome_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".view.activitys.SplashActivity"
             android:screenOrientation="portrait">
@@ -20,12 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".view.activitys.PrincipalActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".view.activitys.ArtigosActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activitys.ArtigosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activitys.LoginActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
+
 </manifest>
