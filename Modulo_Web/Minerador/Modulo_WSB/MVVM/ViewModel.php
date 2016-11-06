@@ -4,7 +4,7 @@ namespace ViewModel;
 
 require_once __DIR__ . '/Model.php';
 
-class ViewModel {
+abstract class ViewModel {
 
     protected $_model;
 
@@ -50,6 +50,7 @@ class ViewModelSession extends ViewModel {
         $user = array();
         $user['name'] = $user_data['NAME_USER'];
         $user['id'] = $user_data['ID_USER'];
+        $user['cellphone'] = $user_data['PHONE_NUMBER_USER'];
         $user['token'] = $this->_token_generator->newToken(date('d-m-Y h:i:s'));
 
         return $user;
@@ -102,7 +103,7 @@ class ViewModelUser extends ViewModel {
                 $return['message'] = $isValid['message'];
             }
         }
-        
+
         return $return;
     }
 
@@ -115,12 +116,118 @@ class ViewModelUser extends ViewModel {
         } else if (!isset($information->password) || $information->password == '') {
             $return['message'] = 'senha inválida';
         } else if (!isset($information->name) || $information->name == '') {
-            $return['message'] = 'nome em branco';  
+            $return['message'] = 'nome em branco';
         } else if (!isset($information->cellphone) || $information->cellphone == '') {
             $return['message'] = 'celular em branco';
         } else {
             $return['sucess'] = true;
         }
+
+        return $return;
+    }
+
+    public function updateUser($information) {
+        $return = array();
+        $return['sucess'] = false;
+
+        if (!$information) {
+            $return['message'] = 'informações inválidas';
+        } else if ($information == '') {
+            $return['message'] = 'informações inválidas';
+        } else {
+            $information = is_array($information) ? json_decode(json_encode($information)) : json_decode($information);
+            $validatesUpdate = $this->validatesUpdate($information);
+
+            if ($validatesUpdate['sucess']) {
+                $modeluser = $this->_model->updateUser($information);
+                $return['sucess'] = !(!$modeluser);
+                $return['message'] = !$return['sucess'] ? 'não foi possivel atualizar, tente mais tarde' : 'atualizado com sucesso';
+            } else {
+                $return['message'] = $validatesUpdate['message'];
+            }
+        }
+
+        return $return;
+    }
+
+    private function validatesUpdate($information) {
+        $return = array();
+        $return['sucess'] = false;
+
+        if (!isset($information->username) || $information->username == '') {
+            $return['message'] = 'login inválido';
+        } else if (!isset($information->password) || $information->password == '') {
+            $return['message'] = 'senha inválida';
+        } else if (!isset($information->name) || $information->name == '') {
+            $return['message'] = 'nome em branco';
+        } else if (!isset($information->cellphone) || $information->cellphone == '') {
+            $return['message'] = 'celular em branco';
+        } else if (!isset($information->id) || $information->id == '') {
+            $return['message'] = 'id do usuário em branco';
+        } else {
+            $return['sucess'] = true;
+        }
+
+        return $return;
+    }
+
+}
+
+class ViewModelQuestion extends ViewModel {
+
+    public function __construct() {
+        $this->_model = new \Model\ModelQuestion();
+    }
+
+    public function handleAllQuestion() {
+        $return = array();
+        $return['sucess'] = false;
+        $return['question'] = $this->_model->handleAllQuestion();
+        $return['sucess'] = !(!$return['question']);       
+        
+        return $return;
+    }
+
+    public function handleQuestion($id) {
+        $return = array();
+        $return['sucess'] = false;
+        $return['question'] = $this->_model->handleQuestion($id);
+        $return['sucess'] = !(!$return['question']);
+
+        return $return;
+    }
+
+}
+
+class ViewModelAnswer extends ViewModel {
+
+    public function __construct() {
+        $this->_model = new \Model\ModelAnswer();
+    }
+
+    public function handleAllAnswer() {
+        $return = array();
+        $return['sucess'] = false;
+        $return['answer'] = $this->_model->handleAllAnswer();
+        $return['sucess'] = !(!$return['answer']);
+
+        return $return;
+    }
+
+    public function handleAnswer($id) {
+        $return = array();
+        $return['sucess'] = false;
+        $return['answer'] = $this->_model->handleAnswer($id);
+        $return['sucess'] = !(!$return['answer']);
+
+        return $return;
+    }
+    
+    public function handleQuestionAnswer($id) {
+        $return = array();
+        $return['sucess'] = false;
+        $return['answer'] = $this->_model->handleQuestionAnswer($id);
+        $return['sucess'] = !(!$return['answer']);
 
         return $return;
     }

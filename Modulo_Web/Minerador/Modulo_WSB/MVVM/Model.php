@@ -4,9 +4,79 @@ namespace Model;
 
 require_once __DIR__ . '/../Common/Contract/DataConnection/ContractDataConnection.php';
 
-class Model extends \Common\Contract\DataConnection\ConnectionOracle {
+abstract class Model extends \Common\Contract\DataConnection\ConnectionOracle {
 
     protected $_table_name;
+
+    public function executeQuery($fields, $where, $joins) {
+        try {
+            $query_string = "SELECT {FIELDS} "
+                    . "      FROM {TABLE} {JOIN}"
+                    . "      WHERE 1=1 {WHERE}";
+
+            $connection = $this->connection();
+
+            if ($fields && is_array($fields)) {
+                $query_string = str_replace("{FIELDS}", implode(",", $fields), $query_string);
+            } else {
+                $query_string = str_replace("{FIELDS}", "*", $query_string);
+            }
+            if ($joins && is_array($joins)) {
+                $innerjoin = "";
+                foreach ($joins as $join => $on) {
+                    $innerjoin .= " INNER JOIN {$join} ON {$on} ";
+                }
+                $query_string = str_replace("{JOIN}", $innerjoin, $query_string);
+            } else {
+                $query_string = str_replace("{JOIN}", "", $query_string);
+            }
+
+
+            if ($where && is_array($where)) {
+                $query_string = str_replace("{WHERE}", " And " . implode(",", $where), $query_string);
+            } else {
+                $query_string = str_replace("{WHERE}", "", $query_string);
+            }
+
+            $query_string = str_replace("{TABLE}", $this->_table_name, $query_string);
+
+            return $connection->executeQuery($query_string);
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    public function executeInsert() {
+        
+    }
+
+    public function executeUpdate($fields, $where) {
+        try {
+            $query_string = "UPDATE {TABLE} "
+                    . "      SET {FIELDS} "
+                    . "      WHERE 1=1 {WHERE}";
+
+            $connection = $this->connection();
+
+            if ($fields && is_array($fields)) {
+                $query_string = str_replace("{FIELDS}", implode(",", $fields), $query_string);
+            } else {
+                $query_string = "";
+            }
+
+            if ($where && is_array($where)) {
+                $query_string = str_replace("{WHERE}", " And " . implode(",", $where), $query_string);
+            } else {
+                $query_string = str_replace("{WHERE}", "", $query_string);
+            }
+
+            $query_string = str_replace("{TABLE}", $this->_table_name, $query_string);
+
+            return $connection->executeInsert($query_string, null);
+        } catch (Exception $ex) {
+            return null;
+        }
+    }
 
 }
 
@@ -35,15 +105,7 @@ class ModelUser extends Model {
     }
 
     public function get_byCredentials($credentials) {
-        $connection = $this->connection();
-
-        $query_string = "Select {$this->_field_id},"
-                . "             {$this->_field_name}"
-                . "      From   {$this->_table_name} "
-                . "      Where  {$this->_field_username} = '{$credentials->username}'"
-                . "       And   {$this->_field_password} = '{$credentials->password}'";
-
-        return $connection->executeQuery($query_string);
+        return $this->executeQuery(null, array("{$this->_field_username} = '{$credentials->username}'"), "{$this->_field_password} = '{$credentials->password}'");
     }
 
     public function newUser($information) {
@@ -56,8 +118,51 @@ class ModelUser extends Model {
                 . "      ,'{$information->password}'"
                 . "      ,'{$information->name}'"
                 . "      ,'{$information->cellphone}' "
-                . "       )";     
+                . "       )";
         return $connection->executeInsert($query_string, null);
+    }
+
+    public function updateUser($information) {
+        return $this->executeUpdate(array("LOGIN = '{$information->username}'",
+                    "PASSWORD_USER = '{$information->password}'",
+                    "NAME_USER = '{$information->name}'",
+                    "PHONE_NUMBER_USER = '{$information->cellphone}'"), array("{$this->_field_id} = {$information->id}"));
+    }
+
+}
+
+class ModelQuestion extends Model {
+
+    public function __construct() {
+        $this->_table_name = 'BREW_QUESTION';
+    }
+
+    public function handleAllQuestion() {
+        return $this->executeQuery(null, null, null);
+    }
+
+    public function handleQuestion($id) {
+        return $this->executeQuery(null, array("ID_QUESTION = {$id}"));
+    }
+
+}
+
+class ModelAnswer extends Model {
+
+    public function __construct() {
+        $this->_table_name = 'BREW_ANSWER';
+    }
+
+    public function handleAllAnswer() {
+        return $this->executeQuery(null, null, null);
+    }
+
+    public function handleAnswer($id) {
+        return $this->executeQuery(null, array("ID_ANSWER = {$id}"));
+    }
+    
+     public function handleQuestionAnswer($id) {
+        return $this->executeQuery(null, array("ID_QUESTION = {$id}"));
     }
 
 }

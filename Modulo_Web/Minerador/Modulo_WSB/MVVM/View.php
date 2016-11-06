@@ -4,7 +4,7 @@ namespace View;
 
 require_once __DIR__ . '/ViewModel.php';
 
-class View {
+abstract class View {
 
     protected $_viewmodel;
 
@@ -42,6 +42,46 @@ class ViewUser extends View {
 
     public function newUser($information) {
         return json_encode($this->_viewmodel->newUser($information));
+    }
+    
+    public function updateUser($information) {
+        return json_encode($this->_viewmodel->updateUser($information));
+    }
+
+}
+
+class ViewQuestion extends View {
+
+    public function __construct() {
+        $this->_viewmodel = new \ViewModel\ViewModelQuestion();
+    }
+
+    public function handleAllQuestion() {
+        return json_encode($this->_viewmodel->handleAllQuestion());
+    }
+    
+    public function handleQuestion($id) {
+        return json_encode($this->_viewmodel->handleQuestion($id));
+    }
+
+}
+
+class ViewAnswer extends View {
+
+    public function __construct() {
+        $this->_viewmodel = new \ViewModel\ViewModelAnswer();
+    }
+
+    public function handleAllAnswer() {
+        return json_encode($this->_viewmodel->handleAllAnswer());
+    }
+    
+    public function handleAnswer($id) {
+        return json_encode($this->_viewmodel->handleAnswer($id));
+    }
+    
+    public function handleQuestionAnswer($id) {
+        return json_encode($this->_viewmodel->handleQuestionAnswer($id));
     }
 
 }
