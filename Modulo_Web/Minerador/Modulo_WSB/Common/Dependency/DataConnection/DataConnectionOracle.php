@@ -43,6 +43,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
             $data = null;
             $this->connect();
+
             if ($this->getStatus()) {
                 $stid = $this->prepare($query);
 
@@ -63,13 +64,13 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
                 return $data;
             } else {
                 return false;
-            }            
+            }
         } catch (Exception $e) {
-            
+            return false;
         }
     }
 
-    public function executeInsert($query, $bindnames) {
+    public function executeNoQuery($query, $bindnames = null) {
         try {
             $this->connect();
             $data = null;
@@ -79,7 +80,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
                 if ($bindnames) {
                     foreach ($bindnames as $name => $bind) {
-                        echo $name."=>".$bind;
+                        echo $name . "=>" . $bind;
                         \oci_bind_by_name($compiled, ":{$name}", $bind);
                     }
                 }
@@ -91,7 +92,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
             return $data;
         } catch (Exception $e) {
-            
+            return false;
         }
     }
 
@@ -99,7 +100,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
         try {
             return ($this->_db_con) ? true : false;
         } catch (Exception $e) {
-            
+            return false;
         }
     }
 
@@ -115,7 +116,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
         try {
             return \oci_parse($this->_db_con, $query);
         } catch (Exception $e) {
-            
+            return false;
         }
     }
 

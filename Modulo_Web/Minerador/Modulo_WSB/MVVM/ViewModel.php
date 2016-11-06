@@ -183,8 +183,8 @@ class ViewModelQuestion extends ViewModel {
         $return = array();
         $return['sucess'] = false;
         $return['question'] = $this->_model->handleAllQuestion();
-        $return['sucess'] = !(!$return['question']);       
-        
+        $return['sucess'] = !(!$return['question']);
+
         return $return;
     }
 
@@ -222,7 +222,7 @@ class ViewModelAnswer extends ViewModel {
 
         return $return;
     }
-    
+
     public function handleQuestionAnswer($id) {
         $return = array();
         $return['sucess'] = false;
@@ -230,6 +230,84 @@ class ViewModelAnswer extends ViewModel {
         $return['sucess'] = !(!$return['answer']);
 
         return $return;
+    }
+
+}
+
+class ViewModelProfile extends ViewModel {
+
+    public function __construct() {
+        $this->_model = new \Model\ModelProfile();
+    }
+
+    public function questionResponse($id, $question_id, $answer_id) {
+        $return = array();
+        $return['sucess'] = false;
+
+        if (!$this->_model->handleQuestionResponse($id, $question_id)) {
+            $return['response'] = $this->_model->questionResponse($id, $question_id, $answer_id);
+        } else {
+            $return['response'] = true;
+        }
+
+        $return['sucess'] = !(!$return['response']);
+
+        return $return;
+    }
+
+    public function whatProfile($id) {
+        $return = array();
+        $return['sucess'] = false;
+        $return['profile'] = $this->_model->handleProfile($id);
+
+        if (!$return['profile']) {
+            $total = $this->_model->handleTotal($id);
+            if ($total) {
+                $total = $total[0];
+                $profile = $this->detectsProfile((int) $total);
+
+                if ($profile) {
+                    $save = $this->_model->setProfile($id, $profile['NAME_PROFILE'], $profile['RESUMO'], $profile['TYPE']);
+                    $return['sucess'] = !(!$save);
+                    $return['profile'] = $return['sucess'] ? $profile : null;
+                }
+            }
+        }
+
+
+        $return['sucess'] = !(!$return['profile']);
+
+        return $return;
+    }
+
+    private function detectsProfile($total) {
+        try {
+            $profile = null;
+
+            if ($total <= 28) {
+                $profile = array(
+                    'NAME_PROFILE' => 'Perfil Conservador',
+                    'RESUMO' => 'Clientes com este perfil têm como objetivo a preservação do capital e possuem baixa tolerância a riscos. Também é representado por clientes que, apesar de estarem dispostos a correr um pouco mais de riscos na busca por retornos diferenciados, tenham necessidade de sacar os recursos em curto período de tempo.',
+                    'TYPE' => 1
+                );
+            } elseif ($total > 29 && $total <= 52) {
+                $profile = array(
+                    'NAME_PROFILE' => 'Perfil Moderado',
+                    'RESUMO' => 'Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.',
+                    'TYPE' => 2
+                );
+            } else {
+                $profile = array(
+                    'NAME_PROFILE' => 'Perfil Agressivo',
+                    'RESUMO' => 'Este perfil é representado por clientes com alta tolerância a riscos, baixa ou nenhuma necessidade de liquidez no curto/médio prazo e que estejam dispostos a aceitar as oscilações dos mercados de risco (e possíveis perdas) na busca por retornos diferenciados no longo prazo.',
+                    'TYPE' => 3
+                );
+            }
+
+            return $profile;
+        } catch (Exception $ex) {
+            return null;
+        }
     }
 
 }

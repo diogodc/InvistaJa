@@ -16,7 +16,7 @@ Interface DataConnection {
 
     public function executeQuery($query);
 
-    public function executeInsert($query, $bindnames);
+    public function executeNoQuery($query, $bindnames);
 
     public function getStatus();
 }

@@ -85,3 +85,20 @@ class ViewAnswer extends View {
     }
 
 }
+
+class ViewProfile extends View {
+
+    public function __construct() {
+        $this->_viewmodel = new \ViewModel\ViewModelProfile();
+    }
+    
+    public function questionResponse($id, $question_id, $answer_id) {
+        return json_encode($this->_viewmodel->questionResponse($id, $question_id, $answer_id));
+    }
+    
+    public function whatProfile($id) {
+        return json_encode($this->_viewmodel->whatProfile($id));
+    }
+    
+}
+
