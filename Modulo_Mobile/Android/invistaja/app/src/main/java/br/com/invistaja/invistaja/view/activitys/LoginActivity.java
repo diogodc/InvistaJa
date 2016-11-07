@@ -2,9 +2,11 @@ package br.com.invistaja.invistaja.view.activitys;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 
 import br.com.invistaja.invistaja.R;
+import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.mensagemModalNeutro;
 
 public class LoginActivity extends Activity {
 
@@ -13,5 +15,13 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_login);
+    }
+
+    public void onClickCriarConta(View view){
+        mensagemModalNeutro(this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
+    }
+
+    public void onClickLogin(View view){
+        mensagemModalNeutro(this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 
 public class FuncoesGeraisApp {
     public static void iniciarActivity(Context contexto,Class classe, Bundle paramentros){
@@ -20,5 +21,12 @@ public class FuncoesGeraisApp {
         traFrg.replace(id, fragment);
         traFrg.setTransition(FragmentTransaction.TRANSIT_NONE);
         traFrg.commit();
+    }
+
+    public static void mensagemModalNeutro(Context contexto,int idTitulo, int idMensagem, int idMensagemBotao){
+        new AlertDialog.Builder(contexto)
+                .setTitle(idTitulo)
+                .setMessage(idMensagem)
+                .setNeutralButton(idMensagemBotao, null).show();
     }
 }

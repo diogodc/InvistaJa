@@ -74,12 +74,13 @@
                 android:src="@mipmap/ic_linha_azul_escuro" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        android:padding="30dp">
+        android:orientation="vertical"
+        android:padding="25dp">
 
         <EditText
             android:id="@+id/edtEmail"
@@ -92,14 +93,52 @@
             android:id="@+id/edtSenha"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:hint="@string/str_acty_login_senha"
-            android:inputType="textPassword"
-            android:layout_marginTop="20dp"/>
+            android:inputType="textPassword" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="30dp">
 
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_aredondado"
+            android:gravity="center"
+            android:text="@string/str_acty_login_btn_login"
+            android:textAllCaps="false"
+            android:textColor="@color/cor_branco"
+            android:textSize="18dp"
+            android:onClick="onClickLogin"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_acty_login_questao"
+            android:textColor="@color/cor_azul_escuro"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_acty_login_criar_conta"
+            android:textColor="@color/cor_verde_claro"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:onClick="onClickCriarConta"/>
     </LinearLayout>
 </LinearLayout>

@@ -41,8 +41,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/cor_azul_escuro"
-                    android:onClick="onClickBtLogin"
-                    android:src="@mipmap/ic_identidade_claro" />
+                    android:src="@mipmap/ic_menu_claro"
+                    android:onClick="exemplo_lista_single"
+                    />
             </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
@@ -99,7 +100,7 @@
             android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@color/cor_azul_escuro"
-            android:text="@string/str_frg_conteudo_tracar_perfil"
+            android:text="@string/str_frg_conteudo_logar"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/cor_branco"
@@ -107,4 +108,14 @@
             />
 
     </LinearLayout>
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#FF000000"
+        android:padding="10sp"
+        android:visibility="gone"
+        />
 </LinearLayout>

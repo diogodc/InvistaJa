@@ -2,11 +2,20 @@ package br.com.invistaja.invistaja.view.activitys;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.view.fragments.ConteudoFragment;
@@ -16,10 +25,11 @@ import br.com.invistaja.invistaja.view.fragments.SobreFragment;
 
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarActivity;
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarFragment;
+import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.mensagemModalNeutro;
 
 public class PrincipalActivity extends FragmentActivity {
 
-    private ScrollView scrollPrincipal;
+    private AlertDialog alerta;
     private String str_titulo = "Mussum Ipsum cacilds";
     private String str_corpo = "Mussum Ipsum, cacilds vidis litro abertis." +
             "Manduma pindureta quium dia nois paga." +
@@ -42,15 +52,10 @@ public class PrincipalActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_principal);
-        this.inflarComponentes();
         iniciarFragment(new IntroducaoFragment(), R.id.frlIntroducao, getSupportFragmentManager());
         iniciarFragment(new ConteudoFragment(), R.id.frlConteudo, getSupportFragmentManager());
         iniciarFragment(new SobreFragment(), R.id.frlSobre, getSupportFragmentManager());
         iniciarFragment(new InformacoesFragment(), R.id.frlInformacoes, getSupportFragmentManager());
-    }
-
-    private void inflarComponentes() {
-        this.scrollPrincipal = (ScrollView) this.findViewById(R.id.scrollPrincipal);
     }
 
     public void onClickBtLogin(View view) {
@@ -90,6 +95,25 @@ public class PrincipalActivity extends FragmentActivity {
                 break;
         }
         iniciarActivity(this, ArtigosActivity.class, paramentros);
+    }
+
+    public void exemplo_lista_single(View view) {
+        ArrayList<String> itens = new ArrayList<String>();
+
+        itens.add("Aprenda a investir");
+        itens.add("Conheça o seu perfil");
+        itens.add("Faça uma simulação");
+        itens.add("Contato");
+
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.menu_lista_item, itens);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                mensagemModalNeutro(PrincipalActivity.this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
+            }
+        });
+        this.alerta = builder.create();
+        this.alerta.show();
     }
 }
 
