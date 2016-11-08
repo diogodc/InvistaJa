@@ -31,3 +31,17 @@ class ConnectionOracle extends \Common\Contract\DataConnection\Connection {
     }
 
 }
+
+class ConnectionJson extends \Common\Contract\DataConnection\Connection {
+
+    public static function connection() {
+        $connection = new \Common\Dependency\DataConnection\Oracle\DataConnectionJson();
+
+        $connection->SetPassword("");
+        $connection->SetUser("");
+        $connection->SetServer(__DIR__."/BASEConnection");
+
+        return $connection;
+    }
+
+}

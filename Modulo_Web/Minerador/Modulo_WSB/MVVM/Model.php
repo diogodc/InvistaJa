@@ -106,8 +106,20 @@ abstract class Model extends \Common\Contract\DataConnection\ConnectionOracle {
 
 }
 
-class ModelSession {
-    
+class ModelSession extends \Common\Contract\DataConnection\ConnectionJson {
+
+    public function __construct() {
+        $this->connection()->SetServer(__DIR__ . "/BREW_SESSION");
+    }
+
+    public function create_session($token, $data) {
+        try {
+            return $this->connection()->executeNoQuery("SESSION/{$token}", $data);
+        } catch (Exception $ex) {
+            return null;
+        }
+    }
+
 }
 
 class ModelUser extends Model {
@@ -212,7 +224,7 @@ class ModelProfile extends Model {
         $this->_table_name = 'BREW_PROFILE';
         return $this->executeInsert(array('ID_USER', 'NAME_PROFILE', 'RESUMO', 'TYPE'), array($id, "'{$name}'", "'{$resumo}'", $type));
     }
-    
+
     public function handleProfile($id) {
         $this->_table_name = 'BREW_PROFILE';
         return $this->executeQuery(array('NAME_PROFILE', 'RESUMO', 'TYPE'), array("{TABLE}.ID_USER = {$id}"));
