@@ -2,7 +2,7 @@
 
 namespace Common\Dependency\DataConnection\Json;
 
-Class DataConnectionOracle implements \Common\Dependency\DataConnection {
+Class DataConnectionJson implements \Common\Dependency\DataConnection {
 
     private $db_server;
     private $db_con;
@@ -59,7 +59,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
     public function getStatus() {
         try {
-            return ($this->_db_con) ? true : false;
+            return ($this->db_con) ? true : false;
         } catch (Exception $e) {
             return false;
         }
@@ -70,7 +70,7 @@ Class DataConnectionOracle implements \Common\Dependency\DataConnection {
 
         if ($this->getStatus()) {
             $data = file_get_contents($this->db_con);
-            $rows = $this->dbType == 'json' ? json_decode($data, true) : $data;
+            $rows = json_decode($data, true);
 
             $odata = $this->despatch($query, $method, $rows, $oexecute);
 
