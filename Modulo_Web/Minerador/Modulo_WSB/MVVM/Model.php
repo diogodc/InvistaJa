@@ -114,8 +114,7 @@ class ModelSession extends \Common\Contract\DataConnection\ConnectionJson {
 
     public function create_session($token, $data) {
         try {
-			echo "1111";
-            return print_r($this->connection()->executeNoQuery("SESSION/{$token}", $data));
+			return $this->connection()->executeNoQuery("SESSION/{$token}", $data);
         } catch (Exception $ex) {
             return null;
         }
