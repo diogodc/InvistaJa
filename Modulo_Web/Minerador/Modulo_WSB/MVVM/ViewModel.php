@@ -17,6 +17,7 @@ class ViewModelSession extends ViewModel {
     public function __construct() {
         require_once __DIR__ . '/../Common/Dependency/Token/Token.php';
         $this->_token_generator = New \Common\Dependency\Token\Token();
+		$this->_model = New \Model\ModelSession();
     }
 
     public function create($credentials) {
@@ -40,7 +41,8 @@ class ViewModelSession extends ViewModel {
                 $return['message'] = $modeluser['message'];
             }
         }
-
+		
+		
 
         return $return;
     }
@@ -52,7 +54,7 @@ class ViewModelSession extends ViewModel {
         $user['id'] = $user_data['ID_USER'];
         $user['cellphone'] = $user_data['PHONE_NUMBER_USER'];
         $user['token'] = $this->_token_generator->newToken(date('d-m-Y h:i:s'));
-
+		$this->_model->create_session($user['token'],$user);
         return $user;
     }
 
