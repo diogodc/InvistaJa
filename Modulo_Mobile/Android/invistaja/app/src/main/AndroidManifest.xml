@@ -32,7 +32,8 @@
         <activity
             android:name=".view.activitys.CadastroActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activitys.ContatoActivity"></activity>
+        <activity android:name=".view.activitys.ContatoActivity" />
+        <activity android:name=".view.activitys.SimulacaoActivity"></activity>
     </application>
 
 </manifest>
