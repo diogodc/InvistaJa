@@ -8,16 +8,21 @@ abstract class ViewModel {
 
     protected $_model;
 
+    static function guid() {
+        if (function_exists('com_create_guid') === true) {
+            return trim(com_create_guid(), '{}');
+        }
+
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    }
+
 }
 
 class ViewModelSession extends ViewModel {
 
-    private $_token_generator;
-
     public function __construct() {
-        require_once __DIR__ . '/../Common/Dependency/Token/Token.php';
-        $this->_token_generator = New \Common\Dependency\Token\Token();
-		$this->_model = New \Model\ModelSession();
+
+        $this->_model = New \Model\ModelSession();
     }
 
     public function create($credentials) {
@@ -34,15 +39,35 @@ class ViewModelSession extends ViewModel {
             $modeluser = $viewuser->get_byCredentials($credentials);
 
             if ($modeluser['sucess']) {
-                $return['sucess'] = true;
-                $return['message'] = "acesso permitido";
                 $return['session'] = $this->create_session($modeluser['data'][0]);
+                $return['sucess'] = !(!$return['session']);
+                $return['message'] = "acesso permitido";
             } else {
                 $return['message'] = $modeluser['message'];
             }
         }
-		
-		
+
+
+
+        return $return;
+    }
+
+    public function handleSession($token) {
+
+        $return = array();
+        $return['token'] = $this->_model->handleSession($token);
+        $return['sucess'] = !(!$return['token']);
+
+        return $return;
+    }
+
+    public function expiredSession($token) {
+
+        $return = array();
+        $return ['session'] = $token ? $this->handleSession($token) : null;
+        $return ['sucess'] = $return ['session']['sucess'];
+        $return ['session'] = $return ['session']['token'];
+        $return ['message'] = $return ['sucess'] ? '' : 'sessão expirada!';
 
         return $return;
     }
@@ -53,17 +78,25 @@ class ViewModelSession extends ViewModel {
         $user['name'] = $user_data['NAME_USER'];
         $user['id'] = $user_data['ID_USER'];
         $user['cellphone'] = $user_data['PHONE_NUMBER_USER'];
-        $user['token'] = $this->_token_generator->newToken(date('d-m-Y h:i:s'));
-		$this->_model->create_session($user['token'],$user);
-        return $user;
+        $user['date'] = date('d-m-Y h:i:s');
+        $user['token'] = $this->guid();
+
+        if ($this->_model->create_session($user['token'], $user)) {
+            return $user;
+        }
+
+        return null;
     }
 
 }
 
 class ViewModelUser extends ViewModel {
 
-    public function __construct() {
+    private $session = null;
+
+    public function __construct($token = null) {
         $this->_model = new \Model\ModelUser();
+        $this->session = (new ViewModelSession())->expiredSession($token);
     }
 
     public function get_byCredentials($credentials) {
@@ -131,23 +164,26 @@ class ViewModelUser extends ViewModel {
     public function updateUser($information) {
         $return = array();
         $return['sucess'] = false;
-
-        if (!$information) {
-            $return['message'] = 'informações inválidas';
-        } else if ($information == '') {
-            $return['message'] = 'informações inválidas';
-        } else {
-            $information = is_array($information) ? json_decode(json_encode($information)) : json_decode($information);
-            $validatesUpdate = $this->validatesUpdate($information);
-
-            if ($validatesUpdate['sucess']) {
-                $modeluser = $this->_model->updateUser($information);
-                $return['sucess'] = !(!$modeluser);
-                $return['message'] = !$return['sucess'] ? 'não foi possivel atualizar, tente mais tarde' : 'atualizado com sucesso';
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            if (!$information) {
+                $return['message'] = 'informações inválidas';
+            } else if ($information == '') {
+                $return['message'] = 'informações inválidas';
             } else {
-                $return['message'] = $validatesUpdate['message'];
+                $information = is_array($information) ? json_decode(json_encode($information)) : json_decode($information);
+                $validatesUpdate = $this->validatesUpdate($information);
+
+                if ($validatesUpdate['sucess']) {
+                    $modeluser = $this->_model->updateUser($information);
+                    $return['sucess'] = !(!$modeluser);
+                    $return['message'] = !$return['sucess'] ? 'não foi possivel atualizar, tente mais tarde' : 'atualizado com sucesso';
+                } else {
+                    $return['message'] = $validatesUpdate['message'];
+                }
             }
         }
+
 
         return $return;
     }
@@ -177,15 +213,21 @@ class ViewModelUser extends ViewModel {
 
 class ViewModelQuestion extends ViewModel {
 
-    public function __construct() {
+    private $session = null;
+
+    public function __construct($token = null) {
         $this->_model = new \Model\ModelQuestion();
+        $this->session = (new ViewModelSession())->expiredSession($token);
     }
 
     public function handleAllQuestion() {
         $return = array();
         $return['sucess'] = false;
-        $return['question'] = $this->_model->handleAllQuestion();
-        $return['sucess'] = !(!$return['question']);
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['question'] = $this->_model->handleAllQuestion();
+            $return['sucess'] = !(!$return['question']);
+        }
 
         return $return;
     }
@@ -193,9 +235,11 @@ class ViewModelQuestion extends ViewModel {
     public function handleQuestion($id) {
         $return = array();
         $return['sucess'] = false;
-        $return['question'] = $this->_model->handleQuestion($id);
-        $return['sucess'] = !(!$return['question']);
-
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['question'] = $this->_model->handleQuestion($id);
+            $return['sucess'] = !(!$return['question']);
+        }
         return $return;
     }
 
@@ -203,34 +247,43 @@ class ViewModelQuestion extends ViewModel {
 
 class ViewModelAnswer extends ViewModel {
 
-    public function __construct() {
+    private $session = null;
+
+    public function __construct($token = null) {
         $this->_model = new \Model\ModelAnswer();
+        $this->session = (new ViewModelSession())->expiredSession($token);
     }
 
     public function handleAllAnswer() {
         $return = array();
         $return['sucess'] = false;
-        $return['answer'] = $this->_model->handleAllAnswer();
-        $return['sucess'] = !(!$return['answer']);
-
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['answer'] = $this->_model->handleAllAnswer();
+            $return['sucess'] = !(!$return['answer']);
+        }
         return $return;
     }
 
     public function handleAnswer($id) {
         $return = array();
         $return['sucess'] = false;
-        $return['answer'] = $this->_model->handleAnswer($id);
-        $return['sucess'] = !(!$return['answer']);
-
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['answer'] = $this->_model->handleAnswer($id);
+            $return['sucess'] = !(!$return['answer']);
+        }
         return $return;
     }
 
     public function handleQuestionAnswer($id) {
         $return = array();
         $return['sucess'] = false;
-        $return['answer'] = $this->_model->handleQuestionAnswer($id);
-        $return['sucess'] = !(!$return['answer']);
-
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['answer'] = $this->_model->handleQuestionAnswer($id);
+            $return['sucess'] = !(!$return['answer']);
+        }
         return $return;
     }
 
@@ -238,78 +291,77 @@ class ViewModelAnswer extends ViewModel {
 
 class ViewModelProfile extends ViewModel {
 
-    public function __construct() {
+    private $session = null;
+
+    public function __construct($token = null) {
         $this->_model = new \Model\ModelProfile();
+        $this->session = (new ViewModelSession())->expiredSession($token);
     }
 
     public function questionResponse($id, $question_id, $answer_id) {
         $return = array();
         $return['sucess'] = false;
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            if (!$this->_model->handleQuestionResponse($id, $question_id)) {
+                $return['response'] = $this->_model->questionResponse($id, $question_id, $answer_id);
+            } else {
+                $return['response'] = true;
+            }
 
-        if (!$this->_model->handleQuestionResponse($id, $question_id)) {
-            $return['response'] = $this->_model->questionResponse($id, $question_id, $answer_id);
-        } else {
-            $return['response'] = true;
+            $return['sucess'] = !(!$return['response']);
         }
-
-        $return['sucess'] = !(!$return['response']);
-
         return $return;
     }
 
     public function whatProfile($id) {
         $return = array();
         $return['sucess'] = false;
-        $return['profile'] = $this->_model->handleProfile($id);
+        $return['message'] = $this->session['message'];
+        if ($this->session['sucess']) {
+            $return['profile'] = $this->_model->handleProfile($id);
+            if (!$return['profile']) {
+                $total = $this->_model->handleTotal($id);
+                if ($total) {
+                    $total = $total[0];
+                    $profile = $this->detectsProfile((int) $total);
 
-        if (!$return['profile']) {
-            $total = $this->_model->handleTotal($id);
-            if ($total) {
-                $total = $total[0];
-                $profile = $this->detectsProfile((int) $total);
-
-                if ($profile) {
-                    $save = $this->_model->setProfile($id, $profile['NAME_PROFILE'], $profile['RESUMO'], $profile['TYPE']);
-                    $return['sucess'] = !(!$save);
-                    $return['profile'] = $return['sucess'] ? $profile : null;
+                    if ($profile) {
+                        $save = $this->_model->setProfile($id, $profile['NAME_PROFILE'], $profile['RESUMO'], $profile['TYPE']);
+                        $return['sucess'] = !(!$save);
+                        $return['profile'] = $return['sucess'] ? $profile : null;
+                    }
                 }
             }
+
+
+            $return['sucess'] = !(!$return['profile']);
         }
-
-
-        $return['sucess'] = !(!$return['profile']);
-
         return $return;
     }
 
     private function detectsProfile($total) {
-        try {
-            $profile = null;
-
-            if ($total <= 28) {
-                $profile = array(
-                    'NAME_PROFILE' => 'Perfil Conservador',
-                    'RESUMO' => 'Clientes com este perfil têm como objetivo a preservação do capital e possuem baixa tolerância a riscos. Também é representado por clientes que, apesar de estarem dispostos a correr um pouco mais de riscos na busca por retornos diferenciados, tenham necessidade de sacar os recursos em curto período de tempo.',
-                    'TYPE' => 1
-                );
-            } elseif ($total > 29 && $total <= 52) {
-                $profile = array(
-                    'NAME_PROFILE' => 'Perfil Moderado',
-                    'RESUMO' => 'Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.',
-                    'TYPE' => 2
-                );
-            } else {
-                $profile = array(
-                    'NAME_PROFILE' => 'Perfil Agressivo',
-                    'RESUMO' => 'Este perfil é representado por clientes com alta tolerância a riscos, baixa ou nenhuma necessidade de liquidez no curto/médio prazo e que estejam dispostos a aceitar as oscilações dos mercados de risco (e possíveis perdas) na busca por retornos diferenciados no longo prazo.',
-                    'TYPE' => 3
-                );
-            }
-
-            return $profile;
-        } catch (Exception $ex) {
-            return null;
+        $profile = null;
+        if ($total <= 28) {
+            $profile = array(
+                'NAME_PROFILE' => 'Perfil Conservador',
+                'RESUMO' => 'Clientes com este perfil têm como objetivo a preservação do capital e possuem baixa tolerância a riscos. Também é representado por clientes que, apesar de estarem dispostos a correr um pouco mais de riscos na busca por retornos diferenciados, tenham necessidade de sacar os recursos em curto período de tempo.',
+                'TYPE' => 1
+            );
+        } elseif ($total > 29 && $total <= 52) {
+            $profile = array(
+                'NAME_PROFILE' => 'Perfil Moderado',
+                'RESUMO' => 'Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.',
+                'TYPE' => 2
+            );
+        } else {
+            $profile = array(
+                'NAME_PROFILE' => 'Perfil Agressivo',
+                'RESUMO' => 'Este perfil é representado por clientes com alta tolerância a riscos, baixa ou nenhuma necessidade de liquidez no curto/médio prazo e que estejam dispostos a aceitar as oscilações dos mercados de risco (e possíveis perdas) na busca por retornos diferenciados no longo prazo.',
+                'TYPE' => 3
+            );
         }
+        return $profile;
     }
 
 }

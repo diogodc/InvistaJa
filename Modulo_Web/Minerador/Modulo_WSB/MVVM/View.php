@@ -27,13 +27,16 @@ class ViewSession extends View {
     public function create($credentials) {
         return json_encode($this->_viewmodel->create($credentials));
     }
-
+    
+    public function handleSession($token) {
+        return json_encode($this->_viewmodel->handleSession($token));
+    }
 }
 
 class ViewUser extends View {
 
-    public function __construct() {
-        $this->_viewmodel = new \ViewModel\ViewModelUser();
+    public function __construct($token = null) {
+        $this->_viewmodel = new \ViewModel\ViewModelUser($token);
     }
 
     public function get_byCredentials($credentials) {
@@ -52,8 +55,8 @@ class ViewUser extends View {
 
 class ViewQuestion extends View {
 
-    public function __construct() {
-        $this->_viewmodel = new \ViewModel\ViewModelQuestion();
+    public function __construct($token = null) {
+        $this->_viewmodel = new \ViewModel\ViewModelQuestion($token);
     }
 
     public function handleAllQuestion() {
@@ -68,8 +71,8 @@ class ViewQuestion extends View {
 
 class ViewAnswer extends View {
 
-    public function __construct() {
-        $this->_viewmodel = new \ViewModel\ViewModelAnswer();
+    public function __construct($token = null) {
+        $this->_viewmodel = new \ViewModel\ViewModelAnswer($token);
     }
 
     public function handleAllAnswer() {
@@ -88,8 +91,8 @@ class ViewAnswer extends View {
 
 class ViewProfile extends View {
 
-    public function __construct() {
-        $this->_viewmodel = new \ViewModel\ViewModelProfile();
+    public function __construct($token = null) {
+        $this->_viewmodel = new \ViewModel\ViewModelProfile($token);
     }
     
     public function questionResponse($id, $question_id, $answer_id) {

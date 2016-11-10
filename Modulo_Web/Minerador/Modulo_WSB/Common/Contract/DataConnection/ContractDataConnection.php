@@ -5,9 +5,10 @@ namespace Common\Contract\DataConnection;
 require_once __DIR__ . '/../../Dependency/DataConnection/DataConnection.php';
 require_once __DIR__ . '/../../Dependency/DataConnection/DataConnectionOracle.php';
 require_once __DIR__ . '/../../Dependency/DataConnection/DataConnectionJson.php';
+
 abstract class Connection {
 
-    public static function connection(){
+    public static function connection() {
         
     }
 
@@ -32,16 +33,21 @@ class ConnectionOracle extends \Common\Contract\DataConnection\Connection {
 
 }
 
-class ConnectionJson extends \Common\Contract\DataConnection\Connection {
+class ConnectionJson  {
 
-    public static function connection() {
-        $connection = new \Common\Dependency\DataConnection\Json\DataConnectionJson();
+    private $connection;
 
-        $connection->SetPassword("");
-        $connection->SetUser("");
-        $connection->SetServer(__DIR__."/BASEConnection");
+    public function __construct() {
+        $this->connection = new \Common\Dependency\DataConnection\Json\DataConnectionJson();
+    }
 
-        return $connection;
+    public function connection($server) {
+        
+        $this->connection->SetPassword("");
+        $this->connection->SetUser("");
+        $this->connection->SetServer($server);
+
+        return $this->connection;
     }
 
 }

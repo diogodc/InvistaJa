@@ -80,7 +80,7 @@ Class DataConnectionJson implements \Common\Dependency\DataConnection {
         }
 
         $this->disconnect();
-
+    
         return $method == 'GET' ? $oexecute : ($oexecute ? $odata : null);
     }
 
@@ -101,7 +101,7 @@ Class DataConnectionJson implements \Common\Dependency\DataConnection {
             $data[$key] = array();
             $data[$key] = $this->despatch($npath, $method, $data[$key], $value);
         } else {
-            $value = FALSE;
+            $value = null;
         }
 
         return $data;

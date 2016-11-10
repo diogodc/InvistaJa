@@ -108,13 +108,19 @@ abstract class Model extends \Common\Contract\DataConnection\ConnectionOracle {
 
 class ModelSession extends \Common\Contract\DataConnection\ConnectionJson {
 
-    public function __construct() {
-        $this->connection()->SetServer(__DIR__ . "\BREW_SESSION");
-    }
-
     public function create_session($token, $data) {
         try {
-			return $this->connection()->executeNoQuery("SESSION/{$token}", $data);
+            return $this->connection(__DIR__ . "\BREW_SESSION.{$token}")
+                            ->executeNoQuery("SESSION/{$token}", $data);
+        } catch (Exception $ex) {
+            return null;
+        }
+    }
+
+    public function handleSession($token) {
+        try {
+            return $this->connection(__DIR__ . "\BREW_SESSION.{$token}")
+                            ->executeQuery("SESSION/{$token}");
         } catch (Exception $ex) {
             return null;
         }
