@@ -1,23 +1,17 @@
 package br.com.invistaja.invistaja.view.activitys;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItemCompat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.com.invistaja.invistaja.R;
+import br.com.invistaja.invistaja.app.FuncoesGeraisApp;
 import br.com.invistaja.invistaja.view.fragments.ConteudoFragment;
 import br.com.invistaja.invistaja.view.fragments.InformacoesFragment;
 import br.com.invistaja.invistaja.view.fragments.IntroducaoFragment;
@@ -25,7 +19,7 @@ import br.com.invistaja.invistaja.view.fragments.SobreFragment;
 
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarActivity;
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarFragment;
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.mensagemModalNeutro;
+import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.opcoesMenuGeral;
 
 public class PrincipalActivity extends FragmentActivity {
 
@@ -59,7 +53,7 @@ public class PrincipalActivity extends FragmentActivity {
     }
 
     public void onClickBtLogin(View view) {
-        iniciarActivity(this,LoginActivity.class,null);
+        iniciarActivity(PrincipalActivity.this,LoginActivity.class,null);
     }
 
     public void onClickImageButtonsArtigos(View view) {
@@ -106,10 +100,10 @@ public class PrincipalActivity extends FragmentActivity {
         itens.add("Contato");
 
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.menu_lista_item, itens);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-                mensagemModalNeutro(PrincipalActivity.this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
+            public void onClick(DialogInterface dialog, int idOpcao) {
+                opcoesMenuGeral(PrincipalActivity.this,dialog,idOpcao);
             }
         });
         this.alerta = builder.create();

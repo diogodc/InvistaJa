@@ -30,8 +30,9 @@
             android:name=".view.activitys.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".view.activitys.CadastroActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.activitys.ContatoActivity"></activity>
     </application>
 
 </manifest>
