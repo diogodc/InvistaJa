@@ -82,9 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></FrameLayout>
+
         </LinearLayout>
-
-
     </ScrollView>
 
     <LinearLayout
@@ -108,14 +107,4 @@
             />
 
     </LinearLayout>
-
-    <TextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#FF000000"
-        android:padding="10sp"
-        android:visibility="gone"
-        />
 </LinearLayout>

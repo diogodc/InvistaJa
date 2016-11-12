@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 
+import br.com.invistaja.invistaja.view.activitys.PerfilActivity;
 import br.com.invistaja.invistaja.view.activitys.ContatoActivity;
 import br.com.invistaja.invistaja.view.activitys.PrincipalActivity;
+import br.com.invistaja.invistaja.view.activitys.SimulacaoActivity;
 
 public class FuncoesGeraisApp {
     public static void iniciarActivity(Context contexto,Class classe, Bundle paramentros){
@@ -37,19 +39,40 @@ public class FuncoesGeraisApp {
     public static void opcoesMenuGeral(Context context, DialogInterface dialog, int idOpcao){
         switch (idOpcao){
             case 0://Aprenda a investir
-                if (context.getClass().getName().equals(PrincipalActivity.class.getName())){
+                if (validaActivity(context,PrincipalActivity.class)){
                     dialog.dismiss();
+                }else {
+                    iniciarActivity(context,PrincipalActivity.class,null);
                 }
                 break;
             case 1: //Conheça seu perfil
-
+                if (validaActivity(context,PerfilActivity.class)){
+                    dialog.dismiss();
+                }else {
+                    iniciarActivity(context,PerfilActivity.class,null);
+                }
                 break;
             case 2://Faça uma simulação
-
+                if (validaActivity(context,SimulacaoActivity.class)){
+                    dialog.dismiss();
+                }else {
+                    iniciarActivity(context,SimulacaoActivity.class,null);
+                }
                 break;
             case 3: //Contato
-                iniciarActivity(context, ContatoActivity.class,null);
+                if (validaActivity(context,ContatoActivity.class)) {
+                    dialog.dismiss();
+                }else {
+                    iniciarActivity(context, ContatoActivity.class, null);
+                }
                 break;
         }
+    }
+
+    public static boolean validaActivity(Context context,Class classe){
+        if(context.getClass().getName().equals(classe.getName())){
+            return true;
+        }
+        return false;
     }
 }
