@@ -1,17 +1,9 @@
 package br.com.invistaja.invistaja.view.activitys;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-
 import br.com.invistaja.invistaja.R;
-import br.com.invistaja.invistaja.app.FuncoesGeraisApp;
 import br.com.invistaja.invistaja.view.fragments.ConteudoFragment;
 import br.com.invistaja.invistaja.view.fragments.InformacoesFragment;
 import br.com.invistaja.invistaja.view.fragments.IntroducaoFragment;
@@ -19,11 +11,10 @@ import br.com.invistaja.invistaja.view.fragments.SobreFragment;
 
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarActivity;
 import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarFragment;
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.opcoesMenuGeral;
+import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.menuGeral;
 
 public class PrincipalActivity extends FragmentActivity {
 
-    private AlertDialog alerta;
     private String str_titulo = "Mussum Ipsum cacilds";
     private String str_corpo = "Mussum Ipsum, cacilds vidis litro abertis." +
             "Manduma pindureta quium dia nois paga." +
@@ -90,23 +81,8 @@ public class PrincipalActivity extends FragmentActivity {
         iniciarActivity(this, ArtigosActivity.class, paramentros);
     }
 
-    public void exemplo_lista_single(View view) {
-        ArrayList<String> itens = new ArrayList<String>();
-
-        itens.add("Aprenda a investir");
-        itens.add("Conheça o seu perfil");
-        itens.add("Faça uma simulação");
-        itens.add("Contato");
-
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.menu_lista_item, itens);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int idOpcao) {
-                opcoesMenuGeral(PrincipalActivity.this,dialog,idOpcao);
-            }
-        });
-        this.alerta = builder.create();
-        this.alerta.show();
+    public void onClickMenu(View view){
+        menuGeral(this);
     }
 }
 

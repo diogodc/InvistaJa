@@ -42,7 +42,7 @@
                     android:layout_gravity="center"
                     android:background="@color/cor_azul_escuro"
                     android:src="@mipmap/ic_menu_claro"
-                    android:onClick="exemplo_lista_single"
+                    android:onClick="onClickMenu"
                     />
             </LinearLayout>
         </LinearLayout>

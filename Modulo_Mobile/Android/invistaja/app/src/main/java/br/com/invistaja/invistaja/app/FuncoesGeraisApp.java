@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -20,12 +21,19 @@ import br.com.invistaja.invistaja.view.activitys.PerfilActivity;
 import br.com.invistaja.invistaja.view.activitys.ContatoActivity;
 import br.com.invistaja.invistaja.view.activitys.PrincipalActivity;
 import br.com.invistaja.invistaja.view.activitys.SimulacaoActivity;
+import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 
 public class FuncoesGeraisApp {
-    public static void iniciarActivity(Context contexto,Class classe, Bundle paramentros){
-        Intent intent = new Intent(contexto,classe);
+    private static android.app.AlertDialog alerta;
+    public static final String mascaraTelefone = "(##)###-####";
+    public static final String mascaraCelular = "(##)####-###";
+    public static final String mascaraCPF = "###.###.###-##";
+    public static final String mascaraCNPJ = "##.###.###/####-##";
+
+    public static void iniciarActivity(Context context,Class classe, Bundle paramentros){
+        Intent intent = new Intent(context,classe);
         if (paramentros != null){intent.putExtras(paramentros);}
-        contexto.startActivity(intent);
+        context.startActivity(intent);
     }
 
     public static void iniciarFragment(Fragment fragment , int id, FragmentManager fragmentManager){
@@ -88,6 +96,31 @@ public class FuncoesGeraisApp {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn.setAdapter(adapter);
     }
+
+    public static void aplicarMascaras(EditText edt, String mascara){
+        MaskEditTextChangedListener mascaraTelefone = new MaskEditTextChangedListener(mascara,edt);
+        edt.addTextChangedListener(mascaraTelefone);
+    }
+
+    public static void menuGeral(final Context context) {
+        ArrayList<String> itens = new ArrayList<String>();
+
+        itens.add("Aprenda a investir");
+        itens.add("Conheça o seu perfil");
+        itens.add("Faça uma simulação");
+        itens.add("Contato");
+
+        ArrayAdapter adapter = new ArrayAdapter(context, R.layout.menu_lista_item, itens);
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int idOpcao) {
+                opcoesMenuGeral(context,dialog,idOpcao);
+            }
+        });
+        alerta = builder.create();
+        alerta.show();
+    }
+
 
 
 }
