@@ -82,37 +82,61 @@
         android:orientation="vertical"
         android:padding="25dp">
 
-        <EditText
-            android:id="@+id/edtNome"
-            android:layout_width="300dp"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/str_acty_cadastro_nome"
-            android:inputType="textAutoComplete" />
+            android:layout_gravity="center">
 
-        <EditText
-            android:id="@+id/edtEmail"
-            android:layout_width="300dp"
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/str_acty_cadastro_nome"
+                android:inputType="textAutoComplete" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/str_acty_login_email"
-            android:inputType="textEmailAddress" />
+            android:layout_gravity="center">
 
-        <EditText
-            android:id="@+id/edtTelefone"
-            android:layout_width="300dp"
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/str_acty_login_email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/str_acty_cadastro_telefone"
-            android:inputType="phone" />
+            android:layout_gravity="center">
 
-        <EditText
-            android:id="@+id/edtSenha"
-            android:layout_width="300dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="15dp"
-            android:gravity="top"
-            android:hint="@string/str_acty_contato_mensagem"
-            android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/edtTelefone"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="@string/str_acty_cadastro_telefone"
+                android:inputType="phone" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <EditText
+                android:id="@+id/edtSenha"
+                android:layout_width="300dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="15dp"
+                android:gravity="top"
+                android:hint="@string/str_acty_contato_mensagem"
+                android:inputType="textMultiLine" />
+        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout

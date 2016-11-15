@@ -44,7 +44,6 @@ public class PrincipalActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_principal);
         iniciarFragment(new IntroducaoFragment(), R.id.frlIntroducao, getSupportFragmentManager());
         iniciarFragment(new ConteudoFragment(), R.id.frlConteudo, getSupportFragmentManager());

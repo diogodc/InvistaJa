@@ -25,7 +25,7 @@
             android:text="@string/str_frg_simulacao_informacao_simulacao"
             android:textColor="@color/cor_branco"
             android:textStyle="bold"
-            android:textSize="30dp"
+            android:textSize="29dp"
             android:gravity="center"
             android:layout_marginTop="5dp"/>
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="@string/str_frg_simulacao_informacao_descricao"
             android:textColor="@color/cor_branco"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:gravity="center"/>
     </LinearLayout>
 </LinearLayout>

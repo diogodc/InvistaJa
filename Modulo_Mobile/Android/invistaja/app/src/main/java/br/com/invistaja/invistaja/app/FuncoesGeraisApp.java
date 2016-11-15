@@ -8,7 +8,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.view.activitys.PerfilActivity;
 import br.com.invistaja.invistaja.view.activitys.ContatoActivity;
 import br.com.invistaja.invistaja.view.activitys.PrincipalActivity;
@@ -75,4 +82,12 @@ public class FuncoesGeraisApp {
         }
         return false;
     }
+
+    public static void montarSpinner(Context context,View view,Spinner spn, ArrayList<String> array){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,array);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn.setAdapter(adapter);
+    }
+
+
 }

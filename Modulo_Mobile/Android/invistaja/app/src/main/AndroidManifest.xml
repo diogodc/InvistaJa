@@ -32,9 +32,12 @@
         <activity
             android:name=".view.activitys.CadastroActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activitys.ContatoActivity" />
-        <activity android:name=".view.activitys.SimulacaoActivity" />
-        <activity android:name=".view.activitys.PerfilActivity"></activity>
+        <activity android:name=".view.activitys.ContatoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activitys.SimulacaoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activitys.PerfilActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

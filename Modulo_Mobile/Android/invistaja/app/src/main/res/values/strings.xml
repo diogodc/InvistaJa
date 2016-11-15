@@ -1,6 +1,7 @@
 <resources>
     <!--Strings de produção:-->
     <string name="str_nome_app">Invi$ta já!</string>
+
     <string name="str_opcao_sim">Sim</string>
     <string name="str_opcao_nao">Não</string>
     <string name="str_opcao_ok">Ok!</string>
@@ -41,7 +42,13 @@
     <string name="str_acty_contato_mensagem">Mensagem</string>
     <string name="str_acty_contato_enviar">Enviar</string>
     <string name="str_frg_simulacao_informacao_simulacao">FAÇA UMA SIMULAÇÃO</string>
+    <string name="str_frg_simulacao_questoes_informacao">SIMULE</string>
     <string name="str_frg_simulacao_informacao_descricao">Com algumas opções compativeis com seu perfil</string>
+    <string name="str_frg_simulacao_questoes_pergunta_valor_investimento">Quanto você deseja investir?</string>
+    <string name="str_frg_simulacao_questoes_pergunta_tempo_investimento">Por quanto tempo?</string>
+    <string name="str_frg_simulacao_questoes_calcular">Calcular</string>
+    <string name="str_frg_simulacao_questoes_orientacao">Suas melhores opções...</string>
+    <string name="str_frg_simulacao_questoes_total">No final do perido você teria...</string>
     <string name="str_frg_sobre_corpo_paragrafo1">Somos uma equipe de estudantes e
         desenvolvemos esse projeto para atender a
         necessidade de uma parte da população com
