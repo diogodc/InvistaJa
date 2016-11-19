@@ -29,46 +29,19 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|end"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/cor_azul_escuro"
-                    android:onClick="exemplo_lista_single"
-                    android:src="@mipmap/ic_menu_claro" />
-            </LinearLayout>
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
-        android:id="@+id/scrollPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/frlIntroducao"
+                android:id="@+id/frlGeral"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/frlConteudo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"></FrameLayout>
         </LinearLayout>
-    </ScrollView>
 </LinearLayout>

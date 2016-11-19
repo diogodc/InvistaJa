@@ -1,7 +1,6 @@
 <resources>
     <!--Strings de produção:-->
     <string name="str_nome_app">Invi$ta já!</string>
-
     <string name="str_opcao_sim">Sim</string>
     <string name="str_opcao_nao">Não</string>
     <string name="str_opcao_ok">Ok!</string>
@@ -49,15 +48,24 @@
     <string name="str_frg_simulacao_questoes_calcular">Calcular</string>
     <string name="str_frg_simulacao_questoes_orientacao">Suas melhores opções...</string>
     <string name="str_frg_simulacao_questoes_total">No final do perido você teria...</string>
-    <string name="str_frg_sobre_corpo_paragrafo1">Somos uma equipe de estudantes e
+    <string name="str_frg_pefil_informacoes">SABER SEU PERFIL</string>
+    <string name="str_frg_pefil_descricao">É uma parte importante!</string>
+    <string name="str_frg_pefil_btn_enviar">Proxima</string>
+    <string name="str_frg_pefil_btn_comecar">Começar</string>
+    <string name="str_frg_sobre_corpo_paragrafo1">
+        Somos uma equipe de estudantes e
         desenvolvemos esse projeto para atender a
         necessidade de uma parte da população com
-        pouco acesso a informações sobre finanças.</string>
-    <string name="str_frg_sobre_corpo_paragrafo2">Estamos buscando levar a sustentabilidade
+        pouco acesso a informações sobre finanças.
+    </string>
+    <string name="str_frg_sobre_corpo_paragrafo2">
+        Estamos buscando levar a sustentabilidade
         social a um sistema que não favorece a todos,
         e tentando gerar informação confiável e que
-        gere conhecimento.</string>
+        gere conhecimento.
+    </string>
 
     <!--Strings de teste:-->
     <string name="str_teste">Função em construção!</string>
+    <string name="str_teste_pergunta">Pergunta de teste?</string>
 </resources>

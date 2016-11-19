@@ -96,7 +96,7 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/btn_aredondado"
+                android:background="@drawable/btn_aredondado_verde"
                 android:gravity="center"
                 android:text="@string/str_frg_simulacao_questoes_calcular"
                 android:textAllCaps="false"

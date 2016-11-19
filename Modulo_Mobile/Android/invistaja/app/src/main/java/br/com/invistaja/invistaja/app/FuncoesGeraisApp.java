@@ -11,9 +11,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import br.com.invistaja.invistaja.R;
@@ -81,6 +83,9 @@ public class FuncoesGeraisApp {
                     iniciarActivity(context, ContatoActivity.class, null);
                 }
                 break;
+            case 4: //Sair
+
+                break;
         }
     }
 
@@ -121,6 +126,9 @@ public class FuncoesGeraisApp {
         alerta.show();
     }
 
-
-
+    public static ArrayAdapter<String> adaptadorLista(Context context, List<String> lista){
+        ArrayAdapter<String> adaptador;
+        adaptador = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,android.R.id.text1,lista);
+        return adaptador;
+    }
 }
