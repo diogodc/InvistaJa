@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-import android.view.Window;
 
 import br.com.invistaja.invistaja.R;
 
-public class SplashActivity extends Activity {
+public class Splash extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +17,10 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent splash = new Intent(SplashActivity.this,
-                        PrincipalActivity.class);
-                SplashActivity.this.startActivity(splash);
-                SplashActivity.this.finish();
+                Intent splash = new Intent(Splash.this,
+                        Principal.class);
+                Splash.this.startActivity(splash);
+                Splash.this.finish();
             }
         }, 3000);
     }

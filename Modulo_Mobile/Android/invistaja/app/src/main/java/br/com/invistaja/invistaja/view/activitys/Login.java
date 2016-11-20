@@ -3,14 +3,13 @@ package br.com.invistaja.invistaja.view.activitys;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.iniciarActivity;
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.mensagemModalNeutro;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.iniciarActivity;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.mensagemModalNeutro;
 
-public class LoginActivity extends Activity {
+public class Login extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class LoginActivity extends Activity {
     }
 
     public void onClickCriarConta(View view){
-        iniciarActivity(this,CadastroActivity.class,null);
+        iniciarActivity(this,Cadastro.class,null);
     }
 
     public void onClickLogin(View view){

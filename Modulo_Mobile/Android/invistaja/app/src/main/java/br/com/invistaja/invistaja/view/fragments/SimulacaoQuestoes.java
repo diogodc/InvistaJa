@@ -1,21 +1,19 @@
 package br.com.invistaja.invistaja.view.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.montarSpinner;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.montarSpinner;
 
-public class SimulacaoQuestoesFragment extends Fragment {
+public class SimulacaoQuestoes extends Fragment {
     Spinner spnOpcoesSimulacao;
 
     @Override

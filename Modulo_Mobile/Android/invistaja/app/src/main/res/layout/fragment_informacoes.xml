@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cor_azul_escuro"
-    tools:context="br.com.invistaja.invistaja.view.fragments.InformacoesFragment">
+    tools:context="br.com.invistaja.invistaja.view.fragments.Informacoes">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import br.com.invistaja.invistaja.R;
 
-public class InformacoesFragment extends Fragment {
+
+public class Sobre extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_informacoes, container, false);
+        View view = inflater.inflate(R.layout.fragment_sobre, container, false);
         return view;
     }
+
 }

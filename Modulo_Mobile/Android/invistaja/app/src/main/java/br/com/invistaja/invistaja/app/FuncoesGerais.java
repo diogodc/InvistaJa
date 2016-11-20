@@ -11,21 +11,26 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.invistaja.invistaja.R;
-import br.com.invistaja.invistaja.view.activitys.PerfilActivity;
-import br.com.invistaja.invistaja.view.activitys.ContatoActivity;
-import br.com.invistaja.invistaja.view.activitys.PrincipalActivity;
-import br.com.invistaja.invistaja.view.activitys.SimulacaoActivity;
+import br.com.invistaja.invistaja.view.activitys.Perfil;
+import br.com.invistaja.invistaja.view.activitys.Contato;
+import br.com.invistaja.invistaja.view.activitys.Principal;
+import br.com.invistaja.invistaja.view.activitys.Simulacao;
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 
-public class FuncoesGeraisApp {
+public class FuncoesGerais {
+
+    public static final String urlBase = "http://invistaja.brazilsouth.cloudapp.azure.com:8080/modulo_wsb/wsb.php/";
+
     private static android.app.AlertDialog alerta;
     public static final String mascaraTelefone = "(##)###-####";
     public static final String mascaraCelular = "(##)####-###";
@@ -56,31 +61,31 @@ public class FuncoesGeraisApp {
     public static void opcoesMenuGeral(Context context, DialogInterface dialog, int idOpcao){
         switch (idOpcao){
             case 0://Aprenda a investir
-                if (validaActivity(context,PrincipalActivity.class)){
+                if (validaActivity(context,Principal.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,PrincipalActivity.class,null);
+                    iniciarActivity(context,Principal.class,null);
                 }
                 break;
             case 1: //Conheça seu perfil
-                if (validaActivity(context,PerfilActivity.class)){
+                if (validaActivity(context,Perfil.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,PerfilActivity.class,null);
+                    iniciarActivity(context,Perfil.class,null);
                 }
                 break;
             case 2://Faça uma simulação
-                if (validaActivity(context,SimulacaoActivity.class)){
+                if (validaActivity(context,Simulacao.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,SimulacaoActivity.class,null);
+                    iniciarActivity(context,Simulacao.class,null);
                 }
                 break;
             case 3: //Contato
-                if (validaActivity(context,ContatoActivity.class)) {
+                if (validaActivity(context,Contato.class)) {
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context, ContatoActivity.class, null);
+                    iniciarActivity(context, Contato.class, null);
                 }
                 break;
             case 4: //Sair
@@ -130,5 +135,14 @@ public class FuncoesGeraisApp {
         ArrayAdapter<String> adaptador;
         adaptador = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,android.R.id.text1,lista);
         return adaptador;
+    }
+
+    public static JSONObject conectar(String url,JSONObject obj)throws IOException, JSONException {
+        try {
+            ConexaoHttp conexao = new ConexaoHttp();
+            return conexao.post(url, obj);
+        }catch (Exception ex){
+            throw  ex;
+        }
     }
 }

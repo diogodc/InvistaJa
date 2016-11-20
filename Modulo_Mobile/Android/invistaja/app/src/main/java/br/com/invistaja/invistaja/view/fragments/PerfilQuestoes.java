@@ -11,9 +11,9 @@ import java.util.List;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.adaptadorLista;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.adaptadorLista;
 
-public class PerfilQuestoesFragment extends ListFragment {
+public class PerfilQuestoes extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

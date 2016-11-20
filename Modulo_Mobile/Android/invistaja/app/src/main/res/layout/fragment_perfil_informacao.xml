@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/cor_verde_claro"
     android:orientation="vertical"
-    tools:context=".view.fragments.PerfilInformacaoFragment">
+    tools:context=".view.fragments.PerfilInformacao">
 
     <ScrollView
         android:layout_width="match_parent"

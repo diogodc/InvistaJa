@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import br.com.invistaja.invistaja.R;
 
-public class PerfilInformacaoFragment extends Fragment {
+public class PerfilInformacao extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

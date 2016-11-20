@@ -2,23 +2,21 @@ package br.com.invistaja.invistaja.view.activitys;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.EditText;
 
 import br.com.invistaja.invistaja.R;
-import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.aplicarMascaras;
-import static br.com.invistaja.invistaja.app.FuncoesGeraisApp.mascaraTelefone;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.aplicarMascaras;
+import static br.com.invistaja.invistaja.app.FuncoesGerais.mascaraTelefone;
 
-public class CadastroActivity extends Activity {
+public class Contato extends Activity {
 
     private EditText edtTelefone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_contato);
         this.inflarComponetes();
         aplicarMascaras(this.edtTelefone,mascaraTelefone);
     }
