@@ -18,7 +18,7 @@ import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ConexaoHttp {
+public class Conexao {
     public JSONObject post(String url, JSONObject obj)throws IOException, JSONException {
         try {
             HttpContext context = new BasicHttpContext();

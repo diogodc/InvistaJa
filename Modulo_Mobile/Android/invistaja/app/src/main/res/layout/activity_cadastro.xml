@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_aredondado_verde"
             android:gravity="center"
-            android:onClick="onClickLogin"
+            android:onClick="onClickSalvar"
             android:text="@string/str_acty_cadastro_salvar"
             android:textAllCaps="false"
             android:textColor="@color/cor_branco"

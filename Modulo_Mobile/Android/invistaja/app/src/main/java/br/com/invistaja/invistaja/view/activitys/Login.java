@@ -6,8 +6,8 @@ import android.view.View;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGerais.iniciarActivity;
-import static br.com.invistaja.invistaja.app.FuncoesGerais.mensagemModalNeutro;
+import static br.com.invistaja.invistaja.app.Funcoes.iniciarActivity;
+import static br.com.invistaja.invistaja.app.Funcoes.modalNeutro;
 
 public class Login extends Activity {
 
@@ -22,6 +22,6 @@ public class Login extends Activity {
     }
 
     public void onClickLogin(View view){
-        mensagemModalNeutro(this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
+        modalNeutro(this,R.string.str_atencao,R.string.str_teste,R.string.str_opcao_ok);
     }
 }

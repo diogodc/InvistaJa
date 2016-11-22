@@ -1,5 +1,6 @@
 package br.com.invistaja.invistaja.app;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,17 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.invistaja.invistaja.R;
+import br.com.invistaja.invistaja.model.Usuario;
 import br.com.invistaja.invistaja.view.activitys.Perfil;
 import br.com.invistaja.invistaja.view.activitys.Contato;
 import br.com.invistaja.invistaja.view.activitys.Principal;
 import br.com.invistaja.invistaja.view.activitys.Simulacao;
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 
-public class FuncoesGerais {
+public class Funcoes {
 
-    public static final String urlBase = "http://invistaja.brazilsouth.cloudapp.azure.com:8080/modulo_wsb/wsb.php/";
+    public static final String urlBase = "http://invistaja.brazilsouth.cloudapp.azure.com/modulo_wsb/wsb.php/";
+    public static Usuario usuarioLogado;
 
     private static android.app.AlertDialog alerta;
+    public static ProgressDialog dialog;
+
     public static final String mascaraTelefone = "(##)###-####";
     public static final String mascaraCelular = "(##)####-###";
     public static final String mascaraCPF = "###.###.###-##";
@@ -51,11 +56,18 @@ public class FuncoesGerais {
         traFrg.commit();
     }
 
-    public static void mensagemModalNeutro(Context contexto,int idTitulo, int idMensagem, int idMensagemBotao){
+    public static void modalNeutro(Context contexto,int idTitulo, int idMensagem, int idMensagemBotao){
         new AlertDialog.Builder(contexto)
                 .setTitle(idTitulo)
                 .setMessage(idMensagem)
                 .setNeutralButton(idMensagemBotao, null).show();
+    }
+
+    public static void modalNeutro(Context contexto,String titulo, String mensagem, String mensagemBotao){
+        new AlertDialog.Builder(contexto)
+                .setTitle(titulo)
+                .setMessage(mensagem)
+                .setNeutralButton(mensagemBotao, null).show();
     }
 
     public static void opcoesMenuGeral(Context context, DialogInterface dialog, int idOpcao){
@@ -139,10 +151,33 @@ public class FuncoesGerais {
 
     public static JSONObject conectar(String url,JSONObject obj)throws IOException, JSONException {
         try {
-            ConexaoHttp conexao = new ConexaoHttp();
+            Conexao conexao = new Conexao();
             return conexao.post(url, obj);
         }catch (Exception ex){
             throw  ex;
+        }
+    }
+
+    public static void excecoes(Context context,Exception erro){
+        new AlertDialog.Builder(context)
+                .setTitle("Atenção!")
+                .setMessage("Erro: " + erro.getMessage() + "  " + erro.getStackTrace())
+                .setNeutralButton("OK", null).show();
+    }
+
+    public static void progresso(Context context,String menssagem,Boolean fechar){
+        if (!fechar){
+            dialog = new ProgressDialog(context);
+            if (menssagem == null){
+                dialog.setMessage("Aguarde...");
+            }else{
+                dialog.setMessage(menssagem);
+            }
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }else{
+            dialog.dismiss();
         }
     }
 }

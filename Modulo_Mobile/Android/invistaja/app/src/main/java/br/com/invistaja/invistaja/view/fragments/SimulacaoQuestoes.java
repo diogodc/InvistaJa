@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGerais.montarSpinner;
+import static br.com.invistaja.invistaja.app.Funcoes.montarSpinner;
 
 public class SimulacaoQuestoes extends Fragment {
     Spinner spnOpcoesSimulacao;

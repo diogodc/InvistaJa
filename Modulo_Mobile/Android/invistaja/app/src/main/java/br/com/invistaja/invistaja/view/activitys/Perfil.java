@@ -8,7 +8,7 @@ import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.view.fragments.PerfilInformacao;
 import br.com.invistaja.invistaja.view.fragments.PerfilQuestoes;
 
-import static br.com.invistaja.invistaja.app.FuncoesGerais.iniciarFragment;
+import static br.com.invistaja.invistaja.app.Funcoes.iniciarFragment;
 
 public class Perfil extends FragmentActivity {
 

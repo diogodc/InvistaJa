@@ -6,8 +6,8 @@ import android.widget.EditText;
 
 import br.com.invistaja.invistaja.R;
 
-import static br.com.invistaja.invistaja.app.FuncoesGerais.aplicarMascaras;
-import static br.com.invistaja.invistaja.app.FuncoesGerais.mascaraTelefone;
+import static br.com.invistaja.invistaja.app.Funcoes.aplicarMascaras;
+import static br.com.invistaja.invistaja.app.Funcoes.mascaraTelefone;
 
 public class Contato extends Activity {
 

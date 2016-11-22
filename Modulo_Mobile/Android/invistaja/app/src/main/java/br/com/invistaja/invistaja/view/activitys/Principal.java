@@ -9,9 +9,9 @@ import br.com.invistaja.invistaja.view.fragments.Informacoes;
 import br.com.invistaja.invistaja.view.fragments.Introducao;
 import br.com.invistaja.invistaja.view.fragments.Sobre;
 
-import static br.com.invistaja.invistaja.app.FuncoesGerais.iniciarActivity;
-import static br.com.invistaja.invistaja.app.FuncoesGerais.iniciarFragment;
-import static br.com.invistaja.invistaja.app.FuncoesGerais.menuGeral;
+import static br.com.invistaja.invistaja.app.Funcoes.iniciarActivity;
+import static br.com.invistaja.invistaja.app.Funcoes.iniciarFragment;
+import static br.com.invistaja.invistaja.app.Funcoes.menuGeral;
 
 public class Principal extends FragmentActivity {
 
