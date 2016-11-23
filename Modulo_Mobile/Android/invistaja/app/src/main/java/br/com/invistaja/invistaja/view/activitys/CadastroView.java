@@ -4,36 +4,41 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import br.com.invistaja.invistaja.R;
-import br.com.invistaja.invistaja.model.Usuario;
-import br.com.invistaja.invistaja.repository.RegistrarUsuario;
+import br.com.invistaja.invistaja.app.Funcoes;
+import br.com.invistaja.invistaja.model.UsuarioModel;
+import br.com.invistaja.invistaja.repository.UsuarioRepository;
+import br.com.invistaja.invistaja.view.iView;
+
 import static br.com.invistaja.invistaja.app.Funcoes.aplicarMascaras;
 import static br.com.invistaja.invistaja.app.Funcoes.excecoes;
-import static br.com.invistaja.invistaja.app.Funcoes.mascaraTelefone;
+import static br.com.invistaja.invistaja.app.Funcoes.mascaraCelular;
 import static br.com.invistaja.invistaja.app.Funcoes.modalNeutro;
-import static br.com.invistaja.invistaja.app.Funcoes.progresso;
 
-public class Cadastro extends Activity {
+public class CadastroView extends Activity implements iView {
     private EditText edtNome;
     private EditText edtEmail;
     private EditText edtSenha;
     private EditText edtTelefone;
-    private Usuario usuario;
+    private UsuarioModel usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_cadastro);
         this.inflarComponetes();
     }
 
-    private void inflarComponetes(){
+    @Override
+    public void inflarComponetes(){
+        this.setContentView(R.layout.activity_cadastro);
         this.edtNome = (EditText) findViewById(R.id.edtNome);
         this.edtEmail = (EditText) findViewById(R.id.edtEmail);
         this.edtSenha = (EditText) findViewById(R.id.edtSenha);
         this.edtTelefone = (EditText) findViewById(R.id.edtTelefone);
-        this.usuario = new Usuario();
-        aplicarMascaras(this.edtTelefone,mascaraTelefone);
+        this.usuario = new UsuarioModel();
+        aplicarMascaras(this.edtTelefone,mascaraCelular);
     }
 
     public void onClickSalvar(View view){
@@ -41,22 +46,31 @@ public class Cadastro extends Activity {
     }
 
     private void salvar(){
-        progresso(this,null,false);
         try {
+            Funcoes.context = CadastroView.this;
             this.usuario.setName(this.edtNome.getText().toString());
             this.usuario.setLogin(this.edtEmail.getText().toString());
             this.usuario.setPassword(this.edtSenha.getText().toString());
             this.usuario.setCellphone(this.edtTelefone.getText().toString());
-            this.usuario = new RegistrarUsuario().execute(this.usuario).get();
+            this.usuario.setOperacao(UsuarioModel.Operacao.register);
+            this.usuario = new UsuarioRepository().execute(this.usuario).get();
             if (this.usuario.getSucess()){
-                modalNeutro(this,R.string.str_atencao,R.string.str_sucesso,R.string.str_opcao_ok);
+                Toast.makeText(this,R.string.str_acty_cadastro_sucesso,Toast.LENGTH_LONG).show();
+                this.limpar();
             }else{
                 modalNeutro(this,"Atenção!",this.usuario.getMessage(),"Ok!");
             }
         }catch (Exception ex){
             excecoes(this,ex);
-        }finally {
-            progresso(null,null,true);
         }
+    }
+
+    private void limpar(){
+        this.edtNome.requestFocus();
+        this.edtNome.setText(null);
+        this.edtEmail.setText(null);
+        this.edtSenha.setText(null);
+        this.edtTelefone.setText(null);
+        this.finish();
     }
 }

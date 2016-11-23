@@ -9,12 +9,22 @@ import android.view.ViewGroup;
 
 import br.com.invistaja.invistaja.R;
 
-public class SimulacaoInformacao extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class IntroducaoView extends Fragment {
+
+
+    public IntroducaoView() {
+        // Required empty public constructor
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_simulacao_informacao, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_introducao, container, false);
     }
 
 }

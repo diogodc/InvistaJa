@@ -3,12 +3,7 @@ package br.com.invistaja.invistaja.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class Usuario implements iModel {
+public class UsuarioModel implements iModel {
     private String login;
     private String password;
     private String name;
@@ -17,27 +12,30 @@ public class Usuario implements iModel {
     private String message;
     private String token;
     private int id;
-    private Date date;
 
-    public Usuario(String login, String password, String name, String cellphone){
+    private Operacao operacao;
+
+    public UsuarioModel(String login, String password, String name, String cellphone, Boolean sucess, String message, String token, int id, Operacao operacao){
         this.login = login;
         this.password = password;
         this.name = name;
         this.cellphone = cellphone;
-    }
-
-    public Usuario(){
-        this.login = null;
-        this.password = null;
-        this.name = null;
-        this.cellphone = null;
-        this.sucess = false;
-        this.message = null;
-    }
-
-    public Usuario(Boolean sucess, String message){
         this.sucess = sucess;
         this.message = message;
+        this.token = token;
+        this.id = id;
+        this.operacao = operacao;
+    }
+
+    public UsuarioModel(){
+        this.login = "";
+        this.password = "";
+        this.name = "";
+        this.cellphone = "";
+        this.sucess = false;
+        this.message = "";
+        this.token = "";
+        this.id = 0;
     }
 
     public String getLogin() {
@@ -106,22 +104,22 @@ public class Usuario implements iModel {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Operacao getOperacao() {
+        return operacao;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setOperacao(Operacao operacao) {
+        this.operacao = operacao;
     }
 
     public JSONObject getJson() throws JSONException {
         try{
             JSONObject json = new JSONObject();
 
-            if (this.getLogin()!= null){json.put("login",this.getLogin());}
-            if (this.getPassword()!=null){json.put("password",this.getPassword());}
-            if (this.getName() != null){json.put("name",this.getName());}
-            if (this.getCellphone() != null){json.put("cellphone",this.getCellphone());}
+            if (this.getLogin().equals("")){json.put("username",this.getLogin());}
+            if (this.getPassword().equals("")){json.put("password",this.getPassword());}
+            if (this.getName().equals("")){json.put("name",this.getName());}
+            if (this.getCellphone().equals("")){json.put("cellphone",this.getCellphone());}
 
             return json;
         }catch (Exception ex){
@@ -131,12 +129,14 @@ public class Usuario implements iModel {
 
     public void setJson(JSONObject json) throws JSONException {
         try{
-            if (json.get("sucess")!=null){this.setSucess(json.getBoolean("sucess"));}
-            if (json.get("message")!=null){this.setMessage(json.getString("message"));}
-            if (json.get("token") != null) {this.setToken(json.getString("token"));}
-            if (json.get("name") != null) {this.setName(json.getString("name"));}
-            if (json.get("id") != null) {this.setId(json.getInt("id"));}
-            if (json.get("cellphone") != null) {this.setCellphone(json.getString("cellphone"));}
+            if (json.toString().contains("sucess")){this.setSucess(json.getBoolean("sucess"));}
+            if (json.toString().contains("message")){this.setMessage(json.getString("message"));}
+            if (json.toString().contains("token")) {this.setToken(json.getString("token"));}
+            if (json.toString().contains("name")) {this.setName(json.getString("name"));}
+            if (json.toString().contains("id")) {this.setId(json.getInt("id"));}
+            if (json.toString().contains("cellphone")) {this.setCellphone(json.getString("cellphone"));}
+            if (json.toString().contains("username")){this.setLogin(json.getString("username"));}
+            if (json.toString().contains("password")){this.setPassword(json.getString("password"));}
         }catch (Exception ex){
             throw  ex;
         }
@@ -144,5 +144,10 @@ public class Usuario implements iModel {
 
     public String aspas(String str){
         return str.replace("'","''");
+    }
+
+    public enum Operacao{
+        authenticate,
+        register;
     }
 }

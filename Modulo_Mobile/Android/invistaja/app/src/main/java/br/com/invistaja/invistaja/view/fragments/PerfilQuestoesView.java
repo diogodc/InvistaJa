@@ -13,7 +13,7 @@ import br.com.invistaja.invistaja.R;
 
 import static br.com.invistaja.invistaja.app.Funcoes.adaptadorLista;
 
-public class PerfilQuestoes extends ListFragment {
+public class PerfilQuestoesView extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import br.com.invistaja.invistaja.R;
 
 
-public class Sobre extends Fragment {
+public class SobreView extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

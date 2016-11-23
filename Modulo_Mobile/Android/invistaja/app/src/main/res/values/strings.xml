@@ -3,7 +3,7 @@
     <string name="str_nome_app">Invi$ta já!</string>
     <string name="str_opcao_sim">Sim</string>
     <string name="str_opcao_nao">Não</string>
-    <string name="str_opcao_ok">Ok!</string>
+    <string name="str_opcao_ok">OK</string>
     <string name="str_sucesso">Sucesso!</string>
     <string name="str_frg_introducao_titulo">QUERO FICAR RICO!!</string>
     <string name="str_frg_introducao_corpo">O Invista já vai te ajudar a melhorar de vida</string>
@@ -53,6 +53,7 @@
     <string name="str_frg_pefil_descricao">É uma parte importante!</string>
     <string name="str_frg_pefil_btn_enviar">Proxima</string>
     <string name="str_frg_pefil_btn_comecar">Começar</string>
+    <string name="str_acty_cadastro_sucesso">Usuário cadastrado com sucesso.</string>
     <string name="str_frg_sobre_corpo_paragrafo1">
         Somos uma equipe de estudantes e
         desenvolvemos esse projeto para atender a

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import br.com.invistaja.invistaja.R;
 
-public class Conteudo extends Fragment {
+public class ConteudoView extends Fragment {
 
     private ImageButton imgCabin;
     private ImageButton imgCake;

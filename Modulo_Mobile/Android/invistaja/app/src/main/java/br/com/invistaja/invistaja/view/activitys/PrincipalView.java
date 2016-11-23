@@ -4,16 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import br.com.invistaja.invistaja.R;
-import br.com.invistaja.invistaja.view.fragments.Conteudo;
-import br.com.invistaja.invistaja.view.fragments.Informacoes;
-import br.com.invistaja.invistaja.view.fragments.Introducao;
-import br.com.invistaja.invistaja.view.fragments.Sobre;
+import br.com.invistaja.invistaja.view.fragments.ConteudoView;
+import br.com.invistaja.invistaja.view.fragments.InformacoesView;
+import br.com.invistaja.invistaja.view.fragments.IntroducaoView;
+import br.com.invistaja.invistaja.view.fragments.SobreView;
 
 import static br.com.invistaja.invistaja.app.Funcoes.iniciarActivity;
 import static br.com.invistaja.invistaja.app.Funcoes.iniciarFragment;
 import static br.com.invistaja.invistaja.app.Funcoes.menuGeral;
 
-public class Principal extends FragmentActivity {
+public class PrincipalView extends FragmentActivity {
 
     private String str_titulo = "Mussum Ipsum cacilds";
     private String str_corpo = "Mussum Ipsum, cacilds vidis litro abertis." +
@@ -36,14 +36,14 @@ public class Principal extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_principal);
-        iniciarFragment(new Introducao(), R.id.frlIntroducao, getSupportFragmentManager());
-        iniciarFragment(new Conteudo(), R.id.frlConteudo, getSupportFragmentManager());
-        iniciarFragment(new Sobre(), R.id.frlSobre, getSupportFragmentManager());
-        iniciarFragment(new Informacoes(), R.id.frlInformacoes, getSupportFragmentManager());
+        iniciarFragment(new IntroducaoView(), R.id.frlIntroducao, getSupportFragmentManager());
+        iniciarFragment(new ConteudoView(), R.id.frlConteudo, getSupportFragmentManager());
+        iniciarFragment(new SobreView(), R.id.frlSobre, getSupportFragmentManager());
+        iniciarFragment(new InformacoesView(), R.id.frlInformacoes, getSupportFragmentManager());
     }
 
     public void onClickBtLogin(View view) {
-        iniciarActivity(Principal.this,Login.class,null);
+        iniciarActivity(PrincipalView.this,LoginView.class,null);
     }
 
     public void onClickImageButtonsArtigos(View view) {
@@ -78,7 +78,7 @@ public class Principal extends FragmentActivity {
                 paramentros.putString("Corpo", this.str_corpo);
                 break;
         }
-        iniciarActivity(this, Artigos.class, paramentros);
+        iniciarActivity(this, ArtigosView.class, paramentros);
     }
 
     public void onClickMenu(View view){

@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.activitys.Splash"
+            android:name=".view.activitys.SplashView"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,28 +22,28 @@
         </activity>
 
         <activity
-            android:name=".view.activitys.Principal"
+            android:name=".view.activitys.PrincipalView"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.activitys.Artigos"
+            android:name=".view.activitys.ArtigosView"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.activitys.Login"
+            android:name=".view.activitys.LoginView"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.activitys.Cadastro"
+            android:name=".view.activitys.CadastroView"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".view.activitys.Contato"
+        <activity android:name=".view.activitys.ContatoView"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".view.activitys.Simulacao"
+        <activity android:name=".view.activitys.SimulacaoView"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".view.activitys.Perfil"
+        <activity android:name=".view.activitys.PerfilView"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

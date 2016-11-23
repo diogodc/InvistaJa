@@ -13,7 +13,7 @@ import br.com.invistaja.invistaja.R;
 
 import static br.com.invistaja.invistaja.app.Funcoes.montarSpinner;
 
-public class SimulacaoQuestoes extends Fragment {
+public class SimulacaoQuestoesView extends Fragment {
     Spinner spnOpcoesSimulacao;
 
     @Override

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/cor_branco"
     android:orientation="vertical"
-    tools:context="br.com.invistaja.invistaja.view.fragments.Conteudo">
+    tools:context="br.com.invistaja.invistaja.view.fragments.ConteudoView">
 
     <LinearLayout
         android:layout_width="match_parent"

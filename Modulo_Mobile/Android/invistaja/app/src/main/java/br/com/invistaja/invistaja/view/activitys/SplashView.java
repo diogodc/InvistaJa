@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import br.com.invistaja.invistaja.R;
 
-public class Splash extends Activity {
+public class SplashView extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +17,10 @@ public class Splash extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent splash = new Intent(Splash.this,
-                        Principal.class);
-                Splash.this.startActivity(splash);
-                Splash.this.finish();
+                Intent splash = new Intent(SplashView.this,
+                        PrincipalView.class);
+                SplashView.this.startActivity(splash);
+                SplashView.this.finish();
             }
         }, 3000);
     }

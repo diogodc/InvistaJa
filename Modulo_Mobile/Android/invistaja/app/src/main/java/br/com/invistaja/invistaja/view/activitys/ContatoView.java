@@ -9,7 +9,7 @@ import br.com.invistaja.invistaja.R;
 import static br.com.invistaja.invistaja.app.Funcoes.aplicarMascaras;
 import static br.com.invistaja.invistaja.app.Funcoes.mascaraTelefone;
 
-public class Contato extends Activity {
+public class ContatoView extends Activity {
 
     private EditText edtTelefone;
 

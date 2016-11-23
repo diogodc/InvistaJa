@@ -1,6 +1,5 @@
 package br.com.invistaja.invistaja.app;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,23 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.invistaja.invistaja.R;
-import br.com.invistaja.invistaja.model.Usuario;
-import br.com.invistaja.invistaja.view.activitys.Perfil;
-import br.com.invistaja.invistaja.view.activitys.Contato;
-import br.com.invistaja.invistaja.view.activitys.Principal;
-import br.com.invistaja.invistaja.view.activitys.Simulacao;
+import br.com.invistaja.invistaja.model.UsuarioModel;
+import br.com.invistaja.invistaja.view.activitys.ContatoView;
+import br.com.invistaja.invistaja.view.activitys.PerfilView;
+import br.com.invistaja.invistaja.view.activitys.PrincipalView;
+import br.com.invistaja.invistaja.view.activitys.SimulacaoView;
 import br.com.jansenfelipe.androidmask.MaskEditTextChangedListener;
 
 public class Funcoes {
 
     public static final String urlBase = "http://invistaja.brazilsouth.cloudapp.azure.com/modulo_wsb/wsb.php/";
-    public static Usuario usuarioLogado;
+    public static UsuarioModel usuarioLogado;
 
     private static android.app.AlertDialog alerta;
-    public static ProgressDialog dialog;
+    public static Context context;
 
-    public static final String mascaraTelefone = "(##)###-####";
-    public static final String mascaraCelular = "(##)####-###";
+    public static final String mascaraTelefone = "(##)####-####";
+    public static final String mascaraCelular = "(##)#####-####";
     public static final String mascaraCPF = "###.###.###-##";
     public static final String mascaraCNPJ = "##.###.###/####-##";
 
@@ -73,31 +72,31 @@ public class Funcoes {
     public static void opcoesMenuGeral(Context context, DialogInterface dialog, int idOpcao){
         switch (idOpcao){
             case 0://Aprenda a investir
-                if (validaActivity(context,Principal.class)){
+                if (validaActivity(context,PrincipalView.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,Principal.class,null);
+                    iniciarActivity(context,PrincipalView.class,null);
                 }
                 break;
             case 1: //Conheça seu perfil
-                if (validaActivity(context,Perfil.class)){
+                if (validaActivity(context,PerfilView.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,Perfil.class,null);
+                    iniciarActivity(context,PerfilView.class,null);
                 }
                 break;
             case 2://Faça uma simulação
-                if (validaActivity(context,Simulacao.class)){
+                if (validaActivity(context,SimulacaoView.class)){
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context,Simulacao.class,null);
+                    iniciarActivity(context,SimulacaoView.class,null);
                 }
                 break;
-            case 3: //Contato
-                if (validaActivity(context,Contato.class)) {
+            case 3: //ContatoView
+                if (validaActivity(context,ContatoView.class)) {
                     dialog.dismiss();
                 }else {
-                    iniciarActivity(context, Contato.class, null);
+                    iniciarActivity(context, ContatoView.class, null);
                 }
                 break;
             case 4: //Sair
@@ -130,7 +129,7 @@ public class Funcoes {
         itens.add("Aprenda a investir");
         itens.add("Conheça o seu perfil");
         itens.add("Faça uma simulação");
-        itens.add("Contato");
+        itens.add("ContatoView");
 
         ArrayAdapter adapter = new ArrayAdapter(context, R.layout.menu_lista_item, itens);
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -163,21 +162,5 @@ public class Funcoes {
                 .setTitle("Atenção!")
                 .setMessage("Erro: " + erro.getMessage() + "  " + erro.getStackTrace())
                 .setNeutralButton("OK", null).show();
-    }
-
-    public static void progresso(Context context,String menssagem,Boolean fechar){
-        if (!fechar){
-            dialog = new ProgressDialog(context);
-            if (menssagem == null){
-                dialog.setMessage("Aguarde...");
-            }else{
-                dialog.setMessage(menssagem);
-            }
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
-        }else{
-            dialog.dismiss();
-        }
     }
 }

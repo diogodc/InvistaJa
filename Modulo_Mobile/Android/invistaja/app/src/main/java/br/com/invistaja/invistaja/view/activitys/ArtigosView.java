@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import br.com.invistaja.invistaja.R;
 
-public class Artigos extends Activity {
+public class ArtigosView extends Activity {
     private TextView titulo;
     private TextView corpo;
 
