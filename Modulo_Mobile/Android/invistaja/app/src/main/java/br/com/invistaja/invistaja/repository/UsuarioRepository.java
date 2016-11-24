@@ -3,17 +3,19 @@ package br.com.invistaja.invistaja.repository;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import br.com.invistaja.invistaja.app.Funcoes;
+import br.com.invistaja.invistaja.controller.AtualizarUsuarioController;
+import br.com.invistaja.invistaja.controller.AutenticarUsuarioController;
+import br.com.invistaja.invistaja.controller.CadastrarUsuarioController;
 import br.com.invistaja.invistaja.model.UsuarioModel;
 import static br.com.invistaja.invistaja.app.Funcoes.conectar;
 import static br.com.invistaja.invistaja.app.Funcoes.urlBase;
 
 public class UsuarioRepository extends AsyncTask<UsuarioModel,Void,UsuarioModel> {
     private String url = urlBase + "user/";
-
-    private String register = "register/";
-    private String authenticate = "authenticate/";
-
     private ProgressDialog dialog;
+    private CadastrarUsuarioController cadastrarUsuario;
+    private AutenticarUsuarioController autenticarUsuario;
+    private AtualizarUsuarioController atualizarUsuario;
 
     @Override
     protected void onPreExecute(){
@@ -29,12 +31,19 @@ public class UsuarioRepository extends AsyncTask<UsuarioModel,Void,UsuarioModel>
     protected UsuarioModel doInBackground(UsuarioModel... usuarios) {
         UsuarioModel usuario = usuarios[0];
         try{
-            if (usuario.getOperacao() == UsuarioModel.Operacao.register){
-                this.url = this.url + this.register;
-            }else if(usuario.getOperacao() == UsuarioModel.Operacao.authenticate){
-                this.url = this.url + this.authenticate;
+            if (usuario.getOperacao()== UsuarioModel.Operacao.cadastrar){
+                this.cadastrarUsuario = new CadastrarUsuarioController(usuario);
+                this.url = this.url + this.cadastrarUsuario.getApiMetodo();
+                this.cadastrarUsuario.setJson(conectar(url,this.cadastrarUsuario.getJson()));
+            }else if (usuario.getOperacao()== UsuarioModel.Operacao.autenticar){
+                this.autenticarUsuario = new AutenticarUsuarioController(usuario);
+                this.url = this.url + this.autenticarUsuario.getApiMetodo();
+                this.autenticarUsuario.setJson(conectar(url,this.autenticarUsuario.getJson()));
+            }else if (usuario.getOperacao()== UsuarioModel.Operacao.atualizar){
+                this.atualizarUsuario = new AtualizarUsuarioController(usuario);
+                this.url = this.url + this.atualizarUsuario.getApiMetodo();
+                this.atualizarUsuario.setJson(conectar(url,this.atualizarUsuario.getJson()));
             }
-            usuario.setJson(conectar(url,usuario.getJson()));
         }catch (Exception ex){
             usuario.setSucess(false);
             usuario.setMessage(ex.getMessage());

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.app.Funcoes;
 import br.com.invistaja.invistaja.model.UsuarioModel;
@@ -49,11 +51,15 @@ public class LoginView extends Activity implements iView {
             Funcoes.context = LoginView.this;
             this.usuario.setLogin(this.edtEmail.getText().toString());
             this.usuario.setPassword(this.edtSenha.getText().toString());
-            this.usuario.setOperacao(UsuarioModel.Operacao.authenticate);
+            this.usuario.setOperacao(UsuarioModel.Operacao.autenticar);
             this.usuario = new UsuarioRepository().execute(this.usuario).get();
             if (this.usuario.getSucess()){
                 usuarioLogado = this.usuario;
-                iniciarActivity(this, PerfilInformacaoView.class,null);
+                Toast.makeText(this,R.string.str_acty_login_sucesso,Toast.LENGTH_LONG).show();
+                Bundle paramentros = new Bundle();
+                paramentros.putBoolean("menu", false);
+                iniciarActivity(LoginView.this,PrincipalView.class,paramentros);
+                this.finish();
             }else {
                 modalNeutro(this,"Atenção!",this.usuario.getMessage(),"OK");
             }

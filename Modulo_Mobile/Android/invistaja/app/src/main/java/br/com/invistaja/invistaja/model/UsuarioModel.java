@@ -12,10 +12,10 @@ public class UsuarioModel implements iModel {
     private String message;
     private String token;
     private int id;
-
     private Operacao operacao;
 
-    public UsuarioModel(String login, String password, String name, String cellphone, Boolean sucess, String message, String token, int id, Operacao operacao){
+
+    public UsuarioModel(String login, String password, String name, String cellphone, Boolean sucess, String message, String token, int id,Operacao operacao){
         this.login = login;
         this.password = password;
         this.name = name;
@@ -36,6 +36,7 @@ public class UsuarioModel implements iModel {
         this.message = "";
         this.token = "";
         this.id = 0;
+        this.operacao = Operacao.cadastrar;
     }
 
     public String getLogin() {
@@ -112,42 +113,11 @@ public class UsuarioModel implements iModel {
         this.operacao = operacao;
     }
 
-    public JSONObject getJson() throws JSONException {
-        try{
-            JSONObject json = new JSONObject();
-
-            if (this.getLogin().equals("")){json.put("username",this.getLogin());}
-            if (this.getPassword().equals("")){json.put("password",this.getPassword());}
-            if (this.getName().equals("")){json.put("name",this.getName());}
-            if (this.getCellphone().equals("")){json.put("cellphone",this.getCellphone());}
-
-            return json;
-        }catch (Exception ex){
-            throw  ex;
-        }
-    }
-
-    public void setJson(JSONObject json) throws JSONException {
-        try{
-            if (json.toString().contains("sucess")){this.setSucess(json.getBoolean("sucess"));}
-            if (json.toString().contains("message")){this.setMessage(json.getString("message"));}
-            if (json.toString().contains("token")) {this.setToken(json.getString("token"));}
-            if (json.toString().contains("name")) {this.setName(json.getString("name"));}
-            if (json.toString().contains("id")) {this.setId(json.getInt("id"));}
-            if (json.toString().contains("cellphone")) {this.setCellphone(json.getString("cellphone"));}
-            if (json.toString().contains("username")){this.setLogin(json.getString("username"));}
-            if (json.toString().contains("password")){this.setPassword(json.getString("password"));}
-        }catch (Exception ex){
-            throw  ex;
-        }
-    }
-
     public String aspas(String str){
         return str.replace("'","''");
     }
 
     public enum Operacao{
-        authenticate,
-        register;
+        autenticar,atualizar,cadastrar
     }
 }

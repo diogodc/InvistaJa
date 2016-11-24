@@ -87,6 +87,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/lytLogin"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/cor_azul_escuro"
@@ -94,6 +95,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"

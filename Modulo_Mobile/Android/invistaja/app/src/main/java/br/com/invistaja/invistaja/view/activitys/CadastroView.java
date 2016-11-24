@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import br.com.invistaja.invistaja.R;
 import br.com.invistaja.invistaja.app.Funcoes;
 import br.com.invistaja.invistaja.model.UsuarioModel;
 import br.com.invistaja.invistaja.repository.UsuarioRepository;
 import br.com.invistaja.invistaja.view.iView;
-
 import static br.com.invistaja.invistaja.app.Funcoes.aplicarMascaras;
 import static br.com.invistaja.invistaja.app.Funcoes.excecoes;
 import static br.com.invistaja.invistaja.app.Funcoes.mascaraCelular;
@@ -52,7 +50,7 @@ public class CadastroView extends Activity implements iView {
             this.usuario.setLogin(this.edtEmail.getText().toString());
             this.usuario.setPassword(this.edtSenha.getText().toString());
             this.usuario.setCellphone(this.edtTelefone.getText().toString());
-            this.usuario.setOperacao(UsuarioModel.Operacao.register);
+            this.usuario.setOperacao(UsuarioModel.Operacao.cadastrar);
             this.usuario = new UsuarioRepository().execute(this.usuario).get();
             if (this.usuario.getSucess()){
                 Toast.makeText(this,R.string.str_acty_cadastro_sucesso,Toast.LENGTH_LONG).show();

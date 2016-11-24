@@ -119,7 +119,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="@string/str_frg_conteudo_titulo4"
+                                android:textColor="@color/cor_azul_escuro"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/imgGame"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="15dp"
+                                android:background="@mipmap/ic_game"
+                                android:onClick="onClickImageButtonsArtigos" />
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -144,29 +166,7 @@
                                 android:onClick="onClickImageButtonsArtigos" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="@string/str_frg_conteudo_titulo4"
-                                android:textColor="@color/cor_azul_escuro"
-                                android:textSize="15dp"
-                                android:textStyle="bold" />
-
-                            <ImageButton
-                                android:id="@+id/imgGame"
-                                android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:layout_gravity="center"
-                                android:layout_margin="15dp"
-                                android:background="@mipmap/ic_game"
-                                android:onClick="onClickImageButtonsArtigos" />
-                        </LinearLayout>
                     </LinearLayout>
                 </TableRow>
 
@@ -194,7 +194,7 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="15dp"
-                                android:background="@mipmap/ic_safe"
+                                android:background="@mipmap/ic_question"
                                 android:onClick="onClickImageButtonsArtigos" />
 
                         </LinearLayout>

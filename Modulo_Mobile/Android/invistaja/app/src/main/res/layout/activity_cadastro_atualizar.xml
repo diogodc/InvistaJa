@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.com.invistaja.invistaja.view.activitys.ContatoView">
+    tools:context="br.com.invistaja.invistaja.view.activitys.ContatoAtualizarView">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/str_acty_contato_informacao"
+            android:text="@string/str_acty_contato_atualizar_informacao"
             android:textColor="@color/cor_azul_escuro"
             android:textSize="40dp"
             android:textStyle="bold" />
@@ -115,12 +115,13 @@
             android:layout_gravity="center">
 
             <EditText
-                android:id="@+id/edtTelefone"
+                android:id="@+id/edtSenha"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:hint="@string/str_acty_cadastro_telefone"
-                android:inputType="phone" />
+                android:gravity="top"
+                android:inputType="textPassword"
+                android:hint="@string/str_acty_contato_atualizar_senha"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -129,14 +130,15 @@
             android:layout_gravity="center">
 
             <EditText
-                android:id="@+id/edtSenha"
+                android:id="@+id/edtTelefone"
                 android:layout_width="300dp"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:gravity="top"
-                android:hint="@string/str_acty_contato_mensagem"
-                android:inputType="textMultiLine" />
+                android:hint="@string/str_acty_cadastro_telefone"
+                android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -151,10 +153,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_aredondado_verde"
             android:gravity="center"
-            android:text="@string/str_acty_contato_enviar"
+            android:text="@string/str_acty_contato_atualizar_atualizar"
             android:textAllCaps="false"
             android:textColor="@color/cor_branco"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:onClick="onClickBtAtualizar"/>
     </LinearLayout>
 
 </LinearLayout>

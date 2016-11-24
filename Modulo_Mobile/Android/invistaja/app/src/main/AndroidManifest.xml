@@ -37,7 +37,7 @@
             android:name=".view.activitys.CadastroView"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".view.activitys.ContatoView"
+        <activity android:name=".view.activitys.ContatoAtualizarView"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".view.activitys.SimulacaoView"
