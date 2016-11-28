@@ -3,7 +3,6 @@
 <html lang="pt-br">
 
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,22 +52,29 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="<?php echo base_url('pagina') ?>" href="">Aprenda a Investir</a>
+                            <a class="page-scroll" href="<?php echo base_url('pagina') ?>">Aprenda a Investir</a>
                         </li>
                         <li>
-                            <a class="page-scroll" class="nav-link" href="<?php echo base_url('perfil') ?>">Conheça seu Perfil</a>
+                            <a class="page-scroll nav-link" href="<?php echo base_url('perfil') ?>">Conheça seu Perfil</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="<?php echo base_url('simulacao') ?>">Faça uma Simulação</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="<?php echo base_url('contato') ?>" href"#contact">Contato</a>
+                            <a class="page-scroll" href="<?php echo base_url('contato') ?>">Contato</a>
                         </li>
-                        <li class="nav-link">
+                        <li>
                             <?php if ($this->session->userdata("logado")) { ?>
-                                <a href="<?= base_url('login/logout') ?>" class="btn btn-success btn-md">
-                                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair
-                                </a>
+                                <button style="" class="btn btn-default btn-lg dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Minha conta
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="background-color: gray;text-align: right">
+                                    <li role="presentation"><a role="menuitem">Olá!</a></li>
+                                    <li role="presentation"><a role="menuitem" href="<?php echo base_url('usuario/editar') ?>">Editar</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li role="presentation"><a href="<?= base_url('login/logout') ?>" class="btn btn-success btn-md">
+                                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sair
+                                        </a></li>
+                                </ul>
                             <?php } else { ?>
                                 <a href="<?= base_url('login') ?>" class="btn btn-success btn-md">
                                     <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login

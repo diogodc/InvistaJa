@@ -75,11 +75,12 @@ $active_group = 'oracle';
 $query_builder = TRUE;
 
 $tnsname = '(DESCRIPTION =
-				(ADDRESS_LIST =
-				  (ADDRESS = (PROTOCOL = TCP)(HOST = LOCALHOST)(PORT = 1521))
-                  (CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = XE))
-				)
-			  )';
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl)
+    )
+  )';
 
 
 
@@ -87,7 +88,7 @@ $db['oracle'] = array(
     'dsn' => '',
     'hostname' => $tnsname,
     'username' => 'system',
-    'password' => '123456',
+    'password' => 'InvistaJa001',
     'database' => '',
     'dbdriver' => 'oci8',
     'dbprefix' => '',

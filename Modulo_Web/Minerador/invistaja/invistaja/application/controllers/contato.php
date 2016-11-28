@@ -11,7 +11,7 @@ class Contato extends CI_Controller {
      * Construtor da classe
      */
 
-    public function __construct() {
+    function Contato() {
         parent::__construct();
         $this->load->helper('form');
     }

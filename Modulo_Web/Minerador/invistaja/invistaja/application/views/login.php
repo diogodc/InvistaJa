@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                <?php if (isset($erro)) { ?>
+                    <div style="background: white; color: black; margin: 10px; padding: 10px;border: #D0D0D0;border-style: solid; " id="mensagem_enviada"><?php echo $erro ?></div>
+                <?php } ?> 
                 <img class="img-responsive" src="<?php echo base_url("assets/img/login.png") ?>" alt="">
                 <div class="intro-text">
                     <span class="name">Área Restrita</span>
