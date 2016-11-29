@@ -1,0 +1,43 @@
+﻿@model Projeto.Models.UsuarioAdmin
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UsuarioAdmin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.USER_MANAGEMENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USER_MANAGEMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAME_USER_MANAGEMENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAME_USER_MANAGEMENT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PASSWORD_USER_MANAGEMENT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PASSWORD_USER_MANAGEMENT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_USER_MANAGEMENT }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

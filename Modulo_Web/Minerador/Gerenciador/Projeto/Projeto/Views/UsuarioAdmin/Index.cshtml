@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Projeto.Models.UsuarioAdmin>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administradores</h2>
+
+<p>
+    @Html.ActionLink("Adicionar Novo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.USER_MANAGEMENT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME_USER_MANAGEMENT)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.USER_MANAGEMENT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME_USER_MANAGEMENT)
+        </td>
+        <td>
+            @{ 
+                string x = item.NAME_USER_MANAGEMENT.ToString();
+                if (HttpContext.Current.User.Identity.Name == x) {
+                    Html.ActionLink("Edit", "Edit", new { id = item.ID_USER_MANAGEMENT });
+                    Html.ActionLink("Details", "Details", new { id = item.ID_USER_MANAGEMENT }); 
+                    Html.ActionLink("Delete", "Delete", new { id = item.ID_USER_MANAGEMENT });
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

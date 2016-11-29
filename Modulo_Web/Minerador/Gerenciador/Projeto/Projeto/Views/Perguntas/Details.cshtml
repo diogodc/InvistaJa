@@ -1,0 +1,38 @@
+﻿@model Projeto.Models.Perguntas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Perguntas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt class="text-info">
+            @Html.DisplayNameFor(model => model.QUESTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QUESTION)
+        </dd>
+
+        <dt>
+            <p>Respostas</p>
+        </dt>
+        @foreach (var item in Model.Respostas)
+        {
+            <dd>
+                @Html.DisplayFor(model => item.ANSWER_TEXT);
+            </dd>
+        }
+        
+        
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID_QUESTION }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
