@@ -54,6 +54,7 @@
     <string name="str_frg_pefil_btn_enviar">Proxima</string>
     <string name="str_frg_pefil_btn_comecar">Começar</string>
     <string name="str_acty_cadastro_sucesso">Usuário cadastrado com sucesso.</string>
+    <string name="str_acty_cadastro_atualizacao_sucesso">Usuário atualizado com sucesso.</string>
     <string name="str_acty_login_sucesso">Usuário autênticado com sucesso.</string>
     <string name="str_frg_sobre_corpo_paragrafo1">
         Somos uma equipe de estudantes e

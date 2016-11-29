@@ -50,7 +50,7 @@ public class CadastroView extends Activity implements iView {
             this.usuario.setLogin(this.edtEmail.getText().toString());
             this.usuario.setPassword(this.edtSenha.getText().toString());
             this.usuario.setCellphone(this.edtTelefone.getText().toString());
-            this.usuario.setOperacao(UsuarioModel.Operacao.cadastrar);
+            this.usuario.setOperacao(UsuarioModel.Operacao.atualizar);
             this.usuario = new UsuarioRepository().execute(this.usuario).get();
             if (this.usuario.getSucess()){
                 Toast.makeText(this,R.string.str_acty_cadastro_sucesso,Toast.LENGTH_LONG).show();

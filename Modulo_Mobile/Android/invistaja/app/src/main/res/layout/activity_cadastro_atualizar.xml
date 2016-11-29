@@ -120,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="top"
-                android:inputType="textPassword"
-                android:hint="@string/str_acty_contato_atualizar_senha"/>
+                android:hint="@string/str_acty_contato_atualizar_senha"
+                android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -153,11 +153,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_aredondado_verde"
             android:gravity="center"
+            android:onClick="onClickBtAtualizar"
             android:text="@string/str_acty_contato_atualizar_atualizar"
             android:textAllCaps="false"
             android:textColor="@color/cor_branco"
-            android:textSize="18dp"
-            android:onClick="onClickBtAtualizar"/>
+            android:textSize="18dp" />
     </LinearLayout>
 
 </LinearLayout>
