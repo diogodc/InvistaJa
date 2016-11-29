@@ -1,0 +1,43 @@
+﻿@model Projeto.Models.Respostas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Respostas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pergunta.QUESTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pergunta.QUESTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ANSWER_TEXT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ANSWER_TEXT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WEIGHT_ANSWER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WEIGHT_ANSWER)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_ANSWER }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

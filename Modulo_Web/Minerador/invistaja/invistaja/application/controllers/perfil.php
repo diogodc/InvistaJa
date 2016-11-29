@@ -2,13 +2,15 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class perfil extends CI_Controller {
+//Controler que manipula os dados do usu�rio para identifica��o do perfil
+class Perfil extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        //construtor da classe
         $this->load->model('perfilModel');
         $logado = $this->session->userdata("logado");
-
+        //usu�rio s� acessa se estiver logado
         if (!$logado) {
             redirect(base_url('login'));
         }
@@ -18,45 +20,59 @@ class perfil extends CI_Controller {
         }
     }
 
+    //carrega a view com a primeira pergunta
     public function index() {
-        $id = 1;
-        $data['id'] = $id;
+        try {
+            $id = 1;
+            $data['id'] = $id;
 
-        $data['qtdPergunta'] = $this->perfilModel->buscarQtdPergunta();
+            $data['qtdPergunta'] = $this->perfilModel->buscarQtdPergunta();
 
-        $data['pergunta'] = $this->perfilModel->buscarPerguntas($id);
+            $data['pergunta'] = $this->perfilModel->buscarPerguntas($id);
 
-        $data['resposta'] = $this->perfilModel->buscarRespostas($id);
+            $data['resposta'] = $this->perfilModel->buscarRespostas($id);
 
-        $this->load->view('perfil', $data);
+            $this->load->view('perfil', $data);
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
+    //carrega as outras perguntas
     public function perguntas() {
 
-        $data['qtdPergunta'] = $this->perfilModel->buscarQtdPergunta();
+        try {
+            $data['qtdPergunta'] = $this->perfilModel->buscarQtdPergunta();
 
-        $id = $this->input->post('idx');
-        $data['id'] = $id;
+            $id = $this->input->post('idx');
+            $data['id'] = $id;
 
-        $data['pergunta'] = $this->perfilModel->buscarPerguntas($id);
+            $data['pergunta'] = $this->perfilModel->buscarPerguntas($id);
 
-        $data['resposta'] = $this->perfilModel->buscarRespostas($id);
+            $data['resposta'] = $this->perfilModel->buscarRespostas($id);
 
-        $resp = $this->input->post('resposta');
-        $this->perfilModel->salvarResposta($resp);
+            $resp = $this->input->post('resposta');
+            $this->perfilModel->salvarResposta($resp);
 
-        $this->load->view('perfil', $data);
+            $this->load->view('perfil', $data);
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
+    //guardo o perfil do usuario de acordo com as respostas
     public function perfil() {
 
-        $resp = $this->input->post('resposta');
-        $this->perfilModel->salvarResposta($resp);
+        try {
+            $resp = $this->input->post('resposta');
+            $this->perfilModel->salvarResposta($resp);
 
-        $this->perfilModel->gravarPerfil();
+            $this->perfilModel->gravarPerfil();
 
-        redirect(base_url('meuPerfil'), $data);
-        ;
+            redirect(base_url('meuPerfil'));
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
 }

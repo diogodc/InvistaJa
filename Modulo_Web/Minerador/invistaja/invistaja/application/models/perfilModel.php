@@ -2,8 +2,10 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+//Model que manipula os dados do perfil no banco
 class perfilmodel extends CI_Model {
 
+    //busca a quantidade de perguntas no banco
     public function buscarQtdPergunta() {
 
         $num_row = $this->db->count_all_results('BREW_QUESTION', TRUE);
@@ -11,6 +13,7 @@ class perfilmodel extends CI_Model {
         return $num_row;
     }
 
+    //busca a pergunta de acordo com o id
     public function buscarPerguntas($id) {
 
         $this->db->where('ID_QUESTION', $id);
@@ -19,14 +22,17 @@ class perfilmodel extends CI_Model {
         return $query->result();
     }
 
+    //busca a resposta que tem o mesmo id da pergunta
     public function buscarRespostas($id) {
 
         $this->db->where('ID_QUESTION', $id);
         $query = $this->db->get('BREW_ANSWER');
+		$this->db->order_by('ID_QUESTION');
 
         return $query->result();
     }
 
+    // busca id do usuário logado
     public function buscarIdUsuario() {
 
         //busco o usuario logado
@@ -79,10 +85,11 @@ class perfilmodel extends CI_Model {
         return $Profile;
     }
 
+    //guardo o perfil do usuário 
     public function gravarPerfil() {
 
         $id = $this->buscarIdUsuario();
-
+        //busco a pontuação do usuário
         $query = "select SUM(a.WEIGHT_ANSWER) as SOMA 
                   from 
                     BREW_ANSWER a, BREW_TEMPLATE t
@@ -90,7 +97,7 @@ class perfilmodel extends CI_Model {
                     a.ID_ANSWER = t.ID_ANSWER 
                     and t.ID_USER = {$id}";
         $soma = $this->db->query($query)->row_array();
-
+        //salvo o perfil de acordo com a pontuação
         if ((int) $soma['SOMA'] <= 28) {
             $data = array(
                 'ID_USER' => $id,

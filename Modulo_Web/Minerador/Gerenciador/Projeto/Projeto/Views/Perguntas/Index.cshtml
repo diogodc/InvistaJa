@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Projeto.Models.Perguntas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Perguntas</h2>
+
+<p>
+    @Html.ActionLink("Nova Pergunta", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.QUESTION)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.QUESTION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QUESTION_NUMBER)
+        </td>
+        <td>
+            @Html.ActionLink("", "Edit", new { id=item.ID_QUESTION }, new {@class = "glyphicon glyphicon-edit }") |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_QUESTION }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_QUESTION })
+        </td>
+    </tr>
+}
+
+</table>

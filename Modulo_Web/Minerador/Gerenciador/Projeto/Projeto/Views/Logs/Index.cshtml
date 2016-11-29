@@ -1,0 +1,31 @@
+﻿
+@model IEnumerable<Projeto.Models.Logs>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Logs de Usuários</h2>
+
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td style="font-size:medium;">Email</td>
+                <td style="font-size:medium;">Senha Criptografada</td>
+                <td style="font-size:medium;">Data e Hora</td>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(ModelItem => item.email)</td>
+                    <td>@Html.DisplayFor(ModelItem => item.senha)</td>
+                    <td>@Html.DisplayFor(ModelItem => item.data)</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>

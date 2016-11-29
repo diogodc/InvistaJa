@@ -2,9 +2,10 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class pagina extends CI_Controller {
+//Controler que carrega a pagina inicial
+class Pagina extends CI_Controller {
 
-    function __construct() {
+    function Pagina() {
         parent::__construct();
         $this->load->helper('url');
     }

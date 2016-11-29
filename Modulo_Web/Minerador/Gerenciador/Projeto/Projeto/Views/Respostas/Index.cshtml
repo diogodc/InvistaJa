@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Projeto.Models.Respostas>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pergunta.QUESTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANSWER_TEXT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WEIGHT_ANSWER)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pergunta.QUESTION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANSWER_TEXT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WEIGHT_ANSWER)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_ANSWER }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_ANSWER }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_ANSWER })
+        </td>
+    </tr>
+}
+
+</table>

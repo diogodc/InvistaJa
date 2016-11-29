@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Projeto.Models.UsuarioSite>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LOGIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME_USER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PASSWORD_USER)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PHONE_NUMBER_USER)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOGIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME_USER)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PASSWORD_USER)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PHONE_NUMBER_USER)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_USER }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_USER }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_USER })
+        </td>
+    </tr>
+}
+
+</table>

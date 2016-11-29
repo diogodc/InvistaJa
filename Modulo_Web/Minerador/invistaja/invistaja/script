@@ -1,0 +1,476 @@
+--------------------------------------------------------
+--  Arquivo criado - Quinta-feira-Novembro-17-2016   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table BREW_ANSWER
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_ANSWER" 
+   (	"ID_ANSWER" NUMBER(*,0), 
+	"ANSWER_TEXT" VARCHAR2(4000 BYTE), 
+	"WEIGHT_ANSWER" NUMBER(*,0), 
+	"ID_QUESTION" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table BREW_PROFILE
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_PROFILE" 
+   (	"ID_PROFILE" NUMBER(*,0), 
+	"ID_USER" NUMBER(*,0), 
+	"NAME_PROFILE" VARCHAR2(50 BYTE), 
+	"RESUMO" VARCHAR2(500 BYTE), 
+	"TYPE" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table BREW_QUESTION
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_QUESTION" 
+   (	"ID_QUESTION" NUMBER(*,0), 
+	"QUESTION" VARCHAR2(4000 BYTE), 
+	"QUESTION_NUMBER" NUMBER(*,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table BREW_TEMPLATE
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_TEMPLATE" 
+   (	"ID_QUESTION" NUMBER(*,0), 
+	"ID_ANSWER" NUMBER(*,0), 
+	"ID_USER" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table BREW_USER
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_USER" 
+   (	"ID_USER" NUMBER(*,0), 
+	"LOGIN" VARCHAR2(50 BYTE), 
+	"NAME_USER" VARCHAR2(100 BYTE), 
+	"PASSWORD_USER" VARCHAR2(50 BYTE), 
+	"PHONE_NUMBER_USER" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table BREW_USER_MANAGEMENT
+--------------------------------------------------------
+
+  CREATE TABLE "BREW_USER_MANAGEMENT" 
+   (	"ID_USER_MANAGEMENT" NUMBER(*,0), 
+	"USER_MANAGEMENT" VARCHAR2(50 BYTE), 
+	"NAME_USER_MANAGEMENT" VARCHAR2(100 BYTE), 
+	"PASSWORD_USER_MANAGEMENT" VARCHAR2(10 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Sequence AUTOINCREMENT
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "AUTOINCREMENT"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 301 CACHE 100 NOORDER  NOCYCLE ;
+REM INSERTING into BREW_ANSWER
+SET DEFINE OFF;
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('1',' Até 25 anos','5','1');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('2','Entre 25 e 35 anos','4','1');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('3','Entre 35 e 45 anos','3','1');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('4','Entre 45 e 60 anos','2','1');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('5','Acima de 60 anos','1','1');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('6','Ensino Fundamental Incompleto','1','2');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('7','Ensino Fundamental Completo','2','2');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('8','Ensino Médio Completo','3','2');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('9','Ensino Superior Completo','4','2');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('10','Pós-graduação','5','2');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('11','Não possui','5','3');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('12','Possui até dois dependentes','3','3');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('13','Possui mais de dois dependentes','1','3');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('14','Menos de 25%','1','4');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('15','Entre 25% e 50%','2','4');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('16','Entre 50% e 75%','3','4');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('17','Mais de 75%','4','4');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('18','Menos de 1 ano','1','5');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('19','De 1 ano a 3 anos','3','5');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('20','Superior a 3 anos','4','5');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('21','Preservar o poder de compra sem risco de comprometer o principal investido','2','6');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('22','Obter ganhos que superem a inflação no longo prazo','6','6');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('23','Obter ganhos expressivos no longo prazo, mesmo que a estratégia adotada implique em potencial perda parcial ou total do','8','6');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('24','Resgataria imediatamente','3','7');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('25','Determinaria um valor máximo de perda antes de resgatar','9','7');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('26','Realizaria aportes adicionais','12','7');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('27','Menos de 5 anos','1','8');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('28','Entre 5 anos a 10 anos','3','8');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('29','Superior a 10 anos','4','8');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('30','Pouca experiência','1','9');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('31','Média experiência','3','9');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('32','Significativa experiência','5','9');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('33','Investe a totalidade do seu patrimônio em investimentos de baixíssimo risco','4','10');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('34','Investe a maior parte do seu patrimônio em investimentos de baixíssimo risco, mas direciona pequena parte para','8','10');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('35','Investe 50% do seu patrimônio em investimentos de baixo risco e o restante em investimentos de maior risco e maior','8','10');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('36','Investe a maior parte de seu patrimônio em investimentos de maior risco, e direciona pequena parte para investimentos de','12','10');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('37','Investe a totalidade do seu patrimônio em investimentos de maior risco','16','10');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('38','Valor de franquia reduzido a fim de pagar prêmio elevado','3','11');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('39','Valor de franquia moderado a fim de pagar prêmio moderado','6','11');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('40','Valor de franquia elevado a fim de pagar prêmio reduzido','9','11');
+Insert into BREW_ANSWER (ID_ANSWER,ANSWER_TEXT,WEIGHT_ANSWER,ID_QUESTION) values ('41','Prefere não fazer seguro','12','11');
+REM INSERTING into BREW_PROFILE
+SET DEFINE OFF;
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('103','4','Perfil Moderado','Clientes com este perfil têm como objetivo a preservação do capital e possuem baixa tolerância a riscos. Também é representado por clientes que, apesar de estarem dispostos a correr um pouco mais de riscos na busca por retornos diferenciados, tenham necessidade de sacar os recursos em curto período de tempo.','2');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('104','5','Perfil Agressivo','Este perfil é representado por clientes com alta tolerância a riscos, baixa ou nenhuma necessidade de liquidez no curto/médio prazo e que estejam dispostos a aceitar as oscilações dos mercados de risco (e possíveis perdas) na busca por retornos diferenciados no longo prazo.','3');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('107','106','Perfil Moderado','Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.','2');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('109','108','Perfil Moderado','Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.','2');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('111','110','Perfil Moderado','Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.','2');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('113','112','Perfil Agressivo','Este perfil é representado por clientes com alta tolerância a riscos, baixa ou nenhuma necessidade de liquidez no curto/médio prazo e que estejam dispostos a aceitar as oscilações dos mercados de risco (e possíveis perdas) na busca por retornos diferenciados no longo prazo.','3');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('115','114','Perfil Moderado','Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.','2');
+Insert into BREW_PROFILE (ID_PROFILE,ID_USER,NAME_PROFILE,RESUMO,TYPE) values ('201','105','Perfil Moderado','Clientes com este perfil estão dispostos a correr alguns riscos em investimentos, buscando um retorno diferenciado no médio prazo, com baixa necessidade de liquidez no curto prazo, havendo disponibilidade para diversificar parte das aplicações em alternativas mais arrojadas.','2');
+REM INSERTING into BREW_QUESTION
+SET DEFINE OFF;
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('1','Qual a sua faixa de idade?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('2','Qual o seu grau de escolaridade?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('3','Possui dependentes ?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('4','Quanto da sua renda deseja investir?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('5','Qual a estimativa de permanência no investimento? ',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('6','Qual o principal objetivo com relação aos investimentos? ',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('7','Com relação aos riscos envolvidos nos investimentos, como reagiria ao verificar que determinado investimento, após certo período, apresentou retorno negativo?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('8','Há quanto tempo mantém recursos em investimentos?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('9','Como se considera em relação aos diversos tipos de investimentos existentes no mercado financeiro?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('10','Como diversifica a alocação dos seus recursos?',null);
+Insert into BREW_QUESTION (ID_QUESTION,QUESTION,QUESTION_NUMBER) values ('11','Assinale a alternativa que melhor representa a sua opção ao adquirir um seguro:',null);
+REM INSERTING into BREW_TEMPLATE
+SET DEFINE OFF;
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','3','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','39','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','17','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','20','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','23','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','26','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','32','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','37','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','38','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','4','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','9','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','19','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','25','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','28','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','33','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','38','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','9','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','19','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','31','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','35','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','15','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','20','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','39','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','2','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','26','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','32','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','15','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','33','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','3','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','39','4');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','17','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','20','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','23','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','26','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','32','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','37','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','38','5');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','4','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','9','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','19','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','25','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','28','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','33','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','38','106');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','9','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','19','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','31','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','35','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','108');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','15','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','20','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','22','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','39','110');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','2','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','8','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','14','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','26','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','29','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','32','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','34','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','112');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('1','1','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','11','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','15','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','18','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','24','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','33','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','114');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('2','6','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('3','12','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('4','15','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('5','19','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('6','21','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('7','25','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('8','27','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('9','30','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('10','33','105');
+Insert into BREW_TEMPLATE (ID_QUESTION,ID_ANSWER,ID_USER) values ('11','41','105');
+REM INSERTING into BREW_USER
+SET DEFINE OFF;
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('106','juniordeonisio@gmail.com','Walter ','cf5519cecd3c984f789239297a1a653ae82a03d9','27999547955');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('108','djaiton@ucl.br','Djaiton ','680dac47ada3fa33e23718399be5482caad89b4d','1234567890');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('4','joao@joao.com','Joao','6e9554345e1ee15a41c61f5d54debf957e951873','1234567890');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('5','watin@waltin.com','Walter','6e9554345e1ee15a41c61f5d54debf957e951873','1234567');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('6','pe@pe.com','Pedro','6e9554345e1ee15a41c61f5d54debf957e951873','1234567');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('105','brunoed@ucl.br','Bruno','6e9554345e1ee15a41c61f5d54debf957e951873','27995005707');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('110','everaldocardoso@ucl.br','Everaldo ','cfc0b9c3332b85d2a34f147683129be867f92298','27999784342');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('112','bruno.ed00@gmail.com','Brunoeduardo','6e9554345e1ee15a41c61f5d54debf957e951873','1234567890');
+Insert into BREW_USER (ID_USER,LOGIN,NAME_USER,PASSWORD_USER,PHONE_NUMBER_USER) values ('114','ultimatesam9@hotmail.com','bbjj','f76723a8831722511db0a63a835b058c0ace74c8','2345678');
+REM INSERTING into BREW_USER_MANAGEMENT
+SET DEFINE OFF;
+Insert into BREW_USER_MANAGEMENT (ID_USER_MANAGEMENT,USER_MANAGEMENT,NAME_USER_MANAGEMENT,PASSWORD_USER_MANAGEMENT) values ('1','bruno@bruno.com','Bruno Brandao','123456');
+Insert into BREW_USER_MANAGEMENT (ID_USER_MANAGEMENT,USER_MANAGEMENT,NAME_USER_MANAGEMENT,PASSWORD_USER_MANAGEMENT) values ('2','everaldocardoso@gmail.com','Everaldo','123456');
+--------------------------------------------------------
+--  DDL for Index PK_ID_ANSWER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_ID_ANSWER" ON "BREW_ANSWER" ("ID_ANSWER") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS" ;
+--------------------------------------------------------
+--  DDL for Index PK_ID_PROFILE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_ID_PROFILE" ON "BREW_PROFILE" ("ID_PROFILE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS" ;
+--------------------------------------------------------
+--  DDL for Index PK_ID_QUESTION
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_ID_QUESTION" ON "BREW_QUESTION" ("ID_QUESTION") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS" ;
+--------------------------------------------------------
+--  DDL for Index PK_ID_USER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_ID_USER" ON "BREW_USER" ("ID_USER") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS" ;
+--------------------------------------------------------
+--  DDL for Index PK_USER_MANAGMENT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PK_USER_MANAGMENT" ON "BREW_USER_MANAGEMENT" ("ID_USER_MANAGEMENT") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS" ;
+--------------------------------------------------------
+--  DDL for Trigger AUTO_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "AUTO_TRG" 
+BEFORE INSERT ON BREW_USER 
+FOR EACH ROW 
+BEGIN <<COLUMN_SEQUENCES>>
+  BEGIN
+    NULL;
+  END COLUMN_SEQUENCES; 
+END;
+/
+ALTER TRIGGER "AUTO_TRG" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger INCREMENTPROFILE
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "INCREMENTPROFILE" 
+   before insert on "BREW_PROFILE" 
+   for each row 
+begin  
+   if inserting then 
+      if :NEW."ID_PROFILE" is null then 
+         select AUTOINCREMENT.nextval into :NEW."ID_PROFILE" from dual; 
+      end if; 
+   end if; 
+end;
+/
+ALTER TRIGGER "INCREMENTPROFILE" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table BREW_ANSWER
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_ANSWER" ADD CONSTRAINT "PK_ID_ANSWER" PRIMARY KEY ("ID_ANSWER")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS"  ENABLE;
+  ALTER TABLE "BREW_ANSWER" MODIFY ("ID_ANSWER" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BREW_PROFILE
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_PROFILE" ADD CONSTRAINT "PK_ID_PROFILE" PRIMARY KEY ("ID_PROFILE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS"  ENABLE;
+  ALTER TABLE "BREW_PROFILE" MODIFY ("ID_USER" NOT NULL ENABLE);
+  ALTER TABLE "BREW_PROFILE" MODIFY ("ID_PROFILE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BREW_QUESTION
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_QUESTION" ADD CONSTRAINT "PK_ID_QUESTION" PRIMARY KEY ("ID_QUESTION")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS"  ENABLE;
+  ALTER TABLE "BREW_QUESTION" MODIFY ("ID_QUESTION" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BREW_TEMPLATE
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_TEMPLATE" MODIFY ("ID_USER" NOT NULL ENABLE);
+  ALTER TABLE "BREW_TEMPLATE" MODIFY ("ID_ANSWER" NOT NULL ENABLE);
+  ALTER TABLE "BREW_TEMPLATE" MODIFY ("ID_QUESTION" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BREW_USER
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_USER" ADD CONSTRAINT "PK_ID_USER" PRIMARY KEY ("ID_USER")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS"  ENABLE;
+  ALTER TABLE "BREW_USER" MODIFY ("ID_USER" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BREW_USER_MANAGEMENT
+--------------------------------------------------------
+
+  ALTER TABLE "BREW_USER_MANAGEMENT" ADD CONSTRAINT "PK_USER_MANAGMENT" PRIMARY KEY ("ID_USER_MANAGEMENT")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "INVISTAJA_TBS_DADOS"  ENABLE;
+  ALTER TABLE "BREW_USER_MANAGEMENT" MODIFY ("ID_USER_MANAGEMENT" NOT NULL ENABLE);

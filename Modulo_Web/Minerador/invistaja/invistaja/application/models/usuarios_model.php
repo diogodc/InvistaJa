@@ -28,17 +28,43 @@ class Usuarios_model extends CI_Model {
         return $this->db->insert('BREW_USER', $data);
     }
 
-    public function update($id, $data) {
-        if (isset($data['password']))
-            $data['password'] = sha1($data['password'] . $this->salt);
-        $this->db->where('id', $id);
-        $update = $this->db->update('user', $data);
+    public function alter($id, $data) {
+
+        if (isset($data['PASSWORD_USER'])) {
+            $data['PASSWORD_USER'] = sha1($data['PASSWORD_USER'] . $this->salt); //encriptografa a senha
+        }
+        $this->db->where('ID_USER', $id);
+        $update = $this->db->update('BREW_USER', $data);
         return $update;
     }
 
     public function delete($id) {
         $this->db->where('id', $id);
         $this->db->delete('user');
+    }
+	
+	public function getEmail($login) {
+        $query = "select 
+                    login
+                  from 
+                    BREW_USER 
+                  WHERE 
+                    LOGIN = '{$login}'";
+
+        $result = $this->db->query($query)->row_array();
+        return $result;
+    }
+
+    public function buscarUsuario() {
+
+        //busco o usuario logado
+        $userLog = $this->session->userdata('logado');
+
+        //pego o usuario no banco
+        $this->db->where('LOGIN', $userLog['LOGIN']);
+        $user = $this->db->get('BREW_USER')->row_array();
+
+        return $user;
     }
 
 }

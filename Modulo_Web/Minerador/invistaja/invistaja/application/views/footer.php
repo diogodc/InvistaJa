@@ -6,24 +6,22 @@
             <div class="row">
                 <div class="footer-col col-md-4">
                     <h3>Localização</h3>
-                    <p>Faculdade UCL
-                        <br>Serra, Brasil</p>
+                    <p>Serra, Brasil</p>
                 </div>
                 <div class="footer-col col-md-4">
                     <h3>Siga-nos</h3>
                     <ul class="list-inline">
                         <li>
-                            <a href="https://www.facebook.com/invistajaES/" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/invistajaES/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://plus.google.com/communities/108194795532444801973" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            <a href="https://plus.google.com/communities/108194795532444801973" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
                         </li>
-
                     </ul>
                 </div>
                 <div class="footer-col col-md-4">
-                    <h3>Desenvolvido Por</h3>
-                    <p>Grupo BREW</p>
+                    <h3>Área Administrativa</h3>
+                    <a  href="http://invistaja.brazilsouth.cloudapp.azure.com:8080/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-lock" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -32,7 +30,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Copyright &copy; Invista Já! 2016
+                    Desenvolvido Por Grupo BREW <br> Copyright &copy; Invista Já! 2016
                 </div>
             </div>
         </div>
@@ -47,10 +45,6 @@
 
 <!-- Plugin JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-<!-- Contact Form JavaScript -->
-<script src="<?php echo base_url("assets/js/jqBootstrapValidation.js") ?>"></script>
-<script src="<?php echo base_url("assets/js/contact_me.js") ?>"></script>
 
 <!-- Theme JavaScript -->
 <script src="<?php echo base_url("assets/js/freelancer.min.js") ?>"></script>

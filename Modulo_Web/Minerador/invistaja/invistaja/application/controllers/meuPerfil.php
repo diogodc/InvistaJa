@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /*
- * FormulÃ¡rio de contato do website
+ * Controler carrega o perfil do usuário
  */
 
 class MeuPerfil extends CI_Controller {
@@ -11,11 +11,12 @@ class MeuPerfil extends CI_Controller {
      * Construtor da classe
      */
 
-    public function __construct() {
+    function MeuPerfil() {
         parent::__construct();
         $this->load->model('perfilModel');
     }
 
+    //carrega o perfil do usuário
     public function index() {
 
         $data['perfil'] = $this->perfilModel->existePerfil();

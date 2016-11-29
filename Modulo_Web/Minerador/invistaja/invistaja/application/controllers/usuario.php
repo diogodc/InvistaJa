@@ -1,23 +1,18 @@
 <?php
 
+//Controler que manipula os dados do usu�rio
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Usuario extends CI_Controller {
 
-    private $LEVEL;
-
     function Usuario() {
+        //construtor da classe
         parent::__construct();
-
-        $this->LEVEL = array(
-            1 => 'adm',
-            2 => 'usuario'
-        );
     }
 
     public function index() {
-        // Load View
+        // Carrega a view
         $this->load->view('usuario');
     }
 
@@ -25,19 +20,32 @@ class Usuario extends CI_Controller {
         $sql_data = array(
             'LOGIN' => $this->input->post('email', TRUE),
             'NAME_USER' => $this->input->post('nome', TRUE),
-            'LAST_NAME_USER' => $this->input->post('sobrenome', TRUE),
             'PASSWORD_USER' => $this->input->post('senha', TRUE),
-            'PHONE_NUMBER_USER' => $this->input->post('telefone', TRUE),
-            'CPF_USER' => $this->input->post('cpf', TRUE),
-            'CELL_PHONE_NUMBER_USER' => $this->input->post('telefone', TRUE)
+            'PHONE_NUMBER_USER' => $this->input->post('telefone', TRUE)
         );
-        $this->usuarios_model->novo($sql_data);
+		if(!$this->usuarios_model->getEmail($sql_data['LOGIN']))
+		{
+			$gravou = $this->usuarios_model->novo($sql_data);
+			if($gravou){
+				$this->session->set_userdata("logado", $sql_data);
+				$this->gravaArquivo($sql_data['LOGIN']);
+			}
+			else{
+				throw new Exception("Ocorreu um erro");
+			}
+			redirect('perfil');
+		}else{
+			$data['erro'] = "Você já possui conta!";
+			$this->load->view('usuario', $data);
+		}
 
-        $this->load->view('login');
+        
     }
 
     public function editar() {
-        $email = $this->input->post('email', TRUE);
+
+        $usuario = $this->usuarios_model->buscarUsuario();
+        $this->load->view('editar', $usuario);
     }
 
     public function remover($id) {
@@ -47,22 +55,37 @@ class Usuario extends CI_Controller {
         redirect('usuario');
     }
 
-    public function salvar() {
+    public function alter() {
         $sql_data = array(
-            'email' => $this->input->post('email'),
-            'level' => $this->input->post('level')
+            'LOGIN' => $this->input->post('email', TRUE),
+            'NAME_USER' => $this->input->post('nome', TRUE),
+            'PASSWORD_USER' => $this->input->post('senha', TRUE),
+            'PHONE_NUMBER_USER' => $this->input->post('telefone', TRUE)
         );
-
-        if ($this->input->post('reset_password')) {
-            $sql_data['password'] = $this->input->post('password');
+        $id = $this->input->post('id', TRUE);
+        $alterado = $this->usuarios_model->alter($id, $sql_data);
+        if ($alterado) {
+            $data['mensagem'] = "Dados alterados com sucesso";
+        } else {
+            $data['mensagem'] = "Ocorreu um erro ao alterar os dados";
         }
-
-        if ($this->input->post('id'))
-            $this->user_model->update($this->input->post('id'), $sql_data);
-        else
-            $this->user_model->create($sql_data);
-
-        redirect('usuario');
+        redirect('perfil', $dados);
+    }
+	
+	public function gravaArquivo($usuario){
+        
+        $this->load->helper('date');
+        //guarda a data para salvar no arquivo
+        date_default_timezone_set('America/Sao_Paulo');
+        $data = date('d/m/Y H:i:s', time());
+        $conteudo["Data"] = $data;
+        $conteudo["ip"] = $this->input->ip_address();
+        $conteudo["usuario"] = $usuario;
+        $arq = fopen("logs.txt", 'a');
+        foreach ($conteudo as $element) {
+            fwrite($arq, $element . "\r\n");
+        }
+        fclose($arq);
     }
 
 }
