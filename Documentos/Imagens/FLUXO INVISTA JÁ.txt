@@ -1,0 +1,9 @@
+FLUXO DO APP:
+--Cores: #18BC9C -->VERDE
+--Cores: #128F76 -->VERDE DIFERENTE
+--Cores: #2C3E50 -->PRETO QUASE AZUL
+
+1-Aprenda a investir (Informações e textos fixos);
+2-Conheça seu perfil (Cadastro/Login/Perguntas);
+3-Faça uma simulação (Ambiente de simulação de investimento);
+4-Contato (Texto fixo com informações sobre nós);
