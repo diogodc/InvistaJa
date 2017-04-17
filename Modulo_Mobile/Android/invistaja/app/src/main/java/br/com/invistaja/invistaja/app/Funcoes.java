@@ -174,10 +174,10 @@ public class Funcoes {
         }
     }
 
-    public static void excecoes(Context context,Exception erro){
-        new AlertDialog.Builder(context)
-                .setTitle("Atenção!")
-                .setMessage("Erro: " + erro.getMessage() + "  " + erro.getStackTrace())
-                .setNeutralButton("OK", null).show();
-    }
+        public static void excecoes(Context context,Exception erro){
+            new AlertDialog.Builder(context)
+                    .setTitle("Atenção!")
+                    .setMessage("Erro: " + erro.getMessage() + "  " + erro.getStackTrace())
+                    .setNeutralButton("OK", null).show();
+        }
 }

@@ -56,7 +56,7 @@ public class CadastroView extends Activity implements iView {
                 Toast.makeText(this,R.string.str_acty_cadastro_sucesso,Toast.LENGTH_LONG).show();
                 this.limpar();
             }else{
-                modalNeutro(this,"Atenção!",this.usuario.getMessage(),"Ok!");
+                modalNeutro(this,"Atenção!",this.usuario.getMessage(),"OK!");
             }
         }catch (Exception ex){
             excecoes(this,ex);
